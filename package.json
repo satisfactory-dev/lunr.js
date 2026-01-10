@@ -30,7 +30,6 @@
     "jsdoc": "^4.0.5",
     "mocha": "^11.7.5",
     "mustache": "2.2.x",
-    "node-static": "0.7.x",
     "uglify-js": "2.6.x",
     "word-list": "1.0.x"
   },
