@@ -1,8 +1,6 @@
-# Lunr.js
+# Satisfactory.dev Lunr.js Fork
 
-[![Join the chat at https://gitter.im/olivernn/lunr.js](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/olivernn/lunr.js?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-[![Build Status](https://travis-ci.org/olivernn/lunr.js.svg?branch=master)](https://travis-ci.org/olivernn/lunr.js)
+[![Workflow Status](https://github.com/satisfactory-dev/lunr.js/actions/workflows/node.js.yml/badge.svg?branch=main)](https://github.com/satisfactory-dev/lunr.js/actions/workflows/node.js.yml?query=branch%3Amain)
 
 A bit like Solr, but much smaller and not as bright.
 

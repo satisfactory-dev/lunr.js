@@ -20,16 +20,16 @@ version_is_unique () {
   return 0
 }
 
-on_master_branch () {
-  [[ $(git symbolic-ref --short -q HEAD) == "master" ]] && return 0
+on_main_branch () {
+  [[ $(git symbolic-ref --short -q HEAD) == "main" ]] && return 0
   return 1
 }
 
 version=$(cat VERSION)
 previous_version=$(git describe --abbrev=0)
 
-if ! on_master_branch; then
-  echo -e "\033[0;31mRefusing to release from non master branch.\033[0m"
+if ! on_main_branch; then
+  echo -e "\033[0;31mRefusing to release from non main branch.\033[0m"
   exit 1
 fi
 
@@ -70,7 +70,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   echo
   git commit -a -m "Build version $version"
   git tag -a v$version -m "Version $version"
-  git push origin master
+  git push origin main
   git push --tags
 
   npm publish

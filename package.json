@@ -1,16 +1,20 @@
 {
   "name": "lunr",
   "description": "Simple full-text search in your browser.",
-  "version": "2.3.9",
   "author": "Oliver Nightingale",
+  "maintainers": [
+    {
+      "name": "SignpostMarv"
+    }
+  ],
   "keywords": ["search"],
   "homepage": "https://lunrjs.com",
-  "bugs": "https://github.com/olivernn/lunr.js/issues",
+  "bugs": "https://github.com/satisfactory-dev/lunr.js/issues",
   "main": "lunr.js",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/olivernn/lunr.js.git"
+    "url": "https://github.com/satisfactory-dev/lunr.js.git"
   },
   "devDependencies": {
     "benchmark": "2.1.x",
