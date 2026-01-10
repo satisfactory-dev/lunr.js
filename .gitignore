@@ -5,3 +5,4 @@ test/env/file_list.json
 /component.json
 /coverage/
 /lunr.min.js
+/.devcontainer/.env
