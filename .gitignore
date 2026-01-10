@@ -1,3 +1,7 @@
 /node_modules
 docs/
 test/env/file_list.json
+/bower.json
+/component.json
+/coverage/
+/lunr.min.js

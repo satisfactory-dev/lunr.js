@@ -87,4 +87,4 @@ reset:
 node_modules: package.json
 	${NPM} -s install
 
-.PHONY: test clean docs reset perf/*_perf.js test/inspect
+.PHONY: test clean docs reset perf/*_perf.js test/inspect lunr.js
