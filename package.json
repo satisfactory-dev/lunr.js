@@ -28,7 +28,7 @@
     "eslint-plugin-spellcheck": "^0.0.20",
     "globals": "^17.0.0",
     "jsdoc": "^4.0.5",
-    "mocha": "3.3.x",
+    "mocha": "^11.7.5",
     "mustache": "2.2.x",
     "node-static": "0.7.x",
     "uglify-js": "2.6.x",
