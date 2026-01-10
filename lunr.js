@@ -74,13 +74,11 @@ lunr.utils = {}
  * @function
  */
 lunr.utils.warn = (function (global) {
-  /* eslint-disable no-console */
   return function (message) {
     if (global.console && console.warn) {
       console.warn(message)
     }
   }
-  /* eslint-enable no-console */
 })(this)
 
 /**
@@ -462,7 +460,7 @@ lunr.tokenizer = function (obj, metadata) {
  * @static
  * @see lunr.tokenizer
  */
-lunr.tokenizer.separator = /[\s\-]+/
+lunr.tokenizer.separator = /[\s-]+/
 /*!
  * lunr.Pipeline
  * Copyright (C) 2020 Oliver Nightingale
