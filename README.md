@@ -1,6 +1,6 @@
 # Satisfactory.dev Lunr.js Fork
 
-[![Workflow Status](https://github.com/satisfactory-dev/lunr.js/actions/workflows/node.js.yml/badge.svg?branch=main)](https://github.com/satisfactory-dev/lunr.js/actions/workflows/node.js.yml?query=branch%3Amain)
+[![Workflow Status](https://github.com/satisfactory-dev/lunr.js/actions/workflows/nodejs.yml/badge.svg?branch=main)](https://github.com/satisfactory-dev/lunr.js/actions/workflows/nodejs.yml?query=branch%3Amain)
 
 A bit like Solr, but much smaller and not as bright.
 
