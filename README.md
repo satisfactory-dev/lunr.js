@@ -1,5 +1,6 @@
 # Satisfactory.dev Lunr.js Fork
 
+[![Coverage Status](https://coveralls.io/repos/github/satisfactory-dev/lunr.js/badge.svg?branch=main)](https://coveralls.io/github/satisfactory-dev/lunr.js?branch=main)
 [![Workflow Status](https://github.com/satisfactory-dev/lunr.js/actions/workflows/nodejs.yml/badge.svg?branch=main)](https://github.com/satisfactory-dev/lunr.js/actions/workflows/nodejs.yml?query=branch%3Amain)
 
 A bit like Solr, but much smaller and not as bright.
