@@ -3337,6 +3337,20 @@ lunr.QueryParseError = QueryParseError
  * Copyright (C) 2020 Oliver Nightingale
  */
 
+/**
+ * @typedef lunr.QueryLexeme
+ * @property {lunr.QueryLexer.EOS|lunr.QueryLexer.FIELD|lunr.QueryLexer.TERM|lunr.QueryLexer.EDIT_DISTANCE|lunr.QueryLexer.BOOST|lunr.QueryLexer.PRESENCE} type
+ * @property {string} str
+ * @property {number} start
+ * @property {number} end
+ */
+
+/**
+ * @constructor
+ * @param {string} str
+ *
+ * @property {lunr.QueryLexeme[]} lexemes
+ */
 lunr.QueryLexer = function (str) {
   this.lexemes = []
   this.str = str
@@ -3549,16 +3563,60 @@ lunr.QueryLexer.lexText = function (lexer) {
 /*!
  * lunr.QueryParser
  * Copyright (C) 2020 Oliver Nightingale
+ * Copyright (C) 2026 SignpostMarv
  */
 
-lunr.QueryParser = function (str, query) {
+/**
+ * @typedef {Object} QueryClause
+ * @property {lunr.Query.presence.PROHIBITED|lunr.Query.presence.REQUIRED|lunr.Query.presence.OPTIONAL} [presence]
+ * @property {[string, ...string[]]} [fields]
+ * @property {string} [term]
+ * @property {boolean} [usePipeline]
+ * @property {number} [editDistance]
+ * @property {number} [boost]
+ */
+
+class QueryParser {
+  /**
+   * @type {lunr.QueryLexer}
+   */
+  lexer
+
+  /**
+   * @type {lunr.Query}
+   */
+  query
+
+  /**
+   * @type {lunr.QueryClause}
+   */
+  currentClause
+
+  /**
+   * @type {number}
+   */
+  lexemeIdx
+
+  /**
+   * @type {lunr.QueryLexeme[]|undefined}
+   */
+  lexemes
+
+  /**
+   * @param {string} str
+   * @param {lunr.Query} query
+   */
+  constructor (str, query) {
   this.lexer = new lunr.QueryLexer (str)
   this.query = query
   this.currentClause = {}
   this.lexemeIdx = 0
 }
 
-lunr.QueryParser.prototype.parse = function () {
+  /**
+   * @return {lunr.Query}
+   */
+  parse () {
   this.lexer.run()
   this.lexemes = this.lexer.lexemes
 
@@ -3571,23 +3629,23 @@ lunr.QueryParser.prototype.parse = function () {
   return this.query
 }
 
-lunr.QueryParser.prototype.peekLexeme = function () {
+  peekLexeme () {
   return this.lexemes[this.lexemeIdx]
 }
 
-lunr.QueryParser.prototype.consumeLexeme = function () {
+  consumeLexeme () {
   var lexeme = this.peekLexeme()
   this.lexemeIdx += 1
   return lexeme
 }
 
-lunr.QueryParser.prototype.nextClause = function () {
+  nextClause () {
   var completedClause = this.currentClause
   this.query.clause(completedClause)
   this.currentClause = {}
 }
 
-lunr.QueryParser.parseClause = function (parser) {
+  static parseClause (parser) {
   var lexeme = parser.peekLexeme()
 
   if (lexeme == undefined) {
@@ -3612,7 +3670,7 @@ lunr.QueryParser.parseClause = function (parser) {
   }
 }
 
-lunr.QueryParser.parsePresence = function (parser) {
+  static parsePresence (parser) {
   var lexeme = parser.consumeLexeme()
 
   if (lexeme == undefined) {
@@ -3649,7 +3707,7 @@ lunr.QueryParser.parsePresence = function (parser) {
   }
 }
 
-lunr.QueryParser.parseField = function (parser) {
+  static parseField (parser) {
   var lexeme = parser.consumeLexeme()
 
   if (lexeme == undefined) {
@@ -3681,7 +3739,7 @@ lunr.QueryParser.parseField = function (parser) {
   }
 }
 
-lunr.QueryParser.parseTerm = function (parser) {
+  static parseTerm (parser) {
   var lexeme = parser.consumeLexeme()
 
   if (lexeme == undefined) {
@@ -3721,7 +3779,7 @@ lunr.QueryParser.parseTerm = function (parser) {
   }
 }
 
-lunr.QueryParser.parseEditDistance = function (parser) {
+  static parseEditDistance (parser) {
   var lexeme = parser.consumeLexeme()
 
   if (lexeme == undefined) {
@@ -3764,7 +3822,7 @@ lunr.QueryParser.parseEditDistance = function (parser) {
   }
 }
 
-lunr.QueryParser.parseBoost = function (parser) {
+  static parseBoost (parser) {
   var lexeme = parser.consumeLexeme()
 
   if (lexeme == undefined) {
@@ -3806,6 +3864,9 @@ lunr.QueryParser.parseBoost = function (parser) {
       throw new lunr.QueryParseError (errorMessage, nextLexeme.start, nextLexeme.end)
   }
 }
+}
+
+lunr.QueryParser = QueryParser
 
   /**
    * export the module via AMD, CommonJS or as a browser global
