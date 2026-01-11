@@ -1949,32 +1949,6 @@ lunr.TokenSet.Builder = TokenSetBuilder
  */
 
 /**
- * An index contains the built index of all documents and provides a query interface
- * to the index.
- *
- * Usually instances of lunr.Index will not be created using this constructor, instead
- * lunr.Builder should be used to construct new indexes, or lunr.Index.load should be
- * used to load previously built and serialized indexes.
- *
- * @constructor
- * @param {Object} attrs - The attributes of the built search index.
- * @param {Object} attrs.invertedIndex - An index of term/field to document reference.
- * @param {Object<string, lunr.Vector>} attrs.fieldVectors - Field vectors
- * @param {lunr.TokenSet} attrs.tokenSet - An set of all corpus tokens.
- * @param {string[]} attrs.fields - The names of indexed document fields.
- * @param {lunr.Pipeline} attrs.pipeline - The pipeline to use for search terms.
- */
-lunr.Index = function (attrs) {
-  this.invertedIndex = attrs.invertedIndex
-  this.fieldVectors = attrs.fieldVectors
-  this.tokenSet = attrs.tokenSet
-  this.fields = attrs.fields
-  this.pipeline = attrs.pipeline
-  this._completeSet = new lunr.SetComplete
-  this._emptySet = new lunr.SetEmpty
-}
-
-/**
  * A result contains details of a document matching a search query.
  * @typedef {Object} lunr.Index~Result
  * @property {string} ref - The reference of the document this result represents.
@@ -2033,6 +2007,62 @@ lunr.Index = function (attrs) {
  */
 
 /**
+ * A query builder callback provides a query object to be used to express
+ * the query to perform on the index.
+ *
+ * @callback lunr.Index~queryBuilder
+ * @param {lunr.Query} query - The query object to build up.
+ * @this lunr.Query
+ */
+
+/**
+ * An index contains the built index of all documents and provides a query interface
+ * to the index.
+ *
+ * Usually instances of lunr.Index will not be created using this constructor, instead
+ * lunr.Builder should be used to construct new indexes, or lunr.Index.load should be
+ * used to load previously built and serialized indexes.
+ *
+ * @param {Object} attrs - The attributes of the built search index.
+ * @param {Object} attrs.invertedIndex - An index of term/field to document reference.
+ * @param {Object<string, lunr.Vector>} attrs.fieldVectors - Field vectors
+ * @param {lunr.TokenSet} attrs.tokenSet - An set of all corpus tokens.
+ * @param {string[]} attrs.fields - The names of indexed document fields.
+ * @param {lunr.Pipeline} attrs.pipeline - The pipeline to use for search terms.
+ */
+class Index {
+  /** @type {Object} */
+  invertedIndex
+
+  /** @type {Object<string, lunr.Vector>} */
+  fieldVectors
+
+  /** @type {lunr.TokenSet} */
+  tokenSet
+
+  /** @type {string[]} */
+  fields
+
+  /** @type {lunr.Pipeline} */
+  pipeline
+
+  /** @type {lunr.SetComplete} */
+  #completeSet
+
+  /** @type {lunr.SetEmpty} */
+  #emptySet
+
+  constructor (attrs) {
+  this.invertedIndex = attrs.invertedIndex
+  this.fieldVectors = attrs.fieldVectors
+  this.tokenSet = attrs.tokenSet
+  this.fields = attrs.fields
+  this.pipeline = attrs.pipeline
+    this.#completeSet = new lunr.SetComplete
+    this.#emptySet = new lunr.SetEmpty
+}
+
+/**
  * Performs a search against the index using lunr query syntax.
  *
  * Results will be returned sorted by their score, the most relevant results
@@ -2045,21 +2075,12 @@ lunr.Index = function (attrs) {
  * @throws {lunr.QueryParseError} If the passed query string cannot be parsed.
  * @returns {lunr.Index~Result[]}
  */
-lunr.Index.prototype.search = function (queryString) {
+  search (queryString) {
   return this.query(function (query) {
     var parser = new lunr.QueryParser(queryString, query)
     parser.parse()
   })
 }
-
-/**
- * A query builder callback provides a query object to be used to express
- * the query to perform on the index.
- *
- * @callback lunr.Index~queryBuilder
- * @param {lunr.Query} query - The query object to build up.
- * @this lunr.Query
- */
 
 /**
  * Performs a query against the index using the yielded lunr.Query object.
@@ -2077,7 +2098,7 @@ lunr.Index.prototype.search = function (queryString) {
  * @param {lunr.Index~queryBuilder} fn - A function that is used to build the query.
  * @returns {lunr.Index~Result[]}
  */
-lunr.Index.prototype.query = function (fn) {
+  query (fn) {
   // for each query clause
   // * process terms
   // * expand terms from token set
@@ -2114,7 +2135,7 @@ lunr.Index.prototype.query = function (fn) {
      */
     var clause = query.clauses[i],
         terms = null,
-        clauseMatches = this._emptySet
+        clauseMatches = this.#emptySet
 
     if (clause.usePipeline) {
       terms = this.pipeline.runString(clause.term, {
@@ -2152,7 +2173,7 @@ lunr.Index.prototype.query = function (fn) {
       if (expandedTerms.length === 0 && clause.presence === lunr.Query.presence.REQUIRED) {
         for (var k = 0; k < clause.fields.length; k++) {
           var field = clause.fields[k]
-          requiredMatches[field] = this._emptySet
+          requiredMatches[field] = this.#emptySet
         }
 
         break
@@ -2191,7 +2212,7 @@ lunr.Index.prototype.query = function (fn) {
             clauseMatches = clauseMatches.union(matchingDocumentsSet)
 
             if (requiredMatches[field] === undefined) {
-              requiredMatches[field] = this._completeSet
+              requiredMatches[field] = this.#completeSet
             }
           }
 
@@ -2202,7 +2223,7 @@ lunr.Index.prototype.query = function (fn) {
            */
           if (clause.presence == lunr.Query.presence.PROHIBITED) {
             if (prohibitedMatches[field] === undefined) {
-              prohibitedMatches[field] = this._emptySet
+              prohibitedMatches[field] = this.#emptySet
             }
 
             prohibitedMatches[field] = prohibitedMatches[field].union(matchingDocumentsSet)
@@ -2276,8 +2297,8 @@ lunr.Index.prototype.query = function (fn) {
    * matching documents into a global set of required and prohibited
    * matches
    */
-  var allRequiredMatches = this._completeSet,
-      allProhibitedMatches = this._emptySet
+  var allRequiredMatches = this.#completeSet,
+      allProhibitedMatches = this.#emptySet
 
   for (var i = 0; i < this.fields.length; i++) {
     var field = this.fields[i]
@@ -2369,7 +2390,7 @@ lunr.Index.prototype.query = function (fn) {
  *
  * @returns {Object}
  */
-lunr.Index.prototype.toJSON = function () {
+  toJSON () {
   var invertedIndex = Object.keys(this.invertedIndex)
     .sort()
     .map(function (term) {
@@ -2396,7 +2417,7 @@ lunr.Index.prototype.toJSON = function () {
  * @param {Object} serializedIndex - A previously serialized lunr.Index
  * @returns {lunr.Index}
  */
-lunr.Index.load = function (serializedIndex) {
+  static load (serializedIndex) {
   var attrs = {},
       fieldVectors = {},
       serializedVectors = serializedIndex.fieldVectors,
@@ -2437,6 +2458,9 @@ lunr.Index.load = function (serializedIndex) {
 
   return new lunr.Index(attrs)
 }
+}
+
+lunr.Index = Index
 /*!
  * lunr.Builder
  * Copyright (C) 2020 Oliver Nightingale
