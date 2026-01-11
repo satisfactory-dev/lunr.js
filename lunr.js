@@ -133,7 +133,7 @@ class Utils {
 
 lunr.utils = Utils
 /*!
- * lunr.Builder
+ * lunr.FieldRef
  * Copyright (C) 2020 Oliver Nightingale
  * Copyright (C) 2026 SignpostMarv
  */
@@ -327,27 +327,12 @@ lunr.Set.prototype.union = function (other) {
 
   return new lunr.Set(Object.keys(this.elements).concat(Object.keys(other.elements)))
 }
-/**
- * A token wraps a string representation of a token
- * as it is passed through the text processing pipeline.
- *
- * @constructor
- * @param {string} [str=''] - The string token being wrapped.
- * @param {object} [metadata={}] - Metadata associated with this token.
+/*!
+ * lunr.Token
+ * Copyright (C) 2020 Oliver Nightingale
+ * Copyright (C) 2026 SignpostMarv
  */
-lunr.Token = function (str, metadata) {
-  this.str = str || ""
-  this.metadata = metadata || {}
-}
 
-/**
- * Returns the token string that is being wrapped by this object.
- *
- * @returns {string}
- */
-lunr.Token.prototype.toString = function () {
-  return this.str
-}
 
 /**
  * A token update function is used when updating or optionally
@@ -359,6 +344,29 @@ lunr.Token.prototype.toString = function () {
  */
 
 /**
+ * A token wraps a string representation of a token
+ * as it is passed through the text processing pipeline.
+ */
+class Token {
+  /**
+ * @param {string} [str=''] - The string token being wrapped.
+ * @param {object} [metadata={}] - Metadata associated with this token.
+   */
+  constructor (str, metadata) {
+  this.str = str || ""
+  this.metadata = metadata || {}
+}
+
+/**
+ * Returns the token string that is being wrapped by this object.
+ *
+ * @returns {string}
+ */
+  toString () {
+  return this.str
+}
+
+/**
  * Applies the given function to the wrapped string token.
  *
  * @example
@@ -367,9 +375,9 @@ lunr.Token.prototype.toString = function () {
  * })
  *
  * @param {lunr.Token~updateFunction} fn - A function to apply to the token string.
- * @returns {lunr.Token}
+   * @returns {this}
  */
-lunr.Token.prototype.update = function (fn) {
+  update (fn) {
   this.str = fn(this.str, this.metadata)
   return this
 }
@@ -381,10 +389,13 @@ lunr.Token.prototype.update = function (fn) {
  * @param {lunr.Token~updateFunction} [fn] - An optional function to apply to the cloned token.
  * @returns {lunr.Token}
  */
-lunr.Token.prototype.clone = function (fn) {
+  clone (fn) {
   fn = fn || function (s) { return s }
   return new lunr.Token (fn(this.str, this.metadata), this.metadata)
 }
+}
+
+lunr.Token = Token
 /*!
  * lunr.tokenizer
  * Copyright (C) 2020 Oliver Nightingale
@@ -596,7 +607,7 @@ class Pipeline {
    *
    * @return {lunr.PipelineFunction|undefined}
    */
-  atIndex(index) {
+  atIndex (index) {
     return this.#stack[index]
   }
 
@@ -795,7 +806,7 @@ class Vector {
    * the position is returned as if the value for that index were to be updated, but it
    * is the callers responsibility to check whether there is a duplicate at that index
    *
-   * @param {Number} insertIdx - The index at which the element should be inserted.
+   * @param {Number} index - The index at which the element should be inserted.
    * @returns {Number}
    */
   positionForIndex (index) {
