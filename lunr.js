@@ -3332,6 +3332,11 @@ class QueryParseError extends Error {
 }
 
 lunr.QueryParseError = QueryParseError
+/*!
+ * lunr.QueryLexer
+ * Copyright (C) 2020 Oliver Nightingale
+ */
+
 lunr.QueryLexer = function (str) {
   this.lexemes = []
   this.str = str
@@ -3540,6 +3545,11 @@ lunr.QueryLexer.lexText = function (lexer) {
     }
   }
 }
+
+/*!
+ * lunr.QueryParser
+ * Copyright (C) 2020 Oliver Nightingale
+ */
 
 lunr.QueryParser = function (str, query) {
   this.lexer = new lunr.QueryLexer (str)
