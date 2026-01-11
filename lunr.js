@@ -59,29 +59,14 @@ lunr.version = "2.3.9"
 /*!
  * lunr.utils
  * Copyright (C) 2020 Oliver Nightingale
+ * Copyright (C) 2026 SignpostMarv
  */
 
 /**
  * A namespace containing utils for the rest of the lunr library
  * @namespace lunr.utils
  */
-lunr.utils = {}
-
-/**
- * Print a warning message to the console.
- *
- * @param {String} message The message to be printed.
- * @memberOf lunr.utils
- * @function
- */
-lunr.utils.warn = (function (global) {
-  return function (message) {
-    if (global.console && console.warn) {
-      console.warn(message)
-    }
-  }
-})(this)
-
+class Utils {
 /**
  * Convert an object to a string.
  *
@@ -91,9 +76,8 @@ lunr.utils.warn = (function (global) {
  *
  * @param {Any} obj The object to convert to a string.
  * @return {String} string representation of the passed object.
- * @memberOf lunr.utils
  */
-lunr.utils.asString = function (obj) {
+  static asString (obj) {
   if (obj === void 0 || obj === null) {
     return ""
   } else {
@@ -115,9 +99,8 @@ lunr.utils.asString = function (obj) {
  * @param {Object} obj The object to clone.
  * @return {Object} a clone of the passed object.
  * @throws {TypeError} when a nested object is passed.
- * @memberOf Utils
  */
-lunr.utils.clone = function (obj) {
+  static clone = function (obj) {
   if (obj === null || obj === undefined) {
     return obj
   }
@@ -146,6 +129,9 @@ lunr.utils.clone = function (obj) {
 
   return clone
 }
+}
+
+lunr.utils = Utils
 /*!
  * lunr.Builder
  * Copyright (C) 2020 Oliver Nightingale
@@ -550,7 +536,7 @@ lunr.Pipeline.registeredFunctions = Object.create(null)
  */
 lunr.Pipeline.registerFunction = function (fn, label) {
   if (label in this.registeredFunctions) {
-    lunr.utils.warn('Overwriting existing registered function: ' + label)
+    console.warn('Overwriting existing registered function: ' + label)
   }
 
   fn.label = label
@@ -567,7 +553,7 @@ lunr.Pipeline.warnIfFunctionNotRegistered = function (fn) {
   var isRegistered = fn.label && (fn.label in this.registeredFunctions)
 
   if (!isRegistered) {
-    lunr.utils.warn('Function is not registered with pipeline. This may cause problems when serialising the index.\n', fn)
+    console.warn('Function is not registered with pipeline. This may cause problems when serialising the index.\n', fn)
   }
 }
 
@@ -2307,7 +2293,7 @@ lunr.Index.load = function (serializedIndex) {
       pipeline = lunr.Pipeline.load(serializedIndex.pipeline)
 
   if (serializedIndex.version != lunr.version) {
-    lunr.utils.warn("Version mismatch when loading serialised index. Current version of lunr '" + lunr.version + "' does not match serialized index '" + serializedIndex.version + "'")
+    console.warn("Version mismatch when loading serialised index. Current version of lunr '" + lunr.version + "' does not match serialized index '" + serializedIndex.version + "'")
   }
 
   for (var i = 0; i < serializedVectors.length; i++) {
