@@ -530,66 +530,66 @@ class Pipeline {
    */
   static registeredFunctions = {}
 
-/**
- * Register a function with the pipeline.
- *
- * Functions that are used in the pipeline should be registered if the pipeline
- * needs to be serialised, or a serialised pipeline needs to be loaded.
- *
- * Registering a function does not add it to a pipeline, functions must still be
- * added to instances of the pipeline for them to be used when running a pipeline.
- *
- * @param {lunr.PipelineFunction} fn - The function to check for.
- * @param {String} label - The label to register this function with
- */
+  /**
+   * Register a function with the pipeline.
+   *
+   * Functions that are used in the pipeline should be registered if the pipeline
+   * needs to be serialised, or a serialised pipeline needs to be loaded.
+   *
+   * Registering a function does not add it to a pipeline, functions must still be
+   * added to instances of the pipeline for them to be used when running a pipeline.
+   *
+   * @param {lunr.PipelineFunction} fn - The function to check for.
+   * @param {String} label - The label to register this function with
+   */
   static registerFunction (fn, label) {
-  if (label in this.registeredFunctions) {
-    console.warn('Overwriting existing registered function: ' + label)
+    if (label in this.registeredFunctions) {
+      console.warn('Overwriting existing registered function: ' + label)
+    }
+
+    fn.label = label
+    lunr.Pipeline.registeredFunctions[fn.label] = fn
   }
 
-  fn.label = label
-  lunr.Pipeline.registeredFunctions[fn.label] = fn
-}
-
-/**
- * Warns if the function is not registered as a Pipeline function.
- *
- * @param {lunr.PipelineFunction} fn - The function to check for.
- * @private
- */
+  /**
+   * Warns if the function is not registered as a Pipeline function.
+   *
+   * @param {lunr.PipelineFunction} fn - The function to check for.
+   * @private
+   */
   static warnIfFunctionNotRegistered (fn) {
-  var isRegistered = fn.label && (fn.label in this.registeredFunctions)
+    var isRegistered = fn.label && (fn.label in this.registeredFunctions)
 
-  if (!isRegistered) {
-    console.warn('Function is not registered with pipeline. This may cause problems when serialising the index.\n', fn)
+    if (!isRegistered) {
+      console.warn('Function is not registered with pipeline. This may cause problems when serialising the index.\n', fn)
+    }
   }
-}
 
-/**
- * Loads a previously serialised pipeline.
- *
- * All functions to be loaded must already be registered with lunr.Pipeline.
- * If any function from the serialised data has not been registered then an
- * error will be thrown.
- *
- * @param {Object} serialised - The serialised pipeline to load.
- * @returns {Pipeline}
- */
+  /**
+   * Loads a previously serialised pipeline.
+   *
+   * All functions to be loaded must already be registered with lunr.Pipeline.
+   * If any function from the serialised data has not been registered then an
+   * error will be thrown.
+   *
+   * @param {Object} serialised - The serialised pipeline to load.
+   * @returns {Pipeline}
+   */
   static load (serialised) {
     var pipeline = new Pipeline
 
     serialised.forEach((fnName) => {
       var fn = this.registeredFunctions[fnName]
 
-    if (fn) {
-      pipeline.add(fn)
-    } else {
-      throw new Error('Cannot load unregistered function: ' + fnName)
-    }
-  })
+      if (fn) {
+        pipeline.add(fn)
+      } else {
+        throw new Error('Cannot load unregistered function: ' + fnName)
+      }
+    })
 
-  return pipeline
-}
+    return pipeline
+  }
 
   /**
    * @param {number} index
@@ -600,134 +600,134 @@ class Pipeline {
     return this.#stack[index]
   }
 
-/**
- * Adds new functions to the end of the pipeline.
- *
- * Logs a warning if the function has not been registered.
- *
- * @param {lunr.PipelineFunction[]} fns - Any number of functions to add to the pipeline.
- */
+  /**
+   * Adds new functions to the end of the pipeline.
+   *
+   * Logs a warning if the function has not been registered.
+   *
+   * @param {lunr.PipelineFunction[]} fns - Any number of functions to add to the pipeline.
+   */
   add (...fns) {
-  fns.forEach((fn) => {
+    fns.forEach((fn) => {
       Pipeline.warnIfFunctionNotRegistered(fn)
-    this.#stack.push(fn)
-  })
-}
+      this.#stack.push(fn)
+    })
+  }
 
-/**
- * Adds a single function after a function that already exists in the
- * pipeline.
- *
- * Logs a warning if the function has not been registered.
- *
- * @param {lunr.PipelineFunction} existingFn - A function that already exists in the pipeline.
- * @param {lunr.PipelineFunction} newFn - The new function to add to the pipeline.
- */
+  /**
+   * Adds a single function after a function that already exists in the
+   * pipeline.
+   *
+   * Logs a warning if the function has not been registered.
+   *
+   * @param {lunr.PipelineFunction} existingFn - A function that already exists in the pipeline.
+   * @param {lunr.PipelineFunction} newFn - The new function to add to the pipeline.
+   */
   after (existingFn, newFn) {
-  lunr.Pipeline.warnIfFunctionNotRegistered(newFn)
+    lunr.Pipeline.warnIfFunctionNotRegistered(newFn)
 
-  var pos = this.#stack.indexOf(existingFn)
-  if (pos == -1) {
-    throw new Error('Cannot find existingFn')
-  }
-
-  pos = pos + 1
-  this.#stack.splice(pos, 0, newFn)
-}
-
-/**
- * Adds a single function before a function that already exists in the
- * pipeline.
- *
- * Logs a warning if the function has not been registered.
- *
- * @param {lunr.PipelineFunction} existingFn - A function that already exists in the pipeline.
- * @param {lunr.PipelineFunction} newFn - The new function to add to the pipeline.
- */
-  before (existingFn, newFn) {
-  lunr.Pipeline.warnIfFunctionNotRegistered(newFn)
-
-  var pos = this.#stack.indexOf(existingFn)
-  if (pos == -1) {
-    throw new Error('Cannot find existingFn')
-  }
-
-  this.#stack.splice(pos, 0, newFn)
-}
-
-/**
- * Removes a function from the pipeline.
- *
- * @param {lunr.PipelineFunction} fn The function to remove from the pipeline.
- */
-  remove (fn) {
-  var pos = this.#stack.indexOf(fn)
-  if (pos == -1) {
-    return
-  }
-
-  this.#stack.splice(pos, 1)
-}
-
-/**
- * Runs the current list of functions that make up the pipeline against the
- * passed tokens.
- *
- * @param {Array} tokens The tokens to run through the pipeline.
- * @returns {Array}
- */
-  run (tokens) {
-  var stackLength = this.#stack.length
-
-  for (var i = 0; i < stackLength; i++) {
-    var fn = this.#stack[i]
-    var memo = []
-
-    for (var j = 0; j < tokens.length; j++) {
-      var result = fn(tokens[j], j, tokens)
-
-      if (result === null || result === void 0 || result === '') continue
-
-      if (Array.isArray(result)) {
-        for (var k = 0; k < result.length; k++) {
-          memo.push(result[k])
-        }
-      } else {
-        memo.push(result)
-      }
+    var pos = this.#stack.indexOf(existingFn)
+    if (pos == -1) {
+      throw new Error('Cannot find existingFn')
     }
 
-    tokens = memo
+    pos = pos + 1
+    this.#stack.splice(pos, 0, newFn)
   }
 
-  return tokens
-}
+  /**
+   * Adds a single function before a function that already exists in the
+   * pipeline.
+   *
+   * Logs a warning if the function has not been registered.
+   *
+   * @param {lunr.PipelineFunction} existingFn - A function that already exists in the pipeline.
+   * @param {lunr.PipelineFunction} newFn - The new function to add to the pipeline.
+   */
+  before (existingFn, newFn) {
+    lunr.Pipeline.warnIfFunctionNotRegistered(newFn)
 
-/**
- * Convenience method for passing a string through a pipeline and getting
- * strings out. This method takes care of wrapping the passed string in a
- * token and mapping the resulting tokens back to strings.
- *
- * @param {string} str - The string to pass through the pipeline.
- * @param {?object} metadata - Optional metadata to associate with the token
- * passed to the pipeline.
- * @returns {string[]}
- */
+    var pos = this.#stack.indexOf(existingFn)
+    if (pos == -1) {
+      throw new Error('Cannot find existingFn')
+    }
+
+    this.#stack.splice(pos, 0, newFn)
+  }
+
+  /**
+   * Removes a function from the pipeline.
+   *
+   * @param {lunr.PipelineFunction} fn The function to remove from the pipeline.
+   */
+  remove (fn) {
+    var pos = this.#stack.indexOf(fn)
+    if (pos == -1) {
+      return
+    }
+
+    this.#stack.splice(pos, 1)
+  }
+
+  /**
+   * Runs the current list of functions that make up the pipeline against the
+   * passed tokens.
+   *
+   * @param {Array} tokens The tokens to run through the pipeline.
+   * @returns {Array}
+   */
+  run (tokens) {
+    var stackLength = this.#stack.length
+
+    for (var i = 0; i < stackLength; i++) {
+      var fn = this.#stack[i]
+      var memo = []
+
+      for (var j = 0; j < tokens.length; j++) {
+        var result = fn(tokens[j], j, tokens)
+
+        if (result === null || result === void 0 || result === '') continue
+
+        if (Array.isArray(result)) {
+          for (var k = 0; k < result.length; k++) {
+            memo.push(result[k])
+          }
+        } else {
+          memo.push(result)
+        }
+      }
+
+      tokens = memo
+    }
+
+    return tokens
+  }
+
+  /**
+   * Convenience method for passing a string through a pipeline and getting
+   * strings out. This method takes care of wrapping the passed string in a
+   * token and mapping the resulting tokens back to strings.
+   *
+   * @param {string} str - The string to pass through the pipeline.
+   * @param {?object} metadata - Optional metadata to associate with the token
+   * passed to the pipeline.
+   * @returns {string[]}
+   */
   runString (str, metadata) {
-  var token = new lunr.Token (str, metadata)
+    var token = new lunr.Token (str, metadata)
 
-  return this.run([token]).map(function (t) {
-    return t.toString()
-  })
-}
+    return this.run([token]).map(function (t) {
+      return t.toString()
+    })
+  }
 
-/**
- * Resets the pipeline by removing any existing processors.
- *
- */
+  /**
+   * Resets the pipeline by removing any existing processors.
+   *
+   */
   reset () {
-  this.#stack = []
-}
+    this.#stack = []
+  }
 
   /**
    * Returns a light copy of Pipeline.#stack
@@ -738,20 +738,20 @@ class Pipeline {
     return [...this.#stack]
   }
 
-/**
- * Returns a representation of the pipeline ready for serialisation.
- *
- * Logs a warning if the function has not been registered.
- *
- * @returns {Array}
- */
+  /**
+   * Returns a representation of the pipeline ready for serialisation.
+   *
+   * Logs a warning if the function has not been registered.
+   *
+   * @returns {Array}
+   */
   toJSON () {
-  return this.#stack.map(function (fn) {
-    lunr.Pipeline.warnIfFunctionNotRegistered(fn)
+    return this.#stack.map(function (fn) {
+      lunr.Pipeline.warnIfFunctionNotRegistered(fn)
 
-    return fn.label
-  })
-}
+      return fn.label
+    })
+  }
 }
 
 lunr.Pipeline = Pipeline
