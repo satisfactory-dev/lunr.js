@@ -18,7 +18,7 @@ suite('lunr.Builder', function () {
 
   this.add('build', function () {
     lunr(function () {
-      this.ref('id')
+      this.ref = 'id'
       this.field('title')
       this.field('body')
 

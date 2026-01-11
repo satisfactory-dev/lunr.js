@@ -47,7 +47,7 @@
   var index = lunr(function () {
     this.field('title', {boost: 10})
     this.field('body')
-    this.ref('id')
+    this.ref = 'id'
   })</pre>
 
         <p>Add documents to your index</p>

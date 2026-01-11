@@ -1,6 +1,7 @@
 /**
  * lunr - http://lunrjs.com - A bit like Solr, but much smaller and not as bright - 2.3.9
  * Copyright (C) 2020 Oliver Nightingale
+ * Copyright (C) 2026 SignpostMarv
  * @license MIT
  */
 
@@ -23,7 +24,7 @@
  * var idx = lunr(function () {
  *   this.field('title')
  *   this.field('body')
- *   this.ref('id')
+ *   this.ref = 'id'
  *
  *   documents.forEach(function (doc) {
  *     this.add(doc)
@@ -2318,6 +2319,7 @@ lunr.Index.load = function (serializedIndex) {
 /*!
  * lunr.Builder
  * Copyright (C) 2020 Oliver Nightingale
+ * Copyright (C) 2026 SignpostMarv
  */
 
 /**
@@ -2328,38 +2330,105 @@ lunr.Index.load = function (serializedIndex) {
  * fields to index, the document reference, the text processing
  * pipeline and document scoring parameters are all set on the
  * builder before indexing.
- *
- * @constructor
- * @property {string} _ref - Internal reference to the document reference field.
- * @property {string[]} _fields - Internal reference to the document fields to index.
- * @property {object} invertedIndex - The inverted index maps terms to document fields.
- * @property {object} documentTermFrequencies - Keeps track of document term frequencies.
- * @property {object} documentLengths - Keeps track of the length of documents added to the index.
- * @property {lunr.tokenizer} tokenizer - Function for splitting strings into tokens for indexing.
- * @property {lunr.Pipeline} pipeline - The pipeline performs text processing on tokens before indexing.
- * @property {lunr.Pipeline} searchPipeline - A pipeline for processing search terms before querying the index.
- * @property {number} documentCount - Keeps track of the total number of documents indexed.
- * @property {number} _b - A parameter to control field length normalization, setting this to 0 disabled normalization, 1 fully normalizes field lengths, the default value is 0.75.
- * @property {number} _k1 - A parameter to control how quickly an increase in term frequency results in term frequency saturation, the default value is 1.2.
- * @property {number} termIndex - A counter incremented for each unique term, used to identify a terms position in the vector space.
- * @property {array} metadataWhitelist - A list of metadata keys that have been whitelisted for entry in the index.
  */
-lunr.Builder = function () {
-  this._ref = "id"
-  this._fields = Object.create(null)
-  this._documents = Object.create(null)
-  this.invertedIndex = Object.create(null)
-  this.fieldTermFrequencies = {}
-  this.fieldLengths = {}
-  this.tokenizer = lunr.tokenizer
-  this.pipeline = new lunr.Pipeline
-  this.searchPipeline = new lunr.Pipeline
-  this.documentCount = 0
-  this._b = 0.75
-  this._k1 = 1.2
-  this.termIndex = 0
-  this.metadataWhitelist = []
-}
+class Builder {
+  /**
+   * @property {string} Internal reference to the document reference field.
+   */
+  #ref
+
+  /**
+   * @property {string[]} Internal reference to the document fields to index.
+   */
+  #fields
+
+  #documents
+
+  /**
+   * @property {number} A parameter to control field length normalization, setting this to 0 disabled normalization, 1 fully normalizes field lengths, the default value is 0.75.
+   */
+  #b
+
+  /**
+   * @property {number} A parameter to control how quickly an increase in term frequency results in term frequency saturation, the default value is 1.2.
+   */
+  #k1
+
+  /**
+   * @property {object} The inverted index maps terms to document fields.
+   */
+  invertedIndex
+
+  /**
+   * @property {object} Keeps track of document term frequencies.
+   */
+  fieldTermFrequencies
+
+  /**
+   * @property {object} Keeps track of the length of documents added to the index.
+   */
+  fieldLengths
+
+  /**
+   * @property {lunr.tokenizer} Function for splitting strings into tokens for indexing.
+   */
+  tokenizer
+
+  /**
+   * @property {lunr.Pipeline} The pipeline performs text processing on tokens before indexing.
+   */
+  pipeline
+
+  /**
+   * @property {lunr.Pipeline} A pipeline for processing search terms before querying the index.
+   */
+  searchPipeline
+
+  /**
+   * @property {number} Keeps track of the total number of documents indexed.
+   */
+  documentCount
+
+  /**
+   * @property {number} A counter incremented for each unique term, used to identify a terms position in the vector space.
+   */
+  termIndex
+
+  /**
+   * @property {array} A list of metadata keys that have been whitelisted for entry in the index.
+   */
+  metadataWhitelist
+
+  constructor () {
+    this.#ref = "id"
+    this.#fields = Object.create(null)
+    this.#documents = Object.create(null)
+    this.invertedIndex = Object.create(null)
+    this.fieldTermFrequencies = {}
+    this.fieldLengths = {}
+    this.tokenizer = lunr.tokenizer
+    this.pipeline = new lunr.Pipeline
+    this.searchPipeline = new lunr.Pipeline
+    this.documentCount = 0
+    this.#b = 0.75
+    this.#k1 = 1.2
+    this.termIndex = 0
+    this.metadataWhitelist = []
+  }
+
+  /**
+   * @return {string[]}
+   */
+  get fields () {
+    return this.#fields
+  }
+
+  /**
+   * @return {string}
+   */
+  get ref () {
+    return this.#ref
+  }
 
 /**
  * Sets the document field used as the document reference. Every document must have this field.
@@ -2373,9 +2442,9 @@ lunr.Builder = function () {
  *
  * @param {string} ref - The name of the reference field in the document.
  */
-lunr.Builder.prototype.ref = function (ref) {
-  this._ref = ref
-}
+  set ref (ref) {
+    this.#ref = ref
+  }
 
 /**
  * A function that is used to extract a field from a document.
@@ -2409,13 +2478,20 @@ lunr.Builder.prototype.ref = function (ref) {
  * @param {fieldExtractor} [attributes.extractor] - Function to extract a field from a document.
  * @throws {RangeError} fieldName cannot contain unsupported characters '/'
  */
-lunr.Builder.prototype.field = function (fieldName, attributes) {
+  field (fieldName, attributes) {
   if (/\//.test(fieldName)) {
     throw new RangeError ("Field '" + fieldName + "' contains illegal character '/'")
   }
 
-  this._fields[fieldName] = attributes || {}
+  this.#fields[fieldName] = attributes || {}
 }
+
+  /**
+   * @return {number}
+   */
+  get b () {
+    return this.#b
+  }
 
 /**
  * A parameter to tune the amount of field length normalisation that is applied when
@@ -2425,15 +2501,22 @@ lunr.Builder.prototype.field = function (fieldName, attributes) {
  *
  * @param {number} number - The value to set for this tuning parameter.
  */
-lunr.Builder.prototype.b = function (number) {
+  set b (number) {
   if (number < 0) {
-    this._b = 0
+      this.#b = 0
   } else if (number > 1) {
-    this._b = 1
+      this.#b = 1
   } else {
-    this._b = number
+      this.#b = number
+    }
   }
-}
+
+  /**
+   * @return {number}
+   */
+  get k1() {
+    return this.#k1
+  }
 
 /**
  * A parameter that controls the speed at which a rise in term frequency results in term
@@ -2442,9 +2525,9 @@ lunr.Builder.prototype.b = function (number) {
  *
  * @param {number} number - The value to set for this tuning parameter.
  */
-lunr.Builder.prototype.k1 = function (number) {
-  this._k1 = number
-}
+  set k1 (number) {
+    this.#k1 = number
+  }
 
 /**
  * Adds a document to the index.
@@ -2463,16 +2546,16 @@ lunr.Builder.prototype.k1 = function (number) {
  * @param {object} attributes - Optional attributes associated with this document.
  * @param {number} [attributes.boost=1] - Boost applied to all terms within this document.
  */
-lunr.Builder.prototype.add = function (doc, attributes) {
-  var docRef = doc[this._ref],
-      fields = Object.keys(this._fields)
+  add (doc, attributes) {
+    var docRef = doc[this.#ref],
+      fields = Object.keys(this.#fields)
 
-  this._documents[docRef] = attributes || {}
+    this.#documents[docRef] = attributes || {}
   this.documentCount += 1
 
   for (var i = 0; i < fields.length; i++) {
     var fieldName = fields[i],
-        extractor = this._fields[fieldName].extractor,
+          extractor = this.#fields[fieldName].extractor,
         field = extractor ? extractor(doc) : doc[fieldName],
         tokens = this.tokenizer(field, {
           fields: [fieldName]
@@ -2535,10 +2618,8 @@ lunr.Builder.prototype.add = function (doc, attributes) {
 
 /**
  * Calculates the average document length for this index
- *
- * @private
  */
-lunr.Builder.prototype.calculateAverageFieldLengths = function () {
+  #calculateAverageFieldLengths () {
 
   var fieldRefs = Object.keys(this.fieldLengths),
       numberOfFields = fieldRefs.length,
@@ -2556,7 +2637,7 @@ lunr.Builder.prototype.calculateAverageFieldLengths = function () {
     accumulator[field] += this.fieldLengths[fieldRef]
   }
 
-  var fields = Object.keys(this._fields)
+    var fields = Object.keys(this.#fields)
 
   for (var i = 0; i < fields.length; i++) {
     var fieldName = fields[i]
@@ -2568,10 +2649,8 @@ lunr.Builder.prototype.calculateAverageFieldLengths = function () {
 
 /**
  * Builds a vector space model of every document using lunr.Vector
- *
- * @private
  */
-lunr.Builder.prototype.createFieldVectors = function () {
+  #createFieldVectors () {
   var fieldVectors = {},
       fieldRefs = Object.keys(this.fieldTermFrequencies),
       fieldRefsLength = fieldRefs.length,
@@ -2587,8 +2666,8 @@ lunr.Builder.prototype.createFieldVectors = function () {
         termsLength = terms.length
 
 
-    var fieldBoost = this._fields[fieldName].boost || 1,
-        docBoost = this._documents[fieldRef.docRef].boost || 1
+      var fieldBoost = this.#fields[fieldName].boost || 1,
+          docBoost = this.#documents[fieldRef.docRef].boost || 1
 
     for (var j = 0; j < termsLength; j++) {
       var term = terms[j],
@@ -2603,7 +2682,7 @@ lunr.Builder.prototype.createFieldVectors = function () {
         idf = termIdfCache[term]
       }
 
-      score = idf * ((this._k1 + 1) * tf) / (this._k1 * (1 - this._b + this._b * (fieldLength / this.averageFieldLength[fieldName])) + tf)
+        score = idf * ((this.#k1 + 1) * tf) / (this.#k1 * (1 - this.#b + this.#b * (fieldLength / this.averageFieldLength[fieldName])) + tf)
       score *= fieldBoost
       score *= docBoost
       scoreWithPrecision = Math.round(score * 1000) / 1000
@@ -2625,10 +2704,8 @@ lunr.Builder.prototype.createFieldVectors = function () {
 
 /**
  * Creates a token set of all tokens in the index using lunr.TokenSet
- *
- * @private
  */
-lunr.Builder.prototype.createTokenSet = function () {
+  #createTokenSet () {
   this.tokenSet = lunr.TokenSet.fromArray(
     Object.keys(this.invertedIndex).sort()
   )
@@ -2642,16 +2719,16 @@ lunr.Builder.prototype.createTokenSet = function () {
  *
  * @returns {lunr.Index}
  */
-lunr.Builder.prototype.build = function () {
-  this.calculateAverageFieldLengths()
-  this.createFieldVectors()
-  this.createTokenSet()
+  build () {
+    this.#calculateAverageFieldLengths()
+    this.#createFieldVectors()
+    this.#createTokenSet()
 
   return new lunr.Index({
     invertedIndex: this.invertedIndex,
     fieldVectors: this.fieldVectors,
     tokenSet: this.tokenSet,
-    fields: Object.keys(this._fields),
+      fields: Object.keys(this.#fields),
     pipeline: this.searchPipeline
   })
 }
@@ -2670,11 +2747,14 @@ lunr.Builder.prototype.build = function () {
  *
  * @param {Function} plugin The plugin to apply.
  */
-lunr.Builder.prototype.use = function (fn) {
+  use (fn) {
   var args = Array.prototype.slice.call(arguments, 1)
   args.unshift(this)
   fn.apply(this, args)
 }
+}
+
+lunr.Builder = Builder
 /**
  * Contains and collects metadata about a matching document.
  * A single instance of lunr.MatchData is returned as part of every

@@ -23,7 +23,7 @@ suite('search', function () {
       var self = this
 
       this.idx = lunr(function () {
-        this.ref('id')
+        this.ref = 'id'
         this.field('title')
         this.field('body', { boost: 10 })
 
@@ -65,7 +65,7 @@ suite('search', function () {
       var self = this
 
       this.idx = lunr(function () {
-        this.ref('id')
+        this.ref = 'id'
         this.field('title')
         this.field('body')
 
@@ -135,7 +135,7 @@ suite('search', function () {
       var self = this
 
       this.idx = lunr(function () {
-        this.ref('id')
+        this.ref = 'id'
         this.field('title')
         this.field('body')
 

@@ -23,7 +23,7 @@ suite('serialization', function () {
     }]
 
     this.idx = lunr(function () {
-      this.ref('id')
+      this.ref = 'id'
       this.field('title')
       this.field('body')
 

@@ -73,7 +73,7 @@ suite('lunr.Builder', function () {
     test('defining fields to index', function () {
       var builder = new lunr.Builder
       builder.field('foo')
-      assert.property(builder._fields, 'foo')
+      assert.property(builder.fields, 'foo')
     })
 
     test('field with illegal characters', function () {
@@ -87,51 +87,51 @@ suite('lunr.Builder', function () {
   suite('#ref', function () {
     test('default reference', function () {
       var builder = new lunr.Builder
-      assert.equal('id', builder._ref)
+      assert.equal('id', builder.ref)
     })
 
     test('defining a reference field', function () {
       var builder = new lunr.Builder
-      builder.ref('foo')
-      assert.equal('foo', builder._ref)
+      builder.ref = 'foo'
+      assert.equal('foo', builder.ref)
     })
   })
 
   suite('#b', function () {
     test('default value', function () {
       var builder = new lunr.Builder
-      assert.equal(0.75, builder._b)
+      assert.equal(0.75, builder.b)
     })
 
     test('values less than zero', function () {
       var builder = new lunr.Builder
-      builder.b(-1)
-      assert.equal(0, builder._b)
+      builder.b = -1
+      assert.equal(0, builder.b)
     })
 
     test('values higher than one', function () {
       var builder = new lunr.Builder
-      builder.b(1.5)
-      assert.equal(1, builder._b)
+      builder.b = 1.5
+      assert.equal(1, builder.b)
     })
 
     test('value within range', function () {
       var builder = new lunr.Builder
-      builder.b(0.5)
-      assert.equal(0.5, builder._b)
+      builder.b = 0.5
+      assert.equal(0.5, builder.b)
     })
   })
 
   suite('#k1', function () {
     test('default value', function () {
       var builder = new lunr.Builder
-      assert.equal(1.2, builder._k1)
+      assert.equal(1.2, builder.k1)
     })
 
     test('values less than zero', function () {
       var builder = new lunr.Builder
-      builder.k1(1.6)
-      assert.equal(1.6, builder._k1)
+      builder.k1 = 1.6
+      assert.equal(1.6, builder.k1)
     })
   })
 
@@ -178,7 +178,7 @@ suite('lunr.Builder', function () {
       var builder = new lunr.Builder,
           doc = { id: 'id', title: 'test', body: 'missing' }
 
-      builder.ref('id')
+      builder.ref = 'id'
       builder.field('title')
       builder.add(doc)
       builder.build()
@@ -216,7 +216,7 @@ suite('lunr.Builder', function () {
       var builder = new lunr.Builder,
           doc = { id: 'id', title: 'test', body: 'missing' }
 
-      builder.ref('id')
+      builder.ref = 'id'
       builder.field('title')
       builder.add(doc)
       assert.instanceOf(builder.build(), lunr.Index)
