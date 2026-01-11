@@ -3085,14 +3085,30 @@ lunr.Query.prototype.term = function (term, options) {
 
   return this
 }
-lunr.QueryParseError = function (message, start, end) {
-  this.name = "QueryParseError"
-  this.message = message
+class QueryParseError extends Error {
+  /**
+   * @property {number}
+   */
+  start
+
+  /**
+   * @property {number}
+   */
+  end
+
+  /**
+   * @param {string} message
+   * @param {number} start
+   * @param {number} end
+   */
+  constructor (message, start, end) {
+    super(message)
   this.start = start
   this.end = end
 }
+}
 
-lunr.QueryParseError.prototype = new Error
+lunr.QueryParseError = QueryParseError
 lunr.QueryLexer = function (str) {
   this.lexemes = []
   this.str = str
