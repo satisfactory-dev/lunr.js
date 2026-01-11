@@ -142,17 +142,17 @@ class FieldRef {
   static joiner = "/"
 
   /**
-   * @property {string}
+   * @type {string}
    */
   docRef
 
   /**
-   * @property {string}
+   * @type {string}
    */
   fieldName
 
   /**
-   * @property {string|undefined}
+   * @type {string|undefined}
    */
   #stringValue
 
@@ -527,7 +527,7 @@ lunr.tokenizer.separator = /[\s-]+/
  */
 class Pipeline {
   /**
-   * @property {lunr.PipelineFunction[]}
+   * @type {lunr.PipelineFunction[]}
    */
   #stack = []
 
@@ -536,7 +536,7 @@ class Pipeline {
   }
 
   /**
-   * @property {object<string, lunr.PipelineFunction>}
+   * @type {Object<string, lunr.PipelineFunction>}
    */
   static registeredFunctions = {}
 
@@ -786,7 +786,7 @@ lunr.Pipeline = Pipeline
  */
 class Vector {
   /**
-   * @property {number}
+   * @type {number}
    */
   #magnitude
 
@@ -1425,7 +1425,7 @@ class TokenSet {
    *
    * TokenSets require a unique identifier to be correctly minimised.
    *
-   * @property {number}
+   * @type {number}
    */
   static #nextId = 1
 
@@ -2391,69 +2391,69 @@ lunr.Index.load = function (serializedIndex) {
  */
 class Builder {
   /**
-   * @property {string} Internal reference to the document reference field.
+   * @type {string} Internal reference to the document reference field.
    */
   #ref
 
   /**
-   * @property {string[]} Internal reference to the document fields to index.
+   * @type {string[]} Internal reference to the document fields to index.
    */
   #fields
 
   #documents
 
   /**
-   * @property {number} A parameter to control field length normalization, setting this to 0 disabled normalization, 1 fully normalizes field lengths, the default value is 0.75.
+   * @type {number} A parameter to control field length normalization, setting this to 0 disabled normalization, 1 fully normalizes field lengths, the default value is 0.75.
    */
   #b
 
   /**
-   * @property {number} A parameter to control how quickly an increase in term frequency results in term frequency saturation, the default value is 1.2.
+   * @type {number} A parameter to control how quickly an increase in term frequency results in term frequency saturation, the default value is 1.2.
    */
   #k1
 
   /**
-   * @property {object} The inverted index maps terms to document fields.
+   * @type {object} The inverted index maps terms to document fields.
    */
   invertedIndex
 
   /**
-   * @property {object} Keeps track of document term frequencies.
+   * @type {object} Keeps track of document term frequencies.
    */
   fieldTermFrequencies
 
   /**
-   * @property {object} Keeps track of the length of documents added to the index.
+   * @type {object} Keeps track of the length of documents added to the index.
    */
   fieldLengths
 
   /**
-   * @property {lunr.tokenizer} Function for splitting strings into tokens for indexing.
+   * @type {lunr.tokenizer} Function for splitting strings into tokens for indexing.
    */
   tokenizer
 
   /**
-   * @property {lunr.Pipeline} The pipeline performs text processing on tokens before indexing.
+   * @type {lunr.Pipeline} The pipeline performs text processing on tokens before indexing.
    */
   pipeline
 
   /**
-   * @property {lunr.Pipeline} A pipeline for processing search terms before querying the index.
+   * @type {lunr.Pipeline} A pipeline for processing search terms before querying the index.
    */
   searchPipeline
 
   /**
-   * @property {number} Keeps track of the total number of documents indexed.
+   * @type {number} Keeps track of the total number of documents indexed.
    */
   documentCount
 
   /**
-   * @property {number} A counter incremented for each unique term, used to identify a terms position in the vector space.
+   * @type {number} A counter incremented for each unique term, used to identify a terms position in the vector space.
    */
   termIndex
 
   /**
-   * @property {array} A list of metadata keys that have been whitelisted for entry in the index.
+   * @type {array} A list of metadata keys that have been whitelisted for entry in the index.
    */
   metadataWhitelist
 
@@ -2845,7 +2845,7 @@ lunr.Builder = Builder
  */
 class MatchData {
   /**
-   * @property {object} metadata - A cloned collection of metadata associated with this document.
+   * @type {object} A cloned collection of metadata associated with this document.
    */
   metadata
 
@@ -3137,12 +3137,12 @@ lunr.Query.prototype.term = function (term, options) {
 }
 class QueryParseError extends Error {
   /**
-   * @property {number}
+   * @type {number}
    */
   start
 
   /**
-   * @property {number}
+   * @type {number}
    */
   end
 
