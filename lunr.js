@@ -1476,7 +1476,7 @@ lunr.TokenSet.fromClause = function (clause) {
  *
  * @param {string} str - The string to create the token set from.
  * @param {number} editDistance - The allowed edit distance to match.
- * @returns {lunr.Vector}
+ * @returns {lunr.TokenSet}
  */
 lunr.TokenSet.fromFuzzyString = function (str, editDistance) {
   var root = new lunr.TokenSet
