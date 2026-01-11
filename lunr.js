@@ -3083,110 +3083,110 @@ class Query {
    * @param {string[]} allFields
    */
   constructor (allFields) {
-  this.clauses = []
-  this.allFields = allFields
-}
+    this.clauses = []
+    this.allFields = allFields
+  }
 
-/**
- * Adds a {@link lunr.Query~Clause} to this query.
- *
- * Unless the clause contains the fields to be matched all fields will be matched. In addition
- * a default boost of 1 is applied to the clause.
- *
- * @param {lunr.Query~Clause} clause - The clause to add to this query.
- * @see lunr.Query~Clause
+  /**
+   * Adds a {@link lunr.Query~Clause} to this query.
+   *
+   * Unless the clause contains the fields to be matched all fields will be matched. In addition
+   * a default boost of 1 is applied to the clause.
+   *
+   * @param {lunr.Query~Clause} clause - The clause to add to this query.
+   * @see lunr.Query~Clause
    * @return {this}
- */
+   */
   clause (clause) {
-  if (!('fields' in clause)) {
-    clause.fields = this.allFields
-  }
-
-  if (!('boost' in clause)) {
-    clause.boost = 1
-  }
-
-  if (!('usePipeline' in clause)) {
-    clause.usePipeline = true
-  }
-
-  if (!('wildcard' in clause)) {
-    clause.wildcard = lunr.Query.wildcard.NONE
-  }
-
-  if ((clause.wildcard & lunr.Query.wildcard.LEADING) && (clause.term.charAt(0) != lunr.Query.wildcard)) {
-    clause.term = "*" + clause.term
-  }
-
-  if ((clause.wildcard & lunr.Query.wildcard.TRAILING) && (clause.term.slice(-1) != lunr.Query.wildcard)) {
-    clause.term = "" + clause.term + "*"
-  }
-
-  if (!('presence' in clause)) {
-    clause.presence = lunr.Query.presence.OPTIONAL
-  }
-
-  this.clauses.push(clause)
-
-  return this
-}
-
-/**
- * A negated query is one in which every clause has a presence of
- * prohibited. These queries require some special processing to return
- * the expected results.
- *
-   * @return {boolean}
- */
-  isNegated () {
-  for (var i = 0; i < this.clauses.length; i++) {
-    if (this.clauses[i].presence != lunr.Query.presence.PROHIBITED) {
-      return false
+    if (!('fields' in clause)) {
+      clause.fields = this.allFields
     }
-  }
 
-  return true
-}
+    if (!('boost' in clause)) {
+      clause.boost = 1
+    }
 
-/**
- * Adds a term to the current query, under the covers this will create a {@link lunr.Query~Clause}
- * to the list of clauses that make up this query.
- *
- * The term is used as is, i.e. no tokenization will be performed by this method. Instead conversion
- * to a token or token-like string should be done before calling this method.
- *
- * The term will be converted to a string by calling `toString`. Multiple terms can be passed as an
- * array, each term in the array will share the same options.
- *
- * @param {object|object[]} term - The term(s) to add to the query.
- * @param {object} [options] - Any additional properties to add to the query clause.
-   * @return {this}
- * @see lunr.Query#clause
- * @see lunr.Query~Clause
- * @example <caption>adding a single term to a query</caption>
- * query.term("foo")
- * @example <caption>adding a single term to a query and specifying search fields, term boost and automatic trailing wildcard</caption>
- * query.term("foo", {
- *   fields: ["title"],
- *   boost: 10,
- *   wildcard: lunr.Query.wildcard.TRAILING
- * })
- * @example <caption>using lunr.tokenizer to convert a string to tokens before using them as terms</caption>
- * query.term(lunr.tokenizer("foo bar"))
- */
-  term (term, options) {
-  if (Array.isArray(term)) {
-    term.forEach(function (t) { this.term(t, lunr.utils.clone(options)) }, this)
+    if (!('usePipeline' in clause)) {
+      clause.usePipeline = true
+    }
+
+    if (!('wildcard' in clause)) {
+      clause.wildcard = lunr.Query.wildcard.NONE
+    }
+
+    if ((clause.wildcard & lunr.Query.wildcard.LEADING) && (clause.term.charAt(0) != lunr.Query.wildcard)) {
+      clause.term = "*" + clause.term
+    }
+
+    if ((clause.wildcard & lunr.Query.wildcard.TRAILING) && (clause.term.slice(-1) != lunr.Query.wildcard)) {
+      clause.term = "" + clause.term + "*"
+    }
+
+    if (!('presence' in clause)) {
+      clause.presence = lunr.Query.presence.OPTIONAL
+    }
+
+    this.clauses.push(clause)
+
     return this
   }
 
-  var clause = options || {}
-  clause.term = term.toString()
+  /**
+   * A negated query is one in which every clause has a presence of
+   * prohibited. These queries require some special processing to return
+   * the expected results.
+   *
+   * @return {boolean}
+   */
+  isNegated () {
+    for (var i = 0; i < this.clauses.length; i++) {
+      if (this.clauses[i].presence != lunr.Query.presence.PROHIBITED) {
+        return false
+      }
+    }
 
-  this.clause(clause)
+    return true
+  }
 
-  return this
-}
+  /**
+   * Adds a term to the current query, under the covers this will create a {@link lunr.Query~Clause}
+   * to the list of clauses that make up this query.
+   *
+   * The term is used as is, i.e. no tokenization will be performed by this method. Instead conversion
+   * to a token or token-like string should be done before calling this method.
+   *
+   * The term will be converted to a string by calling `toString`. Multiple terms can be passed as an
+   * array, each term in the array will share the same options.
+   *
+   * @param {object|object[]} term - The term(s) to add to the query.
+   * @param {object} [options] - Any additional properties to add to the query clause.
+   * @return {this}
+   * @see lunr.Query#clause
+   * @see lunr.Query~Clause
+   * @example <caption>adding a single term to a query</caption>
+   * query.term("foo")
+   * @example <caption>adding a single term to a query and specifying search fields, term boost and automatic trailing wildcard</caption>
+   * query.term("foo", {
+   *   fields: ["title"],
+   *   boost: 10,
+   *   wildcard: lunr.Query.wildcard.TRAILING
+   * })
+   * @example <caption>using lunr.tokenizer to convert a string to tokens before using them as terms</caption>
+   * query.term(lunr.tokenizer("foo bar"))
+   */
+  term (term, options) {
+    if (Array.isArray(term)) {
+      term.forEach(function (t) { this.term(t, lunr.utils.clone(options)) }, this)
+      return this
+    }
+
+    var clause = options || {}
+    clause.term = term.toString()
+
+    this.clause(clause)
+
+    return this
+  }
 }
 
 lunr.Query = Query
