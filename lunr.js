@@ -1411,6 +1411,20 @@ lunr.Pipeline.registerFunction(lunr.trimmer, 'trimmer')
  * This helps to reduce the space used for storing the token set.
  */
 class TokenSet {
+  /**
+   * @property {boolean}
+   */
+  final
+
+  /**
+   * @property {object<string, TokenSet>}
+   */
+  edges
+
+  /**
+   * @property {number}
+   */
+  id
 
   constructor () {
     this.final = false
@@ -1813,14 +1827,48 @@ lunr.TokenSet = TokenSet
  * Copyright (C) 2020 Oliver Nightingale
  */
 
-lunr.TokenSet.Builder = function () {
+/**
+ * @typedef {Object} TokenSetBuilderNode
+ * @property {TokenSet|TokenSetBuilderNode} parent
+ * @property {string} char
+ * @property {TokenSetBuilderNode} child
+ */
+
+
+class TokenSetBuilder {
+  /**
+   * @type {string}
+   */
+  previousWord
+
+  /**
+   * @type {TokenSet}
+   */
+  root
+
+  /**
+   * @type {TokenSetBuilderNode[]}
+   */
+  uncheckedNodes
+
+  /**
+   * @type {Object<string, TokenSetBuilderNode>}
+   */
+  minimizedNodes
+
+  constructor () {
   this.previousWord = ""
   this.root = new lunr.TokenSet
   this.uncheckedNodes = []
   this.minimizedNodes = {}
 }
 
-lunr.TokenSet.Builder.prototype.insert = function (word) {
+  /**
+   * @param {string} word
+   *
+   * @return {void}
+   */
+  insert (word) {
   var node,
       commonPrefix = 0
 
@@ -1860,11 +1908,16 @@ lunr.TokenSet.Builder.prototype.insert = function (word) {
   this.previousWord = word
 }
 
-lunr.TokenSet.Builder.prototype.finish = function () {
+  finish () {
   this.minimize(0)
 }
 
-lunr.TokenSet.Builder.prototype.minimize = function (downTo) {
+  /**
+   * @param {number} downTo
+   *
+   * @return {void}
+   */
+  minimize (downTo) {
   for (var i = this.uncheckedNodes.length - 1; i >= downTo; i--) {
     var node = this.uncheckedNodes[i],
         childKey = node.child.toString()
@@ -1882,6 +1935,9 @@ lunr.TokenSet.Builder.prototype.minimize = function (downTo) {
     this.uncheckedNodes.pop()
   }
 }
+}
+
+lunr.TokenSet.Builder = TokenSetBuilder
 /*!
  * lunr.Index
  * Copyright (C) 2020 Oliver Nightingale
