@@ -45,7 +45,7 @@ suite('lunr.TokenSet', function () {
 
   suite('.fromString', function () {
     test('without wildcard', function () {
-      lunr.TokenSet._nextId = 1
+      lunr.TokenSet.resetNextId()
       var x = lunr.TokenSet.fromString('a')
 
       assert.equal(x.toString(), '0a2')

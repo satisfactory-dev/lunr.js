@@ -1388,6 +1388,7 @@ lunr.Pipeline.registerFunction(lunr.trimmer, 'trimmer')
 /*!
  * lunr.TokenSet
  * Copyright (C) 2020 Oliver Nightingale
+ * Copyright (C) 2026 SignpostMarv
  */
 
 /**
@@ -1408,14 +1409,14 @@ lunr.Pipeline.registerFunction(lunr.trimmer, 'trimmer')
  * Token sets are implemented as a minimal finite state automata,
  * where both common prefixes and suffixes are shared between tokens.
  * This helps to reduce the space used for storing the token set.
- *
- * @constructor
  */
-lunr.TokenSet = function () {
+class TokenSet {
+
+  constructor () {
   this.final = false
   this.edges = {}
-  this.id = lunr.TokenSet._nextId
-  lunr.TokenSet._nextId += 1
+    this.id = TokenSet.#nextId
+    TokenSet.#nextId += 1
 }
 
 /**
@@ -1424,18 +1425,22 @@ lunr.TokenSet = function () {
  *
  * TokenSets require a unique identifier to be correctly minimised.
  *
- * @private
+   * @property {number}
  */
-lunr.TokenSet._nextId = 1
+  static #nextId = 1
+
+  static resetNextId () {
+    this.#nextId = 1
+  }
 
 /**
  * Creates a TokenSet instance from the given sorted array of words.
  *
  * @param {String[]} arr - A sorted array of strings to create the set from.
- * @returns {lunr.TokenSet}
+   * @return {TokenSet}
  * @throws Will throw an error if the input array is not sorted.
  */
-lunr.TokenSet.fromArray = function (arr) {
+  static fromArray (arr) {
   var builder = new lunr.TokenSet.Builder
 
   for (var i = 0, len = arr.length; i < len; i++) {
@@ -1453,13 +1458,13 @@ lunr.TokenSet.fromArray = function (arr) {
  * @param {Object} clause - A single clause from lunr.Query.
  * @param {string} clause.term - The query clause term.
  * @param {number} [clause.editDistance] - The optional edit distance for the term.
- * @returns {lunr.TokenSet}
+   * @return {TokenSet}
  */
-lunr.TokenSet.fromClause = function (clause) {
+  static fromClause (clause) {
   if ('editDistance' in clause) {
-    return lunr.TokenSet.fromFuzzyString(clause.term, clause.editDistance)
+    return this.fromFuzzyString(clause.term, clause.editDistance)
   } else {
-    return lunr.TokenSet.fromString(clause.term)
+    return this.fromString(clause.term)
   }
 }
 
@@ -1476,10 +1481,10 @@ lunr.TokenSet.fromClause = function (clause) {
  *
  * @param {string} str - The string to create the token set from.
  * @param {number} editDistance - The allowed edit distance to match.
- * @returns {lunr.TokenSet}
+   * @return {TokenSet}
  */
-lunr.TokenSet.fromFuzzyString = function (str, editDistance) {
-  var root = new lunr.TokenSet
+  static fromFuzzyString (str, editDistance) {
+  var root = new TokenSet
 
   var stack = [{
     node: root,
@@ -1498,7 +1503,7 @@ lunr.TokenSet.fromFuzzyString = function (str, editDistance) {
       if (char in frame.node.edges) {
         noEditNode = frame.node.edges[char]
       } else {
-        noEditNode = new lunr.TokenSet
+        noEditNode = new TokenSet
         frame.node.edges[char] = noEditNode
       }
 
@@ -1521,7 +1526,7 @@ lunr.TokenSet.fromFuzzyString = function (str, editDistance) {
     if ("*" in frame.node.edges) {
       var insertionNode = frame.node.edges["*"]
     } else {
-      var insertionNode = new lunr.TokenSet
+      var insertionNode = new TokenSet
       frame.node.edges["*"] = insertionNode
     }
 
@@ -1559,7 +1564,7 @@ lunr.TokenSet.fromFuzzyString = function (str, editDistance) {
       if ("*" in frame.node.edges) {
         var substitutionNode = frame.node.edges["*"]
       } else {
-        var substitutionNode = new lunr.TokenSet
+        var substitutionNode = new TokenSet
         frame.node.edges["*"] = substitutionNode
       }
 
@@ -1585,7 +1590,7 @@ lunr.TokenSet.fromFuzzyString = function (str, editDistance) {
       if (charB in frame.node.edges) {
         transposeNode = frame.node.edges[charB]
       } else {
-        transposeNode = new lunr.TokenSet
+        transposeNode = new TokenSet
         frame.node.edges[charB] = transposeNode
       }
 
@@ -1612,10 +1617,10 @@ lunr.TokenSet.fromFuzzyString = function (str, editDistance) {
  * another TokenSet.
  *
  * @param {string} str - The string to create a TokenSet from.
- * @returns {lunr.TokenSet}
+   * @return {TokenSet}
  */
-lunr.TokenSet.fromString = function (str) {
-  var node = new lunr.TokenSet,
+  static fromString = function (str) {
+  var node = new TokenSet,
       root = node
 
   /*
@@ -1635,7 +1640,7 @@ lunr.TokenSet.fromString = function (str) {
       node.final = final
 
     } else {
-      var next = new lunr.TokenSet
+      var next = new TokenSet
       next.final = final
 
       node.edges[char] = next
@@ -1656,7 +1661,7 @@ lunr.TokenSet.fromString = function (str) {
  *
  * @returns {string[]}
  */
-lunr.TokenSet.prototype.toArray = function () {
+  toArray () {
   var words = []
 
   var stack = [{
@@ -1701,7 +1706,7 @@ lunr.TokenSet.prototype.toArray = function () {
  *
  * @returns {string}
  */
-lunr.TokenSet.prototype.toString = function () {
+  toString () {
   // NOTE: Using Object.keys here as this.edges is very likely
   // to enter 'hash-mode' with many keys being added
   //
@@ -1735,11 +1740,11 @@ lunr.TokenSet.prototype.toString = function () {
  * This intersection will take into account any wildcards
  * contained within the TokenSet.
  *
- * @param {lunr.TokenSet} b - An other TokenSet to intersect with.
- * @returns {lunr.TokenSet}
+ * @param {TokenSet} b - An other TokenSet to intersect with.
+   * @return {TokenSet}
  */
-lunr.TokenSet.prototype.intersect = function (b) {
-  var output = new lunr.TokenSet,
+  intersect (b) {
+  var output = new TokenSet,
       frame = undefined
 
   var stack = [{
@@ -1783,7 +1788,7 @@ lunr.TokenSet.prototype.intersect = function (b) {
             // no edge exists yet, must create one
             // set the finality bit and insert it
             // into the output
-            next = new lunr.TokenSet
+            next = new TokenSet
             next.final = final
             frame.output.edges[nEdge] = next
           }
@@ -1800,6 +1805,9 @@ lunr.TokenSet.prototype.intersect = function (b) {
 
   return output
 }
+}
+
+lunr.TokenSet = TokenSet
 lunr.TokenSet.Builder = function () {
   this.previousWord = ""
   this.root = new lunr.TokenSet
