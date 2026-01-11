@@ -3010,6 +3010,11 @@ class MatchData {
 }
 
 lunr.MatchData = MatchData
+/*!
+ * lunr.Query
+ * Copyright (C) 2020 Oliver Nightingale
+ */
+
 /**
  * A lunr.Query provides a programmatic way of defining queries to be performed
  * against a {@link lunr.Index}.
