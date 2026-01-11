@@ -4,5 +4,10 @@ test/env/file_list.json
 /bower.json
 /component.json
 /coverage/
+/lunr.js
+/lunr.js.map
 /lunr.min.js
+/lunr.min.js.map
+/lunr.min.mjs
+/lunr.min.mjs.map
 /.devcontainer/.env

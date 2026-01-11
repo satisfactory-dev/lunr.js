@@ -22,7 +22,7 @@ suite('search', function () {
     setup(function () {
       var self = this
 
-      this.idx = lunr(function () {
+      this.idx = lunr.default(function () {
         this.ref = 'id'
         this.field('title')
         this.field('body', { boost: 10 })
@@ -64,7 +64,7 @@ suite('search', function () {
     setup(function () {
       var self = this
 
-      this.idx = lunr(function () {
+      this.idx = lunr.default(function () {
         this.ref = 'id'
         this.field('title')
         this.field('body')
@@ -134,7 +134,7 @@ suite('search', function () {
     setup(function () {
       var self = this
 
-      this.idx = lunr(function () {
+      this.idx = lunr.default(function () {
         this.ref = 'id'
         this.field('title')
         this.field('body')

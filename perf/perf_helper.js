@@ -1,7 +1,7 @@
-var lunr = require('../lunr.js'),
-    Benchmark = require('benchmark'),
-    wordList = require('word-list'),
-    fs = require('fs')
+import lunr from '../lunr.mjs'
+import Benchmark from 'benchmark'
+import wordList from 'word-list'
+import fs from 'node:fs'
 
 var suite = function (name, fn) {
   var s = new Benchmark.Suite(name, {

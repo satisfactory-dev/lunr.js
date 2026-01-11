@@ -26,3 +26,17 @@ services:
         volumes:
             - ./coverage.conf:/etc/nginx/conf.d/default.conf
             - ../coverage/:/app/
+    tests:
+        env_file:
+            - .env
+        image: nginxinc/nginx-unprivileged:1.29-alpine
+        restart: unless-stopped
+        ports:
+            - '${PORT_TESTS:-8003}:80'
+        volumes:
+            - ./tests.conf:/etc/nginx/conf.d/default.conf
+            - ./tests.mime.types:/etc/nginx/mime.types
+            - ../test/index.html:/app/index.html
+            - ../lunr.mjs:/app/lunr.mjs
+            - ../lib/:/app/lib/
+            - ../test/:/app/test/

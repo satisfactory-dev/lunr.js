@@ -22,7 +22,7 @@ suite('serialization', function () {
       wordCount: 7
     }]
 
-    this.idx = lunr(function () {
+    this.idx = lunr.default(function () {
       this.ref = 'id'
       this.field('title')
       this.field('body')

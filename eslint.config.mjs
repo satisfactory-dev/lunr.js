@@ -26,6 +26,7 @@ export default defineConfig([{
       ...globals.browser,
       ...globals.node,
       ...globals.mocha,
+      assert: true,
       lunr: true
     }
   },
@@ -91,6 +92,10 @@ export default defineConfig([{
         "com",
         "olivernn",
         "github",
+        "mjs",
+        "esm",
+        "umd",
+        "vars",
         "js"
       ]
     }],

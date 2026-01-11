@@ -3,14 +3,16 @@
   <meta charset="utf-8">
   <title>Mocha Tests</title>
   <link href="/test/env/mocha.css" rel="stylesheet" />
+  <script type="module">
+  import lunr from '/lunr.mjs';
+  globalThis.lunr = lunr;
+  </script>
 </head>
 <body>
   <div id="mocha"></div>
 
   <script src="/test/env/mocha.js"></script>
   <script src="/test/env/chai.js"></script>
-  <script src="/lunr.js"></script>
-
   <script>
     mocha.setup('tdd')
     window.assert = chai.assert
@@ -35,9 +37,11 @@
   <script src="/{{{.}}}"></script>
   {{/test_files}}
   <script>
+  import('/lunr.mjs').then(() => {
     mocha.checkLeaks();
     mocha.globals(['lunr']);
     mocha.run();
+  });
   </script>
 </body>
 </html>

@@ -1,3 +1,5 @@
+import * as lunr from '../lunr.mjs'
+
 suite('lunr.QueryParser', function () {
   var parse = function (q) {
     var query = new lunr.Query (['title', 'body']),

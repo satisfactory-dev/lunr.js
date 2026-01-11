@@ -1,26 +1,3 @@
-
-SRC = lib/lunr.js \
-	lib/utils.js \
-	lib/field_ref.js \
-	lib/set.js \
-	lib/token.js \
-	lib/tokenizer.js \
-	lib/pipeline.js \
-	lib/vector.js \
-	lib/stemmer.js \
-	lib/stop_word_filter.js \
-	lib/trimmer.js \
-	lib/token_set.js \
-	lib/token_set_builder.js \
-	lib/index.js \
-	lib/builder.js \
-	lib/match_data.js \
-	lib/query.js \
-	lib/query_parse_error.js \
-	lib/query_lexer.js \
-	lib/query_parser.js \
-
-YEAR = $(shell date +%Y)
 VERSION = $(shell cat VERSION)
 
 NODE ?= $(shell which node)
@@ -33,29 +10,18 @@ JSDOC ?= ./node_modules/.bin/jsdoc
 NODE_STATIC ?= ./node_modules/.bin/static
 
 all: test lint docs
-release: lunr.js lunr.min.js bower.json package.json component.json docs
+release: lunr.js docs
 
-lunr.js: $(SRC)
-	cat build/wrapper_start $^ build/wrapper_end | \
-	sed "s/@YEAR/${YEAR}/" | \
-	sed "s/@VERSION/${VERSION}/" > $@
+lunr.js:
+	./node_modules/.bin/rolldown -c ./rolldown.config.mjs
 
-lunr.min.js: lunr.js
-	${UGLIFYJS} --compress --mangle --comments < $< > $@
-
-%.json: build/%.json.template
-	cat $< | sed "s/@VERSION/${VERSION}/" > $@
-
-size: lunr.min.js
+size: lunr.js
 	@gzip -c lunr.min.js | wc -c
 
-server: test/index.html
-	${NODE_STATIC} -a 0.0.0.0 -H '{"Cache-Control": "no-cache, must-revalidate"}'
+lint:
+	${ESLINT} './lib/*.mjs'
 
-lint: $(SRC)
-	${ESLINT} $^
-
-perf/*_perf.js:
+perf/*_perf.js: lunr.js
 	${NODE} -r ./perf/perf_helper.js $@
 
 benchmark: perf/*_perf.js
@@ -72,18 +38,14 @@ test/env/file_list.json: $(wildcard test/*test.js)
 test/index.html: test/env/file_list.json test/env/index.mustache
 	${MUSTACHE} $^ > $@
 
-docs: $(SRC)
-	${JSDOC} -R README.md -d docs -c build/jsdoc.conf.json $^
+docs:
+	${JSDOC} lib -r -R README.md -d docs -c build/jsdoc.conf.json
 
 clean:
 	rm -f lunr{.min,}.js
-	rm -rf docs
-	rm *.json
+	git clean -fxd docs
 
 reset:
 	git checkout lunr.* *.json
 
-node_modules: package.json
-	${NPM} -s install
-
-.PHONY: test clean docs reset perf/*_perf.js test/inspect lunr.js
+.PHONY: test clean docs reset perf/*_perf.js test/inspect lunr.js test/index.html

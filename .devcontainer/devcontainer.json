@@ -3,7 +3,7 @@
 	"dockerComposeFile": "./docker-compose.yml",
 	"service": "devcontainer",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-	"postCreateCommand": "npm config set git-tag-version=false && npm install && echo \"source ./.devcontainer/.post-create\" >> /home/vscode/.bashrc",
+	"postCreateCommand": "npm config set git-tag-version=false && npm install",
 	"remoteUser": "vscode",
 	"updateRemoteUserUID": true,
 	"customizations": {
@@ -16,7 +16,12 @@
 				"ms-vscode.makefile-tools"
 			],
 			"settings": {
-				"chat.agent.enabled": false
+				"chat.agent.enabled": false,
+				"explorer.fileNesting.patterns": {
+					"*.js": "${capture}.js.map, ${capture}.min.js",
+					"*.mjs": "${capture}.mjs.map, ${capture}.min.mjs",
+					"package.json": "package-lock.json"
+				}
 			}
 		}
 	},

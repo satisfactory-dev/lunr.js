@@ -1,4 +1,6 @@
-suite('lunr.Pipeline', function () {  
+import * as lunr from '../lunr.mjs'
+
+suite('lunr.Pipeline', function () {
   var tokenToToken = function(token) {
     return token
   }
@@ -8,8 +10,8 @@ suite('lunr.Pipeline', function () {
   }
 
   var buildTokens = function(count) {
-    return words.slice(0, count).map(function(word) { 
-      return new lunr.Token(word) 
+    return words.slice(0, count).map(function(word) {
+      return new lunr.Token(word)
     })
   }
 
@@ -18,7 +20,7 @@ suite('lunr.Pipeline', function () {
 
   var fewTokens = buildTokens(50);
   var manyTokens = buildTokens(1000)
-  
+
   var tokenToTokenPipeline = new lunr.Pipeline
   tokenToTokenPipeline.add(tokenToToken)
 

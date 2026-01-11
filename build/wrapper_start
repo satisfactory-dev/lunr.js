@@ -1,9 +1,0 @@
-/**
- * lunr - http://lunrjs.com - A bit like Solr, but much smaller and not as bright - @VERSION
- * Copyright (C) 2020 Oliver Nightingale
- * Copyright (C) @YEAR SignpostMarv
- * @license MIT
- */
-
-;(function (){
-
