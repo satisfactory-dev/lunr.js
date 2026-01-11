@@ -17,7 +17,7 @@ suite('lunr.Vector', function () {
   }
 
   this.add('magnitude', function () {
-    v1.magnitude()
+    v1.magnitude
   })
 
   this.add('dot', function () {

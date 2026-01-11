@@ -13,7 +13,7 @@ suite('lunr.Vector', function () {
   suite('#magnitude', function () {
     test('calculates magnitude of a vector', function () {
       var vector = vectorFromArgs(4,5,6)
-      assert.equal(Math.sqrt(77), vector.magnitude())
+      assert.equal(Math.sqrt(77), vector.magnitude)
     })
   })
 
@@ -55,11 +55,11 @@ suite('lunr.Vector', function () {
     test('invalidates magnitude cache', function () {
       var vector = vectorFromArgs(4,5,6)
 
-      assert.equal(Math.sqrt(77), vector.magnitude())
+      assert.equal(Math.sqrt(77), vector.magnitude)
 
       vector.insert(3, 7)
 
-      assert.equal(Math.sqrt(126), vector.magnitude())
+      assert.equal(Math.sqrt(126), vector.magnitude)
     })
 
     test('keeps items in index specified order', function () {
@@ -82,11 +82,11 @@ suite('lunr.Vector', function () {
     test('invalidates magnitude cache', function () {
       var vector = vectorFromArgs(4,5,6)
 
-      assert.equal(Math.sqrt(77), vector.magnitude())
+      assert.equal(Math.sqrt(77), vector.magnitude)
 
       vector.upsert(3, 7)
 
-      assert.equal(Math.sqrt(126), vector.magnitude())
+      assert.equal(Math.sqrt(126), vector.magnitude)
     })
 
     test('keeps items in index specified order', function () {
