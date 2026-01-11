@@ -342,27 +342,6 @@ lunr.Set.prototype.union = function (other) {
   return new lunr.Set(Object.keys(this.elements).concat(Object.keys(other.elements)))
 }
 /**
- * A function to calculate the inverse document frequency for
- * a posting. This is shared between the builder and the index
- *
- * @private
- * @param {object} posting - The posting for a given term
- * @param {number} documentCount - The total number of documents.
- */
-lunr.idf = function (posting, documentCount) {
-  var documentsWithTerm = 0
-
-  for (var fieldName in posting) {
-    if (fieldName == '_index') continue // Ignore the term index, its not a field
-    documentsWithTerm += Object.keys(posting[fieldName]).length
-  }
-
-  var x = (documentCount - documentsWithTerm + 0.5) / (documentsWithTerm + 0.5)
-
-  return Math.log(1 + Math.abs(x))
-}
-
-/**
  * A token wraps a string representation of a token
  * as it is passed through the text processing pipeline.
  *
@@ -2710,7 +2689,7 @@ class Builder {
             idf, score, scoreWithPrecision
 
         if (termIdfCache[term] === undefined) {
-          idf = lunr.idf(this.invertedIndex[term], this.documentCount)
+          idf = this.#idf(this.invertedIndex[term], this.documentCount)
           termIdfCache[term] = idf
         } else {
           idf = termIdfCache[term]
@@ -2743,6 +2722,26 @@ class Builder {
     this.tokenSet = lunr.TokenSet.fromArray(
       Object.keys(this.invertedIndex).sort()
     )
+  }
+
+  /**
+   * A function to calculate the inverse document frequency for
+   * a posting. This is shared between the builder and the index
+   *
+   * @param {object} posting - The posting for a given term
+   * @param {number} documentCount - The total number of documents.
+   */
+  #idf (posting, documentCount) {
+    var documentsWithTerm = 0
+
+    for (var fieldName in posting) {
+      if (fieldName == '_index') continue // Ignore the term index, its not a field
+      documentsWithTerm += Object.keys(posting[fieldName]).length
+    }
+
+    var x = (documentCount - documentsWithTerm + 0.5) / (documentsWithTerm + 0.5)
+
+    return Math.log(1 + Math.abs(x))
   }
 
   /**
