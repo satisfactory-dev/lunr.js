@@ -3335,6 +3335,7 @@ lunr.QueryParseError = QueryParseError
 /*!
  * lunr.QueryLexer
  * Copyright (C) 2020 Oliver Nightingale
+ * Copyright (C) 2026 SignpostMarv
  */
 
 /**
@@ -3345,13 +3346,16 @@ lunr.QueryParseError = QueryParseError
  * @property {number} end
  */
 
-/**
- * @constructor
- * @param {string} str
- *
- * @property {lunr.QueryLexeme[]} lexemes
- */
-lunr.QueryLexer = function (str) {
+class QueryLexer {
+  /**
+   * @type {lunr.QueryLexeme[]}
+   */
+  lexemes
+
+  /**
+   * @param {string} str
+   */
+  constructor (str) {
   this.lexemes = []
   this.str = str
   this.length = str.length
@@ -3360,7 +3364,7 @@ lunr.QueryLexer = function (str) {
   this.escapeCharPositions = []
 }
 
-lunr.QueryLexer.prototype.run = function () {
+  run () {
   var state = lunr.QueryLexer.lexText
 
   while (state) {
@@ -3368,7 +3372,7 @@ lunr.QueryLexer.prototype.run = function () {
   }
 }
 
-lunr.QueryLexer.prototype.sliceString = function () {
+  sliceString () {
   var subSlices = [],
       sliceStart = this.start,
       sliceEnd = this.pos
@@ -3385,7 +3389,7 @@ lunr.QueryLexer.prototype.sliceString = function () {
   return subSlices.join('')
 }
 
-lunr.QueryLexer.prototype.emit = function (type) {
+  emit (type) {
   this.lexemes.push({
     type: type,
     str: this.sliceString(),
@@ -3396,12 +3400,12 @@ lunr.QueryLexer.prototype.emit = function (type) {
   this.start = this.pos
 }
 
-lunr.QueryLexer.prototype.escapeCharacter = function () {
+  escapeCharacter () {
   this.escapeCharPositions.push(this.pos - 1)
   this.pos += 1
 }
 
-lunr.QueryLexer.prototype.next = function () {
+  next () {
   if (this.pos >= this.length) {
     return lunr.QueryLexer.EOS
   }
@@ -3411,11 +3415,11 @@ lunr.QueryLexer.prototype.next = function () {
   return char
 }
 
-lunr.QueryLexer.prototype.width = function () {
+  width () {
   return this.pos - this.start
 }
 
-lunr.QueryLexer.prototype.ignore = function () {
+  ignore () {
   if (this.start == this.pos) {
     this.pos += 1
   }
@@ -3423,11 +3427,11 @@ lunr.QueryLexer.prototype.ignore = function () {
   this.start = this.pos
 }
 
-lunr.QueryLexer.prototype.backup = function () {
+  backup () {
   this.pos -= 1
 }
 
-lunr.QueryLexer.prototype.acceptDigitRun = function () {
+  acceptDigitRun () {
   var char, charCode
 
   do {
@@ -3440,25 +3444,60 @@ lunr.QueryLexer.prototype.acceptDigitRun = function () {
   }
 }
 
-lunr.QueryLexer.prototype.more = function () {
+  more () {
   return this.pos < this.length
 }
 
-lunr.QueryLexer.EOS = 'EOS'
-lunr.QueryLexer.FIELD = 'FIELD'
-lunr.QueryLexer.TERM = 'TERM'
-lunr.QueryLexer.EDIT_DISTANCE = 'EDIT_DISTANCE'
-lunr.QueryLexer.BOOST = 'BOOST'
-lunr.QueryLexer.PRESENCE = 'PRESENCE'
+  /**
+   * @return {'EOS'}
+   */
+  static get EOS () {
+    return 'EOS'
+  }
 
-lunr.QueryLexer.lexField = function (lexer) {
+  /**
+   * @return {'FIELD'}
+   */
+  static get FIELD () {
+    return 'FIELD'
+  }
+
+  /**
+   * @return {'TERM'}
+   */
+  static get TERM () {
+    return 'TERM'
+  }
+
+  /**
+   * @return {'EDIT_DISTANCE'}
+   */
+  static get EDIT_DISTANCE () {
+    return 'EDIT_DISTANCE'
+  }
+
+  /**
+   * @return {'BOOST'}
+   */
+  static get BOOST () {
+    return 'BOOST'
+  }
+
+  /**
+   * @return {'PRESENCE'}
+   */
+  static get PRESENCE () {
+    return 'PRESENCE'
+  }
+
+  static lexField (lexer) {
   lexer.backup()
   lexer.emit(lunr.QueryLexer.FIELD)
   lexer.ignore()
   return lunr.QueryLexer.lexText
 }
 
-lunr.QueryLexer.lexTerm = function (lexer) {
+  static lexTerm (lexer) {
   if (lexer.width() > 1) {
     lexer.backup()
     lexer.emit(lunr.QueryLexer.TERM)
@@ -3471,26 +3510,30 @@ lunr.QueryLexer.lexTerm = function (lexer) {
   }
 }
 
-lunr.QueryLexer.lexEditDistance = function (lexer) {
+  static lexEditDistance (lexer) {
   lexer.ignore()
   lexer.acceptDigitRun()
   lexer.emit(lunr.QueryLexer.EDIT_DISTANCE)
   return lunr.QueryLexer.lexText
 }
 
-lunr.QueryLexer.lexBoost = function (lexer) {
+  static lexBoost (lexer) {
   lexer.ignore()
   lexer.acceptDigitRun()
   lexer.emit(lunr.QueryLexer.BOOST)
   return lunr.QueryLexer.lexText
 }
 
-lunr.QueryLexer.lexEOS = function (lexer) {
+  static lexEOS (lexer) {
   if (lexer.width() > 0) {
     lexer.emit(lunr.QueryLexer.TERM)
   }
 }
 
+  /**
+   * @return {RegExp}
+   */
+  static get termSeparator () {
 // This matches the separator used when tokenising fields
 // within a document. These should match otherwise it is
 // not possible to search for some tokens within a document.
@@ -3502,9 +3545,10 @@ lunr.QueryLexer.lexEOS = function (lexer) {
 // This means that it is possible to change the separator in
 // such a way that makes some words unsearchable using a search
 // string.
-lunr.QueryLexer.termSeparator = lunr.tokenizer.separator
+    return lunr.tokenizer.separator;
+  }
 
-lunr.QueryLexer.lexText = function (lexer) {
+  static lexText (lexer) {
   while (true) {
     var char = lexer.next()
 
@@ -3559,6 +3603,9 @@ lunr.QueryLexer.lexText = function (lexer) {
     }
   }
 }
+}
+
+lunr.QueryLexer = QueryLexer
 
 /*!
  * lunr.QueryParser
