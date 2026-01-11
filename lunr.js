@@ -3103,9 +3103,9 @@ class QueryParseError extends Error {
    */
   constructor (message, start, end) {
     super(message)
-  this.start = start
-  this.end = end
-}
+    this.start = start
+    this.end = end
+  }
 }
 
 lunr.QueryParseError = QueryParseError
