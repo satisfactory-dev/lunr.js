@@ -35,6 +35,7 @@ export default defineConfig([{
       lang: "en_GB",
 
       skipWords: [
+        "Marv",
         "lunr",
         "val",
         "param",
