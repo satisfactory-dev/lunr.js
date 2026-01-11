@@ -2454,69 +2454,95 @@ lunr.Index.load = function (serializedIndex) {
  */
 class Builder {
   /**
-   * @type {string} Internal reference to the document reference field.
+   * Internal reference to the document reference field.
+   *
+   * @type {string}
    */
   #ref
 
   /**
-   * @type {string[]} Internal reference to the document fields to index.
+   * Internal reference to the document fields to index.
+   *
+   * @type {string[]}
    */
   #fields
 
   #documents
 
   /**
-   * @type {number} A parameter to control field length normalization, setting this to 0 disabled normalization, 1 fully normalizes field lengths, the default value is 0.75.
+   * A parameter to control field length normalization, setting this to 0 disabled normalization, 1 fully normalizes field lengths, the default value is 0.75.
+   *
+   * @type {number}
    */
   #b
 
   /**
-   * @type {number} A parameter to control how quickly an increase in term frequency results in term frequency saturation, the default value is 1.2.
+   * A parameter to control how quickly an increase in term frequency results in term frequency saturation, the default value is 1.2.
+   *
+   * @type {number}
    */
   #k1
 
   /**
-   * @type {object} The inverted index maps terms to document fields.
+   * The inverted index maps terms to document fields.
+   *
+   * @type {object}
    */
   invertedIndex
 
   /**
-   * @type {object} Keeps track of document term frequencies.
+   * Keeps track of document term frequencies.
+   *
+   * @type {object}
    */
   fieldTermFrequencies
 
   /**
-   * @type {object} Keeps track of the length of documents added to the index.
+   * Keeps track of the length of documents added to the index.
+   *
+   * @type {object}
    */
   fieldLengths
 
   /**
-   * @type {lunr.tokenizer} Function for splitting strings into tokens for indexing.
+   * Function for splitting strings into tokens for indexing.
+   *
+   * @type {lunr.tokenizer}
    */
   tokenizer
 
   /**
-   * @type {lunr.Pipeline} The pipeline performs text processing on tokens before indexing.
+   * The pipeline performs text processing on tokens before indexing.
+   *
+   * @type {lunr.Pipeline}
    */
   pipeline
 
   /**
-   * @type {lunr.Pipeline} A pipeline for processing search terms before querying the index.
+   * A pipeline for processing search terms before querying the index.
+   *
+   * @type {lunr.Pipeline}
    */
   searchPipeline
 
   /**
-   * @type {number} Keeps track of the total number of documents indexed.
+   * Keeps track of the total number of documents indexed.
+   *
+   * @type {number}
    */
   documentCount
 
   /**
-   * @type {number} A counter incremented for each unique term, used to identify a terms position in the vector space.
+   * A counter incremented for each unique term, used to identify a terms position in the vector space.
+   *
+   * @type {number}
    */
   termIndex
 
   /**
-   * @type {array} A list of metadata keys that have been whitelisted for entry in the index.
+   * A list of metadata keys that have been whitelisted for entry in the index.
+   *
+   * @type {array}
    */
   metadataWhitelist
 
@@ -2908,7 +2934,9 @@ lunr.Builder = Builder
  */
 class MatchData {
   /**
-   * @type {object} A cloned collection of metadata associated with this document.
+   * A cloned collection of metadata associated with this document.
+   *
+   * @type {object}
    */
   metadata
 
@@ -3070,12 +3098,16 @@ class Query {
   }
 
   /**
-   * @type {lunr.Query~Clause[]} An array of query clauses.
+   * An array of query clauses.
+   *
+   * @type {lunr.Query~Clause[]}
    */
   clauses
 
   /**
-   * @type {string[]} An array of all available fields in a lunr.Index.
+   * An array of all available fields in a lunr.Index.
+   *
+   * @type {string[]}
    */
   allFields
 
