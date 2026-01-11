@@ -3569,7 +3569,7 @@ lunr.QueryLexer.lexText = function (lexer) {
 /**
  * @typedef {Object} QueryClause
  * @property {lunr.Query.presence.PROHIBITED|lunr.Query.presence.REQUIRED|lunr.Query.presence.OPTIONAL} [presence]
- * @property {[string, ...string[]]} [fields]
+ * @property {string[]} [fields]
  * @property {string} [term]
  * @property {boolean} [usePipeline]
  * @property {number} [editDistance]
