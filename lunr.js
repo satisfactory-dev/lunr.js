@@ -197,14 +197,19 @@ lunr.FieldRef = FieldRef
 /*!
  * lunr.Set
  * Copyright (C) 2020 Oliver Nightingale
+ * Copyright (C) 2026 SignpostMarv
  */
 
 /**
  * A lunr set.
- *
- * @constructor
  */
-lunr.Set = function (elements) {
+class LunrSet {
+  /**
+   * @type {Object<string, boolean>}
+   */
+  elements
+
+  constructor (elements) {
   this.elements = Object.create(null)
 
   if (elements) {
@@ -219,54 +224,12 @@ lunr.Set = function (elements) {
 }
 
 /**
- * A complete set that contains all elements.
- *
- * @static
- * @readonly
- * @type {lunr.Set}
- */
-lunr.Set.complete = {
-  intersect: function (other) {
-    return other
-  },
-
-  union: function () {
-    return this
-  },
-
-  contains: function () {
-    return true
-  }
-}
-
-/**
- * An empty set that contains no elements.
- *
- * @static
- * @readonly
- * @type {lunr.Set}
- */
-lunr.Set.empty = {
-  intersect: function () {
-    return this
-  },
-
-  union: function (other) {
-    return other
-  },
-
-  contains: function () {
-    return false
-  }
-}
-
-/**
  * Returns true if this set contains the specified object.
  *
  * @param {object} object - Object whose presence in this set is to be tested.
  * @returns {boolean} - True if this set contains the specified object.
  */
-lunr.Set.prototype.contains = function (object) {
+  contains (object) {
   return !!this.elements[object]
 }
 
@@ -277,15 +240,14 @@ lunr.Set.prototype.contains = function (object) {
  * @param {lunr.Set} other - set to intersect with this set.
  * @returns {lunr.Set} a new set that is the intersection of this and the specified set.
  */
-
-lunr.Set.prototype.intersect = function (other) {
+  intersect (other) {
   var a, b, elements, intersection = []
 
-  if (other === lunr.Set.complete) {
+  if (other instanceof LunrSetComplete) {
     return this
   }
 
-  if (other === lunr.Set.empty) {
+  if (other instanceof LunrSetEmpty) {
     return other
   }
 
@@ -306,7 +268,7 @@ lunr.Set.prototype.intersect = function (other) {
     }
   }
 
-  return new lunr.Set (intersection)
+  return new LunrSet(intersection)
 }
 
 /**
@@ -315,18 +277,61 @@ lunr.Set.prototype.intersect = function (other) {
  * @param {lunr.Set} other - set to union with this set.
  * @return {lunr.Set} a new set that is the union of this and the specified set.
  */
-
-lunr.Set.prototype.union = function (other) {
-  if (other === lunr.Set.complete) {
-    return lunr.Set.complete
+  union (other) {
+    if (other instanceof LunrSetComplete) {
+      return other
   }
 
-  if (other === lunr.Set.empty) {
+    if (other instanceof LunrSetEmpty) {
     return this
   }
 
-  return new lunr.Set(Object.keys(this.elements).concat(Object.keys(other.elements)))
+    return new LunrSet(Object.keys(this.elements).concat(Object.keys(other.elements)))
 }
+}
+
+/**
+ * A complete set that contains all elements.
+ *
+ * @static
+ */
+class LunrSetComplete extends LunrSet {
+  intersect (other) {
+    return other
+  }
+
+  union () {
+    return this
+  }
+
+  contains () {
+    return true
+  }
+}
+
+/**
+ * An empty set that contains no elements.
+ */
+class LunrSetEmpty extends LunrSet {
+  /**
+   * @return {this}
+   */
+  intersect () {
+    return this
+  }
+
+  union (other) {
+    return other
+  }
+
+  contains () {
+    return false
+  }
+}
+
+lunr.Set = LunrSet
+lunr.SetComplete = LunrSetComplete
+lunr.SetEmpty = LunrSetEmpty
 /*!
  * lunr.Token
  * Copyright (C) 2020 Oliver Nightingale
@@ -1965,6 +1970,8 @@ lunr.Index = function (attrs) {
   this.tokenSet = attrs.tokenSet
   this.fields = attrs.fields
   this.pipeline = attrs.pipeline
+  this._completeSet = new lunr.SetComplete
+  this._emptySet = new lunr.SetEmpty
 }
 
 /**
@@ -2107,7 +2114,7 @@ lunr.Index.prototype.query = function (fn) {
      */
     var clause = query.clauses[i],
         terms = null,
-        clauseMatches = lunr.Set.empty
+        clauseMatches = this._emptySet
 
     if (clause.usePipeline) {
       terms = this.pipeline.runString(clause.term, {
@@ -2145,7 +2152,7 @@ lunr.Index.prototype.query = function (fn) {
       if (expandedTerms.length === 0 && clause.presence === lunr.Query.presence.REQUIRED) {
         for (var k = 0; k < clause.fields.length; k++) {
           var field = clause.fields[k]
-          requiredMatches[field] = lunr.Set.empty
+          requiredMatches[field] = this._emptySet
         }
 
         break
@@ -2184,7 +2191,7 @@ lunr.Index.prototype.query = function (fn) {
             clauseMatches = clauseMatches.union(matchingDocumentsSet)
 
             if (requiredMatches[field] === undefined) {
-              requiredMatches[field] = lunr.Set.complete
+              requiredMatches[field] = this._completeSet
             }
           }
 
@@ -2195,7 +2202,7 @@ lunr.Index.prototype.query = function (fn) {
            */
           if (clause.presence == lunr.Query.presence.PROHIBITED) {
             if (prohibitedMatches[field] === undefined) {
-              prohibitedMatches[field] = lunr.Set.empty
+              prohibitedMatches[field] = this._emptySet
             }
 
             prohibitedMatches[field] = prohibitedMatches[field].union(matchingDocumentsSet)
@@ -2269,8 +2276,8 @@ lunr.Index.prototype.query = function (fn) {
    * matching documents into a global set of required and prohibited
    * matches
    */
-  var allRequiredMatches = lunr.Set.complete,
-      allProhibitedMatches = lunr.Set.empty
+  var allRequiredMatches = this._completeSet,
+      allProhibitedMatches = this._emptySet
 
   for (var i = 0; i < this.fields.length; i++) {
     var field = this.fields[i]

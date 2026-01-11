@@ -1,14 +1,16 @@
 suite('lunr.Set', function () {
   suite('#contains', function () {
     suite('complete set', function () {
+      const completeSet = new lunr.SetComplete
       test('returns true', function () {
-        assert.isOk(lunr.Set.complete.contains('foo'))
+        assert.isOk(completeSet.contains('foo'))
       })
     })
 
     suite('empty set', function () {
+      const emptySet = new lunr.SetEmpty
       test('returns false', function () {
-        assert.isNotOk(lunr.Set.empty.contains('foo'))
+        assert.isNotOk(emptySet.contains('foo'))
       })
     })
 
@@ -33,16 +35,18 @@ suite('lunr.Set', function () {
     })
 
     suite('complete set', function () {
+      const completeSet = new lunr.SetComplete
       test('union is complete', function () {
-        var result = lunr.Set.complete.union(this.set)
+        var result = completeSet.union(this.set)
         assert.isOk(result.contains('foo'))
         assert.isOk(result.contains('bar'))
       })
     })
 
     suite('empty set', function () {
+      const emptySet = new lunr.SetEmpty
       test('contains element', function () {
-        var result = lunr.Set.empty.union(this.set)
+        var result = emptySet.union(this.set)
         assert.isOk(result.contains('foo'))
         assert.isNotOk(result.contains('bar'))
       })
@@ -61,9 +65,10 @@ suite('lunr.Set', function () {
       })
 
       suite('with empty set', function () {
+        const emptySet = new lunr.SetEmpty
         test('contains all elements', function () {
           var target = new lunr.Set (['bar'])
-          var result = target.union(lunr.Set.empty)
+          var result = target.union(emptySet)
 
           assert.isOk(result.contains('bar'))
           assert.isNotOk(result.contains('baz'))
@@ -71,9 +76,10 @@ suite('lunr.Set', function () {
       })
 
       suite('with complete set', function () {
+        const completeSet = new lunr.SetComplete
         test('contains all elements', function () {
           var target = new lunr.Set (['bar'])
-          var result = target.union(lunr.Set.complete)
+          var result = target.union(completeSet)
 
           assert.isOk(result.contains('foo'))
           assert.isOk(result.contains('bar'))
@@ -89,16 +95,18 @@ suite('lunr.Set', function () {
     })
 
     suite('complete set', function () {
+      const completeSet = new lunr.SetComplete
       test('contains element', function () {
-        var result = lunr.Set.complete.intersect(this.set)
+        var result = completeSet.intersect(this.set)
         assert.isOk(result.contains('foo'))
         assert.isNotOk(result.contains('bar'))
       })
     })
 
     suite('empty set', function () {
+      const emptySet = new lunr.SetEmpty
       test('does not contain element', function () {
-        var result = lunr.Set.empty.intersect(this.set)
+        var result = emptySet.intersect(this.set)
         assert.isNotOk(result.contains('foo'))
       })
     })
@@ -125,18 +133,20 @@ suite('lunr.Set', function () {
       })
 
       suite('with empty set', function () {
+        const emptySet = new lunr.SetEmpty
         test('returns empty set', function () {
           var target = new lunr.Set(['foo']),
-              result = target.intersect(lunr.Set.empty)
+              result = target.intersect(emptySet)
 
           assert.isNotOk(result.contains('foo'))
         })
       })
 
       suite('with complete set', function () {
+        const completeSet = new lunr.SetComplete
         test('returns populated set', function () {
           var target = new lunr.Set(['foo']),
-              result = target.intersect(lunr.Set.complete)
+              result = target.intersect(completeSet)
 
           assert.isOk(result.contains('foo'))
           assert.isNotOk(result.contains('bar'))
