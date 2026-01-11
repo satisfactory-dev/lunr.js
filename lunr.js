@@ -67,68 +67,68 @@ lunr.version = "2.3.9"
  * @namespace lunr.utils
  */
 class Utils {
-/**
- * Convert an object to a string.
- *
- * In the case of `null` and `undefined` the function returns
- * the empty string, in all other cases the result of calling
- * `toString` on the passed object is returned.
- *
- * @param {Any} obj The object to convert to a string.
- * @return {String} string representation of the passed object.
- */
+  /**
+   * Convert an object to a string.
+   *
+   * In the case of `null` and `undefined` the function returns
+   * the empty string, in all other cases the result of calling
+   * `toString` on the passed object is returned.
+   *
+   * @param {Any} obj The object to convert to a string.
+   * @return {String} string representation of the passed object.
+   */
   static asString (obj) {
-  if (obj === void 0 || obj === null) {
-    return ""
-  } else {
-    return obj.toString()
+    if (obj === void 0 || obj === null) {
+      return ""
+    } else {
+      return obj.toString()
+    }
   }
-}
 
-/**
- * Clones an object.
- *
- * Will create a copy of an existing object such that any mutations
- * on the copy cannot affect the original.
- *
- * Only shallow objects are supported, passing a nested object to this
- * function will cause a TypeError.
- *
- * Objects with primitives, and arrays of primitives are supported.
- *
- * @param {Object} obj The object to clone.
- * @return {Object} a clone of the passed object.
- * @throws {TypeError} when a nested object is passed.
- */
+  /**
+   * Clones an object.
+   *
+   * Will create a copy of an existing object such that any mutations
+   * on the copy cannot affect the original.
+   *
+   * Only shallow objects are supported, passing a nested object to this
+   * function will cause a TypeError.
+   *
+   * Objects with primitives, and arrays of primitives are supported.
+   *
+   * @param {Object} obj The object to clone.
+   * @return {Object} a clone of the passed object.
+   * @throws {TypeError} when a nested object is passed.
+   */
   static clone = function (obj) {
-  if (obj === null || obj === undefined) {
-    return obj
-  }
-
-  var clone = Object.create(null),
-      keys = Object.keys(obj)
-
-  for (var i = 0; i < keys.length; i++) {
-    var key = keys[i],
-        val = obj[key]
-
-    if (Array.isArray(val)) {
-      clone[key] = val.slice()
-      continue
+    if (obj === null || obj === undefined) {
+      return obj
     }
 
-    if (typeof val === 'string' ||
-        typeof val === 'number' ||
-        typeof val === 'boolean') {
-      clone[key] = val
-      continue
+    var clone = Object.create(null),
+        keys = Object.keys(obj)
+
+    for (var i = 0; i < keys.length; i++) {
+      var key = keys[i],
+          val = obj[key]
+
+      if (Array.isArray(val)) {
+        clone[key] = val.slice()
+        continue
+      }
+
+      if (typeof val === 'string' ||
+          typeof val === 'number' ||
+          typeof val === 'boolean') {
+        clone[key] = val
+        continue
+      }
+
+      throw new TypeError("clone is not deep and does not support nested objects")
     }
 
-    throw new TypeError("clone is not deep and does not support nested objects")
+    return clone
   }
-
-  return clone
-}
 }
 
 lunr.utils = Utils
@@ -2788,14 +2788,18 @@ lunr.Builder = Builder
  * A single instance of lunr.MatchData is returned as part of every
  * lunr.Index~Result.
  *
- * @constructor
  * @param {string} term - The term this match data is associated with
  * @param {string} field - The field in which the term was found
  * @param {object} metadata - The metadata recorded about this term in this field
- * @property {object} metadata - A cloned collection of metadata associated with this document.
  * @see {@link lunr.Index~Result}
  */
-lunr.MatchData = function (term, field, metadata) {
+class MatchData {
+  /**
+   * @property {object} metadata - A cloned collection of metadata associated with this document.
+   */
+  metadata
+
+  constructor (term, field, metadata) {
   var clonedMetadata = Object.create(null),
       metadataKeys = Object.keys(metadata || {})
 
@@ -2826,7 +2830,7 @@ lunr.MatchData = function (term, field, metadata) {
  * @param {lunr.MatchData} otherMatchData - Another instance of match data to merge with this one.
  * @see {@link lunr.Index~Result}
  */
-lunr.MatchData.prototype.combine = function (otherMatchData) {
+  combine (otherMatchData) {
   var terms = Object.keys(otherMatchData.metadata)
 
   for (var i = 0; i < terms.length; i++) {
@@ -2866,7 +2870,7 @@ lunr.MatchData.prototype.combine = function (otherMatchData) {
  * @param {string} field - The field in which the term was found
  * @param {object} metadata - The metadata recorded about this term in this field
  */
-lunr.MatchData.prototype.add = function (term, field, metadata) {
+  add (term, field, metadata) {
   if (!(term in this.metadata)) {
     this.metadata[term] = Object.create(null)
     this.metadata[term][field] = metadata
@@ -2890,6 +2894,9 @@ lunr.MatchData.prototype.add = function (term, field, metadata) {
     }
   }
 }
+}
+
+lunr.MatchData = MatchData
 /**
  * A lunr.Query provides a programmatic way of defining queries to be performed
  * against a {@link lunr.Index}.
