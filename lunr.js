@@ -1808,6 +1808,11 @@ class TokenSet {
 }
 
 lunr.TokenSet = TokenSet
+/*!
+ * lunr.TokenSet.Builder
+ * Copyright (C) 2020 Oliver Nightingale
+ */
+
 lunr.TokenSet.Builder = function () {
   this.previousWord = ""
   this.root = new lunr.TokenSet
