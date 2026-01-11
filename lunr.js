@@ -464,6 +464,28 @@ lunr.tokenizer.separator = /[\s-]+/
 /*!
  * lunr.Pipeline
  * Copyright (C) 2020 Oliver Nightingale
+ * Copyright (C) 2026 SignpostMarv
+ */
+
+/**
+ * A pipeline function maps lunr.Token to lunr.Token. A lunr.Token contains the token
+ * string as well as all known metadata. A pipeline function can mutate the token string
+ * or mutate (or add) metadata for a given token.
+ *
+ * A pipeline function can indicate that the passed token should be discarded by returning
+ * null, undefined or an empty string. This token will not be passed to any downstream pipeline
+ * functions and will not be added to the index.
+ *
+ * Multiple tokens can be returned by returning an array of tokens. Each token will be passed
+ * to any downstream pipeline functions and all will returned tokens will be added to the index.
+ *
+ * Any number of pipeline functions may be chained together using a lunr.Pipeline.
+ *
+ * @interface lunr.PipelineFunction
+ * @param {lunr.Token} token - A token from the document being processed.
+ * @param {number} i - The index of this token in the complete list of tokens for this document/field.
+ * @param {lunr.Token[]} tokens - All tokens for this document/field.
+ * @returns {(?lunr.Token|lunr.Token[])}
  */
 
 /**
@@ -492,35 +514,21 @@ lunr.tokenizer.separator = /[\s-]+/
  *
  * If not planning on serialising the pipeline then registering pipeline functions
  * is not necessary.
- *
- * @constructor
  */
-lunr.Pipeline = function () {
-  this._stack = []
-}
+class Pipeline {
+  /**
+   * @property {lunr.PipelineFunction[]}
+   */
+  #stack = []
 
-lunr.Pipeline.registeredFunctions = Object.create(null)
+  get stackLength () {
+    return this.#stack.length
+  }
 
-/**
- * A pipeline function maps lunr.Token to lunr.Token. A lunr.Token contains the token
- * string as well as all known metadata. A pipeline function can mutate the token string
- * or mutate (or add) metadata for a given token.
- *
- * A pipeline function can indicate that the passed token should be discarded by returning
- * null, undefined or an empty string. This token will not be passed to any downstream pipeline
- * functions and will not be added to the index.
- *
- * Multiple tokens can be returned by returning an array of tokens. Each token will be passed
- * to any downstream pipeline functions and all will returned tokens will be added to the index.
- *
- * Any number of pipeline functions may be chained together using a lunr.Pipeline.
- *
- * @interface lunr.PipelineFunction
- * @param {lunr.Token} token - A token from the document being processed.
- * @param {number} i - The index of this token in the complete list of tokens for this document/field.
- * @param {lunr.Token[]} tokens - All tokens for this document/field.
- * @returns {(?lunr.Token|lunr.Token[])}
- */
+  /**
+   * @property {object<string, lunr.PipelineFunction>}
+   */
+  static registeredFunctions = {}
 
 /**
  * Register a function with the pipeline.
@@ -534,7 +542,7 @@ lunr.Pipeline.registeredFunctions = Object.create(null)
  * @param {lunr.PipelineFunction} fn - The function to check for.
  * @param {String} label - The label to register this function with
  */
-lunr.Pipeline.registerFunction = function (fn, label) {
+  static registerFunction (fn, label) {
   if (label in this.registeredFunctions) {
     console.warn('Overwriting existing registered function: ' + label)
   }
@@ -549,7 +557,7 @@ lunr.Pipeline.registerFunction = function (fn, label) {
  * @param {lunr.PipelineFunction} fn - The function to check for.
  * @private
  */
-lunr.Pipeline.warnIfFunctionNotRegistered = function (fn) {
+  static warnIfFunctionNotRegistered (fn) {
   var isRegistered = fn.label && (fn.label in this.registeredFunctions)
 
   if (!isRegistered) {
@@ -565,13 +573,13 @@ lunr.Pipeline.warnIfFunctionNotRegistered = function (fn) {
  * error will be thrown.
  *
  * @param {Object} serialised - The serialised pipeline to load.
- * @returns {lunr.Pipeline}
+ * @returns {Pipeline}
  */
-lunr.Pipeline.load = function (serialised) {
-  var pipeline = new lunr.Pipeline
+  static load (serialised) {
+    var pipeline = new Pipeline
 
-  serialised.forEach(function (fnName) {
-    var fn = lunr.Pipeline.registeredFunctions[fnName]
+    serialised.forEach((fnName) => {
+      var fn = this.registeredFunctions[fnName]
 
     if (fn) {
       pipeline.add(fn)
@@ -583,20 +591,27 @@ lunr.Pipeline.load = function (serialised) {
   return pipeline
 }
 
+  /**
+   * @param {number} index
+   *
+   * @return {lunr.PipelineFunction|undefined}
+   */
+  atIndex(index) {
+    return this.#stack[index]
+  }
+
 /**
  * Adds new functions to the end of the pipeline.
  *
  * Logs a warning if the function has not been registered.
  *
- * @param {lunr.PipelineFunction[]} functions - Any number of functions to add to the pipeline.
+ * @param {lunr.PipelineFunction[]} fns - Any number of functions to add to the pipeline.
  */
-lunr.Pipeline.prototype.add = function () {
-  var fns = Array.prototype.slice.call(arguments)
-
-  fns.forEach(function (fn) {
-    lunr.Pipeline.warnIfFunctionNotRegistered(fn)
-    this._stack.push(fn)
-  }, this)
+  add (...fns) {
+  fns.forEach((fn) => {
+      Pipeline.warnIfFunctionNotRegistered(fn)
+    this.#stack.push(fn)
+  })
 }
 
 /**
@@ -608,16 +623,16 @@ lunr.Pipeline.prototype.add = function () {
  * @param {lunr.PipelineFunction} existingFn - A function that already exists in the pipeline.
  * @param {lunr.PipelineFunction} newFn - The new function to add to the pipeline.
  */
-lunr.Pipeline.prototype.after = function (existingFn, newFn) {
+  after (existingFn, newFn) {
   lunr.Pipeline.warnIfFunctionNotRegistered(newFn)
 
-  var pos = this._stack.indexOf(existingFn)
+  var pos = this.#stack.indexOf(existingFn)
   if (pos == -1) {
     throw new Error('Cannot find existingFn')
   }
 
   pos = pos + 1
-  this._stack.splice(pos, 0, newFn)
+  this.#stack.splice(pos, 0, newFn)
 }
 
 /**
@@ -629,15 +644,15 @@ lunr.Pipeline.prototype.after = function (existingFn, newFn) {
  * @param {lunr.PipelineFunction} existingFn - A function that already exists in the pipeline.
  * @param {lunr.PipelineFunction} newFn - The new function to add to the pipeline.
  */
-lunr.Pipeline.prototype.before = function (existingFn, newFn) {
+  before (existingFn, newFn) {
   lunr.Pipeline.warnIfFunctionNotRegistered(newFn)
 
-  var pos = this._stack.indexOf(existingFn)
+  var pos = this.#stack.indexOf(existingFn)
   if (pos == -1) {
     throw new Error('Cannot find existingFn')
   }
 
-  this._stack.splice(pos, 0, newFn)
+  this.#stack.splice(pos, 0, newFn)
 }
 
 /**
@@ -645,13 +660,13 @@ lunr.Pipeline.prototype.before = function (existingFn, newFn) {
  *
  * @param {lunr.PipelineFunction} fn The function to remove from the pipeline.
  */
-lunr.Pipeline.prototype.remove = function (fn) {
-  var pos = this._stack.indexOf(fn)
+  remove (fn) {
+  var pos = this.#stack.indexOf(fn)
   if (pos == -1) {
     return
   }
 
-  this._stack.splice(pos, 1)
+  this.#stack.splice(pos, 1)
 }
 
 /**
@@ -661,11 +676,11 @@ lunr.Pipeline.prototype.remove = function (fn) {
  * @param {Array} tokens The tokens to run through the pipeline.
  * @returns {Array}
  */
-lunr.Pipeline.prototype.run = function (tokens) {
-  var stackLength = this._stack.length
+  run (tokens) {
+  var stackLength = this.#stack.length
 
   for (var i = 0; i < stackLength; i++) {
-    var fn = this._stack[i]
+    var fn = this.#stack[i]
     var memo = []
 
     for (var j = 0; j < tokens.length; j++) {
@@ -698,7 +713,7 @@ lunr.Pipeline.prototype.run = function (tokens) {
  * passed to the pipeline.
  * @returns {string[]}
  */
-lunr.Pipeline.prototype.runString = function (str, metadata) {
+  runString (str, metadata) {
   var token = new lunr.Token (str, metadata)
 
   return this.run([token]).map(function (t) {
@@ -710,9 +725,18 @@ lunr.Pipeline.prototype.runString = function (str, metadata) {
  * Resets the pipeline by removing any existing processors.
  *
  */
-lunr.Pipeline.prototype.reset = function () {
-  this._stack = []
+  reset () {
+  this.#stack = []
 }
+
+  /**
+   * Returns a light copy of Pipeline.#stack
+   *
+   * @return {lunr.PipelineFunction[]}
+   */
+  toArray () {
+    return [...this.#stack]
+  }
 
 /**
  * Returns a representation of the pipeline ready for serialisation.
@@ -721,13 +745,16 @@ lunr.Pipeline.prototype.reset = function () {
  *
  * @returns {Array}
  */
-lunr.Pipeline.prototype.toJSON = function () {
-  return this._stack.map(function (fn) {
+  toJSON () {
+  return this.#stack.map(function (fn) {
     lunr.Pipeline.warnIfFunctionNotRegistered(fn)
 
     return fn.label
   })
 }
+}
+
+lunr.Pipeline = Pipeline
 /*!
  * lunr.Vector
  * Copyright (C) 2020 Oliver Nightingale

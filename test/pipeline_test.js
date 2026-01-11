@@ -19,29 +19,29 @@ suite('lunr.Pipeline', function () {
   suite('#add', function () {
     test('add function to pipeline', function () {
       this.pipeline.add(noop)
-      assert.equal(1, this.pipeline._stack.length)
+      assert.equal(1, this.pipeline.stackLength)
     })
 
     test('add multiple functions to the pipeline', function () {
       this.pipeline.add(noop, noop)
-      assert.equal(2, this.pipeline._stack.length)
+      assert.equal(2, this.pipeline.stackLength)
     })
   })
 
   suite('#remove', function () {
     test('function exists in pipeline', function () {
       this.pipeline.add(noop)
-      assert.equal(1, this.pipeline._stack.length)
+      assert.equal(1, this.pipeline.stackLength)
       this.pipeline.remove(noop)
-      assert.equal(0, this.pipeline._stack.length)
+      assert.equal(0, this.pipeline.stackLength)
     })
 
     test('function does not exist in pipeline', function () {
       var fn = function () {}
       this.pipeline.add(noop)
-      assert.equal(1, this.pipeline._stack.length)
+      assert.equal(1, this.pipeline.stackLength)
       this.pipeline.remove(fn)
-      assert.equal(1, this.pipeline._stack.length)
+      assert.equal(1, this.pipeline.stackLength)
     })
   })
 
@@ -52,7 +52,7 @@ suite('lunr.Pipeline', function () {
       this.pipeline.add(noop)
       this.pipeline.before(noop, fn)
 
-      assert.deepEqual([fn, noop], this.pipeline._stack)
+      assert.deepEqual([fn, noop], this.pipeline.toArray())
     })
 
     test('other function does not exist', function () {
@@ -61,7 +61,7 @@ suite('lunr.Pipeline', function () {
       }
 
       assert.throws(action.bind(this))
-      assert.equal(0, this.pipeline._stack.length)
+      assert.equal(0, this.pipeline.stackLength)
     })
   })
 
@@ -72,7 +72,7 @@ suite('lunr.Pipeline', function () {
       this.pipeline.add(noop)
       this.pipeline.after(noop, fn)
 
-      assert.deepEqual([noop, fn], this.pipeline._stack)
+      assert.deepEqual([noop, fn], this.pipeline.toArray())
     })
 
     test('other function does not exist', function () {
@@ -81,7 +81,7 @@ suite('lunr.Pipeline', function () {
       }
 
       assert.throws(action.bind(this))
-      assert.equal(0, this.pipeline._stack.length)
+      assert.equal(0, this.pipeline.stackLength)
     })
   })
 
@@ -253,8 +253,8 @@ suite('lunr.Pipeline', function () {
 
       pipeline = lunr.Pipeline.load(serializedPipeline)
 
-      assert.equal(1, pipeline._stack.length)
-      assert.equal(fn, pipeline._stack[0])
+      assert.equal(1, pipeline.stackLength)
+      assert.equal(fn, pipeline.atIndex(0))
     })
 
     test('with unregisterd functions', function () {
@@ -270,11 +270,11 @@ suite('lunr.Pipeline', function () {
     test('empties the stack', function () {
       this.pipeline.add(function () {})
 
-      assert.equal(1, this.pipeline._stack.length)
+      assert.equal(1, this.pipeline.stackLength)
 
       this.pipeline.reset()
 
-      assert.equal(0, this.pipeline._stack.length)
+      assert.equal(0, this.pipeline.stackLength)
     })
   })
 })
