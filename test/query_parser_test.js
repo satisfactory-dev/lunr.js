@@ -556,4 +556,235 @@ suite('lunr.QueryParser', function () {
       [],
     )
   })
+
+  suite('artificial states', () => {
+    /** @type {Object<string, [ErrorConstructor, string, string[], lunr.QueryLexeme[]]>} */
+    const datasetThrows = {
+      'unrecognised presence operator': [
+        lunr.QueryParseError,
+        `unrecognised presence operator''`,
+        [],
+        [
+          new lunr.QueryLexeme({
+            type: 'PRESENCE',
+            str: '',
+            start: 0,
+            end: 0,
+          }),
+        ],
+      ],
+      'expecting term or field, found nothing': [
+        lunr.QueryParseError,
+        `expecting term or field, found nothing`,
+        [],
+        [
+          new lunr.QueryLexeme({
+            type: 'PRESENCE',
+            str: '+',
+            start: 0,
+            end: 0,
+          }),
+        ],
+      ],
+      'expecting term or field, found PRESENCE': [
+        lunr.QueryParseError,
+        `expecting term or field, found 'PRESENCE'`,
+        [],
+        [
+          new lunr.QueryLexeme({
+            type: 'PRESENCE',
+            str: '+',
+            start: 0,
+            end: 0,
+          }),
+          new lunr.QueryLexeme({
+            type: 'PRESENCE',
+            str: '-',
+            start: 0,
+            end: 0,
+          }),
+        ],
+      ],
+      'unrecognised field': [
+        lunr.QueryParseError,
+        `unrecognised field '', possible fields:`,
+        [],
+        [
+          new lunr.QueryLexeme({
+            type: 'FIELD',
+            str: '',
+            start: 0,
+            end: 0,
+          }),
+        ],
+      ],
+      'expecting term': [
+        lunr.QueryParseError,
+        `expecting term, found 'FIELD'`,
+        [''],
+        [
+          new lunr.QueryLexeme({
+            type: 'FIELD',
+            str: '',
+            start: 0,
+            end: 0,
+          }),
+          new lunr.QueryLexeme({
+            type: 'FIELD',
+            str: '',
+            start: 0,
+            end: 0,
+          }),
+        ],
+      ],
+      'unexpected lexeme (#parseTerm)': [
+        lunr.QueryParseError,
+        `Unexpected lexeme type 'EOS'`,
+        [],
+        [
+          new lunr.QueryLexeme({
+            type: 'TERM',
+            str: '',
+            start: 0,
+            end: 0,
+          }),
+          new lunr.QueryLexeme({
+            type: 'EOS',
+            str: '',
+            start: 0,
+            end: 0,
+          }),
+        ],
+      ],
+      'unexpected lexeme (#parseEditDistance)': [
+        lunr.QueryParseError,
+        `Unexpected lexeme type 'EOS'`,
+        ['title'],
+        [
+          new lunr.QueryLexeme({
+            type: 'TERM',
+            str: '',
+            start: 0,
+            end: 0,
+          }),
+          new lunr.QueryLexeme({
+            type: 'EDIT_DISTANCE',
+            str: '1',
+            start: 0,
+            end: 0,
+          }),
+          new lunr.QueryLexeme({
+            type: 'EDIT_DISTANCE',
+            str: '1',
+            start: 0,
+            end: 0,
+          }),
+          new lunr.QueryLexeme({
+            type: 'FIELD',
+            str: 'title',
+            start: 0,
+            end: 0,
+          }),
+          new lunr.QueryLexeme({
+            type: 'TERM',
+            str: '',
+            start: 0,
+            end: 0,
+          }),
+          new lunr.QueryLexeme({
+            type: 'EDIT_DISTANCE',
+            str: '1',
+            start: 0,
+            end: 0,
+          }),
+          new lunr.QueryLexeme({
+            type: 'BOOST',
+            str: '1',
+            start: 0,
+            end: 0,
+          }),
+          new lunr.QueryLexeme({
+            type: 'BOOST',
+            str: '1',
+            start: 0,
+            end: 0,
+          }),
+          new lunr.QueryLexeme({
+            type: 'FIELD',
+            str: 'title',
+            start: 0,
+            end: 0,
+          }),
+          new lunr.QueryLexeme({
+            type: 'TERM',
+            str: '',
+            start: 0,
+            end: 0,
+          }),
+          new lunr.QueryLexeme({
+            type: 'EDIT_DISTANCE',
+            str: '1',
+            start: 0,
+            end: 0,
+          }),
+          new lunr.QueryLexeme({
+            type: 'EDIT_DISTANCE',
+            str: '1',
+            start: 0,
+            end: 0,
+          }),
+          new lunr.QueryLexeme({
+            type: 'EOS',
+            str: '',
+            start: 0,
+            end: 0,
+          }),
+        ],
+      ],
+      'unexpected lexeme (#parseBoost)': [
+        lunr.QueryParseError,
+        `Unexpected lexeme type 'EOS'`,
+        [],
+        [
+          new lunr.QueryLexeme({
+            type: 'TERM',
+            str: '',
+            start: 0,
+            end: 0,
+          }),
+          new lunr.QueryLexeme({
+            type: 'BOOST',
+            str: '1',
+            start: 0,
+            end: 0,
+          }),
+          new lunr.QueryLexeme({
+            type: 'EOS',
+            str: '',
+            start: 0,
+            end: 0,
+          }),
+        ],
+      ],
+    }
+
+    for (const [
+      testName,
+      [
+        expectException,
+        expectMessage,
+        fields,
+        lexemes,
+      ],
+    ] of Object.entries(datasetThrows)) {
+      test(testName, () => {
+        const instance = new lunr.QueryParser('', new lunr.Query(fields))
+        instance.lexer.run = () => {
+          instance.lexer.lexemes = lexemes
+        }
+
+        assert.throws(() => instance.parse(), expectException, expectMessage)
+      })
+    }
+  })
 })
