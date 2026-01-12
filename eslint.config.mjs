@@ -1,4 +1,7 @@
-import { defineConfig } from "eslint/config"
+import {
+  defineConfig,
+  globalIgnores
+} from "eslint/config"
 import spellcheck from "eslint-plugin-spellcheck"
 import globals from "globals"
 import path from "node:path"
@@ -14,7 +17,8 @@ const compat = new FlatCompat({
   allConfig: js.configs.all
 })
 
-export default defineConfig([{
+export default defineConfig([
+  {
   extends: compat.extends("eslint:recommended"),
 
   plugins: {
@@ -144,4 +148,10 @@ export default defineConfig([{
     "space-in-parens": "error",
     "space-infix-ops": "error"
   }
-}])
+  },
+  globalIgnores([
+    './lunr.js',
+    './lunr.min.js',
+    './lunr.min.mjs'
+  ])
+])
