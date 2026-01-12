@@ -1,3 +1,5 @@
+/* eslint @stylistic/migrate/migrate-js: "error" */
+
 import {
   defineConfig,
   globalIgnores
@@ -6,6 +8,8 @@ import globals from "globals"
 import js from "@eslint/js"
 import { FlatCompat } from "@eslint/eslintrc"
 import cspell from '@cspell/eslint-plugin'
+import stylistic from '@stylistic/eslint-plugin'
+import stylisticMigrate from '@stylistic/eslint-plugin-migrate'
 
 const compat = new FlatCompat({
   baseDirectory: import.meta.dirname,
@@ -18,7 +22,9 @@ export default defineConfig([
     extends: compat.extends("eslint:recommended"),
 
     plugins: {
-      '@cspell': cspell
+      '@cspell': cspell,
+      '@stylistic': stylistic,
+      '@stylistic/migrate': stylisticMigrate
     },
 
     languageOptions: {
@@ -50,43 +56,43 @@ export default defineConfig([
       }],
 
       "no-redeclare": "off",
-      "dot-location": ["error", "property"],
+      "@stylistic/dot-location": ["error", "property"],
       "no-alert": "error",
       "no-caller": "error",
       "no-eval": "error",
       "no-implied-eval": "error",
       "no-extend-native": "error",
       "no-implicit-globals": "error",
-      "no-multi-spaces": "error",
-      "array-bracket-spacing": "error",
-      "block-spacing": "error",
+      "@stylistic/no-multi-spaces": "error",
+      "@stylistic/array-bracket-spacing": "error",
+      "@stylistic/block-spacing": "error",
 
-      "brace-style": ["error", "1tbs", {
+      "@stylistic/brace-style": ["error", "1tbs", {
         allowSingleLine: true
       }],
 
       camelcase: "error",
-      "comma-dangle": "error",
-      "comma-spacing": "error",
-      "comma-style": "error",
-      "computed-property-spacing": "error",
+      "@stylistic/comma-dangle": "error",
+      "@stylistic/comma-spacing": "error",
+      "@stylistic/comma-style": "error",
+      "@stylistic/computed-property-spacing": "error",
       "func-style": "error",
 
-      indent: ["error", 2, {
+      '@stylistic/indent': ["error", 2, {
         VariableDeclarator: 2,
         SwitchCase: 1
       }],
 
-      "key-spacing": "error",
-      "keyword-spacing": "error",
-      "linebreak-style": "error",
+      "@stylistic/key-spacing": "error",
+      "@stylistic/keyword-spacing": "error",
+      "@stylistic/linebreak-style": "error",
       "new-cap": "error",
-      "no-trailing-spaces": "error",
-      "no-whitespace-before-property": "error",
-      semi: ["error", "never"],
-      "space-before-function-paren": ["error", "always"],
-      "space-in-parens": "error",
-      "space-infix-ops": "error"
+      "@stylistic/no-trailing-spaces": "error",
+      "@stylistic/no-whitespace-before-property": "error",
+      '@stylistic/semi': ["error", "never"],
+      "@stylistic/space-before-function-paren": ["error", "always"],
+      "@stylistic/space-in-parens": "error",
+      "@stylistic/space-infix-ops": "error"
     }
   },
   globalIgnores([
