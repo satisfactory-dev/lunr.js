@@ -549,4 +549,11 @@ suite('lunr.QueryParser', function () {
       assert.sameMembers(['title', 'body'], this.clauses[0].fields)
     })
   })
+
+  suite('empty term', () => {
+    assert.deepEqual(
+      parse(''),
+      [],
+    )
+  })
 })
