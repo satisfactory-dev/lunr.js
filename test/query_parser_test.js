@@ -552,10 +552,10 @@ suite('lunr.QueryParser', function () {
 
   suite('empty term', () => {
     test('unmodified', () => {
-    assert.deepEqual(
-      parse(''),
-      [],
-    )
+      assert.deepEqual(
+        parse(''),
+        [],
+      )
     })
   })
 
