@@ -24,7 +24,7 @@ size: lunr.js
 	@gzip -c lunr.min.mjs | wc -c
 
 lint:
-	${ESLINT} './lib/*.mjs'
+	${ESLINT} './lib/*.mjs' './test/*.js'
 
 perf/*_perf.js: lunr.js
 	${NODE} -r ./perf/perf_helper.js $@

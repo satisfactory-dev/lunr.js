@@ -1,5 +1,4 @@
 import {
-  // eslint-disable-next-line @cspell/spellchecker
   // eslint-disable-next-line no-unused-vars
   QueryLexeme
 } from "../lib/query_lexer.mjs"

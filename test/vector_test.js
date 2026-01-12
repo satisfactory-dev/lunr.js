@@ -12,7 +12,7 @@ suite('lunr.Vector', function () {
 
   suite('#magnitude', function () {
     test('calculates magnitude of a vector', function () {
-      var vector = vectorFromArgs(4,5,6)
+      var vector = vectorFromArgs(4, 5, 6)
       assert.equal(Math.sqrt(77), vector.magnitude)
     })
   })
@@ -53,7 +53,7 @@ suite('lunr.Vector', function () {
 
   suite('#insert', function () {
     test('invalidates magnitude cache', function () {
-      var vector = vectorFromArgs(4,5,6)
+      var vector = vectorFromArgs(4, 5, 6)
 
       assert.equal(Math.sqrt(77), vector.magnitude)
 
@@ -69,7 +69,7 @@ suite('lunr.Vector', function () {
       vector.insert(1, 5)
       vector.insert(0, 6)
 
-      assert.deepEqual([6,5,4], vector.toArray())
+      assert.deepEqual([6, 5, 4], vector.toArray())
     })
 
     test('fails when duplicate entry', function () {
@@ -80,7 +80,7 @@ suite('lunr.Vector', function () {
 
   suite('#upsert', function () {
     test('invalidates magnitude cache', function () {
-      var vector = vectorFromArgs(4,5,6)
+      var vector = vectorFromArgs(4, 5, 6)
 
       assert.equal(Math.sqrt(77), vector.magnitude)
 
@@ -96,7 +96,7 @@ suite('lunr.Vector', function () {
       vector.upsert(1, 5)
       vector.upsert(0, 6)
 
-      assert.deepEqual([6,5,4], vector.toArray())
+      assert.deepEqual([6, 5, 4], vector.toArray())
     })
 
     test('calls fn for value on duplicate', function () {
@@ -108,11 +108,11 @@ suite('lunr.Vector', function () {
 
   suite('#positionForIndex', function () {
     var vector = new lunr.Vector ([
-        1, 'a',
-        2, 'b',
-        4, 'c',
-        7, 'd',
-        11, 'e'
+      1, 'a',
+      2, 'b',
+      4, 'c',
+      7, 'd',
+      11, 'e'
     ])
 
     test('at the beginning', function () {

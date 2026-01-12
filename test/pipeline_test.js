@@ -93,7 +93,7 @@ suite('lunr.Pipeline', function () {
           fn2 = function (t) { count2++; return t }
 
       this.pipeline.add(fn1, fn2)
-      this.pipeline.run([1,2,3])
+      this.pipeline.run([1, 2, 3])
 
       assert.equal(3, count1)
       assert.equal(3, count2)

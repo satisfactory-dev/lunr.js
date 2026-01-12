@@ -1,21 +1,25 @@
 suite('search', function () {
   setup(function () {
-    this.documents = [{
-      id: 'a',
-      title: 'Mr. Green kills Colonel Mustard',
-      body: 'Mr. Green killed Colonel Mustard in the study with the candlestick. Mr. Green is not a very nice fellow.',
-      wordCount: 19
-    },{
-      id: 'b',
-      title: 'Plumb waters plant',
-      body: 'Professor Plumb has a green plant in his study',
-      wordCount: 9
-    },{
-      id: 'c',
-      title: 'Scarlett helps Professor',
-      body: 'Miss Scarlett watered Professor Plumbs green plant while he was away from his office last week.',
-      wordCount: 16
-    }]
+    this.documents = [
+      {
+        id: 'a',
+        title: 'Mr. Green kills Colonel Mustard',
+        body: 'Mr. Green killed Colonel Mustard in the study with the candlestick. Mr. Green is not a very nice fellow.',
+        wordCount: 19
+      },
+      {
+        id: 'b',
+        title: 'Plumb waters plant',
+        body: 'Professor Plumb has a green plant in his study',
+        wordCount: 9
+      },
+      {
+        id: 'c',
+        title: 'Scarlett helps Professor',
+        body: 'Miss Scarlett watered Professor Plumbs green plant while he was away from his office last week.',
+        wordCount: 16
+      }
+    ]
   })
 
   suite('with build-time field boosts', function () {
@@ -257,8 +261,8 @@ suite('search', function () {
 
         test('matched terms returned', function () {
           assert.sameMembers(['fellow', 'candlestick'], Object.keys(this.results[0].matchData.metadata))
-          assert.sameMembers(['body'], Object.keys(this.results[0].matchData.metadata['fellow']));
-          assert.sameMembers(['body'], Object.keys(this.results[0].matchData.metadata['candlestick']));
+          assert.sameMembers(['body'], Object.keys(this.results[0].matchData.metadata['fellow']))
+          assert.sameMembers(['body'], Object.keys(this.results[0].matchData.metadata['candlestick']))
         })
       })
 

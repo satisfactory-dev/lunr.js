@@ -525,28 +525,28 @@ suite('lunr.QueryParser', function () {
   })
 
   suite('term with boost and edit distance', function () {
-      setup(function () {
-        this.clauses = parse('foo^2~3')
-      })
+    setup(function () {
+      this.clauses = parse('foo^2~3')
+    })
 
-      test('has 1 clause', function () {
-        assert.lengthOf(this.clauses, 1)
-      })
+    test('has 1 clause', function () {
+      assert.lengthOf(this.clauses, 1)
+    })
 
-      test('term', function () {
-        assert.equal('foo', this.clauses[0].term)
-      })
+    test('term', function () {
+      assert.equal('foo', this.clauses[0].term)
+    })
 
-      test('editDistance', function () {
-        assert.equal(3, this.clauses[0].editDistance)
-      })
+    test('editDistance', function () {
+      assert.equal(3, this.clauses[0].editDistance)
+    })
 
-      test('boost', function () {
-        assert.equal(2, this.clauses[0].boost)
-      })
+    test('boost', function () {
+      assert.equal(2, this.clauses[0].boost)
+    })
 
-      test('fields', function () {
-        assert.sameMembers(['title', 'body'], this.clauses[0].fields)
-      })
+    test('fields', function () {
+      assert.sameMembers(['title', 'body'], this.clauses[0].fields)
+    })
   })
 })

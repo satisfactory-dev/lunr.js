@@ -8,7 +8,7 @@ var withFixture = function (name, fn) {
   fs.readFile(fixturePath, fn)
 }
 
-const {assert} = chai;
+const {assert} = chai
 
 global.lunr = lunr
 global.assert = assert
