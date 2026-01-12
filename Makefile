@@ -16,7 +16,12 @@ lunr.js:
 	./node_modules/.bin/rolldown -c ./rolldown.config.mjs
 
 size: lunr.js
+	@echo 'lunr.js'
+	@gzip -c lunr.js | wc -c
+	@echo 'lunr.min.js'
 	@gzip -c lunr.min.js | wc -c
+	@echo 'lunr.min.mjs'
+	@gzip -c lunr.min.mjs | wc -c
 
 lint:
 	${ESLINT} './lib/*.mjs'
