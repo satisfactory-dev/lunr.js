@@ -2,10 +2,10 @@ import {
   defineConfig,
   globalIgnores
 } from "eslint/config"
-import spellcheck from "eslint-plugin-spellcheck"
 import globals from "globals"
 import js from "@eslint/js"
 import { FlatCompat } from "@eslint/eslintrc"
+import cspell from '@cspell/eslint-plugin'
 
 const compat = new FlatCompat({
   baseDirectory: import.meta.dirname,
@@ -18,7 +18,7 @@ export default defineConfig([
     extends: compat.extends("eslint:recommended"),
 
     plugins: {
-      spellcheck
+      '@cspell': cspell
     },
 
     languageOptions: {
@@ -33,73 +33,16 @@ export default defineConfig([
     },
 
     rules: {
-      "spellcheck/spell-checker": [1, {
-        lang: "en_GB",
-
-        skipWords: [
-          "Marv",
-          "lunr",
-          "val",
-          "param",
-          "idx",
-          "utils",
-          "namespace",
-          "eslint",
-          "latin",
-          "str",
-          "len",
-          "sqrt",
-          "wildcard",
-          "concat",
-          "metadata",
-          "fn",
-          "params",
-          "lexeme",
-          "lex",
-          "pos",
-          "typedef",
-          "wildcards",
-          "lexemes",
-          "fns",
-          "stemmer",
-          "attrs",
-          "tf",
-          "idf",
-          "lookups",
-          "whitelist",
-          "whitelisted",
-          "tokenizer",
-          "whitespace",
-          "automata",
-          "i",
-          "obj",
-          "anymore",
-          "lexer",
-          "var",
-          "refs",
-          "serializable",
-          "tis",
-          "twas",
-          "int",
-          "args",
-          "unshift",
-          "plugins",
-          "upsert",
-          "upserting",
-          "readonly",
-          "baz",
-          "tokenization",
-          "lunrjs",
-          "com",
-          "olivernn",
-          "github",
-          "mjs",
-          "esm",
-          "umd",
-          "vars",
-          "chai",
-          "js"
-        ]
+      '@cspell/spellchecker': ['warn', {
+        cspell: {
+          language: 'en-GB',
+          words: [
+            'SignpostMarv',
+            'vars',
+            'vocab',
+            'stemmer'
+          ]
+        }
       }],
 
       "no-constant-condition": ["error", {

@@ -1,4 +1,5 @@
 import {
+  // eslint-disable-next-line @cspell/spellchecker
   // eslint-disable-next-line no-unused-vars
   QueryLexeme
 } from "../lib/query_lexer.mjs"
@@ -581,6 +582,7 @@ suite('lunr.QueryLexer', function () {
     })
 
     suite('customising the term separator', function () {
+      // eslint-disable-next-line @cspell/spellchecker
       teardown(() => {
         lunr.QueryLexer.termSeparator = undefined
       })

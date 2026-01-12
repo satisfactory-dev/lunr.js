@@ -107,8 +107,11 @@ suite('lunr.tokenizer', function () {
   })
 
   test('providing additional metadata', function () {
+    // eslint-disable-next-line @cspell/spellchecker
     var tokens = lunr.tokenizer('foo bar', { 'hurp': 'durp' })
+    // eslint-disable-next-line @cspell/spellchecker
     assert.deepEqual(tokens[0].metadata.hurp, 'durp')
+    // eslint-disable-next-line @cspell/spellchecker
     assert.deepEqual(tokens[1].metadata.hurp, 'durp')
   })
 })

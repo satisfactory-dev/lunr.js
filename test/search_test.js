@@ -206,6 +206,7 @@ suite('search', function () {
       })
 
       suite('pipeline processing', function () {
+        // eslint-disable-next-line @cspell/spellchecker
         // study would be stemmed to studi, tokens
         // are stemmed by default on index and must
         // also be stemmed on search to match
@@ -542,6 +543,7 @@ suite('search', function () {
 
       suite('results found', function () {
         setup(function () {
+          // eslint-disable-next-line @cspell/spellchecker
           this.results = this.idx.search('plont~1')
         })
 
@@ -750,6 +752,7 @@ suite('search', function () {
           suite('#query', function () {
             setup(function () {
               this.results = this.idx.query(function (q) {
+                // eslint-disable-next-line @cspell/spellchecker
                 q.term('qwertyuiop', { presence: lunr.Query.presence.PROHIBITED })
               })
             })
@@ -759,6 +762,7 @@ suite('search', function () {
 
           suite('#search', function () {
             setup(function () {
+              // eslint-disable-next-line @cspell/spellchecker
               this.results = this.idx.search("-qwertyuiop")
             })
 
@@ -909,6 +913,7 @@ suite('search', function () {
           suite('#query', function () {
             setup(function () {
               this.results = this.idx.query(function (q) {
+                // eslint-disable-next-line @cspell/spellchecker
                 q.term('qwertyuiop', { presence: lunr.Query.presence.REQUIRED })
                 q.term('green', { presence: lunr.Query.presence.OPTIONAL })
               })
@@ -919,6 +924,7 @@ suite('search', function () {
 
           suite('#search', function () {
             setup(function () {
+              // eslint-disable-next-line @cspell/spellchecker
               this.results = this.idx.search('+qwertyuiop green')
             })
 
@@ -1007,6 +1013,7 @@ suite('search', function () {
             })
 
             test('matching terms returned', function () {
+              // eslint-disable-next-line @cspell/spellchecker
               assert.sameMembers(['studi', 'plant'], Object.keys(this.results[0].matchData.metadata))
             })
           }
@@ -1040,6 +1047,7 @@ suite('search', function () {
 
           suite('#search', function () {
             setup(function () {
+              // eslint-disable-next-line @cspell/spellchecker
               this.results = this.idx.search('+title:plant +body:qwertyuiop')
             })
 
@@ -1050,6 +1058,7 @@ suite('search', function () {
             setup(function () {
               this.results = this.idx.query(function (q) {
                 q.term('plant', { fields: ['title'], presence: lunr.Query.presence.REQUIRED })
+                // eslint-disable-next-line @cspell/spellchecker
                 q.term('qwertyuiop', { fields: ['body'], presence: lunr.Query.presence.REQUIRED })
               })
             })
@@ -1104,13 +1113,13 @@ suite('search', function () {
         {
           "id": 3681,
           "name": "TROLLER",
-          // eslint-disable-next-line spellcheck/spell-checker
+          // eslint-disable-next-line @cspell/spellchecker
           "url": "/tecdoc/engine/list/3681"
         },
         {
           "id": 705,
           "name": "ROLLS-ROYCE",
-          // eslint-disable-next-line spellcheck/spell-checker
+          // eslint-disable-next-line @cspell/spellchecker
           "url": "/tecdoc/engine/list/705"
         }
       ]

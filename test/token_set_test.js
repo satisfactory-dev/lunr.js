@@ -145,10 +145,12 @@ suite('lunr.TokenSet', function () {
     })
 
     test('leading wildcard backtracking intersection', function () {
+      // eslint-disable-next-line @cspell/spellchecker
       var x = lunr.TokenSet.fromString('aaacbab'),
           y = lunr.TokenSet.fromString('*ab'),
           z = x.intersect(y)
 
+      // eslint-disable-next-line @cspell/spellchecker
       assert.sameMembers(['aaacbab'], z.toArray())
     })
 
@@ -161,6 +163,7 @@ suite('lunr.TokenSet', function () {
     })
 
     test('leading wildcard backtracking no intersection', function () {
+      // eslint-disable-next-line @cspell/spellchecker
       var x = lunr.TokenSet.fromString('aaabdcbc'),
           y = lunr.TokenSet.fromString('*abc'),
           z = x.intersect(y)
@@ -177,10 +180,12 @@ suite('lunr.TokenSet', function () {
     })
 
     test('contained wildcard backtracking intersection', function () {
+      // eslint-disable-next-line @cspell/spellchecker
       var x = lunr.TokenSet.fromString('ababc'),
           y = lunr.TokenSet.fromString('a*bc'),
           z = x.intersect(y)
 
+      // eslint-disable-next-line @cspell/spellchecker
       assert.sameMembers(['ababc'], z.toArray())
     })
 
@@ -193,6 +198,7 @@ suite('lunr.TokenSet', function () {
     })
 
     test('contained wildcard backtracking no intersection', function () {
+      // eslint-disable-next-line @cspell/spellchecker
       var x = lunr.TokenSet.fromString('ababc'),
           y = lunr.TokenSet.fromString('a*ac'),
           z = x.intersect(y)
@@ -220,18 +226,22 @@ suite('lunr.TokenSet', function () {
     })
 
     test('leading and trailing backtracking intersection', function () {
+      // eslint-disable-next-line @cspell/spellchecker
       var x = lunr.TokenSet.fromString('acbaabab'),
           y = lunr.TokenSet.fromString('*ab*'),
           z = x.intersect(y)
 
+      // eslint-disable-next-line @cspell/spellchecker
       assert.sameMembers(['acbaabab'], z.toArray())
     })
 
     test('multiple contained wildcard backtracking', function () {
+      // eslint-disable-next-line @cspell/spellchecker
       var x = lunr.TokenSet.fromString('acbaabab'),
           y = lunr.TokenSet.fromString('a*ba*b'),
           z = x.intersect(y)
 
+      // eslint-disable-next-line @cspell/spellchecker
       assert.sameMembers(['acbaabab'], z.toArray())
     })
 
@@ -266,7 +276,9 @@ suite('lunr.TokenSet', function () {
     })
 
     test('intersect with fuzzy string insertion', function () {
+      // eslint-disable-next-line @cspell/spellchecker
       var x1 = lunr.TokenSet.fromString('bbar'),
+          // eslint-disable-next-line @cspell/spellchecker
           x2 = lunr.TokenSet.fromString('baar'),
           x3 = lunr.TokenSet.fromString('barr'),
           x4 = lunr.TokenSet.fromString('bar'),
@@ -275,7 +287,9 @@ suite('lunr.TokenSet', function () {
           x7 = lunr.TokenSet.fromString('bara'),
           y = lunr.TokenSet.fromFuzzyString('bar', 1)
 
+      // eslint-disable-next-line @cspell/spellchecker
       assert.sameMembers(x1.intersect(y).toArray(), ["bbar"])
+      // eslint-disable-next-line @cspell/spellchecker
       assert.sameMembers(x2.intersect(y).toArray(), ["baar"])
       assert.sameMembers(x3.intersect(y).toArray(), ["barr"])
       assert.sameMembers(x4.intersect(y).toArray(), ["bar"])
@@ -296,9 +310,11 @@ suite('lunr.TokenSet', function () {
     })
 
     test('fuzzy string insertion', function () {
+    // eslint-disable-next-line @cspell/spellchecker
       var x = lunr.TokenSet.fromString('abcxx'),
           y = lunr.TokenSet.fromFuzzyString('abc', 2)
 
+      // eslint-disable-next-line @cspell/spellchecker
       assert.sameMembers(x.intersect(y).toArray(), ['abcxx'])
     })
 

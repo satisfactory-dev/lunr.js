@@ -11,6 +11,7 @@ suite('lunr.Pipeline', function () {
     this.pipeline = new lunr.Pipeline
   })
 
+  // eslint-disable-next-line @cspell/spellchecker
   teardown(function () {
     lunr.Pipeline.registeredFunctions = this.existingRegisteredFunctions
     lunr.Pipeline.warnIfFunctionNotRegistered = this.existingWarnIfFunctionNotRegistered
