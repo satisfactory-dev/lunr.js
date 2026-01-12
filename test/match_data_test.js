@@ -9,13 +9,23 @@ suite('lunr.MatchData', function () {
         position: [2]
       }))
 
-      this.match.combine(new lunr.MatchData('baz', 'body', {
-        position: [3]
-      }))
+      this.match.add('baz', 'title', {
+        position: [3],
+        test: ['foo']
+      })
 
-      this.match.combine(new lunr.MatchData('baz', 'body', {
-        position: [4]
-      }))
+      this.match.add('baz', 'title', {
+        test: ['bar']
+      })
+
+      this.match.add('baz', 'body', {
+        position: [3]
+      })
+
+      this.match.add('baz', 'body', {
+        position: [4],
+        test: ['foo']
+      })
     })
 
     test('#terms', function () {
@@ -26,6 +36,8 @@ suite('lunr.MatchData', function () {
       assert.deepEqual(this.match.metadata.foo.title.position, [1])
       assert.deepEqual(this.match.metadata.bar.title.position, [2])
       assert.deepEqual(this.match.metadata.baz.body.position, [3, 4])
+      assert.deepEqual(this.match.metadata.baz.title.test, ['foo', 'bar'])
+      assert.deepEqual(this.match.metadata.baz.body.test, ['foo'])
     })
 
     test('does not mutate source data', function () {
