@@ -46,6 +46,9 @@ test/index.html: test/env/file_list.json test/env/index.mustache
 docs:
 	${JSDOC} lib -r -R README.md -d docs -c build/jsdoc.conf.json
 
+coverage:
+	./node_modules/.bin/c8 make test
+
 clean:
 	rm -f lunr{.min,}.js
 	git clean -fxd docs
@@ -53,4 +56,4 @@ clean:
 reset:
 	git checkout lunr.* *.json
 
-.PHONY: test clean docs reset perf/*_perf.js test/inspect lunr.js test/index.html
+.PHONY: test clean docs reset perf/*_perf.js test/inspect lunr.js test/index.html coverage
