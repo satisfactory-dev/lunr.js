@@ -1,8 +1,19 @@
+import {
+  // eslint-disable-next-line no-unused-vars
+  QueryLexeme
+} from "../lib/query_lexer.mjs"
+
 suite('lunr.QueryLexer', function () {
   suite('#run', function () {
 
-    var lex = function (str) {
+    /**
+     * @param {string} str
+     * @param {RegExp|undefined} termSeparator
+     * @return {lunr.QueryLexer}
+     */
+    var lex = function (str, termSeparator) {
       var lexer = new lunr.QueryLexer(str)
+      lexer.termSeparator = termSeparator
       lexer.run()
       return lexer
     }
@@ -569,5 +580,95 @@ suite('lunr.QueryLexer', function () {
       })
     })
 
+    suite('customising the term separator', function () {
+      teardown(() => {
+        lunr.QueryLexer.termSeparator = undefined
+      })
+
+      /**
+       * @callback data_provider
+       * @return [string, Object<string, QueryLexeme[]>, [RegExp]]
+       */
+
+      /**
+       * @type {Object<string, data_provider>}
+       */
+      const tests = {
+        'default behaviour': () => [
+          '/[\\s-]+/',
+          {
+            'foo-bar -baz +bat': [
+              {type: 'TERM', str: 'foo', start: 0, end: 3},
+              {type: 'TERM', str: 'bar', start: 4, end: 7},
+              {type: 'PRESENCE', str: '-', start: 8, end: 9},
+              {type: 'TERM', str: 'baz', start: 9, end: 12},
+              {type: 'PRESENCE', str: '+', start: 13, end: 14},
+              {type: 'TERM', str: 'bat', start: 14, end: 17}
+            ],
+            // https://github.com/olivernn/lunr.js/issues/527
+            'ROLLS-ROYCE': [
+              {type: 'TERM', str: 'ROLLS', start: 0, end: 5},
+              {type: 'TERM', str: 'ROYCE', start: 6, end: 11}
+            ]
+          }
+        ],
+        'instance behaviour': () => [
+          '/[\\s]+/',
+          {
+            'foo-bar -baz +bat': [
+              {type: 'TERM', str: 'foo-bar', start: 0, end: 7},
+              {type: 'PRESENCE', str: '-', start: 8, end: 9},
+              {type: 'TERM', str: 'baz', start: 9, end: 12},
+              {type: 'PRESENCE', str: '+', start: 13, end: 14},
+              {type: 'TERM', str: 'bat', start: 14, end: 17}
+            ],
+            // https://github.com/olivernn/lunr.js/issues/527
+            'ROLLS-ROYCE': [
+              {type: 'TERM', str: 'ROLLS-ROYCE', start: 0, end: 11}
+            ]
+          },
+          /[\s]+/
+        ],
+        'static behaviour': () => {
+          lunr.QueryLexer.termSeparator = /[\s]+/
+
+          return [
+            '/[\\s]+/',
+            {
+              'foo-bar -baz +bat': [
+                {type: 'TERM', str: 'foo-bar', start: 0, end: 7},
+                {type: 'PRESENCE', str: '-', start: 8, end: 9},
+                {type: 'TERM', str: 'baz', start: 9, end: 12},
+                {type: 'PRESENCE', str: '+', start: 13, end: 14},
+                {type: 'TERM', str: 'bat', start: 14, end: 17}
+              ],
+              // https://github.com/olivernn/lunr.js/issues/527
+              'ROLLS-ROYCE': [
+                {type: 'TERM', str: 'ROLLS-ROYCE', start: 0, end: 11}
+              ]
+            }
+          ]
+        }
+      }
+
+      for (const [testName, data] of Object.entries(tests)) {
+        test(testName, () => {
+          const [
+            expectedTermSeparator,
+            expectations,
+            separator
+          ] = data()
+          for (const [stringToLex, expectedLexemes] of Object.entries(expectations)) {
+            const result = lex(stringToLex, separator)
+            assert.equal(result.termSeparator.toString(), expectedTermSeparator)
+            assert.equal(result.lexemes.length, expectedLexemes.length)
+            assert.deepEqual(
+              result.lexemes,
+              expectedLexemes
+            )
+          }
+        })
+      }
+    })
   })
 })

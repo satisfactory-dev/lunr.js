@@ -1097,4 +1097,62 @@ suite('search', function () {
       })
     })
   })
+
+  suite('https://github.com/olivernn/lunr.js/issues/527', function () {
+    setup(function () {
+      this.documents = [
+        {
+          "id": 3681,
+          "name": "TROLLER",
+          // eslint-disable-next-line spellcheck/spell-checker
+          "url": "/tecdoc/engine/list/3681"
+        },
+        {
+          "id": 705,
+          "name": "ROLLS-ROYCE",
+          // eslint-disable-next-line spellcheck/spell-checker
+          "url": "/tecdoc/engine/list/705"
+        }
+      ]
+    })
+
+    test('default behaviour', function () {
+      const documents = this.documents
+      const idx = lunr.default(function () {
+        this.ref = 'id'
+        this.field('name')
+        this.field('url')
+
+        documents.forEach((document) => {
+          this.add(document)
+        })
+      })
+
+      const a = idx.search('*roll*')
+      const b = idx.search('*rolls*')
+
+      assert.equal(2, a.length)
+      assert.equal(0, b.length)
+    })
+
+    test('overridden separator behaviour', function () {
+      const documents = this.documents
+      const idx = lunr.default(function () {
+        this.ref = 'id'
+        this.field('name')
+        this.field('url')
+        this.tokenizerSeparator = /[\s]+/
+
+        documents.forEach((document) => {
+          this.add(document)
+        })
+      })
+
+      const a = idx.search('*roll*')
+      const b = idx.search('*rolls*')
+
+      assert.equal(2, a.length)
+      assert.equal(1, b.length)
+    })
+  })
 })
