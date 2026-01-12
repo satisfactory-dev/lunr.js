@@ -1,4 +1,9 @@
 {
+  "alliance": "allianc",
+  "attesting": "attest",
+  "attestation": "attest",
+  "bastion": "bastion",
+  "bastiontion": "bastiont",
   "consign": "consign",
   "consigned": "consign",
   "consigning": "consign",
@@ -78,5 +83,17 @@
   "knot": "knot",
   "knots": "knot",
   "lay": "lay",
-  "try": "tri"
+  "logistical": "logist",
+  "thou": "thou",
+  "tell": "tell",
+  "tellell": "tellel",
+  "testing": "test",
+  "ttesting": "ttest",
+  "ttesing": "ttese",
+  "try": "tri",
+  "Yellowweed": "Yellowwe",
+  "weeding": "weed",
+  "weeder": "weeder",
+  "you": "you",
+  "You": "You"
 }
