@@ -1,5 +1,3 @@
-/* eslint @stylistic/migrate/migrate-js: "error" */
-
 import {
   defineConfig,
   globalIgnores
@@ -9,7 +7,6 @@ import js from "@eslint/js"
 import { FlatCompat } from "@eslint/eslintrc"
 import cspell from '@cspell/eslint-plugin'
 import stylistic from '@stylistic/eslint-plugin'
-import stylisticMigrate from '@stylistic/eslint-plugin-migrate'
 
 const compat = new FlatCompat({
   baseDirectory: import.meta.dirname,
@@ -24,7 +21,6 @@ export default defineConfig([
     plugins: {
       '@cspell': cspell,
       '@stylistic': stylistic,
-      '@stylistic/migrate': stylisticMigrate
     },
 
     languageOptions: {
