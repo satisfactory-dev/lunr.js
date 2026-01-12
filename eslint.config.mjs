@@ -96,6 +96,7 @@ export default defineConfig([{
         "esm",
         "umd",
         "vars",
+        "chai",
         "js"
       ]
     }],
