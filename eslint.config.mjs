@@ -4,20 +4,12 @@ import {
 } from "eslint/config"
 import globals from "globals"
 import js from "@eslint/js"
-import { FlatCompat } from "@eslint/eslintrc"
 import cspell from '@cspell/eslint-plugin'
 import stylistic from '@stylistic/eslint-plugin'
 
-const compat = new FlatCompat({
-  baseDirectory: import.meta.dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
-})
-
 export default defineConfig([
+  js.configs.recommended,
   {
-    extends: compat.extends("eslint:recommended"),
-
     plugins: {
       '@cspell': cspell,
       '@stylistic': stylistic,
