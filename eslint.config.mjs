@@ -1,6 +1,6 @@
 import {
   defineConfig,
-  globalIgnores
+  globalIgnores,
 } from "eslint/config"
 import globals from "globals"
 import js from "@eslint/js"
@@ -11,7 +11,7 @@ import stylistic from '@stylistic/eslint-plugin'
 const compat = new FlatCompat({
   baseDirectory: import.meta.dirname,
   recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all
+  allConfig: js.configs.all,
 })
 
 export default defineConfig([
@@ -30,8 +30,8 @@ export default defineConfig([
         ...globals.mocha,
         assert: true,
         withFixture: true,
-        lunr: true
-      }
+        lunr: true,
+      },
     },
 
     rules: {
@@ -42,13 +42,13 @@ export default defineConfig([
             'SignpostMarv',
             'vars',
             'vocab',
-            'stemmer'
-          ]
-        }
+            'stemmer',
+          ],
+        },
       }],
 
       "no-constant-condition": ["error", {
-        checkLoops: false
+        checkLoops: false,
       }],
 
       "no-redeclare": "off",
@@ -64,7 +64,7 @@ export default defineConfig([
       "@stylistic/block-spacing": "error",
 
       "@stylistic/brace-style": ["error", "1tbs", {
-        allowSingleLine: true
+        allowSingleLine: true,
       }],
 
       camelcase: "error",
@@ -76,7 +76,7 @@ export default defineConfig([
 
       '@stylistic/indent': ["error", 2, {
         VariableDeclarator: 2,
-        SwitchCase: 1
+        SwitchCase: 1,
       }],
 
       "@stylistic/key-spacing": "error",
@@ -88,12 +88,12 @@ export default defineConfig([
       '@stylistic/semi': ["error", "never"],
       "@stylistic/space-before-function-paren": ["error", "always"],
       "@stylistic/space-in-parens": "error",
-      "@stylistic/space-infix-ops": "error"
-    }
+      "@stylistic/space-infix-ops": "error",
+    },
   },
   globalIgnores([
     './lunr.js',
     './lunr.min.js',
-    './lunr.min.mjs'
-  ])
+    './lunr.min.mjs',
+  ]),
 ])

@@ -1,9 +1,9 @@
 import {
-  readFile
+  readFile,
 } from 'node:fs/promises'
 
 import {
-  defineConfig
+  defineConfig,
 } from 'rolldown'
 
 import replace from '@rollup/plugin-replace'
@@ -15,9 +15,9 @@ const plugins = [
     preventAssignment: true,
     values: {
       '@YEAR': (new Date()).getUTCFullYear(),
-      '@VERSION': version
-    }
-  })
+      '@VERSION': version,
+    },
+  }),
 ]
 
 export default defineConfig([
@@ -27,9 +27,9 @@ export default defineConfig([
       format: 'esm',
       file: 'lunr.min.mjs',
       minify: true,
-      sourcemap: true
+      sourcemap: true,
     },
-    plugins
+    plugins,
   },
   {
     input: 'lunr.mjs',
@@ -40,9 +40,9 @@ export default defineConfig([
       name: 'lunr',
       minify: false,
       sourcemap: true,
-      banner: '/* eslint-disable */'
+      banner: '/* eslint-disable */',
     },
-    plugins
+    plugins,
   },
   {
     input: 'lunr.mjs',
@@ -53,8 +53,8 @@ export default defineConfig([
       name: 'lunr',
       minify: true,
       sourcemap: true,
-      banner: '/* eslint-disable */'
+      banner: '/* eslint-disable */',
     },
-    plugins
-  }
+    plugins,
+  },
 ])
