@@ -2,29 +2,29 @@ suite('lunr.MatchData', function () {
   suite('#combine', function () {
     setup(function () {
       this.match = new lunr.MatchData('foo', 'title', {
-        position: [1]
+        position: [1],
       })
 
       this.match.combine(new lunr.MatchData('bar', 'title', {
-        position: [2]
+        position: [2],
       }))
 
       this.match.add('baz', 'title', {
         position: [3],
-        test: ['foo']
+        test: ['foo'],
       })
 
       this.match.add('baz', 'title', {
-        test: ['bar']
+        test: ['bar'],
       })
 
       this.match.add('baz', 'body', {
-        position: [3]
+        position: [3],
       })
 
       this.match.add('baz', 'body', {
         position: [4],
-        test: ['foo']
+        test: ['foo'],
       })
     })
 

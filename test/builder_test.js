@@ -55,14 +55,14 @@ suite('lunr.Builder', function () {
       var extractor = function (d) { return d.person.name }
 
       this.builder.field('name', {
-        extractor: extractor
+        extractor: extractor,
       })
 
       this.builder.add({
         id: 'id',
         person: {
-          name: 'bob'
-        }
+          name: 'bob',
+        },
       })
 
       assert.deepProperty(this.builder.invertedIndex, 'bob.name.id')

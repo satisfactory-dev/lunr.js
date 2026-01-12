@@ -5,26 +5,26 @@ suite('serialization', function () {
         id: 'a',
         title: 'Mr. Green kills Colonel Mustard',
         body: 'Mr. Green killed Colonel Mustard in the study with the candlestick. Mr. Green is not a very nice fellow.',
-        wordCount: 19
+        wordCount: 19,
       },
       {
         id: 'b',
         title: 'Plumb waters plant',
         body: 'Professor Plumb has a green plant in his study',
-        wordCount: 9
+        wordCount: 9,
       },
       {
         id: 'c',
         title: 'Scarlett helps Professor',
         body: 'Miss Scarlett watered Professor Plumbs green plant while he was away from his office last week.',
-        wordCount: 16
+        wordCount: 16,
       },
       {
         id: 'd',
         title: 'All about JavaScript',
         body: 'JavaScript objects have a special __proto__ property',
-        wordCount: 7
-      }
+        wordCount: 7,
+      },
     ]
 
     this.idx = lunr.default(function () {
@@ -56,7 +56,7 @@ suite('serialization', function () {
     assert.doesNotThrow(() => {
       lunr.Index.load({
         ...index,
-        version: 'not a supported version'
+        version: 'not a supported version',
       })
     })
     let called = false
@@ -64,13 +64,13 @@ suite('serialization', function () {
       lunr.Index.load(
         {
           ...index,
-          version: 'not a supported version'
+          version: 'not a supported version',
         },
         {
           versionConflictHandler: () => {
             called = true
-          }
-        }
+          },
+        },
       )
     })
     assert.equal(called, true, 'Custom conflict handler was not called!')
@@ -79,32 +79,32 @@ suite('serialization', function () {
         lunr.Index.load(
           {
             ...index,
-            version: 'not a supported version'
+            version: 'not a supported version',
           },
           {
-            versionConflictHandler: 'throw'
-          }
+            versionConflictHandler: 'throw',
+          },
         )
       },
       Error,
       `Version mismatch when loading serialised index. Current version of lunr '${
         lunr.version
-      }' does not match serialized index 'not a supported version'`
+      }' does not match serialized index 'not a supported version'`,
     )
     assert.throws(
       () => {
         lunr.Index.load(
           {
             ...index,
-            version: 'not a supported version'
+            version: 'not a supported version',
           },
           {
             versionConflictHandler: 'throw',
-            versionConflictFormatter: (a, b) => `'${a}' != '${b}'`
-          }
+            versionConflictFormatter: (a, b) => `'${a}' != '${b}'`,
+          },
         )
       },
-      `'not a supported version' != '${lunr.version}'`
+      `'not a supported version' != '${lunr.version}'`,
     )
   })
 

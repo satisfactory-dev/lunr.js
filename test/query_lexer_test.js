@@ -1,6 +1,6 @@
 import {
   // eslint-disable-next-line no-unused-vars
-  QueryLexeme
+  QueryLexeme,
 } from "../lib/query_lexer.mjs"
 
 suite('lunr.QueryLexer', function () {
@@ -604,14 +604,14 @@ suite('lunr.QueryLexer', function () {
               {type: 'PRESENCE', str: '-', start: 8, end: 9},
               {type: 'TERM', str: 'baz', start: 9, end: 12},
               {type: 'PRESENCE', str: '+', start: 13, end: 14},
-              {type: 'TERM', str: 'bat', start: 14, end: 17}
+              {type: 'TERM', str: 'bat', start: 14, end: 17},
             ],
             // https://github.com/olivernn/lunr.js/issues/527
             'ROLLS-ROYCE': [
               {type: 'TERM', str: 'ROLLS', start: 0, end: 5},
-              {type: 'TERM', str: 'ROYCE', start: 6, end: 11}
-            ]
-          }
+              {type: 'TERM', str: 'ROYCE', start: 6, end: 11},
+            ],
+          },
         ],
         'instance behaviour': () => [
           '/[\\s]+/',
@@ -621,14 +621,14 @@ suite('lunr.QueryLexer', function () {
               {type: 'PRESENCE', str: '-', start: 8, end: 9},
               {type: 'TERM', str: 'baz', start: 9, end: 12},
               {type: 'PRESENCE', str: '+', start: 13, end: 14},
-              {type: 'TERM', str: 'bat', start: 14, end: 17}
+              {type: 'TERM', str: 'bat', start: 14, end: 17},
             ],
             // https://github.com/olivernn/lunr.js/issues/527
             'ROLLS-ROYCE': [
-              {type: 'TERM', str: 'ROLLS-ROYCE', start: 0, end: 11}
-            ]
+              {type: 'TERM', str: 'ROLLS-ROYCE', start: 0, end: 11},
+            ],
           },
-          /[\s]+/
+          /[\s]+/,
         ],
         'static behaviour': () => {
           lunr.QueryLexer.termSeparator = /[\s]+/
@@ -641,15 +641,15 @@ suite('lunr.QueryLexer', function () {
                 {type: 'PRESENCE', str: '-', start: 8, end: 9},
                 {type: 'TERM', str: 'baz', start: 9, end: 12},
                 {type: 'PRESENCE', str: '+', start: 13, end: 14},
-                {type: 'TERM', str: 'bat', start: 14, end: 17}
+                {type: 'TERM', str: 'bat', start: 14, end: 17},
               ],
               // https://github.com/olivernn/lunr.js/issues/527
               'ROLLS-ROYCE': [
-                {type: 'TERM', str: 'ROLLS-ROYCE', start: 0, end: 11}
-              ]
-            }
+                {type: 'TERM', str: 'ROLLS-ROYCE', start: 0, end: 11},
+              ],
+            },
           ]
-        }
+        },
       }
 
       for (const [testName, data] of Object.entries(tests)) {
@@ -657,7 +657,7 @@ suite('lunr.QueryLexer', function () {
           const [
             expectedTermSeparator,
             expectations,
-            separator
+            separator,
           ] = data()
           for (const [stringToLex, expectedLexemes] of Object.entries(expectations)) {
             const result = lex(stringToLex, separator)
@@ -665,7 +665,7 @@ suite('lunr.QueryLexer', function () {
             assert.equal(result.lexemes.length, expectedLexemes.length)
             assert.deepEqual(
               result.lexemes,
-              expectedLexemes
+              expectedLexemes,
             )
           }
         })

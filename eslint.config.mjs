@@ -68,7 +68,7 @@ export default defineConfig([
       }],
 
       camelcase: "error",
-      "@stylistic/comma-dangle": "error",
+      "@stylistic/comma-dangle": ["error", "always-multiline"],
       "@stylistic/comma-spacing": "error",
       "@stylistic/comma-style": "error",
       "@stylistic/computed-property-spacing": "error",

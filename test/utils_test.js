@@ -29,7 +29,7 @@ suite('lunr.utils', function () {
       subject({
         number: 1,
         string: 'foo',
-        bool: true
+        bool: true,
       })
 
       test('clones number correctly', function () {
@@ -47,7 +47,7 @@ suite('lunr.utils', function () {
 
     suite('object with array property', function () {
       subject({
-        array: [1, 2, 3]
+        array: [1, 2, 3],
       })
 
       test('clones array correctly', function () {
@@ -67,8 +67,8 @@ suite('lunr.utils', function () {
         assert.throws(function () {
           lunr.utils.clone({
             'foo': {
-              'bar': 1
-            }
+              'bar': 1,
+            },
           })
         }, TypeError)
       })

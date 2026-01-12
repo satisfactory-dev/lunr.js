@@ -112,7 +112,7 @@ suite('lunr.Vector', function () {
       2, 'b',
       4, 'c',
       7, 'd',
-      11, 'e'
+      11, 'e',
     ])
 
     test('at the beginning', function () {

@@ -106,7 +106,7 @@ suite('lunr.Query', function () {
           term: 'foo',
           boost: 10,
           fields: ['title'],
-          usePipeline: false
+          usePipeline: false,
         })
 
         this.clause = this.query.clauses[0]
@@ -130,7 +130,7 @@ suite('lunr.Query', function () {
         setup(function () {
           this.query.clause({
             term: 'foo',
-            wildcard: lunr.Query.wildcard.NONE
+            wildcard: lunr.Query.wildcard.NONE,
           })
 
           this.clause = this.query.clauses[0]
@@ -145,7 +145,7 @@ suite('lunr.Query', function () {
         setup(function () {
           this.query.clause({
             term: 'foo',
-            wildcard: lunr.Query.wildcard.LEADING
+            wildcard: lunr.Query.wildcard.LEADING,
           })
 
           this.clause = this.query.clauses[0]
@@ -160,7 +160,7 @@ suite('lunr.Query', function () {
         setup(function () {
           this.query.clause({
             term: 'foo',
-            wildcard: lunr.Query.wildcard.TRAILING
+            wildcard: lunr.Query.wildcard.TRAILING,
           })
 
           this.clause = this.query.clauses[0]
@@ -175,7 +175,7 @@ suite('lunr.Query', function () {
         setup(function () {
           this.query.clause({
             term: 'foo',
-            wildcard: lunr.Query.wildcard.TRAILING | lunr.Query.wildcard.LEADING
+            wildcard: lunr.Query.wildcard.TRAILING | lunr.Query.wildcard.LEADING,
           })
 
           this.clause = this.query.clauses[0]
@@ -190,7 +190,7 @@ suite('lunr.Query', function () {
         setup(function () {
           this.query.clause({
             term: '*foo*',
-            wildcard: lunr.Query.wildcard.TRAILING | lunr.Query.wildcard.LEADING
+            wildcard: lunr.Query.wildcard.TRAILING | lunr.Query.wildcard.LEADING,
           })
 
           this.clause = this.query.clauses[0]

@@ -68,7 +68,7 @@ suite('lunr.tokenizer', function () {
 
   test('converting an object to tokens', function () {
     var obj = {
-      toString: function () { return 'custom object' }
+      toString: function () { return 'custom object' },
     }
 
     assert.sameMembers(lunr.tokenizer(obj).map(toString), ['custom', 'object'])
