@@ -43,6 +43,66 @@ suite('serialization', function () {
     assert.deepEqual(idxResults, serializedResults)
   })
 
+  test('load version mismatch', function () {
+    const index = JSON.parse(this.serializedIdx)
+    assert.doesNotThrow(() => {
+      lunr.Index.load(index)
+    })
+    assert.doesNotThrow(() => {
+      lunr.Index.load({
+        ...index,
+        version: 'not a supported version'
+      })
+    })
+    let called = false
+    assert.doesNotThrow(() => {
+      lunr.Index.load(
+        {
+          ...index,
+          version: 'not a supported version'
+        },
+        {
+          versionConflictHandler: () => {
+            called = true
+          }
+        }
+      )
+    })
+    assert.equal(called, true, 'Custom conflict handler was not called!')
+    assert.throws(
+      () => {
+        lunr.Index.load(
+          {
+            ...index,
+            version: 'not a supported version'
+          },
+          {
+            versionConflictHandler: 'throw'
+          }
+        )
+      },
+      Error,
+      `Version mismatch when loading serialised index. Current version of lunr '${
+        lunr.version
+      }' does not match serialized index 'not a supported version'`
+    )
+    assert.throws(
+      () => {
+        lunr.Index.load(
+          {
+            ...index,
+            version: 'not a supported version'
+          },
+          {
+            versionConflictHandler: 'throw',
+            versionConflictFormatter: (a, b) => `'${a}' != '${b}'`
+          }
+        )
+      },
+      `'not a supported version' != '${lunr.version}'`
+    )
+  })
+
   test('__proto__ double serialization', function () {
     var doubleLoadedIdx = lunr.Index.load(JSON.parse(JSON.stringify(this.loadedIdx))),
         idxResults = this.idx.search('__proto__'),
