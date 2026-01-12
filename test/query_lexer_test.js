@@ -126,7 +126,7 @@ suite('lunr.QueryLexer', function () {
         this.lexer = lex('foo bar')
       })
 
-      test('produces 2 lexems', function () {
+      test('produces 2 lexemes', function () {
         assert.lengthOf(this.lexer.lexemes, 2)
       })
 
@@ -163,7 +163,7 @@ suite('lunr.QueryLexer', function () {
         this.lexer = lex('+foo +bar')
       })
 
-      test('produces 2 lexems', function () {
+      test('produces 2 lexemes', function () {
         assert.lengthOf(this.lexer.lexemes, 4)
       })
 
@@ -227,7 +227,7 @@ suite('lunr.QueryLexer', function () {
         this.lexer = lex('foo    bar')
       })
 
-      test('produces 2 lexems', function () {
+      test('produces 2 lexemes', function () {
         assert.lengthOf(this.lexer.lexemes, 2)
       })
 
@@ -259,7 +259,7 @@ suite('lunr.QueryLexer', function () {
       })
     })
 
-    suite('hyphen (-) considered a seperator', function () {
+    suite('hyphen (-) considered a separator', function () {
       setup(function () {
         this.lexer = lex('foo-bar')
       })
@@ -274,7 +274,7 @@ suite('lunr.QueryLexer', function () {
         this.lexer = lex('title:foo')
       })
 
-      test('produces 2 lexems', function () {
+      test('produces 2 lexemes', function () {
         assert.lengthOf(this.lexer.lexemes, 2)
       })
 
@@ -464,7 +464,7 @@ suite('lunr.QueryLexer', function () {
         this.lexer = lex('foo~2')
       })
 
-      test('produces 2 lexems', function () {
+      test('produces 2 lexemes', function () {
         assert.lengthOf(this.lexer.lexemes, 2)
       })
 
@@ -501,7 +501,7 @@ suite('lunr.QueryLexer', function () {
         this.lexer = lex('foo^10')
       })
 
-      test('produces 2 lexems', function () {
+      test('produces 2 lexemes', function () {
         assert.lengthOf(this.lexer.lexemes, 2)
       })
 
@@ -538,7 +538,7 @@ suite('lunr.QueryLexer', function () {
         this.lexer = lex('title:foo^10~5')
       })
 
-      test('produces 4 lexems', function () {
+      test('produces 4 lexemes', function () {
         assert.lengthOf(this.lexer.lexemes, 4)
       })
 

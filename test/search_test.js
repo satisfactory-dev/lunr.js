@@ -161,7 +161,7 @@ suite('search', function () {
           })
         }
 
-        suite('#seach', function () {
+        suite('#search', function () {
           setup(function () {
             this.results = this.idx.search('scarlett')
           })

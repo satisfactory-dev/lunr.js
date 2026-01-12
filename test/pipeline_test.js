@@ -115,7 +115,7 @@ suite('lunr.Pipeline', function () {
     })
 
     test('passes entire token array to pipeline function', function () {
-      this.pipeline.add(function (_, _, tokens) {
+      this.pipeline.add(function (_a, _b, tokens) {
         assert.deepEqual(['foo'], tokens)
       })
 
@@ -257,7 +257,7 @@ suite('lunr.Pipeline', function () {
       assert.equal(fn, pipeline.atIndex(0))
     })
 
-    test('with unregisterd functions', function () {
+    test('with unregistered functions', function () {
       var serializedPipeline = ['fn']
 
       assert.throws(function () {

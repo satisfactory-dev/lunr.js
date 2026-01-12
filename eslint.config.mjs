@@ -31,6 +31,7 @@ export default defineConfig([
       ...globals.node,
       ...globals.mocha,
       assert: true,
+      withFixture: true,
       lunr: true
     }
   },
