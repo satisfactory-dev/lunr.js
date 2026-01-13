@@ -1,14 +1,3 @@
-VERSION = $(shell cat VERSION)
-
-NODE ?= $(shell which node)
-NPM ?= $(shell which npm)
-UGLIFYJS ?= ./node_modules/.bin/uglifyjs
-MOCHA ?= ./node_modules/.bin/mocha
-MUSTACHE ?= ./node_modules/.bin/mustache
-ESLINT ?= ./node_modules/.bin/eslint
-JSDOC ?= ./node_modules/.bin/jsdoc
-NODE_STATIC ?= ./node_modules/.bin/static
-
 all: test lint docs
 release: lunr.js docs
 
@@ -39,24 +28,24 @@ lint--eslint--js:
 	./node_modules/.bin/eslint --cache --cache-location './.cache/eslint/javascript.eslintcache' './test/*.js' './*.mjs' --ignore-pattern './lunr.mjs'
 
 perf/*_perf.js: lunr.js
-	${NODE} -r ./perf/perf_helper.js $@
+	node -r ./perf/perf_helper.js $@
 
 benchmark: perf/*_perf.js
 
 test: node_modules lunr.js
-	${MOCHA} test/*.js -u tdd -r test/test_helper.js -R dot -C
+	./node_modules/.bin/mocha test/*.js -u tdd -r test/test_helper.js -R dot -C
 
 test/inspect: node_modules lunr.js
-	${MOCHA} test/*.js -u tdd -r test/test_helper.js -R dot -C --inspect-brk=0.0.0.0:9292
+	./node_modules/.bin/mocha test/*.js -u tdd -r test/test_helper.js -R dot -C --inspect-brk=0.0.0.0:9292
 
 test/env/file_list.json: $(wildcard test/*test.js)
 	node -p 'JSON.stringify({test_files: process.argv.slice(1)}).replace(/test\//g, "")' $^ > $@
 
 test/index.html: test/env/file_list.json test/env/index.mustache
-	${MUSTACHE} $^ > $@
+	./node_modules/.bin/mustache $^ > $@
 
 docs:
-	${JSDOC} lib -r -R README.md -d docs -c build/jsdoc.conf.json
+	./node_modules/.bin/jsdoc lib -r -R README.md -d docs -c build/jsdoc.conf.json
 
 coverage:
 	./node_modules/.bin/c8 make test
