@@ -1,0 +1,16 @@
+{
+  "entryPoints": [
+    "../lunr.mts"
+  ],
+  "outputs": [
+    {
+      "name": "html",
+      "path": "../.cache/docs/html/"
+    },
+    {
+      "name": "markdown",
+      "path": "../docs/"
+    }
+  ]
+}
+

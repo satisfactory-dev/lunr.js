@@ -8,7 +8,7 @@ import {
   separator,
 } from './tokenizer.mts'
 
-interface QueryLexemeType {
+export interface QueryLexemeType {
   type: (
     | typeof QueryLexer['EOS']
     | typeof QueryLexer['FIELD']

@@ -76,7 +76,7 @@ import {
   Vector,
 } from './vector.mts'
 
-type LunrConfig = (this: Builder, builder: Builder) => void
+export type LunrConfig = (this: Builder, builder: Builder) => void
 
 /**
  * A convenience function for configuring and constructing

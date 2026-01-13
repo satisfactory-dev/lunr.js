@@ -12,7 +12,7 @@
  * @param {string} str - The string representation of the token.
  * @param {Object} metadata - All metadata associated with this token.
  */
-type TokenUpdateFunction = (str: string, metadata: object) => string
+export type TokenUpdateFunction = (str: string, metadata: object) => string
 
 /**
  * A token wraps a string representation of a token

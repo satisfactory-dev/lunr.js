@@ -47,7 +47,7 @@ This returns a list of matching documents with a score of how closely they match
 ]
 ```
 
-[API documentation](https://lunrjs.com/docs/index.html) is available, as well as a [full working example](https://olivernn.github.io/moonwalkers/).
+[API documentation](docs/globals.md) is available, as well as a [full working example](https://olivernn.github.io/moonwalkers/).
 
 ## Description
 

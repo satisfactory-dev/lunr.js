@@ -42,3 +42,7 @@ indent_style = space
 [*.mustache]
 indent_size = 2
 indent_style = space
+
+[build/typedoc.conf.json]
+indent_size = 2
+indent_style = space

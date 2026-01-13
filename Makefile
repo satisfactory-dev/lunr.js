@@ -45,7 +45,10 @@ test/index.html: test/env/file_list.json test/env/index.mustache
 	./node_modules/.bin/mustache $^ > $@
 
 docs:
-	./node_modules/.bin/jsdoc lib -r -R README.md -d docs -c build/jsdoc.conf.json
+	./node_modules/.bin/typedoc --readme README.md --options build/typedoc.conf.json --plugin typedoc-plugin-markdown
+	@touch ./.cache/docs/html/.gitkeep
+	find docs -name '*.md' -exec sed -i -e 's/README.md/..\/README.md/g' {} \;
+	rm ./docs/README.md ./docs/_media/CONTRIBUTING.md
 
 coverage:
 	./node_modules/.bin/c8 make test

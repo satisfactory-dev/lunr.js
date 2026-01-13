@@ -4,7 +4,7 @@
  * Copyright (C) @YEAR SignpostMarv
  */
 
-type upsertFunction = (a: number, b: number) => number
+export type upsertFunction = (a: number, b: number) => number
 
 /**
  * A vector is used to construct the vector space of documents and queries. These

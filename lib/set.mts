@@ -99,8 +99,6 @@ export class Set {
 
 /**
  * A complete set that contains all elements.
- *
- * @static
  */
 export class SetComplete extends Set {
   intersect (other: Set) {

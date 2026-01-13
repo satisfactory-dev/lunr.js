@@ -41,16 +41,16 @@ import {
  * @example <caption>Extracting a nested field</caption>
  * function (doc) { return doc.nested.field }
  */
-type fieldExtractor = (doc: object) => (
+export type fieldExtractor = (doc: object) => (
   | null
   | string
   | object
   | (object[])
 )
 
-type plugin<T extends Builder> = (this: T, builder: T, ...args: unknown[]) => unknown
+export type plugin<T extends Builder> = (this: T, builder: T, ...args: unknown[]) => unknown
 
-type invertedIndexEntryWithoutIndex = {
+export type invertedIndexEntryWithoutIndex = {
   [key: string]: {
     [key: string]: {
       [key: string]: unknown[],
@@ -58,7 +58,7 @@ type invertedIndexEntryWithoutIndex = {
   },
 }
 
-type invertedIndexEntry = (
+export type invertedIndexEntry = (
   & invertedIndexEntryWithoutIndex
   & {
     _index: number,
@@ -587,7 +587,7 @@ export class Builder {
    * arguments can also be passed when calling use. The function will be called
    * with the index builder as its context.
    *
-   * @param {plugin} plugin The plugin to apply.
+   * @param {plugin} fn The plugin to apply.
    */
   use (
     fn: plugin<this>,

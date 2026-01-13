@@ -8,7 +8,7 @@ import {
   TokenSet,
 } from './token_set.mts'
 
-type TokenSetBuilderNode = {
+export type TokenSetBuilderNode = {
   parent: TokenSet | TokenSetBuilderNode,
   char: string,
   child: TokenSet | TokenSetBuilderNode,

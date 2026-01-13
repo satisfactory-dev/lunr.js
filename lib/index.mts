@@ -63,8 +63,7 @@ export type IndexResult = {
   matchData: MatchData,
 }
 
-type versionConflictHandler = (message: string) => void
-
+export type versionConflictHandler = (message: string) => void
 
 /**
  * @callback versionConflictFormatter
@@ -72,7 +71,7 @@ type versionConflictHandler = (message: string) => void
  * @param {string} expected
  * @return {string} the formatted message to be passed to throwOnVersionConflict
  */
-type versionConflictFormatter = (actual: string, expected: string) => string
+export type versionConflictFormatter = (actual: string, expected: string) => string
 
 /**
  * Although lunr provides the ability to create queries using Query, it also provides a simple
@@ -131,7 +130,7 @@ type IndexQueryString = string
  * @callback IndexQueryBuilder
  * @param {Query} query - The query object to build up.
  */
-type IndexQueryBuilder = (this: Query, query: Query) => void
+export type IndexQueryBuilder = (this: Query, query: Query) => void
 
 export type SerializedIndex<
   Version extends string = string,
