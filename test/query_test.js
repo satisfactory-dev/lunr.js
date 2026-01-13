@@ -130,7 +130,7 @@ suite('lunr.Query', function () {
         setup(function () {
           this.query.clause({
             term: 'foo',
-            wildcard: lunr.Query.wildcard.NONE,
+            wildcard: lunr.QueryWildcard.NONE,
           })
 
           this.clause = this.query.clauses[0]
@@ -145,7 +145,7 @@ suite('lunr.Query', function () {
         setup(function () {
           this.query.clause({
             term: 'foo',
-            wildcard: lunr.Query.wildcard.LEADING,
+            wildcard: lunr.QueryWildcard.LEADING,
           })
 
           this.clause = this.query.clauses[0]
@@ -160,7 +160,7 @@ suite('lunr.Query', function () {
         setup(function () {
           this.query.clause({
             term: 'foo',
-            wildcard: lunr.Query.wildcard.TRAILING,
+            wildcard: lunr.QueryWildcard.TRAILING,
           })
 
           this.clause = this.query.clauses[0]
@@ -175,7 +175,7 @@ suite('lunr.Query', function () {
         setup(function () {
           this.query.clause({
             term: 'foo',
-            wildcard: lunr.Query.wildcard.TRAILING | lunr.Query.wildcard.LEADING,
+            wildcard: lunr.QueryWildcard.TRAILING | lunr.QueryWildcard.LEADING,
           })
 
           this.clause = this.query.clauses[0]
@@ -190,7 +190,7 @@ suite('lunr.Query', function () {
         setup(function () {
           this.query.clause({
             term: '*foo*',
-            wildcard: lunr.Query.wildcard.TRAILING | lunr.Query.wildcard.LEADING,
+            wildcard: lunr.QueryWildcard.TRAILING | lunr.QueryWildcard.LEADING,
           })
 
           this.clause = this.query.clauses[0]
@@ -210,8 +210,8 @@ suite('lunr.Query', function () {
 
     suite('all prohibited', function () {
       setup(function () {
-        this.query.term('foo', { presence: lunr.Query.presence.PROHIBITED })
-        this.query.term('bar', { presence: lunr.Query.presence.PROHIBITED })
+        this.query.term('foo', { presence: lunr.QueryPresence.PROHIBITED })
+        this.query.term('bar', { presence: lunr.QueryPresence.PROHIBITED })
       })
 
       test('is negated', function () {
@@ -221,8 +221,8 @@ suite('lunr.Query', function () {
 
     suite('some prohibited', function () {
       setup(function () {
-        this.query.term('foo', { presence: lunr.Query.presence.PROHIBITED })
-        this.query.term('bar', { presence: lunr.Query.presence.REQUIRED })
+        this.query.term('foo', { presence: lunr.QueryPresence.PROHIBITED })
+        this.query.term('bar', { presence: lunr.QueryPresence.REQUIRED })
       })
 
       test('is negated', function () {
@@ -232,8 +232,8 @@ suite('lunr.Query', function () {
 
     suite('none prohibited', function () {
       setup(function () {
-        this.query.term('foo', { presence: lunr.Query.presence.OPTIONAL })
-        this.query.term('bar', { presence: lunr.Query.presence.REQUIRED })
+        this.query.term('foo', { presence: lunr.QueryPresence.OPTIONAL })
+        this.query.term('bar', { presence: lunr.QueryPresence.REQUIRED })
       })
 
       test('is negated', function () {

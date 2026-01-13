@@ -6,12 +6,11 @@
 
 import {
   TokenSetBuilder,
-} from './token_set_builder.mjs'
+} from './token_set_builder.mts'
 
-import {
-  // eslint-disable-next-line no-unused-vars
+import type {
   QueryClause,
-} from './query.mjs'
+} from './query.mts'
 
 /**
  * A token set is used to store the unique list of all tokens
@@ -33,31 +32,19 @@ import {
  * This helps to reduce the space used for storing the token set.
  */
 export class TokenSet {
-  /** @type {TokenSetBuilder|undefined} */
-  static #Builder = undefined
-
-  static get Builder () {
-    if (!this.#Builder) {
-      this.#Builder = TokenSetBuilder
-    }
-
-    return this.#Builder
-  }
-
   /**
    * @type {boolean}
    */
-  final
+  final: boolean
 
-  /**
-   * @type {Object<string, TokenSet>}
-   */
-  edges
+  edges: { [s: string]: TokenSet }
 
   /**
    * @type {number}
    */
-  id
+  id: number
+
+  _str: string | undefined = undefined
 
   constructor () {
     this.final = false
@@ -74,7 +61,7 @@ export class TokenSet {
    *
    * @type {number}
    */
-  static #nextId = 1
+  static #nextId: number = 1
 
   static resetNextId () {
     this.#nextId = 1
@@ -87,7 +74,7 @@ export class TokenSet {
    * @return {TokenSet}
    * @throws Will throw an error if the input array is not sorted.
    */
-  static fromArray (arr) {
+  static fromArray (arr: string[]): TokenSet {
     var builder = new TokenSetBuilder
 
     for (var i = 0, len = arr.length; i < len; i++) {
@@ -107,11 +94,11 @@ export class TokenSet {
    * @param {number} [clause.editDistance] - The optional edit distance for the term.
    * @return {TokenSet}
   */
-  static fromClause (clause) {
+  static fromClause (clause: QueryClause): TokenSet {
     if (undefined !== clause?.editDistance) {
-      return this.fromFuzzyString(clause.term, clause.editDistance)
+      return this.fromFuzzyString(clause.term || '', clause.editDistance)
     } else {
-      return this.fromString(clause.term)
+      return this.fromString(clause.term || '')
     }
   }
 
@@ -130,7 +117,7 @@ export class TokenSet {
    * @param {number} editDistance - The allowed edit distance to match.
    * @return {TokenSet}
    */
-  static fromFuzzyString (str, editDistance) {
+  static fromFuzzyString (str: string, editDistance: number): TokenSet {
     var root = new TokenSet
 
     var stack = [{
@@ -139,9 +126,16 @@ export class TokenSet {
       str: str,
     }]
 
-    while (stack.length) {
-      var frame = stack.pop()
+    let frame: (
+      | undefined
+      | {
+        node: TokenSet,
+        editsRemaining: number,
+        str: string,
+      }
+    )
 
+    while ((frame = stack.pop())) {
       // no edit
       if (frame.str.length > 0) {
         var char = frame.str.charAt(0),
@@ -264,9 +258,8 @@ export class TokenSet {
    * another TokenSet.
    *
    * @param {string} str - The string to create a TokenSet from.
-     * @return {TokenSet}
    */
-  static fromString = function (str) {
+  static fromString (str: string): TokenSet {
     var node = new TokenSet,
         root = node
 
@@ -308,17 +301,24 @@ export class TokenSet {
    *
    * @returns {string[]}
    */
-  toArray () {
+  toArray (): string[] {
     var words = []
 
-    var stack = [{
+    var stack: Exclude<typeof frame, undefined>[] = [{
       prefix: "",
       node: this,
     }]
 
-    while (stack.length) {
-      var frame = stack.pop(),
-          edges = Object.keys(frame.node.edges),
+    let frame: (
+      | undefined
+      | {
+        prefix: string,
+        node: TokenSet,
+      }
+    )
+
+    while ((frame = stack.pop())) {
+      var edges = Object.keys(frame.node.edges),
           len = edges.length
 
       if (frame.node.final) {
@@ -353,7 +353,7 @@ export class TokenSet {
    *
    * @returns {string}
    */
-  toString () {
+  toString (): string {
     // NOTE: Using Object.keys here as this.edges is very likely
     // to enter 'hash-mode' with many keys being added
     //
@@ -390,19 +390,25 @@ export class TokenSet {
    * @param {TokenSet} b - An other TokenSet to intersect with.
    * @return {TokenSet}
    */
-  intersect (b) {
-    var output = new TokenSet,
-        frame = undefined
+  intersect (b: TokenSet): TokenSet {
+    var output = new TokenSet
 
-    var stack = [{
+    var stack: Exclude<typeof frame, undefined>[] = [{
       qNode: b,
       output: output,
       node: this,
     }]
 
-    while (stack.length) {
-      frame = stack.pop()
+    let frame: (
+      | undefined
+      | {
+        qNode: TokenSet,
+        output: TokenSet,
+        node: TokenSet,
+      }
+    )
 
+    while ((frame = stack.pop())) {
       // NOTE: As with the #toString method, we are using
       // Object.keys and a for loop instead of a for-in loop
       // as both of these objects enter 'hash' mode, causing

@@ -7,25 +7,23 @@
  */
 
 import {
-  PipelineFunction,
   Pipeline
-} from './pipeline.mjs'
+} from './pipeline.mts'
 
-import {
+import type {
   Token
-} from './token.mjs'
+} from './token.mts'
 
 /**
  * stemmer is an english language stemmer, this is a JavaScript
  * implementation of the PorterStemmer taken from http://tartarus.org/~martin
  *
- * @implements {PipelineFunction}
  * @param {Token} token - The string to stem
  * @returns {Token}
  * @see {@link Pipeline}
  * @function
  */
-export const stemmer = (function(){
+export const stemmer = Pipeline.labelFunction((function(){
   var step2list = {
       "ational" : "ate",
       "tional" : "tion",
@@ -96,7 +94,7 @@ export const stemmer = (function(){
   var re_5_1 = /ll$/;
   var re3_5 = new RegExp("^" + C + v + "[^aeiouwxy]$");
 
-  var porterStemmer = function porterStemmer(w) {
+  var porterStemmer = function porterStemmer(w: string) {
     var stem,
       suffix,
       firstch,
@@ -123,14 +121,14 @@ export const stemmer = (function(){
     re = re_1b;
     re2 = re2_1b;
     if (re.test(w)) {
-      var fp = re.exec(w);
+      const fp = re.exec(w) as RegExpExecArray;
       re = re_mgr0;
       if (re.test(fp[1])) {
         re = re_1b_2;
         w = w.replace(re,"");
       }
     } else if (re2.test(w)) {
-      var fp = re2.exec(w);
+      const fp = re2.exec(w) as RegExpExecArray;
       stem = fp[1];
       re2 = re_s_v;
       if (re2.test(stem)) {
@@ -147,7 +145,7 @@ export const stemmer = (function(){
     // Step 1c - replace suffix y or Y by i if preceded by a non-vowel which is not the first letter of the word (so cry -> cri, by -> by, say -> say)
     re = re_1c;
     if (re.test(w)) {
-      var fp = re.exec(w);
+      const fp = re.exec(w) as RegExpExecArray;
       stem = fp[1];
       w = stem + "i";
     }
@@ -155,7 +153,10 @@ export const stemmer = (function(){
     // Step 2
     re = re_2;
     if (re.test(w)) {
-      var fp = re.exec(w);
+      const fp = re.exec(w) as (
+        & RegExpExecArray
+        & [string, string, keyof typeof step2list]
+      );
       stem = fp[1];
       suffix = fp[2];
       re = re_mgr0;
@@ -167,7 +168,10 @@ export const stemmer = (function(){
     // Step 3
     re = re_3;
     if (re.test(w)) {
-      var fp = re.exec(w);
+      const fp = re.exec(w) as (
+        & RegExpExecArray
+        & [string, string, keyof typeof step3list]
+      );
       stem = fp[1];
       suffix = fp[2];
       re = re_mgr0;
@@ -180,14 +184,14 @@ export const stemmer = (function(){
     re = re_4;
     re2 = re2_4;
     if (re.test(w)) {
-      var fp = re.exec(w);
+      const fp = re.exec(w) as RegExpExecArray;
       stem = fp[1];
       re = re_mgr1;
       if (re.test(stem)) {
         w = stem;
       }
     } else if (re2.test(w)) {
-      var fp = re2.exec(w);
+      const fp = re2.exec(w) as RegExpExecArray;
       stem = fp[1] + fp[2];
       re2 = re_mgr1;
       if (re2.test(stem)) {
@@ -198,7 +202,7 @@ export const stemmer = (function(){
     // Step 5
     re = re_5;
     if (re.test(w)) {
-      var fp = re.exec(w);
+      const fp = re.exec(w) as RegExpExecArray;
       stem = fp[1];
       re = re_mgr1;
       re2 = re_meq1;
@@ -224,9 +228,9 @@ export const stemmer = (function(){
     return w;
   };
 
-  return function (token) {
+  return function (token: Token) {
     return token.update(porterStemmer);
   }
-})();
+})(), 'stemmer');
 
 Pipeline.registerFunction(stemmer, 'stemmer')

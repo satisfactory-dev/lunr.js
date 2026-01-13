@@ -7,41 +7,23 @@
 export class FieldRef {
   static joiner = "/"
 
-  /**
-   * @type {string}
-   */
-  docRef
+  docRef: string
 
-  /**
-   * @type {string}
-   */
-  fieldName
+  fieldName: string
 
-  /**
-   * @type {string|undefined}
-   */
-  #stringValue
+  #stringValue: string | undefined
 
-  /**
-   * @param {string} docRef
-   * @param {string} fieldName
-   * @param {string|undefined} stringValue
-   */
-  constructor (docRef, fieldName, stringValue = undefined) {
+  constructor (docRef: string, fieldName: string, stringValue: string | undefined = undefined) {
     this.docRef = docRef
     this.fieldName = fieldName
     this.#stringValue = stringValue
   }
 
-  /**
-   * @param {string} s
-   * @return {FieldRef}
-   */
-  static fromString (s) {
+  static fromString (s: string): FieldRef {
     var n = s.indexOf(this.joiner)
 
     if (n === -1) {
-      throw "malformed field ref string"
+      throw new Error("malformed field ref string")
     }
 
     var fieldRef = s.slice(0, n),

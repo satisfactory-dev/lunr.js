@@ -4,6 +4,8 @@
  * Copyright (C) @YEAR SignpostMarv
  */
 
+type upsertFunction = (a: number, b: number) => number
+
 /**
  * A vector is used to construct the vector space of documents and queries. These
  * vectors support operations to determine the similarity between two documents or
@@ -21,12 +23,14 @@ export class Vector {
   /**
    * @type {number}
    */
-  #magnitude
+  #magnitude: number
+
+  readonly elements: number[]
 
   /**
- * @param {Number[]} [elements] - The flat list of element index and element value pairs.
+ * @param {number[]} [elements] - The flat list of element index and element value pairs.
    */
-  constructor (elements) {
+  constructor (elements?: number[]) {
     this.#magnitude = 0
     this.elements = elements || []
   }
@@ -41,7 +45,7 @@ export class Vector {
    * @param {Number} index - The index at which the element should be inserted.
    * @returns {Number}
    */
-  positionForIndex (index) {
+  positionForIndex (index: number): number {
     // For an empty vector the tuple can be inserted at the beginning
     if (this.elements.length == 0) {
       return 0
@@ -79,9 +83,7 @@ export class Vector {
       return pivotPoint * 2
     }
 
-    if (pivotIndex < index) {
       return (pivotPoint + 1) * 2
-    }
   }
 
   /**
@@ -93,9 +95,9 @@ export class Vector {
    * @param {Number} insertIdx - The index at which the element should be inserted.
    * @param {Number} val - The value to be inserted into the vector.
    */
-  insert (insertIdx, val) {
+  insert (insertIdx: number, val: number) {
     this.upsert(insertIdx, val, function () {
-      throw "duplicate index"
+      throw new Error("duplicate index")
     })
   }
 
@@ -104,10 +106,10 @@ export class Vector {
    *
    * @param {Number} insertIdx - The index at which the element should be inserted.
    * @param {Number} val - The value to be inserted into the vector.
-   * @param {function} fn - A function that is called for updates, the existing value and the
+   * @param {upsertFunction} fn - A function that is called for updates, the existing value and the
    * requested value are passed as arguments
    */
-  upsert (insertIdx, val, fn) {
+  upsert (insertIdx: number, val: number, fn: upsertFunction) {
     this.#magnitude = 0
     var position = this.positionForIndex(insertIdx)
 
@@ -123,7 +125,7 @@ export class Vector {
    *
    * @returns {Number}
    */
-  get magnitude () {
+  get magnitude (): number {
     if (this.#magnitude) return this.#magnitude
 
     var sumOfSquares = 0,
@@ -143,7 +145,7 @@ export class Vector {
    * @param {Vector} otherVector - The vector to compute the dot product with.
    * @returns {Number}
   */
-  dot (otherVector) {
+  dot (otherVector: Vector): number {
     var dotProduct = 0,
         a = this.elements, b = otherVector.elements,
         aLen = a.length, bLen = b.length,
@@ -151,7 +153,8 @@ export class Vector {
         i = 0, j = 0
 
     while (i < aLen && j < bLen) {
-      aVal = a[i], bVal = b[j]
+      aVal = a[i]
+      bVal = b[j]
       if (aVal < bVal) {
         i += 2
       } else if (aVal > bVal) {
@@ -173,17 +176,15 @@ export class Vector {
    * similarity with.
    * @returns {Number}
    */
-  similarity (otherVector) {
+  similarity (otherVector: Vector): number {
     return this.dot(otherVector) / this.magnitude || 0
   }
 
   /**
    * Converts the vector to an array of the elements within the vector.
-   *
-   * @returns {Number[]}
    */
-  toArray () {
-    var output = new Array (this.elements.length / 2)
+  toArray (): number[] {
+    var output = new Array<number>(this.elements.length / 2)
 
     for (var i = 1, j = 0; i < this.elements.length; i += 2, j++) {
       output[j] = this.elements[i]
@@ -197,7 +198,7 @@ export class Vector {
    *
    * @returns {Number[]}
    */
-  toJSON = function () {
+  toJSON (): number[] {
     return this.elements
   }
 }

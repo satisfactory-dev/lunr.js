@@ -8,19 +8,14 @@ export class QueryParseError extends Error {
   /**
    * @type {number}
    */
-  start
+  start: number
 
   /**
    * @type {number}
    */
-  end
+  end: number
 
-  /**
-   * @param {string} message
-   * @param {number} start
-   * @param {number} end
-   */
-  constructor (message, start, end) {
+  constructor (message: string, start: number, end: number) {
     super(message)
     this.start = start
     this.end = end

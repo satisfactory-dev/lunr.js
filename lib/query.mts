@@ -5,13 +5,13 @@
  */
 
 import {
-  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   Index,
-} from './index.mjs'
+} from './index.mts'
 
 import {
   utils,
-} from './utils.mjs'
+} from './utils.mts'
 
 /**
  * A single clause in a {@link Query} contains a term and details on how to
@@ -20,50 +20,50 @@ import {
 export class QueryClause {
   /**
    * The fields in an index this clause should be matched against.
-   *
-   * @type {string[]|undefined}
    */
-  fields = undefined
+  fields: string[] | undefined = undefined
 
   /**
    * Any boost that should be applied when matching this clause.
    *
    * @type {number|undefined}
    */
-  boost = 1
+  boost: number | undefined = 1
 
   /**
    * Whether the term should have fuzzy matching applied, and how fuzzy the match should be.
-   *
-   * @type {number}
    */
-  editDistance
+  editDistance: number | undefined
 
   /**
    * Whether the term should be passed through the search pipeline.
-   *
-   * @type {boolean|undefined}
    */
-  usePipeline = undefined
+  usePipeline: boolean | undefined = undefined
 
   /**
    * Whether the term should have wildcards appended or prepended.
-   *
-   * @type {QueryWildcard.NONE|QueryWildcard.LEADING|QueryWildcard.TRAILING|undefined}
    */
-  wildcard = QueryWildcard.NONE
+  wildcard: (
+    | typeof QueryWildcard['NONE']
+    | typeof QueryWildcard['LEADING']
+    | typeof QueryWildcard['TRAILING']
+    | undefined
+  ) = QueryWildcard.NONE
 
   /**
    * The terms presence in any matching documents.
-   *
-   * @type {QueryPresence.OPTIONAL|QueryPresence.REQUIRED|QueryPresence.PROHIBITED|undefined}
    */
-  presence = QueryPresence.OPTIONAL
+  presence: (
+    | typeof QueryPresence['OPTIONAL']
+    | typeof QueryPresence['REQUIRED']
+    | typeof QueryPresence['PROHIBITED']
+    | undefined
+  ) = QueryPresence.OPTIONAL
 
   /**
    * @type {string|undefined}
    */
-  term = undefined
+  term: string | undefined = undefined
 }
 
 /**
@@ -74,56 +74,21 @@ export class QueryClause {
  * so the query object is pre-initialized with the right index fields.
  */
 export class Query {
-  /**
-   * @type {QueryWildcard|undefined}
-   */
-  static #wildcard = undefined
-
-  /**
-   * @type {QueryPresence|undefined}
-   */
-  static #presence = undefined
-
-  /**
-   * @return {QueryWildcard}
-   */
   static get wildcard () {
-    if (!this.#wildcard) {
-      this.#wildcard = QueryWildcard
-    }
-
-    return this.#wildcard
-  }
-
-  /**
-   * @return {QueryPresence}
-   */
-  static get presence () {
-    if (!this.#presence) {
-      this.#presence = QueryPresence
-    }
-
-    return this.#presence
+    return QueryWildcard
   }
 
   /**
    * An array of query clauses.
-   *
-   * @type {QueryClause[]}
    */
-  clauses
+  clauses: QueryClause[]
 
   /**
    * An array of all available fields in a Index.
-   *
-   * @type {string[]}
    */
-  allFields
+  allFields: string[]
 
-  /**
-   * @param {string[]} allFields
-   */
-  constructor (allFields) {
+  constructor (allFields: string[]) {
     this.clauses = []
     this.allFields = allFields
   }
@@ -136,38 +101,54 @@ export class Query {
    *
    * @param {QueryClause} clause - The clause to add to this query.
    * @see QueryClause
-   * @return {this}
    */
-  clause (clause) {
-    if (undefined === clause?.fields) {
-      clause.fields = this.allFields
+  clause (clause: Partial<QueryClause>): this {
+    let {
+      fields,
+      boost,
+      usePipeline,
+      wildcard: clauseWildcard,
+      term,
+      presence,
+    } = clause
+
+    if (undefined === fields) {
+      fields = this.allFields
     }
 
-    if (undefined === clause?.boost) {
-      clause.boost = 1
+    if (undefined === boost) {
+      boost = 1
     }
 
-    if (undefined === clause?.usePipeline) {
-      clause.usePipeline = true
+    if (undefined === usePipeline) {
+      usePipeline = true
     }
 
-    if (undefined === clause?.wildcard) {
-      clause.wildcard = QueryWildcard.NONE
+    if (undefined === clauseWildcard) {
+      clauseWildcard = QueryWildcard.NONE
     }
 
-    if ((clause.wildcard & QueryWildcard.LEADING) && (clause.term.charAt(0) != wildcard)) {
-      clause.term = "*" + clause.term
+    if ((clauseWildcard & QueryWildcard.LEADING) && (term?.charAt(0) != wildcard)) {
+      term = "*" + term
     }
 
-    if ((clause.wildcard & QueryWildcard.TRAILING) && (clause.term.slice(-1) != wildcard)) {
-      clause.term = "" + clause.term + "*"
+    if ((clauseWildcard & QueryWildcard.TRAILING) && (term?.slice(-1) != wildcard)) {
+      term = "" + term + "*"
     }
 
-    if (undefined === clause?.presence) {
-      clause.presence = QueryPresence.OPTIONAL
+    if (undefined === presence) {
+      presence = QueryPresence.OPTIONAL
     }
 
-    this.clauses.push(clause)
+    this.clauses.push({
+      fields,
+      editDistance: clause.editDistance,
+      boost,
+      usePipeline,
+      wildcard: clauseWildcard,
+      term,
+      presence,
+    })
 
     return this
   }
@@ -179,7 +160,7 @@ export class Query {
    *
    * @return {boolean}
    */
-  isNegated () {
+  isNegated (): boolean {
     for (var i = 0; i < this.clauses.length; i++) {
       if (this.clauses[i].presence != QueryPresence.PROHIBITED) {
         return false
@@ -215,13 +196,14 @@ export class Query {
    * @example <caption>using tokenizer to convert a string to tokens before using them as terms</caption>
    * query.term(tokenizer("foo bar"))
    */
-  term (term, options) {
+  term (term: object | object[], options: QueryClause | undefined): this {
     if (Array.isArray(term)) {
-      term.forEach(function (t) { this.term(t, utils.clone(options)) }, this)
+      term.forEach((t: object) => { this.term(t, utils.clone(options) as typeof options) })
       return this
     }
 
     var clause = options || new QueryClause
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
     clause.term = term.toString()
 
     this.clause(clause)
@@ -230,7 +212,7 @@ export class Query {
   }
 }
 
-const wildcard = '*'
+export const wildcard = '*'
 
 /**
  * Constants for indicating what kind of automatic wildcard insertion will be used when constructing a query clause.
@@ -250,28 +232,11 @@ const wildcard = '*'
  *   wildcard: QueryWildcard.LEADING | QueryWildcard.TRAILING
  * })
  */
-class QueryWildcard {
-  /**
-   * @return {0}
-   */
-  static get NONE () {
-    return 0
-  }
-
-  /**
-   * @return {1}
-   */
-  static get LEADING () {
-    return 1
-  }
-
-  /**
-   * @return {2}
-   */
-  static get TRAILING () {
-    return 2
-  }
-}
+export const QueryWildcard = Object.freeze({
+  NONE: 0,
+  LEADING: 1,
+  TRAILING: 2,
+})
 
 /**
  * Constants for indicating what kind of presence a term must have in matching documents.
@@ -283,33 +248,8 @@ class QueryWildcard {
  * @example <caption>query term with required presence</caption>
  * query.term('foo', { presence: QueryPresence.REQUIRED })
  */
-export class QueryPresence {
-  /**
-   * Term's presence in a document is optional, this is the default value.
-   *
-   * @return {1}
-   */
-  static get OPTIONAL () {
-    return 1
-  }
-
-  /**
-   * Term's presence in a document is required, documents that do not contain
-   * this term will not be returned.
-   *
-   * @return {2}
-   */
-  static get REQUIRED () {
-    return 2
-  }
-
-  /**
-   * Term's presence in a document is prohibited, documents that do contain
-   * this term will not be returned.
-   *
-   * @return {3}
-   */
-  static get PROHIBITED () {
-    return 3
-  }
-}
+export const QueryPresence = Object.freeze({
+  OPTIONAL: 1,
+  REQUIRED: 2,
+  PROHIBITED: 3,
+})

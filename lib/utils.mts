@@ -4,6 +4,10 @@
  * Copyright (C) @YEAR SignpostMarv
  */
 
+import type {
+  QueryClause,
+} from "./query.mts"
+
 /**
  * A class containing utility functions for the rest of the lunr library
  */
@@ -15,13 +19,14 @@ export class utils {
    * the empty string, in all other cases the result of calling
    * `toString` on the passed object is returned.
    *
-   * @param {Any} obj The object to convert to a string.
+   * @param {unknown} obj The object to convert to a string.
    * @return {String} string representation of the passed object.
    */
-  static asString (obj) {
+  static asString (obj: unknown): string {
     if (obj === void 0 || obj === null) {
       return ""
     } else {
+      // eslint-disable-next-line @typescript-eslint/no-base-to-string
       return obj.toString()
     }
   }
@@ -37,24 +42,24 @@ export class utils {
    *
    * Objects with primitives, and arrays of primitives are supported.
    *
-   * @param {Object} obj The object to clone.
-   * @return {Object} a clone of the passed object.
+   * @param {object|QueryClause} [obj] The object to clone.
+   * @return {Object<string, unknown> | null | undefined} a clone of the passed object.
    * @throws {TypeError} when a nested object is passed.
    */
-  static clone = function (obj) {
+  static clone = function (obj?: object | QueryClause): { [s: string]: unknown } | null | undefined {
     if (obj === null || obj === undefined) {
       return obj
     }
 
-    var clone = Object.create(null),
-        keys = Object.keys(obj)
+    var clone = Object.create(null) as { [s: string]: unknown },
+        keys = Object.keys(obj) as (keyof typeof obj)[]
 
     for (var i = 0; i < keys.length; i++) {
       var key = keys[i],
           val = obj[key]
 
       if (Array.isArray(val)) {
-        clone[key] = val.slice()
+        clone[key] = (val as unknown[]).slice()
         continue
       }
 

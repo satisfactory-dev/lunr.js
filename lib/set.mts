@@ -8,13 +8,12 @@
  * A lunr set.
  */
 export class Set {
-  /**
-   * @type {Object<string, boolean>}
-   */
-  elements
+  elements: { [s: string]: boolean }
 
-  constructor (elements) {
-    this.elements = Object.create(null)
+  readonly length: number
+
+  constructor (elements?: string[]) {
+    this.elements = Object.create(null) as Set['elements']
 
     if (elements) {
       this.length = elements.length
@@ -30,10 +29,10 @@ export class Set {
   /**
    * Returns true if this set contains the specified object.
    *
-   * @param {object} object - Object whose presence in this set is to be tested.
+   * @param {string} object - Object whose presence in this set is to be tested.
    * @returns {boolean} - True if this set contains the specified object.
    */
-  contains (object) {
+  contains (object: string): boolean {
     return !!this.elements[object]
   }
 
@@ -44,8 +43,10 @@ export class Set {
    * @param {Set} other - set to intersect with this set.
    * @returns {Set} a new set that is the intersection of this and the specified set.
    */
-  intersect (other) {
-    var a, b, elements, intersection = []
+  intersect (other: Set): Set {
+    var a: Set | this
+    var b: Set | this
+    var elements, intersection = []
 
     if (other instanceof SetComplete) {
       return this
@@ -56,10 +57,12 @@ export class Set {
     }
 
     if (this.length < other.length) {
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
       a = this
       b = other
     } else {
       a = other
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
       b = this
     }
 
@@ -81,7 +84,7 @@ export class Set {
    * @param {Set} other - set to union with this set.
    * @return {Set} a new set that is the union of this and the specified set.
    */
-  union (other) {
+  union (other: Set): Set {
     if (other instanceof SetComplete) {
       return other
     }
@@ -100,15 +103,17 @@ export class Set {
  * @static
  */
 export class SetComplete extends Set {
-  intersect (other) {
+  intersect (other: Set) {
     return other
   }
 
-  union () {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  union (other: Set): this {
     return this
   }
 
-  contains () {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  contains (object: object | string) {
     return true
   }
 }
@@ -117,18 +122,16 @@ export class SetComplete extends Set {
  * An empty set that contains no elements.
  */
 export class SetEmpty extends Set {
-  /**
-   * @return {this}
-   */
-  intersect () {
+  intersect (): this {
     return this
   }
 
-  union (other) {
+  union (other: Set) {
     return other
   }
 
-  contains () {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  contains (object: object | string) {
     return false
   }
 }

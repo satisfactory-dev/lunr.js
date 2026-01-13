@@ -12,17 +12,21 @@
  * @param {string} str - The string representation of the token.
  * @param {Object} metadata - All metadata associated with this token.
  */
+type TokenUpdateFunction = (str: string, metadata: object) => string
 
 /**
  * A token wraps a string representation of a token
  * as it is passed through the text processing pipeline.
  */
 export class Token {
+  str: string
+  metadata: {[key: string]: unknown}
+
   /**
    * @param {string} [str=''] - The string token being wrapped.
-   * @param {object} [metadata={}] - Metadata associated with this token.
+   * @param {Object<string, unknown>} [metadata={}] - Metadata associated with this token.
    */
-  constructor (str, metadata) {
+  constructor (str?: string, metadata?: {[key: string]: unknown}) {
     this.str = str || ""
     this.metadata = metadata || {}
   }
@@ -32,7 +36,7 @@ export class Token {
    *
    * @returns {string}
    */
-  toString () {
+  toString (): string {
     return this.str
   }
 
@@ -47,7 +51,7 @@ export class Token {
    * @param {TokenUpdateFunction} fn - A function to apply to the token string.
      * @returns {this}
    */
-  update (fn) {
+  update (fn: TokenUpdateFunction): this {
     this.str = fn(this.str, this.metadata)
     return this
   }
@@ -59,7 +63,7 @@ export class Token {
    * @param {TokenUpdateFunction} [fn] - An optional function to apply to the cloned token.
    * @returns {Token}
    */
-  clone (fn) {
+  clone (fn: TokenUpdateFunction): Token {
     fn = fn || function (s) { return s }
     return new Token (fn(this.str, this.metadata), this.metadata)
   }

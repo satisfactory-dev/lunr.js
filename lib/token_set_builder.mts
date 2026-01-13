@@ -6,36 +6,25 @@
 
 import {
   TokenSet,
-} from './token_set.mjs'
+} from './token_set.mts'
 
-/**
- * @typedef {Object} TokenSetBuilderNode
- * @property {TokenSet|TokenSetBuilderNode} parent
- * @property {string} char
- * @property {TokenSetBuilderNode} child
- */
-
+type TokenSetBuilderNode = {
+  parent: TokenSet | TokenSetBuilderNode,
+  char: string,
+  child: TokenSet | TokenSetBuilderNode,
+  _str?: string,
+  edges?: { [s: string]: TokenSet | TokenSetBuilderNode },
+  final?: boolean,
+}
 
 export class TokenSetBuilder {
-  /**
-   * @type {string}
-   */
-  previousWord
+  previousWord: string
 
-  /**
-   * @type {TokenSet}
-   */
-  root
+  root: TokenSet
 
-  /**
-   * @type {TokenSetBuilderNode[]}
-   */
-  uncheckedNodes
+  uncheckedNodes: TokenSetBuilderNode[]
 
-  /**
-   * @type {Object<string, TokenSetBuilderNode>}
-   */
-  minimizedNodes
+  minimizedNodes: { [s: string]: TokenSetBuilderNode | TokenSet }
 
   constructor () {
     this.previousWord = ""
@@ -49,9 +38,9 @@ export class TokenSetBuilder {
    *
    * @return {void}
    */
-  insert (word) {
-    var node,
-        commonPrefix = 0
+  insert (word: string): void {
+    let node: TokenSet | TokenSetBuilderNode
+    let commonPrefix = 0
 
     if (word < this.previousWord) {
       throw new Error ("Out of order word insertion")
@@ -73,6 +62,10 @@ export class TokenSetBuilder {
     for (var i = commonPrefix; i < word.length; i++) {
       var nextNode = new TokenSet,
           char = word[i]
+
+      if (undefined === node.edges) {
+        node.edges = Object.create(null) as Exclude<typeof node['edges'], undefined>
+      }
 
       node.edges[char] = nextNode
 
@@ -98,12 +91,16 @@ export class TokenSetBuilder {
    *
    * @return {void}
    */
-  minimize (downTo) {
+  minimize (downTo: number): void {
     for (var i = this.uncheckedNodes.length - 1; i >= downTo; i--) {
       var node = this.uncheckedNodes[i],
+          // eslint-disable-next-line @typescript-eslint/no-base-to-string
           childKey = node.child.toString()
 
       if (childKey in this.minimizedNodes) {
+        if (undefined === node.parent.edges) {
+          node.parent.edges = Object.create(null) as Exclude<typeof node['parent']['edges'], undefined>
+        }
         node.parent.edges[node.char] = this.minimizedNodes[childKey]
       } else {
         // Cache the key for this node since

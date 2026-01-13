@@ -6,27 +6,83 @@
 
 import {
   Index,
-} from './index.mjs'
+} from './index.mts'
 
 import {
   tokenizer,
-} from './tokenizer.mjs'
+} from './tokenizer.mts'
 
 import {
   Pipeline,
-} from './pipeline.mjs'
+} from './pipeline.mts'
 
 import {
   FieldRef,
-} from './field_ref.mjs'
+} from './field_ref.mts'
 
 import {
   Vector,
-} from './vector.mjs'
+} from './vector.mts'
 
 import {
   TokenSet,
-} from './token_set.mjs'
+} from './token_set.mts'
+
+/**
+ * A function that is used to extract a field from a document.
+ *
+ * Lunr expects a field to be at the top level of a document, if however the field
+ * is deeply nested within a document an extractor function can be used to extract
+ * the right field for indexing.
+ *
+ * @callback fieldExtractor
+ * @param {object} doc - The document being added to the index.
+ * @returns {?(string|object|object[])} obj - The object that will be indexed for this field.
+ * @example <caption>Extracting a nested field</caption>
+ * function (doc) { return doc.nested.field }
+ */
+type fieldExtractor = (doc: object) => (
+  | null
+  | string
+  | object
+  | (object[])
+)
+
+type plugin<T extends Builder> = (this: T, builder: T, ...args: unknown[]) => unknown
+
+type invertedIndexEntryWithoutIndex = {
+  [key: string]: {
+    [key: string]: {
+      [key: string]: unknown[],
+    },
+  },
+}
+
+type invertedIndexEntry = (
+  & invertedIndexEntryWithoutIndex
+  & {
+    _index: number,
+  }
+)
+
+type BuilderPrivateProperties = {
+  fields: {
+    [key: string]: {
+      boost?: number,
+      extractor?: fieldExtractor,
+    }
+  },
+  documents: {
+    [key: string]: (
+      & {
+        [key: string]: unknown
+      }
+      & {
+        boost?: number,
+      }
+    )
+  },
+}
 
 /**
  * Builder performs indexing on a set of documents and
@@ -40,129 +96,121 @@ import {
 export class Builder {
   /**
    * Internal reference to the document reference field.
-   *
-   * @type {string}
    */
-  #ref
+  #ref: string
 
   /**
    * Internal reference to the document fields to index.
-   *
-   * @type {string[]}
    */
-  #fields
+  #fields: BuilderPrivateProperties['fields']
 
-  #documents
+  #documents: BuilderPrivateProperties['documents']
 
   /**
    * A parameter to control field length normalization, setting this to 0 disabled normalization, 1 fully normalizes field lengths, the default value is 0.75.
-   *
-   * @type {number}
    */
-  #b
+  #b: number
 
   /**
    * A parameter to control how quickly an increase in term frequency results in term frequency saturation, the default value is 1.2.
-   *
-   * @type {number}
    */
-  #k1
+  #k1: number
 
   /**
    * The inverted index maps terms to document fields.
-   *
-   * @type {object}
    */
-  invertedIndex
-
-  /**
-   * Keeps track of document term frequencies.
-   *
-   * @type {object}
-   */
-  fieldTermFrequencies
-
-  /**
-   * Keeps track of the length of documents added to the index.
-   *
-   * @type {object}
-   */
-  fieldLengths
-
-  /**
-   * Function for splitting strings into tokens for indexing.
-   *
-   * @type {tokenizer}
-   */
-  tokenizer
-
-  /**
-   * The pipeline performs text processing on tokens before indexing.
-   *
-   * @type {Pipeline}
-   */
-  pipeline
-
-  /**
-   * A pipeline for processing search terms before querying the index.
-   *
-   * @type {Pipeline}
-   */
-  searchPipeline
-
-  /**
-   * Keeps track of the total number of documents indexed.
-   *
-   * @type {number}
-   */
-  documentCount
-
-  /**
-   * A counter incremented for each unique term, used to identify a terms position in the vector space.
-   *
-   * @type {number}
-   */
-  termIndex
-
-  /**
-   * A list of metadata keys that have been whitelisted for entry in the index.
-   *
-   * @type {array}
-   */
-  metadataWhitelist
-
-  /**
-   * Separator to use with the tokenizer
-   *
-   * @type {RegExp|undefined}
-   */
-  #tokenizerSeparator
-
-  /**
-   * @param {RegExp|undefined} value
-   */
-  set tokenizerSeparator (value) {
-    this.#tokenizerSeparator = value
+  invertedIndex: {
+    [key: string]: invertedIndexEntry,
   }
 
   /**
-   * @param {Object} options
-   * @param {Object} options.tokenizer
-   * @param {RegExp} [options.tokenizer.separator]
+   * Keeps track of document term frequencies.
    */
+  fieldTermFrequencies: {[key: string]: {[key: string]: number}}
+
+  /**
+   * Keeps track of the length of documents added to the index.
+   */
+  fieldLengths: {[key: string]: number}
+
+  /**
+   * Function for splitting strings into tokens for indexing.
+   */
+  tokenizer: typeof tokenizer
+
+  /**
+   * The pipeline performs text processing on tokens before indexing.
+   */
+  pipeline: Pipeline
+
+  /**
+   * A pipeline for processing search terms before querying the index.
+   */
+  searchPipeline: Pipeline
+
+  /**
+   * Keeps track of the total number of documents indexed.
+   */
+  documentCount: number
+
+  /**
+   * A counter incremented for each unique term, used to identify a terms position in the vector space.
+   */
+  termIndex: number
+
+  /**
+   * A list of metadata keys that have been whitelisted for entry in the index.
+   */
+  metadataWhitelist: string[]
+
+  /**
+   * Separator to use with the tokenizer
+   */
+  #tokenizerSeparator: RegExp | undefined
+
+  set tokenizerSeparator (value: RegExp | undefined) {
+    this.#tokenizerSeparator = value
+  }
+
+  #averageFieldLength: {[key: string]: number} = Object.create(null) as {[key: string]: number}
+
+  get averageFieldLength () {
+    return this.#averageFieldLength
+  }
+
+  #fieldVectors: {[key: string]: Vector} = Object.create(null) as {[key: string]: Vector}
+
+  get fieldVectors () {
+    return this.#fieldVectors
+  }
+
+  #tokenSet: TokenSet | undefined
+
+  get tokenSet () {
+    if (!(this.#tokenSet)) {
+      throw new TypeError(`${this.constructor.name}.tokenSet not yet created!`)
+    }
+
+    return this.#tokenSet
+  }
+
   constructor ({
     tokenizer: {
       separator: tokenizerSeparator,
+    },
+  }: {
+    tokenizer: {
+      separator?: RegExp,
     },
   } = {
     tokenizer: {},
   }) {
     this.#ref = "id"
-    this.#fields = Object.create(null)
-    this.#documents = Object.create(null)
-    this.invertedIndex = Object.create(null)
-    this.fieldTermFrequencies = {}
-    this.fieldLengths = {}
+    this.#fields = Object.create(null) as BuilderPrivateProperties['fields']
+    this.#documents = Object.create(null) as BuilderPrivateProperties['documents']
+    this.invertedIndex = Object.create(null) as Builder['invertedIndex']
+    this.fieldTermFrequencies = Object.create(null) as Builder['fieldTermFrequencies']
+    this.fieldLengths = Object.create(null) as Builder['fieldLengths']
     this.tokenizer = tokenizer
     this.pipeline = new Pipeline
     this.searchPipeline = new Pipeline
@@ -174,17 +222,11 @@ export class Builder {
     this.#tokenizerSeparator = tokenizerSeparator
   }
 
-  /**
-   * @return {string[]}
-   */
   get fields () {
     return this.#fields
   }
 
-  /**
-   * @return {string}
-   */
-  get ref () {
+  get ref (): string {
     return this.#ref
   }
 
@@ -200,23 +242,10 @@ export class Builder {
    *
    * @param {string} ref - The name of the reference field in the document.
    */
-  set ref (ref) {
+  set ref (ref: string) {
     this.#ref = ref
   }
 
-  /**
-   * A function that is used to extract a field from a document.
-   *
-   * Lunr expects a field to be at the top level of a document, if however the field
-   * is deeply nested within a document an extractor function can be used to extract
-   * the right field for indexing.
-   *
-   * @callback fieldExtractor
-   * @param {object} doc - The document being added to the index.
-   * @returns {?(string|object|object[])} obj - The object that will be indexed for this field.
-   * @example <caption>Extracting a nested field</caption>
-   * function (doc) { return doc.nested.field }
-   */
 
   /**
    * Adds a field to the list of document fields that will be indexed. Every document being
@@ -236,7 +265,13 @@ export class Builder {
    * @param {fieldExtractor} [attributes.extractor] - Function to extract a field from a document.
    * @throws {RangeError} fieldName cannot contain unsupported characters '/'
    */
-  field (fieldName, attributes) {
+  field (
+    fieldName: string,
+    attributes?: {
+      boost?: number,
+      extractor?: fieldExtractor,
+    },
+  ) {
     if (/\//.test(fieldName)) {
       throw new RangeError ("Field '" + fieldName + "' contains illegal character '/'")
     }
@@ -247,7 +282,7 @@ export class Builder {
   /**
    * @return {number}
    */
-  get b () {
+  get b (): number {
     return this.#b
   }
 
@@ -259,7 +294,7 @@ export class Builder {
    *
    * @param {number} number - The value to set for this tuning parameter.
    */
-  set b (number) {
+  set b (number: number) {
     if (number < 0) {
       this.#b = 0
     } else if (number > 1) {
@@ -272,7 +307,7 @@ export class Builder {
   /**
    * @return {number}
    */
-  get k1 () {
+  get k1 (): number {
     return this.#k1
   }
 
@@ -283,7 +318,7 @@ export class Builder {
    *
    * @param {number} number - The value to set for this tuning parameter.
    */
-  set k1 (number) {
+  set k1 (number: number) {
     this.#k1 = number
   }
 
@@ -300,13 +335,25 @@ export class Builder {
    * Entire documents can be boosted at build time. Applying a boost to a document indicates that
    * this document should rank higher in search results than other documents.
    *
-   * @param {object} doc - The document to add to the index.
+   * @param {Object<string, (string | object | object[])>} doc - The document to add to the index.
    * @param {object} attributes - Optional attributes associated with this document.
    * @param {number} [attributes.boost=1] - Boost applied to all terms within this document.
    */
-  add (doc, attributes) {
-    var docRef = doc[this.#ref],
-        fields = Object.keys(this.#fields)
+  add (
+    doc: {[key: string]: (string | object | object[])},
+    attributes: { boost?: number },
+  ) {
+    if (!(this.#ref in doc)) {
+      throw new TypeError(`${this.#ref} not present on document!`)
+    }
+
+    var docRef = doc[this.#ref as keyof typeof doc]
+
+    if ('string' !== typeof docRef && 'number' !== typeof docRef) {
+      throw new TypeError(`doc[${this.#ref}] must be a string or number!`)
+    }
+
+    var fields = Object.keys(this.#fields)
 
     this.#documents[docRef] = attributes || {}
     this.documentCount += 1
@@ -316,49 +363,56 @@ export class Builder {
           extractor = this.#fields[fieldName].extractor,
           field = extractor ? extractor(doc) : doc[fieldName],
           tokens = this.tokenizer(
-            field,
+            field || undefined,
             {
               fields: [fieldName],
             },
             this.#tokenizerSeparator,
           ),
           terms = this.pipeline.run(tokens),
-          fieldRef = new FieldRef (docRef, fieldName),
-          fieldTerms = Object.create(null)
+          fieldRef = new FieldRef (docRef, fieldName)
+      var fieldTerms = Object.create(null) as {[key: string]: number}
 
-      this.fieldTermFrequencies[fieldRef] = fieldTerms
-      this.fieldLengths[fieldRef] = 0
+      this.fieldTermFrequencies[fieldRef.toString()] = fieldTerms
+      this.fieldLengths[fieldRef.toString()] = 0
 
       // store the length of this field for this document
-      this.fieldLengths[fieldRef] += terms.length
+      this.fieldLengths[fieldRef.toString()] += terms.length
 
       // calculate term frequencies for this field
       for (var j = 0; j < terms.length; j++) {
         var term = terms[j]
+        const termStr = term.toString()
 
-        if (fieldTerms[term] == undefined) {
-          fieldTerms[term] = 0
+        if ('number' !== typeof fieldTerms[termStr]) {
+          fieldTerms[termStr] = 0
         }
 
-        fieldTerms[term] += 1
+        fieldTerms[termStr] += 1
+
+        if ('_index' === termStr) {
+          throw new Error('Cannot populate inverted index with term of _index')
+        }
+
+        const invertedIndexKey: Exclude<string, '_index'> = termStr
 
         // add to inverted index
         // create an initial posting if one doesn't exist
-        if (this.invertedIndex[term] == undefined) {
-          var posting = Object.create(null)
+        if (this.invertedIndex[invertedIndexKey] == undefined) {
+          var posting = Object.create(null) as Partial<Builder['invertedIndex'][typeof invertedIndexKey]>
           posting["_index"] = this.termIndex
           this.termIndex += 1
 
           for (var k = 0; k < fields.length; k++) {
-            posting[fields[k]] = Object.create(null)
+            posting[fields[k]] = Object.create(null) as Builder['invertedIndex'][typeof invertedIndexKey][typeof fields[typeof k]]
           }
 
-          this.invertedIndex[term] = posting
+          this.invertedIndex[invertedIndexKey] = posting as Builder['invertedIndex'][typeof invertedIndexKey]
         }
 
         // add an entry for this term/fieldName/docRef to the invertedIndex
-        if (this.invertedIndex[term][fieldName][docRef] == undefined) {
-          this.invertedIndex[term][fieldName][docRef] = Object.create(null)
+        if (this.invertedIndex[invertedIndexKey][fieldName][docRef] == undefined) {
+          this.invertedIndex[invertedIndexKey][fieldName][docRef] = Object.create(null) as Builder['invertedIndex'][typeof invertedIndexKey][typeof fieldName][typeof docRef]
         }
 
         // store all whitelisted metadata about this token in the
@@ -367,11 +421,11 @@ export class Builder {
           var metadataKey = this.metadataWhitelist[l],
               metadata = term.metadata[metadataKey]
 
-          if (this.invertedIndex[term][fieldName][docRef][metadataKey] == undefined) {
-            this.invertedIndex[term][fieldName][docRef][metadataKey] = []
+          if (this.invertedIndex[invertedIndexKey][fieldName][docRef][metadataKey] == undefined) {
+            this.invertedIndex[invertedIndexKey][fieldName][docRef][metadataKey] = []
           }
 
-          this.invertedIndex[term][fieldName][docRef][metadataKey].push(metadata)
+          this.invertedIndex[invertedIndexKey][fieldName][docRef][metadataKey].push(metadata)
         }
       }
 
@@ -384,19 +438,24 @@ export class Builder {
   #calculateAverageFieldLengths () {
 
     var fieldRefs = Object.keys(this.fieldLengths),
-        numberOfFields = fieldRefs.length,
-        accumulator = {},
-        documentsWithField = {}
+        numberOfFields = fieldRefs.length
+
+    var accumulator: {[key: string]: number} = {}
+    var documentsWithField: {[key: string]: number} = {}
 
     for (var i = 0; i < numberOfFields; i++) {
       var fieldRef = FieldRef.fromString(fieldRefs[i]),
           field = fieldRef.fieldName
 
-      documentsWithField[field] || (documentsWithField[field] = 0)
+      if (!(field in documentsWithField)) {
+        documentsWithField[field] = 0
+      }
       documentsWithField[field] += 1
 
-      accumulator[field] || (accumulator[field] = 0)
-      accumulator[field] += this.fieldLengths[fieldRef]
+      if (!(field in accumulator)) {
+        accumulator[field] = 0
+      }
+      accumulator[field] += this.fieldLengths[fieldRef.toString()]
     }
 
     var fields = Object.keys(this.#fields)
@@ -406,24 +465,25 @@ export class Builder {
       accumulator[fieldName] = accumulator[fieldName] / documentsWithField[fieldName]
     }
 
-    this.averageFieldLength = accumulator
+    this.#averageFieldLength = accumulator
   }
 
   /**
    * Builds a vector space model of every document using Vector
    */
   #createFieldVectors () {
-    var fieldVectors = {},
+    var fieldVectors: {[key: string]: Vector} = {}
+    var
         fieldRefs = Object.keys(this.fieldTermFrequencies),
-        fieldRefsLength = fieldRefs.length,
-        termIdfCache = Object.create(null)
+        fieldRefsLength = fieldRefs.length
+    var termIdfCache = Object.create(null) as {[key: string]: number}
 
     for (var i = 0; i < fieldRefsLength; i++) {
       var fieldRef = FieldRef.fromString(fieldRefs[i]),
           fieldName = fieldRef.fieldName,
-          fieldLength = this.fieldLengths[fieldRef],
+          fieldLength = this.fieldLengths[fieldRef.toString()],
           fieldVector = new Vector,
-          termFrequencies = this.fieldTermFrequencies[fieldRef],
+          termFrequencies = this.fieldTermFrequencies[fieldRef.toString()],
           terms = Object.keys(termFrequencies),
           termsLength = terms.length
 
@@ -458,17 +518,17 @@ export class Builder {
         fieldVector.insert(termIndex, scoreWithPrecision)
       }
 
-      fieldVectors[fieldRef] = fieldVector
+      fieldVectors[fieldRef.toString()] = fieldVector
     }
 
-    this.fieldVectors = fieldVectors
+    this.#fieldVectors = fieldVectors
   }
 
   /**
    * Creates a token set of all tokens in the index using TokenSet
    */
   #createTokenSet () {
-    this.tokenSet = TokenSet.fromArray(
+    this.#tokenSet = TokenSet.fromArray(
       Object.keys(this.invertedIndex).sort(),
     )
   }
@@ -477,10 +537,10 @@ export class Builder {
    * A function to calculate the inverse document frequency for
    * a posting. This is shared between the builder and the index
    *
-   * @param {object} posting - The posting for a given term
+   * @param {Object<string, object>} posting - The posting for a given term
    * @param {number} documentCount - The total number of documents.
    */
-  #idf (posting, documentCount) {
+  #idf (posting: {[key: string]: object}, documentCount: number) {
     var documentsWithTerm = 0
 
     for (var fieldName in posting) {
@@ -501,7 +561,7 @@ export class Builder {
    *
    * @returns {Index}
    */
-  build () {
+  build (): Index {
     this.#calculateAverageFieldLengths()
     this.#createFieldVectors()
     this.#createTokenSet()
@@ -527,11 +587,12 @@ export class Builder {
    * arguments can also be passed when calling use. The function will be called
    * with the index builder as its context.
    *
-   * @param {Function} plugin The plugin to apply.
+   * @param {plugin} plugin The plugin to apply.
    */
-  use (fn) {
-    var args = Array.prototype.slice.call(arguments, 1)
-    args.unshift(this)
-    fn.apply(this, args)
+  use (
+    fn: plugin<this>,
+    ...args: unknown[]
+  ) {
+    fn.apply(this, [this, ...args])
   }
 }

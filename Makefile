@@ -14,6 +14,7 @@ release: lunr.js docs
 
 lunr.js:
 	./node_modules/.bin/rolldown -c ./rolldown.config.mjs
+	./node_modules/.bin/tsc --project ./tsconfig.app.json
 
 size: lunr.js
 	@echo 'lunr.js'
@@ -23,8 +24,19 @@ size: lunr.js
 	@echo 'lunr.min.mjs'
 	@gzip -c lunr.min.mjs | wc -c
 
-lint:
-	${ESLINT} './lib/*.mjs' './test/*.js' './*.mjs'
+lint: lint--tsc lint--eslint--ts lint--eslint--js
+
+lint--tsc:
+	@echo 'running syntax check'
+	./node_modules/.bin/tsc --project ./tsconfig.app-check.json
+
+lint--eslint--ts:
+	@echo 'running eslint on typescript'
+	./node_modules/.bin/eslint --cache --cache-location './.cache/eslint/typescript.eslintcache' -c ./eslint-typescript.config.mjs './*.mts' './lib/*.mts' --ignore-pattern './**/*.d.mts'
+
+lint--eslint--js:
+	@echo 'running eslint on javascript'
+	./node_modules/.bin/eslint --cache --cache-location './.cache/eslint/javascript.eslintcache' './test/*.js' './*.mjs' --ignore-pattern './lunr.mjs'
 
 perf/*_perf.js: lunr.js
 	${NODE} -r ./perf/perf_helper.js $@

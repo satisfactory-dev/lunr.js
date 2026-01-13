@@ -5,55 +5,66 @@
 
 import {
   Query,
-} from './query.mjs'
+  QueryPresence,
+} from './query.mts'
 
 import {
   MatchData,
-} from './match_data.mjs'
+} from './match_data.mts'
 
 import {
   Vector,
-} from './vector.mjs'
+} from './vector.mts'
 
 import {
   TokenSet,
-} from './token_set.mjs'
+} from './token_set.mts'
 
 import {
   Pipeline,
-} from './pipeline.mjs'
+} from './pipeline.mts'
 
 import {
   SetComplete,
   SetEmpty,
   Set,
-} from './set.mjs'
+} from './set.mts'
 
 import {
   QueryParser,
-} from './query_parser.mjs'
+} from './query_parser.mts'
 
 import {
   FieldRef,
-} from './field_ref.mjs'
+} from './field_ref.mts'
 
 import {
   Lunr,
-} from './lunr.mjs'
+} from './lunr.mts'
+
+import type {
+  Builder,
+} from './builder.mts'
+
+import {
+  TokenSetBuilder,
+} from './token_set_builder.mts'
 
 /**
  * A result contains details of a document matching a search query.
- * @typedef {Object} Index~Result
+ * @typedef {Object} IndexResult
  * @property {string} ref - The reference of the document this result represents.
  * @property {number} score - A number between 0 and 1 representing how similar this document is to the query.
  * @property {MatchData} matchData - Contains metadata about this match including which term(s) caused the match.
  */
+export type IndexResult = {
+  ref: string,
+  score: number,
+  matchData: MatchData,
+}
 
-/**
- * @callback throwOnVersionConflict
- * @param {string} message
- * @return {void}
- */
+type versionConflictHandler = (message: string) => void
+
 
 /**
  * @callback versionConflictFormatter
@@ -61,6 +72,7 @@ import {
  * @param {string} expected
  * @return {string} the formatted message to be passed to throwOnVersionConflict
  */
+type versionConflictFormatter = (actual: string, expected: string) => string
 
 /**
  * Although lunr provides the ability to create queries using Query, it also provides a simple
@@ -97,7 +109,6 @@ import {
  * characters that would normally be considered modifiers, e.g. `foo\~2` will search for a term "foo~2" instead
  * of attempting to apply a boost of 2 to the search term "foo".
  *
- * @typedef {string} Index~QueryString
  * @example <caption>Simple single term query</caption>
  * hello
  * @example <caption>Multiple term query</caption>
@@ -111,15 +122,32 @@ import {
  * @example <caption>terms with presence modifiers</caption>
  * -foo +bar baz
  */
+type IndexQueryString = string
 
 /**
  * A query builder callback provides a query object to be used to express
  * the query to perform on the index.
  *
- * @callback Index~queryBuilder
+ * @callback IndexQueryBuilder
  * @param {Query} query - The query object to build up.
- * @this Query
  */
+type IndexQueryBuilder = (this: Query, query: Query) => void
+
+export type SerializedIndex<
+  Version extends string = string,
+> = {
+  version: Version,
+  fields: string[],
+  fieldVectors: [
+    string,
+    ReturnType<Vector['toJSON']>,
+  ][],
+  invertedIndex: [
+    string,
+    Index['invertedIndex'][keyof Index['invertedIndex']],
+  ][],
+  pipeline: ReturnType<Pipeline['toJSON']>,
+}
 
 /**
  * An index contains the built index of all documents and provides a query interface
@@ -128,37 +156,42 @@ import {
  * Usually instances of Index will not be created using this constructor, instead
  * Builder should be used to construct new indexes, or Index.load should be
  * used to load previously built and serialized indexes.
- *
+ */
+export class Index {
+  invertedIndex: Builder['invertedIndex']
+
+  fieldVectors: { [s: string]: Vector }
+
+  tokenSet: TokenSet
+
+  fields: string[]
+
+  pipeline: Pipeline
+
+  #completeSet: SetComplete
+
+  /** @type {SetEmpty} */
+  #emptySet: SetEmpty
+
+  /**
  * @param {Object} attrs - The attributes of the built search index.
  * @param {Object} attrs.invertedIndex - An index of term/field to document reference.
  * @param {Object<string, Vector>} attrs.fieldVectors - Field vectors
  * @param {TokenSet} attrs.tokenSet - An set of all corpus tokens.
  * @param {string[]} attrs.fields - The names of indexed document fields.
  * @param {Pipeline} attrs.pipeline - The pipeline to use for search terms.
- */
-export class Index {
-  /** @type {Object} */
-  invertedIndex
-
-  /** @type {Object<string, Vector>} */
-  fieldVectors
-
-  /** @type {TokenSet} */
-  tokenSet
-
-  /** @type {string[]} */
-  fields
-
-  /** @type {Pipeline} */
-  pipeline
-
-  /** @type {SetComplete} */
-  #completeSet
-
-  /** @type {SetEmpty} */
-  #emptySet
-
-  constructor (attrs) {
+   */
+  constructor (
+    attrs: {
+      invertedIndex: Builder['invertedIndex'],
+      fieldVectors: {
+        [s: string]: Vector,
+      },
+      tokenSet: TokenSet,
+      fields: string[],
+      pipeline: Pipeline,
+    },
+  ) {
     this.invertedIndex = attrs.invertedIndex
     this.fieldVectors = attrs.fieldVectors
     this.tokenSet = attrs.tokenSet
@@ -177,11 +210,10 @@ export class Index {
    *
    * For more programmatic querying use Index#query.
    *
-   * @param {Index~QueryString} queryString - A string containing a lunr query.
+   * @param {IndexQueryString} queryString - A string containing a lunr query.
    * @throws {QueryParseError} If the passed query string cannot be parsed.
-   * @returns {Index~Result[]}
    */
-  search (queryString) {
+  search (queryString: IndexQueryString): IndexResult[] {
     return this.query(function (query) {
       var parser = new QueryParser(queryString, query)
       parser.parse()
@@ -201,10 +233,9 @@ export class Index {
    * asynchronous operation, the callback is just yielded a query object to be
    * customized.
    *
-   * @param {Index~queryBuilder} fn - A function that is used to build the query.
-   * @returns {Index~Result[]}
+   * @param {IndexQueryBuilder} fn - A function that is used to build the query.
    */
-  query (fn) {
+  query (fn: IndexQueryBuilder): IndexResult[] {
     // for each query clause
     // * process terms
     // * expand terms from token set
@@ -212,25 +243,25 @@ export class Index {
     // * get document vectors
     // * score documents
 
-    var query = new Query(this.fields),
-        matchingFields = Object.create(null),
-        queryVectors = Object.create(null),
-        termFieldCache = Object.create(null),
-        requiredMatches = Object.create(null),
-        prohibitedMatches = Object.create(null)
+    var query = new Query(this.fields)
+    var matchingFields = Object.create(null) as {[key: string]: MatchData}
+    var queryVectors = Object.create(null) as {[key: string]: Vector}
+    var termFieldCache = Object.create(null) as {[key: string]: boolean}
+    var requiredMatches = Object.create(null) as {[key: string]: Set}
+    var prohibitedMatches = Object.create(null) as {[key: string]: Set}
 
     /*
     * To support field level boosts a query vector is created per
     * field. An empty vector is eagerly created to support negated
     * queries.
     */
-    for (var i = 0; i < this.fields.length; i++) {
+    for (let i = 0; i < this.fields.length; i++) {
       queryVectors[this.fields[i]] = new Vector
     }
 
     fn.call(query, query)
 
-    for (var i = 0; i < query.clauses.length; i++) {
+    for (let i = 0; i < query.clauses.length; i++) {
       /*
       * Unless the pipeline has been disabled for this term, which is
       * the case for terms with wildcards, we need to pass the clause
@@ -239,9 +270,11 @@ export class Index {
       * term, which means we may end up performing multiple index lookups
       * for a single query term.
       */
-      var clause = query.clauses[i],
-          terms = null,
-          clauseMatches = this.#emptySet
+      var clause = query.clauses[i]
+      let
+          terms = null
+
+      let clauseMatches: Set = this.#emptySet
 
       if (clause.usePipeline) {
         terms = this.pipeline.runString(clause.term, {
@@ -251,7 +284,7 @@ export class Index {
         terms = [clause.term]
       }
 
-      for (var m = 0; m < terms.length; m++) {
+      for (let m = 0; m < terms.length; m++) {
         var term = terms[m]
 
         /*
@@ -276,25 +309,36 @@ export class Index {
         * scoped required matches set to empty and stop examining any further
         * clauses.
         */
-        if (expandedTerms.length === 0 && clause.presence === Query.presence.REQUIRED) {
-          for (var k = 0; k < clause.fields.length; k++) {
-            var field = clause.fields[k]
+        if (expandedTerms.length === 0 && clause.presence === QueryPresence.REQUIRED) {
+          if (clause.fields) {
+            for (let k = 0; k < clause.fields.length; k++) {
+              var field = clause.fields[k]
             requiredMatches[field] = this.#emptySet
+          }
           }
 
           break
         }
 
-        for (var j = 0; j < expandedTerms.length; j++) {
+        for (let j = 0; j < expandedTerms.length; j++) {
           /*
           * For each term get the posting and termIndex, this is required for
           * building the query vector.
           */
-          var expandedTerm = expandedTerms[j],
-              posting = this.invertedIndex[expandedTerm],
-              termIndex = posting._index
+          var expandedTerm = expandedTerms[j]
+          var posting = (
+            expandedTerm in this.invertedIndex
+              ? this.invertedIndex[expandedTerm as keyof Index['invertedIndex']]
+              : undefined
+          ) || undefined
+          var
+              termIndex = posting?._index
 
-          for (var k = 0; k < clause.fields.length; k++) {
+          if (!clause.fields) {
+            continue
+          }
+
+          for (let k = 0; k < (clause.fields.length || 0); k++) {
             /*
             * For each field that this query term is scoped by (by default
             * all fields are in scope) we need to get all the document refs
@@ -303,18 +347,18 @@ export class Index {
             * The posting is the entry in the invertedIndex for the matching
             * term from above.
             */
-            var field = clause.fields[k],
-                fieldPosting = posting[field],
-                matchingDocumentRefs = Object.keys(fieldPosting),
-                termField = expandedTerm + "/" + field,
-                matchingDocumentsSet = new Set(matchingDocumentRefs)
+            var field:string = clause.fields[k]
+            var fieldPosting = posting ? posting[field] : {}
+            var matchingDocumentRefs = Object.keys(fieldPosting)
+            var termField = expandedTerm + "/" + field
+            var matchingDocumentsSet = new Set(matchingDocumentRefs)
 
             /*
             * if the presence of this term is required ensure that the matching
             * documents are added to the set of required matches for this clause.
             *
             */
-            if (clause.presence == Query.presence.REQUIRED) {
+            if (clause.presence == QueryPresence.REQUIRED) {
               clauseMatches = clauseMatches.union(matchingDocumentsSet)
 
               if (requiredMatches[field] === undefined) {
@@ -327,7 +371,7 @@ export class Index {
             * documents are added to the set of prohibited matches for this field,
             * creating that set if it does not yet exist.
             */
-            if (clause.presence == Query.presence.PROHIBITED) {
+            if (clause.presence == QueryPresence.PROHIBITED) {
               if (prohibitedMatches[field] === undefined) {
                 prohibitedMatches[field] = this.#emptySet
               }
@@ -349,7 +393,7 @@ export class Index {
             * for the term we are working with. In that case we just add the scores
             * together.
             */
-            queryVectors[field].upsert(termIndex, clause.boost, function (a, b) { return a + b })
+            queryVectors[field].upsert(termIndex || 0, clause?.boost || 0, function (a, b) { return a + b })
 
             /**
              * If we've already seen this term, field combo then we've already collected
@@ -359,20 +403,20 @@ export class Index {
               continue
             }
 
-            for (var l = 0; l < matchingDocumentRefs.length; l++) {
+            for (let l = 0; l < matchingDocumentRefs.length; l++) {
               /*
               * All metadata for this term/field/document triple
               * are then extracted and collected into an instance
               * of MatchData ready to be returned in the query
               * results
               */
-              var matchingDocumentRef = matchingDocumentRefs[l],
-                  matchingFieldRef = new FieldRef (matchingDocumentRef, field),
-                  metadata = fieldPosting[matchingDocumentRef],
-                  fieldMatch
+              var matchingDocumentRef = matchingDocumentRefs[l]
+              var matchingFieldRef = new FieldRef (matchingDocumentRef, field)
+              var metadata = fieldPosting[matchingDocumentRef]
+              let fieldMatch
 
-              if ((fieldMatch = matchingFields[matchingFieldRef]) === undefined) {
-                matchingFields[matchingFieldRef] = new MatchData (expandedTerm, field, metadata)
+              if ((fieldMatch = matchingFields[matchingFieldRef.toString()]) === undefined) {
+                matchingFields[matchingFieldRef.toString()] = new MatchData (expandedTerm, field, metadata)
               } else {
                 fieldMatch.add(expandedTerm, field, metadata)
               }
@@ -390,8 +434,11 @@ export class Index {
        * the clause terms presence is required in _any_ of the fields not _all_ of the
        * fields.
        */
-      if (clause.presence === Query.presence.REQUIRED) {
-        for (var k = 0; k < clause.fields.length; k++) {
+      if (
+        clause.presence === QueryPresence.REQUIRED
+        && clause.fields
+      ) {
+        for (let k = 0; k < clause.fields.length; k++) {
           var field = clause.fields[k]
           requiredMatches[field] = requiredMatches[field].intersect(clauseMatches)
         }
@@ -403,10 +450,10 @@ export class Index {
      * matching documents into a global set of required and prohibited
      * matches
      */
-    var allRequiredMatches = this.#completeSet,
-        allProhibitedMatches = this.#emptySet
+    let allRequiredMatches: Set = this.#completeSet
+    let allProhibitedMatches: Set = this.#emptySet
 
-    for (var i = 0; i < this.fields.length; i++) {
+    for (let i = 0; i < this.fields.length; i++) {
       var field = this.fields[i]
 
       if (requiredMatches[field]) {
@@ -418,9 +465,13 @@ export class Index {
       }
     }
 
-    var matchingFieldRefs = Object.keys(matchingFields),
-        results = [],
-        matches = Object.create(null)
+    let matchingFieldRefs = Object.keys(matchingFields)
+    var results = []
+    var matches = Object.create(null) as {[key: string]: {
+      ref: string,
+      score: number,
+      matchData: MatchData,
+    }}
 
     /*
     * If the query is negated (contains only prohibited terms)
@@ -435,14 +486,13 @@ export class Index {
     if (query.isNegated()) {
       matchingFieldRefs = Object.keys(this.fieldVectors)
 
-      for (var i = 0; i < matchingFieldRefs.length; i++) {
-        var matchingFieldRef = matchingFieldRefs[i]
-        var fieldRef = FieldRef.fromString(matchingFieldRef)
-        matchingFields[matchingFieldRef] = new MatchData
+      for (let i = 0; i < matchingFieldRefs.length; i++) {
+        const matchingFieldRef = matchingFieldRefs[i]
+        matchingFields[matchingFieldRef.toString()] = new MatchData
       }
     }
 
-    for (var i = 0; i < matchingFieldRefs.length; i++) {
+    for (let i = 0; i < matchingFieldRefs.length; i++) {
       /*
       * Currently we have document fields that match the query, but we
       * need to return documents. The matchData and scores are combined
@@ -451,8 +501,8 @@ export class Index {
       * Scores are calculated by field, using the query vectors created
       * above, and combined into a final document score using addition.
       */
-      var fieldRef = FieldRef.fromString(matchingFieldRefs[i]),
-          docRef = fieldRef.docRef
+      var fieldRef = FieldRef.fromString(matchingFieldRefs[i])
+      var docRef = fieldRef.docRef
 
       if (!allRequiredMatches.contains(docRef)) {
         continue
@@ -462,18 +512,22 @@ export class Index {
         continue
       }
 
-      var fieldVector = this.fieldVectors[fieldRef],
-          score = queryVectors[fieldRef.fieldName].similarity(fieldVector),
-          docMatch
+      var fieldVector = this.fieldVectors[fieldRef.toString()]
+      var score = queryVectors[fieldRef.fieldName].similarity(fieldVector)
+      var docMatch: {
+        ref: string,
+        score: number,
+        matchData: MatchData,
+      }
 
       if ((docMatch = matches[docRef]) !== undefined) {
         docMatch.score += score
-        docMatch.matchData.combine(matchingFields[fieldRef])
+        docMatch.matchData.combine(matchingFields[fieldRef.toString()])
       } else {
         var match = {
           ref: docRef,
           score: score,
-          matchData: matchingFields[fieldRef],
+          matchData: matchingFields[fieldRef.toString()],
         }
         matches[docRef] = match
         results.push(match)
@@ -493,75 +547,86 @@ export class Index {
    *
    * The schema for this JSON blob will be described in a
    * separate JSON schema file.
-   *
-   * @returns {Object}
    */
-  toJSON () {
+  toJSON (): SerializedIndex {
     var invertedIndex = Object.keys(this.invertedIndex)
       .sort()
-      .map(function (term) {
+      .map((term: string): [
+        string,
+        Index['invertedIndex'][typeof term],
+      ] => {
         return [term, this.invertedIndex[term]]
-      }, this)
+      })
 
     var fieldVectors = Object.keys(this.fieldVectors)
-      .map(function (ref) {
+      .map((ref): [
+        string,
+        ReturnType<Vector['toJSON']>,
+      ] => {
         return [ref, this.fieldVectors[ref].toJSON()]
-      }, this)
+      })
 
     return {
       version: "@VERSION",
       fields: this.fields,
-      fieldVectors: fieldVectors,
-      invertedIndex: invertedIndex,
+      fieldVectors,
+      invertedIndex,
       pipeline: this.pipeline.toJSON(),
     }
   }
 
   /**
    * Loads a previously serialized Index
-   *
-   * @param {Object} serializedIndex - A previously serialized Index
-   * @param {Object} options
-   * @param {'throw'|throwOnVersionConflict} [options.throwOnVersionConflict]
-   * @param {versionConflictFormatter} [options.versionConflictFormatter]
-   * @returns {Index}
    */
-  static load (serializedIndex, {
-    versionConflictHandler = (message) => {
-      console.warn(message)
-    },
-    versionConflictFormatter = (version, lunrVersion) => `Version mismatch when loading serialised index. Current version of lunr '${
-      lunrVersion
-    }' does not match serialized index '${
-      version
-    }'`,
-  } = {}) {
-    var attrs = {},
-        fieldVectors = {},
+  static load (
+    serializedIndex: SerializedIndex,
+    {
+      versionConflictHandler = (message: string) => {
+        console.warn(message)
+      },
+      versionConflictFormatter = (
+        version,
+        lunrVersion,
+      ) => `Version mismatch when loading serialised index. Current version of lunr '${
+        lunrVersion
+      }' does not match serialized index '${
+        version
+      }'`,
+    }: {
+      versionConflictHandler?: (
+        | 'throw'
+        | versionConflictHandler
+      ),
+      versionConflictFormatter?: versionConflictFormatter,
+    } = {}): Index {
+    var fieldVectors: {[key: string]: Vector} = {}
+    var
         serializedVectors = serializedIndex.fieldVectors,
-        invertedIndex = Object.create(null),
+        invertedIndex = Object.create(null) as {[key: string]: Index['invertedIndex'][keyof Index['invertedIndex']]},
         serializedInvertedIndex = serializedIndex.invertedIndex,
-        tokenSetBuilder = new TokenSet.Builder,
+        tokenSetBuilder = new TokenSetBuilder,
         pipeline = Pipeline.load(serializedIndex.pipeline)
 
     this.#checkVersion(
-      serializedIndex?.version,
+      serializedIndex?.version || '',
       versionConflictHandler,
       versionConflictFormatter,
     )
 
-    for (var i = 0; i < serializedVectors.length; i++) {
-      var tuple = serializedVectors[i],
-          ref = tuple[0],
-          elements = tuple[1]
+    for (let i = 0; i < serializedVectors.length; i++) {
+      const [
+        ref,
+        elements,
+      ] = serializedVectors[i]
 
       fieldVectors[ref] = new Vector(elements)
     }
 
-    for (var i = 0; i < serializedInvertedIndex.length; i++) {
-      var tuple = serializedInvertedIndex[i],
-          term = tuple[0],
-          posting = tuple[1]
+    for (let i = 0; i < serializedInvertedIndex.length; i++) {
+      const [
+        term,
+        posting,
+      ] = serializedInvertedIndex[i]
 
       tokenSetBuilder.insert(term)
       invertedIndex[term] = posting
@@ -569,25 +634,26 @@ export class Index {
 
     tokenSetBuilder.finish()
 
-    attrs.fields = serializedIndex.fields
-
-    attrs.fieldVectors = fieldVectors
-    attrs.invertedIndex = invertedIndex
-    attrs.tokenSet = tokenSetBuilder.root
-    attrs.pipeline = pipeline
+    const attrs: ConstructorParameters<typeof Index>[0] = {
+      fields: serializedIndex.fields,
+      fieldVectors: fieldVectors,
+      invertedIndex: invertedIndex,
+      tokenSet: tokenSetBuilder.root,
+      pipeline: pipeline,
+    }
 
     return new Index(attrs)
   }
 
   /**
    * @param {string} version
-   * @param {'throw'|throwOnVersionConflict} handler
+   * @param {'throw'|versionConflictHandler} handler
    * @param {versionConflictFormatter} formatter
    */
   static #checkVersion (
-    version,
-    handler,
-    formatter,
+    version: string,
+    handler: 'throw' | versionConflictHandler,
+    formatter: versionConflictFormatter,
   ) {
     if (Lunr.version !== version) {
       const message = formatter(version, Lunr.version)

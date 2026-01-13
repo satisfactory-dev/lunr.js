@@ -57,7 +57,7 @@ suite('search', function () {
   this.add('typeahead', function () {
     idx.query(function (q) {
       q.term("pl", { boost: 100, usePipeline: true })
-      q.term("pl", { boost: 10, usePipeline: false, wildcard: lunr.Query.wildcard.TRAILING })
+      q.term("pl", { boost: 10, usePipeline: false, wildcard: lunr.QueryWildcard.TRAILING })
       q.term("pl", { boost: 1, editDistance: 1 })
     })
   })

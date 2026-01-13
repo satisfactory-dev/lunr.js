@@ -22,7 +22,7 @@ const plugins = [
 
 export default defineConfig([
   {
-    input: 'lunr.mjs',
+    input: 'lunr.mts',
     output: {
       format: 'esm',
       file: 'lunr.min.mjs',
@@ -31,8 +31,19 @@ export default defineConfig([
     },
     plugins,
   },
+  // test copy
   {
-    input: 'lunr.mjs',
+    input: 'lunr.mts',
+    output: {
+      format: 'esm',
+      file: 'test/lunr.mjs',
+      minify: true,
+      sourcemap: true,
+    },
+    plugins,
+  },
+  {
+    input: 'lunr.mts',
     output: {
       format: 'umd',
       exports: 'named',
@@ -45,7 +56,7 @@ export default defineConfig([
     plugins,
   },
   {
-    input: 'lunr.mjs',
+    input: 'lunr.mts',
     output: {
       format: 'umd',
       exports: 'named',

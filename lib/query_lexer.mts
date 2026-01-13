@@ -6,28 +6,30 @@
 
 import {
   separator,
-} from './tokenizer.mjs'
+} from './tokenizer.mts'
 
-/**
- * @typedef {Object} QueryLexemeType
- * @property {QueryLexer.EOS|QueryLexer.FIELD|QueryLexer.TERM|QueryLexer.EDIT_DISTANCE|QueryLexer.BOOST|QueryLexer.PRESENCE} type
- * @property {string} str
- * @property {number} start
- * @property {number} end
- */
+interface QueryLexemeType {
+  type: (
+    | typeof QueryLexer['EOS']
+    | typeof QueryLexer['FIELD']
+    | typeof QueryLexer['TERM']
+    | typeof QueryLexer['EDIT_DISTANCE']
+    | typeof QueryLexer['BOOST']
+    | typeof QueryLexer['PRESENCE']
+  ),
+  str: string,
+  start: number,
+  end: number,
+}
 
-export class QueryLexeme {
-  /** @type {QueryLexer.EOS|QueryLexer.FIELD|QueryLexer.TERM|QueryLexer.EDIT_DISTANCE|QueryLexer.BOOST|QueryLexer.PRESENCE} */
-  type
+export class QueryLexeme implements QueryLexemeType {
+  type: QueryLexemeType['type']
 
-  /** @type {string} */
-  str
+  str: QueryLexemeType['str']
 
-  /** @type {number} */
-  start
+  start: QueryLexemeType['start']
 
-  /** @type {end} */
-  end
+  end: QueryLexemeType['end']
 
   /**
    *
@@ -38,7 +40,7 @@ export class QueryLexeme {
     str,
     start,
     end,
-  }) {
+  }: QueryLexemeType) {
     this.type = type
     this.str = str
     this.start = start
@@ -48,26 +50,30 @@ export class QueryLexeme {
 
 export class QueryLexer {
   /** @type {RegExp|undefined} */
-  static #termSeparator = undefined
+  static #termSeparator: RegExp | undefined = undefined
 
   /** @type {RegExp|undefined} */
-  #instanceTermSeparator = undefined
+  #instanceTermSeparator: RegExp | undefined = undefined
 
-  /**
-   * @type {QueryLexeme[]}
-   */
-  lexemes
+  lexemes: QueryLexeme[] = []
+
+  str: string
+
+  get length () {
+    return this.str.length
+  }
+
+  pos: number = 0
+
+  start: number = 0
+
+  escapeCharPositions: number[] = []
 
   /**
    * @param {string} str
    */
-  constructor (str) {
-    this.lexemes = []
+  constructor (str: string) {
     this.str = str
-    this.length = str.length
-    this.pos = 0
-    this.start = 0
-    this.escapeCharPositions = []
   }
 
   /**
@@ -98,7 +104,7 @@ export class QueryLexer {
     return subSlices.join('')
   }
 
-  emit (type) {
+  emit (type: QueryLexeme['type']) {
     this.lexemes.push(new QueryLexeme({
       type: type,
       str: this.sliceString(),
@@ -160,53 +166,53 @@ export class QueryLexer {
   /**
    * @return {'EOS'}
    */
-  static get EOS () {
+  static get EOS (): 'EOS' {
     return 'EOS'
   }
 
   /**
    * @return {'FIELD'}
    */
-  static get FIELD () {
+  static get FIELD (): 'FIELD' {
     return 'FIELD'
   }
 
   /**
    * @return {'TERM'}
    */
-  static get TERM () {
+  static get TERM (): 'TERM' {
     return 'TERM'
   }
 
   /**
    * @return {'EDIT_DISTANCE'}
    */
-  static get EDIT_DISTANCE () {
+  static get EDIT_DISTANCE (): 'EDIT_DISTANCE' {
     return 'EDIT_DISTANCE'
   }
 
   /**
    * @return {'BOOST'}
    */
-  static get BOOST () {
+  static get BOOST (): 'BOOST' {
     return 'BOOST'
   }
 
   /**
    * @return {'PRESENCE'}
    */
-  static get PRESENCE () {
+  static get PRESENCE (): 'PRESENCE' {
     return 'PRESENCE'
   }
 
-  static lexField (lexer) {
+  static lexField (this: void, lexer: QueryLexer) {
     lexer.backup()
     lexer.emit(QueryLexer.FIELD)
     lexer.ignore()
     return QueryLexer.lexText
   }
 
-  static lexTerm (lexer) {
+  static lexTerm (this: void, lexer: QueryLexer) {
     if (lexer.width() > 1) {
       lexer.backup()
       lexer.emit(QueryLexer.TERM)
@@ -219,21 +225,21 @@ export class QueryLexer {
     }
   }
 
-  static lexEditDistance (lexer) {
+  static lexEditDistance (this: void, lexer: QueryLexer) {
     lexer.ignore()
     lexer.acceptDigitRun()
     lexer.emit(QueryLexer.EDIT_DISTANCE)
     return QueryLexer.lexText
   }
 
-  static lexBoost (lexer) {
+  static lexBoost (this: void, lexer: QueryLexer) {
     lexer.ignore()
     lexer.acceptDigitRun()
     lexer.emit(QueryLexer.BOOST)
     return QueryLexer.lexText
   }
 
-  static lexEOS (lexer) {
+  static lexEOS (this: void, lexer: QueryLexer) {
     if (lexer.width() > 0) {
       lexer.emit(QueryLexer.TERM)
     }
@@ -242,7 +248,7 @@ export class QueryLexer {
   /**
    * @return {RegExp}
    */
-  get termSeparator () {
+  get termSeparator (): RegExp {
     return this.#instanceTermSeparator || QueryLexer.termSeparator
   }
 
@@ -251,14 +257,14 @@ export class QueryLexer {
    *
    * @param {RegExp|undefined} separator
    */
-  set termSeparator (separator) {
+  set termSeparator (separator: RegExp | undefined) {
     this.#instanceTermSeparator = separator
   }
 
   /**
    * @return {RegExp}
    */
-  static get termSeparator () {
+  static get termSeparator (): RegExp {
     // This matches the separator used when tokenising fields
     // within a document. These should match otherwise it is
     // not possible to search for some tokens within a document.
@@ -282,15 +288,11 @@ export class QueryLexer {
    *
    * @param {RegExp|undefined} separator
    */
-  static set termSeparator (separator) {
+  static set termSeparator (separator: RegExp | undefined) {
     this.#termSeparator = separator
   }
 
-  /**
-   * @param {Lexer} lexer
-   * @return void
-   */
-  static lexText (lexer) {
+  static lexText (this: void, lexer: QueryLexer) {
     while (true) {
       var char = lexer.next()
 

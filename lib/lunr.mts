@@ -5,77 +5,78 @@
  */
 import {
   Builder,
-} from './builder.mjs'
+} from './builder.mts'
 
 import {
   FieldRef,
-} from './field_ref.mjs'
+} from './field_ref.mts'
 
 import {
   Index,
-} from './index.mjs'
+} from './index.mts'
 
 import {
   MatchData,
-} from './match_data.mjs'
+} from './match_data.mts'
 
 import {
   Pipeline,
-} from './pipeline.mjs'
+} from './pipeline.mts'
 
 import {
   Query,
-} from './query.mjs'
+  QueryPresence,
+  QueryWildcard,
+} from './query.mts'
 
 import {
   QueryLexeme,
   QueryLexer,
-} from './query_lexer.mjs'
+} from './query_lexer.mts'
 
-import { QueryParser } from './query_parser.mjs'
+import {
+  QueryParser,
+} from './query_parser.mts'
 
 import {
   Set,
   SetComplete,
   SetEmpty,
-} from './set.mjs'
+} from './set.mts'
 
 import {
   stemmer,
-} from './stemmer.mjs'
+} from './stemmer.mts'
 
 import {
   stopWordFilter,
-} from './stop_word_filter.mjs'
+} from './stop_word_filter.mts'
 
 import {
   Token,
-} from './token.mjs'
+} from './token.mts'
 
 import {
   TokenSet,
-} from './token_set.mjs'
+} from './token_set.mts'
 
 import {
   tokenizer,
-} from './tokenizer.mjs'
+} from './tokenizer.mts'
 
 import {
   trimmer,
-} from './trimmer.mjs'
+} from './trimmer.mts'
 
 import {
   utils,
-} from './utils.mjs'
+} from './utils.mts'
 
 import {
   Vector,
-} from './vector.mjs'
+} from './vector.mts'
 
-/**
- * @callback LunrConfig
- * @this Builder
- */
+type LunrConfig = (this: Builder, builder: Builder) => void
 
 /**
  * A convenience function for configuring and constructing
@@ -106,23 +107,15 @@ import {
  * @see {@link trimmer}
  * @see {@link stopWordFilter}
  * @see {@link stemmer}
- *
- * @param {LunrConfig} config
  */
-const lunr = function (config) {
+const lunr = function (config: LunrConfig) {
   return (new Lunr(config)).build()
 }
 
 export class Lunr {
-  /**
-   * @type {Builder}
-   */
-  #builder
+  #builder: Builder
 
-  /**
-   * @param {LunrConfig} config
-   */
-  constructor (config) {
+  constructor (config: LunrConfig) {
     const builder = this.#builder = new Builder
 
     builder.pipeline.add(
@@ -158,6 +151,8 @@ lunr.Query = Query
 lunr.QueryLexer = QueryLexer
 lunr.QueryLexeme = QueryLexeme
 lunr.QueryParser = QueryParser
+lunr.QueryWildcard = QueryWildcard
+lunr.QueryPresence = QueryPresence
 lunr.Set = Set
 lunr.SetComplete = SetComplete
 lunr.SetEmpty = SetEmpty

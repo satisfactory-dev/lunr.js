@@ -10,4 +10,11 @@ test/env/file_list.json
 /lunr.min.js.map
 /lunr.min.mjs
 /lunr.min.mjs.map
+/lunr.mjs
+/lunr.mjs.map
+/lunr.d.mts
 /.devcontainer/.env
+/lib/*.mjs
+/lib/*.mjs.map
+/lib/*.d.mts
+/.cache/

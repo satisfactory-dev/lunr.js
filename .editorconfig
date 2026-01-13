@@ -34,3 +34,7 @@ indent_style = space
 [*.mjs]
 indent_size = 2
 indent_style = space
+
+[*.mts]
+indent_size = 2
+indent_style = space

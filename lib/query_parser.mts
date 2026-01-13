@@ -4,60 +4,52 @@
  * Copyright (C) @YEAR SignpostMarv
  */
 
-import {
-  // eslint-disable-next-line no-unused-vars
+import type {
   Query,
+} from './query.mts'
+import {
   QueryClause,
   QueryPresence,
-} from './query.mjs'
+} from './query.mts'
 
-import {
-  // eslint-disable-next-line no-unused-vars
+import type {
   QueryLexeme,
+} from './query_lexer.mts'
+import {
   QueryLexer,
-} from './query_lexer.mjs'
+} from './query_lexer.mts'
 
 import {
   QueryParseError,
-} from './query_parse_error.mjs'
+} from './query_parse_error.mts'
 
-/**
- * @callback QueryParserState
- * @param {QueryParser} parser
- * @return {QueryParserState|undefined}
- */
+type QueryParserState = (this: void, parser: QueryParser) => QueryParserState | undefined
 
 export class QueryParser {
   /**
    * @type {QueryLexer}
    */
-  lexer
+  lexer: QueryLexer
 
   /**
    * @type {Query}
    */
-  query
+  query: Query
 
-  /**
-   * @type {QueryClause}
-   */
-  currentClause
+  currentClause: Partial<QueryClause>
 
   /**
    * @type {number}
    */
-  lexemeIdx
+  lexemeIdx: number
 
-  /**
-   * @type {QueryLexeme[]|undefined}
-   */
-  lexemes
+  lexemes: QueryLexeme[] | undefined
 
   /**
    * @param {string} str
    * @param {Query} query
    */
-  constructor (str, query) {
+  constructor (str: string, query: Query) {
     this.lexer = new QueryLexer (str)
     this.query = query
     this.currentClause = {}
@@ -67,12 +59,12 @@ export class QueryParser {
   /**
    * @return {Query}
    */
-  parse () {
+  parse (): Query {
     this.lexer.run()
     this.lexemes = this.lexer.lexemes
 
     /** @type {QueryParserState|undefined} */
-    var state = QueryParser.#parseClause
+    var state: QueryParserState | undefined = QueryParser.#parseClause
 
     while (state) {
       state = state(this)
@@ -82,6 +74,10 @@ export class QueryParser {
   }
 
   peekLexeme () {
+    if (undefined === this.lexemes) {
+      return undefined
+    }
+
     return this.lexemes[this.lexemeIdx]
   }
 
@@ -101,7 +97,7 @@ export class QueryParser {
    * @param {QueryParser} parser
    * @return {QueryParserState|undefined}
    */
-  static #parseClause (parser) {
+  static #parseClause (this: void, parser: QueryParser): QueryParserState | undefined {
     var lexeme = parser.peekLexeme()
 
     if (lexeme == undefined) {
@@ -130,7 +126,7 @@ export class QueryParser {
    * @param {QueryParser} parser
    * @return {QueryParserState|undefined}
    */
-  static #parsePresence (parser) {
+  static #parsePresence (this: void, parser: QueryParser): QueryParserState | undefined {
     var lexeme = parser.consumeLexeme()
 
     if (lexeme == undefined) {
@@ -171,7 +167,7 @@ export class QueryParser {
    * @param {QueryParser} parser
    * @return {QueryParserState|undefined}
    */
-  static #parseField (parser) {
+  static #parseField (this: void, parser: QueryParser): QueryParserState | undefined {
     var lexeme = parser.consumeLexeme()
 
     if (lexeme == undefined) {
@@ -207,7 +203,7 @@ export class QueryParser {
    * @param {QueryParser} parser
    * @return {QueryParserState|undefined}
    */
-  static #parseTerm (parser) {
+  static #parseTerm (this: void, parser: QueryParser): QueryParserState | undefined {
     var lexeme = parser.consumeLexeme()
 
     if (lexeme == undefined) {
@@ -251,7 +247,7 @@ export class QueryParser {
    * @param {QueryParser} parser
    * @return {QueryParserState|undefined}
    */
-  static #parseEditDistance (parser) {
+  static #parseEditDistance (this: void, parser: QueryParser): QueryParserState | undefined {
     var lexeme = parser.consumeLexeme()
 
     if (lexeme == undefined) {
@@ -298,7 +294,7 @@ export class QueryParser {
    * @param {QueryParser} parser
    * @return {QueryParserState|undefined}
    */
-  static #parseBoost (parser) {
+  static #parseBoost (this: void, parser: QueryParser): QueryParserState | undefined {
     var lexeme = parser.consumeLexeme()
 
     if (lexeme == undefined) {

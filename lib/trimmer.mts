@@ -5,15 +5,12 @@
  */
 
 import {
-  // eslint-disable-next-line no-unused-vars
-  PipelineFunction,
   Pipeline,
-} from './pipeline.mjs'
+} from './pipeline.mts'
 
-import {
-  // eslint-disable-next-line no-unused-vars
+import type {
   Token,
-} from './token.mjs'
+} from './token.mts'
 
 /**
  * trimmer is a pipeline function for trimming non word
@@ -24,16 +21,14 @@ import {
  * characters and should either be removed or adapted for use
  * with languages with non-latin characters.
  *
- * @static
- * @implements {PipelineFunction}
  * @param {Token} token The token to pass through the filter
  * @return {Token}
  * @see Pipeline
  */
-export const trimmer = function (token) {
-  return token.update(function (s) {
+export var trimmer = Pipeline.labelFunction((token: Token) => {
+  return token.update(function (s: string) {
     return s.replace(/^\W+/, '').replace(/\W+$/, '')
   })
-}
+}, 'trimmer')
 
 Pipeline.registerFunction(trimmer, 'trimmer')

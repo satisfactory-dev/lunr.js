@@ -642,7 +642,7 @@ suite('search', function () {
         setup(function () {
           this.results = this.idx.query(function (q) {
             q.term("xyz", { boost: 100, usePipeline: true })
-            q.term("xyz", { boost: 10, usePipeline: false, wildcard: lunr.Query.wildcard.TRAILING })
+            q.term("xyz", { boost: 10, usePipeline: false, wildcard: lunr.QueryWildcard.TRAILING })
             q.term("xyz", { boost: 1, editDistance: 1 })
           })
         })
@@ -656,7 +656,7 @@ suite('search', function () {
         setup(function () {
           this.results = this.idx.query(function (q) {
             q.term("pl", { boost: 100, usePipeline: true })
-            q.term("pl", { boost: 10, usePipeline: false, wildcard: lunr.Query.wildcard.TRAILING })
+            q.term("pl", { boost: 10, usePipeline: false, wildcard: lunr.QueryWildcard.TRAILING })
             q.term("pl", { boost: 1, editDistance: 1 })
           })
         })
@@ -699,8 +699,8 @@ suite('search', function () {
           suite('#query', function () {
             setup(function () {
               this.results = this.idx.query(function (q) {
-                q.term('candlestick', { presence: lunr.Query.presence.PROHIBITED })
-                q.term('green', { presence: lunr.Query.presence.OPTIONAL })
+                q.term('candlestick', { presence: lunr.QueryPresence.PROHIBITED })
+                q.term('green', { presence: lunr.QueryPresence.OPTIONAL })
               })
             })
 
@@ -726,7 +726,7 @@ suite('search', function () {
           suite('#query', function () {
             setup(function () {
               this.results = this.idx.query(function (q) {
-                q.term('green', { presence: lunr.Query.presence.PROHIBITED })
+                q.term('green', { presence: lunr.QueryPresence.PROHIBITED })
               })
             })
 
@@ -757,7 +757,7 @@ suite('search', function () {
             setup(function () {
               this.results = this.idx.query(function (q) {
                 // eslint-disable-next-line @cspell/spellchecker
-                q.term('qwertyuiop', { presence: lunr.Query.presence.PROHIBITED })
+                q.term('qwertyuiop', { presence: lunr.QueryPresence.PROHIBITED })
               })
             })
 
@@ -792,7 +792,7 @@ suite('search', function () {
           suite('#query', function () {
             setup(function () {
               this.results = this.idx.query(function (q) {
-                q.term('plant', { presence: lunr.Query.presence.PROHIBITED })
+                q.term('plant', { presence: lunr.QueryPresence.PROHIBITED })
               })
             })
 
@@ -826,8 +826,8 @@ suite('search', function () {
           suite('#query', function () {
             setup(function () {
               this.results = this.idx.query(function (q) {
-                q.term('plant', { presence: lunr.Query.presence.PROHIBITED, fields: ['title'] })
-                q.term('plumb', { presence: lunr.Query.presence.OPTIONAL })
+                q.term('plant', { presence: lunr.QueryPresence.PROHIBITED, fields: ['title'] })
+                q.term('plumb', { presence: lunr.QueryPresence.OPTIONAL })
               })
             })
 
@@ -871,8 +871,8 @@ suite('search', function () {
           suite('#query', function () {
             setup(function () {
               this.results = this.idx.query(function (q) {
-                q.term('candlestick', { presence: lunr.Query.presence.REQUIRED })
-                q.term('green', { presence: lunr.Query.presence.OPTIONAL })
+                q.term('candlestick', { presence: lunr.QueryPresence.REQUIRED })
+                q.term('green', { presence: lunr.QueryPresence.OPTIONAL })
               })
             })
 
@@ -890,8 +890,8 @@ suite('search', function () {
           suite('#query', function () {
             setup(function () {
               this.results = this.idx.query(function (q) {
-                q.term('mustard', { presence: lunr.Query.presence.REQUIRED })
-                q.term('plant', { presence: lunr.Query.presence.REQUIRED })
+                q.term('mustard', { presence: lunr.QueryPresence.REQUIRED })
+                q.term('plant', { presence: lunr.QueryPresence.REQUIRED })
               })
             })
 
@@ -918,8 +918,8 @@ suite('search', function () {
             setup(function () {
               this.results = this.idx.query(function (q) {
                 // eslint-disable-next-line @cspell/spellchecker
-                q.term('qwertyuiop', { presence: lunr.Query.presence.REQUIRED })
-                q.term('green', { presence: lunr.Query.presence.OPTIONAL })
+                q.term('qwertyuiop', { presence: lunr.QueryPresence.REQUIRED })
+                q.term('green', { presence: lunr.QueryPresence.OPTIONAL })
               })
             })
 
@@ -954,8 +954,8 @@ suite('search', function () {
           suite('#query', function () {
             setup(function () {
               this.results = this.idx.query(function (q) {
-                q.term('plant', { presence: lunr.Query.presence.REQUIRED, fields: ['title'] })
-                q.term('green', { presence: lunr.Query.presence.OPTIONAL })
+                q.term('plant', { presence: lunr.QueryPresence.REQUIRED, fields: ['title'] })
+                q.term('green', { presence: lunr.QueryPresence.OPTIONAL })
               })
             })
 
@@ -997,8 +997,8 @@ suite('search', function () {
           suite('#query', function () {
             setup(function () {
               this.results = this.idx.query(function (q) {
-                q.term('plant', { fields: ['title'], presence: lunr.Query.presence.REQUIRED })
-                q.term('green', { presence: lunr.Query.presence.REQUIRED })
+                q.term('plant', { fields: ['title'], presence: lunr.QueryPresence.REQUIRED })
+                q.term('green', { presence: lunr.QueryPresence.REQUIRED })
               })
             })
 
@@ -1033,8 +1033,8 @@ suite('search', function () {
           suite('#query', function () {
             setup(function () {
               this.results = this.idx.query(function (q) {
-                q.term('plant', { fields: ['title'], presence: lunr.Query.presence.REQUIRED })
-                q.term('study', { fields: ['body'], presence: lunr.Query.presence.REQUIRED })
+                q.term('plant', { fields: ['title'], presence: lunr.QueryPresence.REQUIRED })
+                q.term('study', { fields: ['body'], presence: lunr.QueryPresence.REQUIRED })
               })
             })
 
@@ -1061,9 +1061,9 @@ suite('search', function () {
           suite('#query', function () {
             setup(function () {
               this.results = this.idx.query(function (q) {
-                q.term('plant', { fields: ['title'], presence: lunr.Query.presence.REQUIRED })
+                q.term('plant', { fields: ['title'], presence: lunr.QueryPresence.REQUIRED })
                 // eslint-disable-next-line @cspell/spellchecker
-                q.term('qwertyuiop', { fields: ['body'], presence: lunr.Query.presence.REQUIRED })
+                q.term('qwertyuiop', { fields: ['body'], presence: lunr.QueryPresence.REQUIRED })
               })
             })
 
@@ -1090,9 +1090,9 @@ suite('search', function () {
         suite('#query', function () {
           setup(function () {
             this.results = this.idx.query(function (q) {
-              q.term('plant', { presence: lunr.Query.presence.REQUIRED })
-              q.term('green', { presence: lunr.Query.presence.OPTIONAL })
-              q.term('office', { presence: lunr.Query.presence.PROHIBITED })
+              q.term('plant', { presence: lunr.QueryPresence.REQUIRED })
+              q.term('green', { presence: lunr.QueryPresence.OPTIONAL })
+              q.term('office', { presence: lunr.QueryPresence.PROHIBITED })
             })
           })
 

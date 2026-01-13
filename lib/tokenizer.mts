@@ -6,16 +6,16 @@
 
 import {
   Token,
-} from './token.mjs'
+} from './token.mts'
 
 import {
   utils,
-} from './utils.mjs'
+} from './utils.mts'
 
-import {
-  // eslint-disable-next-line no-unused-vars
+import type {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   Pipeline,
-} from './pipeline.mjs'
+} from './pipeline.mts'
 
 /**
  * A function for splitting a string into tokens ready to be inserted into
@@ -29,13 +29,17 @@ import {
  * Optional metadata can be passed to the tokenizer, this metadata will be cloned and
  * added as metadata to every token that is created from the object to be tokenized.
  *
- * @param {?(string|object|object[])} obj - The object to convert into tokens
- * @param {?object} metadata - Optional metadata to associate with every token
+ * @param {(string|object|object[])} [obj] - The object to convert into tokens
+ * @param {Object<string, unknown>} [metadata] - Optional metadata to associate with every token
  * @param {RegExp} [usingSeparator] separator to use
  * @returns {Token[]}
  * @see {@link Pipeline}
  */
-export const tokenizer = function (obj, metadata, usingSeparator) {
+export const tokenizer = function (
+  obj?: (string | object | object[]),
+  metadata?: {[key: string]: unknown},
+  usingSeparator?: RegExp,
+): Token[] {
   if (obj == null || obj == undefined) {
     return []
   }
@@ -44,11 +48,12 @@ export const tokenizer = function (obj, metadata, usingSeparator) {
     return obj.map(function (t) {
       return new Token(
         utils.asString(t).toLowerCase(),
-        utils.clone(metadata),
+        utils.clone(metadata) || {},
       )
     })
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-base-to-string
   var str = obj.toString().toLowerCase(),
       len = str.length,
       tokens = []

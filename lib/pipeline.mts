@@ -6,7 +6,7 @@
 
 import {
   Token,
-} from './token.mjs'
+} from './token.mts'
 
 /**
  * A pipeline function maps Token to Token. A Token contains the token
@@ -28,14 +28,27 @@ import {
  * @param {Token[]} tokens - All tokens for this document/field.
  * @returns {(?Token|Token[])}
  */
-export const PipelineFunction = (
-  // eslint-disable-next-line no-unused-vars
-  token,
-  // eslint-disable-next-line no-unused-vars
-  i,
-  // eslint-disable-next-line no-unused-vars
-  tokens,
-) => []
+export type PipelineFunction = (
+  & ((
+    token: Token,
+    i: number,
+    tokens: Token[],
+  ) => (
+    | undefined
+    | Token
+    | (Token[])
+  ))
+  & {
+    label?: string
+  }
+)
+
+export type LabeledPipelineFunction = (
+  & PipelineFunction
+  & {
+    label: string,
+  }
+)
 
 /**
  * Instances of Pipeline maintain an ordered list of functions to be applied to all
@@ -65,10 +78,7 @@ export const PipelineFunction = (
  * is not necessary.
  */
 export class Pipeline {
-  /**
-   * @type {PipelineFunction[]}
-   */
-  #stack = []
+  #stack: LabeledPipelineFunction[] = []
 
   get stackLength () {
     return this.#stack.length
@@ -77,7 +87,7 @@ export class Pipeline {
   /**
    * @type {Object<string, PipelineFunction>}
    */
-  static registeredFunctions = {}
+  static registeredFunctions: { [s: string]: LabeledPipelineFunction } = {}
 
   /**
    * Register a function with the pipeline.
@@ -91,13 +101,15 @@ export class Pipeline {
    * @param {PipelineFunction} fn - The function to check for.
    * @param {String} label - The label to register this function with
    */
-  static registerFunction (fn, label) {
+  static registerFunction (fn: PipelineFunction, label: string) {
     if (label in this.registeredFunctions) {
       console.warn('Overwriting existing registered function: ' + label)
     }
 
-    fn.label = label
-    Pipeline.registeredFunctions[fn.label] = fn
+    Pipeline.registeredFunctions[label] = this.labelFunction(
+      fn,
+      label,
+    )
   }
 
   /**
@@ -106,7 +118,7 @@ export class Pipeline {
    * @param {PipelineFunction} fn - The function to check for.
    * @private
    */
-  static warnIfFunctionNotRegistered (fn) {
+  static warnIfFunctionNotRegistered (fn: PipelineFunction) {
     var isRegistered = fn.label && (fn.label in this.registeredFunctions)
 
     if (!isRegistered) {
@@ -121,10 +133,10 @@ export class Pipeline {
    * If any function from the serialised data has not been registered then an
    * error will be thrown.
    *
-   * @param {Object} serialised - The serialised pipeline to load.
+   * @param {string[]} serialised - The serialised pipeline to load.
    * @returns {Pipeline}
    */
-  static load (serialised) {
+  static load (serialised: ReturnType<Pipeline['toJSON']>): Pipeline {
     var pipeline = new Pipeline
 
     serialised.forEach((fnName) => {
@@ -145,7 +157,7 @@ export class Pipeline {
    *
    * @return {PipelineFunction|undefined}
    */
-  atIndex (index) {
+  atIndex (index: number): PipelineFunction | undefined {
     return this.#stack[index]
   }
 
@@ -154,9 +166,9 @@ export class Pipeline {
    *
    * Logs a warning if the function has not been registered.
    *
-   * @param {PipelineFunction[]} fns - Any number of functions to add to the pipeline.
+   * @param {LabeledPipelineFunction[]} fns - Any number of functions to add to the pipeline.
    */
-  add (...fns) {
+  add (...fns: LabeledPipelineFunction[]) {
     fns.forEach((fn) => {
       Pipeline.warnIfFunctionNotRegistered(fn)
       this.#stack.push(fn)
@@ -169,10 +181,10 @@ export class Pipeline {
    *
    * Logs a warning if the function has not been registered.
    *
-   * @param {PipelineFunction} existingFn - A function that already exists in the pipeline.
-   * @param {PipelineFunction} newFn - The new function to add to the pipeline.
+   * @param {LabeledPipelineFunction} existingFn - A function that already exists in the pipeline.
+   * @param {LabeledPipelineFunction} newFn - The new function to add to the pipeline.
    */
-  after (existingFn, newFn) {
+  after (existingFn: LabeledPipelineFunction, newFn: LabeledPipelineFunction) {
     Pipeline.warnIfFunctionNotRegistered(newFn)
 
     var pos = this.#stack.indexOf(existingFn)
@@ -190,10 +202,10 @@ export class Pipeline {
    *
    * Logs a warning if the function has not been registered.
    *
-   * @param {PipelineFunction} existingFn - A function that already exists in the pipeline.
-   * @param {PipelineFunction} newFn - The new function to add to the pipeline.
+   * @param {LabeledPipelineFunction} existingFn - A function that already exists in the pipeline.
+   * @param {LabeledPipelineFunction} newFn - The new function to add to the pipeline.
    */
-  before (existingFn, newFn) {
+  before (existingFn: LabeledPipelineFunction, newFn: LabeledPipelineFunction) {
     Pipeline.warnIfFunctionNotRegistered(newFn)
 
     var pos = this.#stack.indexOf(existingFn)
@@ -207,9 +219,9 @@ export class Pipeline {
   /**
    * Removes a function from the pipeline.
    *
-   * @param {PipelineFunction} fn The function to remove from the pipeline.
+   * @param {LabeledPipelineFunction} fn The function to remove from the pipeline.
    */
-  remove (fn) {
+  remove (fn: LabeledPipelineFunction) {
     var pos = this.#stack.indexOf(fn)
     if (pos == -1) {
       return
@@ -225,7 +237,7 @@ export class Pipeline {
    * @param {Array} tokens The tokens to run through the pipeline.
    * @returns {Array}
    */
-  run (tokens) {
+  run (tokens: Token[]): Token[] {
     var stackLength = this.#stack.length
 
     for (var i = 0; i < stackLength; i++) {
@@ -235,7 +247,7 @@ export class Pipeline {
       for (var j = 0; j < tokens.length; j++) {
         var result = fn(tokens[j], j, tokens)
 
-        if (result === null || result === void 0 || result === '') continue
+        if (result === null || result === void 0 || result.toString() === '') continue
 
         if (Array.isArray(result)) {
           for (var k = 0; k < result.length; k++) {
@@ -257,12 +269,12 @@ export class Pipeline {
    * strings out. This method takes care of wrapping the passed string in a
    * token and mapping the resulting tokens back to strings.
    *
-   * @param {string} str - The string to pass through the pipeline.
-   * @param {?object} metadata - Optional metadata to associate with the token
+   * @param {string} [str] - The string to pass through the pipeline.
+   * @param {Object<string, unknown>} [metadata] - Optional metadata to associate with the token
    * passed to the pipeline.
    * @returns {string[]}
    */
-  runString (str, metadata) {
+  runString (str?: string, metadata?: {[key: string]: unknown}): string[] {
     var token = new Token (str, metadata)
 
     return this.run([token]).map(function (t) {
@@ -283,7 +295,7 @@ export class Pipeline {
    *
    * @return {PipelineFunction[]}
    */
-  toArray () {
+  toArray (): PipelineFunction[] {
     return [...this.#stack]
   }
 
@@ -291,14 +303,21 @@ export class Pipeline {
    * Returns a representation of the pipeline ready for serialisation.
    *
    * Logs a warning if the function has not been registered.
-   *
-   * @returns {Array}
    */
-  toJSON () {
+  toJSON (): string[] {
     return this.#stack.map(function (fn) {
       Pipeline.warnIfFunctionNotRegistered(fn)
 
       return fn.label
     })
+  }
+
+  static labelFunction (
+    fn: PipelineFunction,
+    label: string,
+  ): LabeledPipelineFunction {
+    fn.label = label
+
+    return fn as LabeledPipelineFunction
   }
 }

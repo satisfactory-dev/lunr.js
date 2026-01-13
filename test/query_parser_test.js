@@ -32,7 +32,7 @@ suite('lunr.QueryParser', function () {
         })
 
         test('presence', function () {
-          assert.equal(lunr.Query.presence.OPTIONAL, this.clause.presence)
+          assert.equal(lunr.QueryPresence.OPTIONAL, this.clause.presence)
         })
 
         test('usePipeline', function () {
@@ -141,8 +141,8 @@ suite('lunr.QueryParser', function () {
         })
 
         test('#presence', function () {
-          assert.equal(lunr.Query.presence.OPTIONAL, this.fooClause.presence)
-          assert.equal(lunr.Query.presence.REQUIRED, this.barClause.presence)
+          assert.equal(lunr.QueryPresence.OPTIONAL, this.fooClause.presence)
+          assert.equal(lunr.QueryPresence.REQUIRED, this.barClause.presence)
         })
 
         test('#editDistance', function () {
@@ -175,8 +175,8 @@ suite('lunr.QueryParser', function () {
         })
 
         test('#presence', function () {
-          assert.equal(lunr.Query.presence.OPTIONAL, this.fooClause.presence)
-          assert.equal(lunr.Query.presence.REQUIRED, this.barClause.presence)
+          assert.equal(lunr.QueryPresence.OPTIONAL, this.fooClause.presence)
+          assert.equal(lunr.QueryPresence.REQUIRED, this.barClause.presence)
         })
 
         test('#boost', function () {
@@ -441,7 +441,7 @@ suite('lunr.QueryParser', function () {
       })
 
       test('presence', function () {
-        assert.equal(lunr.Query.presence.REQUIRED, this.clauses[0].presence)
+        assert.equal(lunr.QueryPresence.REQUIRED, this.clauses[0].presence)
       })
     })
 
@@ -467,7 +467,7 @@ suite('lunr.QueryParser', function () {
       })
 
       test('presence', function () {
-        assert.equal(lunr.Query.presence.PROHIBITED, this.clauses[0].presence)
+        assert.equal(lunr.QueryPresence.PROHIBITED, this.clauses[0].presence)
       })
     })
 
@@ -493,7 +493,7 @@ suite('lunr.QueryParser', function () {
       })
 
       test('presence', function () {
-        assert.equal(lunr.Query.presence.REQUIRED, this.clauses[0].presence)
+        assert.equal(lunr.QueryPresence.REQUIRED, this.clauses[0].presence)
       })
     })
 
@@ -519,7 +519,7 @@ suite('lunr.QueryParser', function () {
       })
 
       test('presence', function () {
-        assert.equal(lunr.Query.presence.PROHIBITED, this.clauses[0].presence)
+        assert.equal(lunr.QueryPresence.PROHIBITED, this.clauses[0].presence)
       })
     })
   })

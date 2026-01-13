@@ -5,15 +5,12 @@
  */
 
 import {
-  // eslint-disable-next-line no-unused-vars
-  PipelineFunction,
   Pipeline,
-} from './pipeline.mjs'
+} from './pipeline.mts'
 
-import {
-  // eslint-disable-next-line no-unused-vars
+import type {
   Token,
-} from './token.mjs'
+} from './token.mts'
 
 /**
  * generateStopWordFilter builds a stopWordFilter function from the provided
@@ -22,18 +19,18 @@ import {
  * The built in stopWordFilter is built using this generator and can be used
  * to generate custom stopWordFilters for applications or non English languages.
  *
- * @param {Array} token The token to pass through the filter
+ * @param {string[]} stopWords The token to pass through the filter
  * @return {PipelineFunction}
  * @see Pipeline
  * @see stopWordFilter
  */
-export const generateStopWordFilter = function (stopWords) {
-  var words = stopWords.reduce(function (memo, stopWord) {
+export const generateStopWordFilter = function (stopWords: string[]) {
+  var words = stopWords.reduce((memo, stopWord): {[key: string]: string} => {
     memo[stopWord] = stopWord
     return memo
   }, {})
 
-  return function (token) {
+  return function (token: Token) {
     if (token && words[token.toString()] !== token.toString()) return token
   }
 }
@@ -45,12 +42,11 @@ export const generateStopWordFilter = function (stopWords) {
  * This is intended to be used in the Pipeline. If the token does not pass the
  * filter then undefined will be returned.
  *
- * @implements {PipelineFunction}
  * @param {Token} token - A token to check for being a stop word.
  * @return {Token}
  * @see {@link Pipeline}
  */
-export const stopWordFilter = generateStopWordFilter([
+export const stopWordFilter = Pipeline.labelFunction(generateStopWordFilter([
   'a',
   'able',
   'about',
@@ -170,6 +166,6 @@ export const stopWordFilter = generateStopWordFilter([
   'yet',
   'you',
   'your',
-])
+]), 'stopWordFilter')
 
 Pipeline.registerFunction(stopWordFilter, 'stopWordFilter')
