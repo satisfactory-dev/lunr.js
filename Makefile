@@ -37,9 +37,6 @@ benchmark: perf/*_perf.js
 test: node_modules lunr.js test/env/file_list.json
 	./node_modules/.bin/mocha test/*.js -u tdd -r test/test_helper.js -R dot -C
 
-test/inspect: node_modules lunr.js
-	./node_modules/.bin/mocha test/*.js -u tdd -r test/test_helper.js -R dot -C --inspect-brk=0.0.0.0:9292
-
 test/env/file_list.json: $(wildcard test/*test.js)
 	node -p 'JSON.stringify({test_files: process.argv.slice(1)}).replace(/test\//g, "")' $^ > $@
 
