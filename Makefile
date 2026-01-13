@@ -12,6 +12,8 @@ size: lunr.js
 	@gzip -c lunr.min.js | wc -c
 	@echo 'lunr.min.mjs'
 	@gzip -c lunr.min.mjs | wc -c
+	@echo 'lunr.cjs'
+	@gzip -c lunr.cjs | wc -c
 
 lint: lint--tsc lint--eslint--ts lint--eslint--js
 

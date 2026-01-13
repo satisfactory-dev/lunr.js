@@ -31,6 +31,17 @@ export default defineConfig([
     },
     plugins,
   },
+  {
+    input: 'lunr.cjs.mts',
+    output: {
+      format: 'cjs',
+      file: 'lunr.cjs',
+      exports: 'named',
+      minify: true,
+      sourcemap: true,
+    },
+    plugins,
+  },
   // test copy
   {
     input: 'lunr.mts',

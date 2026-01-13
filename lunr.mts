@@ -1,5 +1,5 @@
 /*!
- * stemmer
+ * lunr.js
  * Copyright (C) 2020 Oliver Nightingale
  * Copyright (C) @YEAR SignpostMarv
  */

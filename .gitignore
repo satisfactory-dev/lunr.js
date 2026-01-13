@@ -19,3 +19,5 @@ test/env/file_list.json
 /.cache/
 /test/lunr.mjs
 /test/lunr.mjs.map
+/lunr.cjs
+/lunr.cjs.map
