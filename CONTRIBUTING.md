@@ -2,19 +2,21 @@ Contributions are very welcome. To make the process as easy as possible please f
 
 * Open an issue detailing the bug you've found, or the feature you wish to add.  Simplified working examples using something like [jsFiddle](http://jsfiddle.net) make it easier to diagnose your problem.
 * Add tests for your code (so I don't accidentally break it in the future).
-* Don't change version numbers or make new builds as part of your changes.
-* Don't change the built versions of the library; only make changes to code in the `lib` directory.
+* Don't change version numbers as part of your changes.
 
 # Developer Dependencies
 
-A JavaScript runtime is required for building the library.
-
-Run the tests (using PhantomJS):
+An IDE that supports [dev containers](https://containers.dev/) is required for building the library.
+Run the tests:
 
     make test
 
-The tests can also be run in the browser by starting the test server:
+## `.devcontainer/.env`
 
-    make server
+See [.env.example](./devcontainer/.env.example) for a ready-to-copy-and-paste file
 
-This will start a server on port 3000, the tests are then available at `/test`.
+| ENV | Default | Description |
+| - | - | - |
+| `PORT_DOCS` | `8001` | Used to serve the HTML-formatted docs
+| `PORT_COVERAGE` | `8002` | Used to serve the HTML-formatted coverage
+| `PORT_TESTS` | `8003` | Used to serve the mocha test runner for browser testing

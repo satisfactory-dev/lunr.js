@@ -47,7 +47,7 @@ This returns a list of matching documents with a score of how closely they match
 ]
 ```
 
-[API documentation](docs/globals.md) is available, as well as a [full working example](https://olivernn.github.io/moonwalkers/).
+[API documentation](docs/globals.md) is available, ~~as well as a [full working example](https://olivernn.github.io/moonwalkers/)~~ working example of forked library still pending..
 
 ## Description
 
@@ -66,7 +66,7 @@ Simply include the lunr.js source file in the page that you want to use it.  Lun
 
 Alternatively an npm package is also available `npm install lunr`.
 
-Browsers that do not support ES5 will require a JavaScript shim for Lunr to work. You can either use [Augment.js](https://github.com/olivernn/augment.js), [ES5-Shim](https://github.com/kriskowal/es5-shim) or any library that patches old browsers to provide an ES5 compatible JavaScript environment.
+Environments that do not modern JS syntax are not supported.
 
 ## Features
 

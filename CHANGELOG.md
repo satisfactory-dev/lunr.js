@@ -1,25 +1,42 @@
 # Changelog
 
+## ~~0.1.0~~ version pending
+
+* Converted to ES Modules (solves [olivernn/lunr.js#401](https://github.com/olivernn/lunr.js/issues/401))
+* Converted to TypeScript, solves or relates to
+	- [olivernn/lunr.js#241](https://github.com/olivernn/lunr.js/issues/241)
+    - [olivernn/lunr.js#297](https://github.com/olivernn/lunr.js/issues/297)
+    - [olivernn/lunr.js#323](https://github.com/olivernn/lunr.js/issues/323)
+    - [olivernn/lunr.js#385](https://github.com/olivernn/lunr.js/issues/385)
+    - [olivernn/lunr.js#388](https://github.com/olivernn/lunr.js/issues/388)
+    - [olivernn/lunr.js#528](https://github.com/olivernn/lunr.js/issues/528)
+* Allow separators to be overriden (solves [oliver/lunr.js#527](https://github.com/olivernn/lunr.js/issues/527))
+* drop bower.json & component.json
+* updated various libraries
+* implemented devcontainer, using nginx image to serve docs, tests, and coverage instead of using node-static
+
+# Legacy Changelog
+
 ## 2.3.9
 
-* Fix bug [#469](https://github.com/olivernn/lunr.js/issues/469) where a union with a complete set returned a non-complete set. Thanks [Bertrand Le Roy](https://github.com/bleroy) for reporting and fixing.
+* Fix bug [olivernn/lunr.js#469](https://github.com/olivernn/lunr.js/issues/469) where a union with a complete set returned a non-complete set. Thanks [Bertrand Le Roy](https://github.com/bleroy) for reporting and fixing.
 
 ## 2.3.8
 
-* Fix bug [#422](https://github.com/olivernn/lunr.js/issues/422) where a pipline function that returned null was not skipping the token as described in the documentation. Thanks [Stephen Cleary](https://github.com/StephenCleary) and [Rob Hoelz](https://github.com/hoelzro) for reporting and investigating.
+* Fix bug [olivernn/lunr.js#422](https://github.com/olivernn/lunr.js/issues/422) where a pipline function that returned null was not skipping the token as described in the documentation. Thanks [Stephen Cleary](https://github.com/StephenCleary) and [Rob Hoelz](https://github.com/hoelzro) for reporting and investigating.
 
 ## 2.3.7
 
-* Fix bug [#417](https://github.com/olivernn/lunr.js/issues/417) where leading white space would cause token position metadata to be reported incorrectly. Thanks [Rob Hoelz](https://github.com/hoelzro) for the fix.
+* Fix bug [olivernn/lunr.js#417](https://github.com/olivernn/lunr.js/issues/417) where leading white space would cause token position metadata to be reported incorrectly. Thanks [Rob Hoelz](https://github.com/hoelzro) for the fix.
 
 ## 2.3.6
 
-* Fix bug [#390](https://github.com/olivernn/lunr.js/issues/390) with fuzzy matching that meant deletions at the end of a word would not match. Thanks [Luca Ongaro](https://github.com/lucaong) for reporting.
+* Fix bug [olivernn/lunr.js#390](https://github.com/olivernn/lunr.js/issues/390) with fuzzy matching that meant deletions at the end of a word would not match. Thanks [Luca Ongaro](https://github.com/lucaong) for reporting.
 
 ## 2.3.5
 
-* Fix bug [#375](https://github.com/olivernn/lunr.js/issues/375) with fuzzy matching that meant insertions at the end of a word would not match. Thanks [Luca Ongaro](https://github.com/lucaong) for reporting and to [Rob Hoelz](https://github.com/hoelzro) for providing a fix.
-* Switch to using `Array.isArray` when checking for results from pipeline functions to support `vm.runInContext`, [#381](https://github.com/olivernn/lunr.js/pull/381) thanks [Rob Hoelz](https://github.com/hoelzro).
+* Fix bug [olivernn/lunr.js#375](https://github.com/olivernn/lunr.js/issues/375) with fuzzy matching that meant insertions at the end of a word would not match. Thanks [Luca Ongaro](https://github.com/lucaong) for reporting and to [Rob Hoelz](https://github.com/hoelzro) for providing a fix.
+* Switch to using `Array.isArray` when checking for results from pipeline functions to support `vm.runInContext`, [olivernn/lunr.js#381](https://github.com/olivernn/lunr.js/pull/381) thanks [Rob Hoelz](https://github.com/hoelzro).
 
 ## 2.3.4
 
@@ -27,16 +44,16 @@
 
 ## 2.3.3
 
-* Fig bugs [#270](https://github.com/olivernn/lunr.js/issues/270) and [#368](https://github.com/olivernn/lunr.js/issues/368), some wildcard searches over long tokens could be extremely slow, potentially pinning the current thread indefinitely. Thanks [Kyle Spearrin](https://github.com/kspearrin) and [Mohamed Eltuhamy](https://github.com/meltuhamy) for reporting.
+* Fig bugs [olivernn/lunr.js#270](https://github.com/olivernn/lunr.js/issues/270) and [olivernn/lunr.js#368](https://github.com/olivernn/lunr.js/issues/368), some wildcard searches over long tokens could be extremely slow, potentially pinning the current thread indefinitely. Thanks [Kyle Spearrin](https://github.com/kspearrin) and [Mohamed Eltuhamy](https://github.com/meltuhamy) for reporting.
 
 ## 2.3.2
 
-* Fix bug [#369](https://github.com/olivernn/lunr.js/issues/369) in parsing queries that include either a boost or edit distance modifier followed by a presence modifier on a subsequent term. Thanks [mtdjr](https://github.com/mtdjr) for reporting.
+* Fix bug [olivernn/lunr.js#369](https://github.com/olivernn/lunr.js/issues/369) in parsing queries that include either a boost or edit distance modifier followed by a presence modifier on a subsequent term. Thanks [mtdjr](https://github.com/mtdjr) for reporting.
 
 ## 2.3.1
 
-* Add workaround for inconsistent browser behaviour [#279](https://github.com/olivernn/lunr.js/issues/279), thanks [Luca Ongaro](https://github.com/lucaong).
-* Fix bug in intersect/union of `lunr.Set` [#360](https://github.com/olivernn/lunr.js/issues/360), thanks [Brandon Bethke](https://github.com/brandon-bethke-neudesic) for reporting.
+* Add workaround for inconsistent browser behaviour [olivernn/lunr.js#279](https://github.com/olivernn/lunr.js/issues/279), thanks [Luca Ongaro](https://github.com/lucaong).
+* Fix bug in intersect/union of `lunr.Set` [olivernn/lunr.js#360](https://github.com/olivernn/lunr.js/issues/360), thanks [Brandon Bethke](https://github.com/brandon-bethke-neudesic) for reporting.
 
 ## 2.3.0
 
@@ -47,7 +64,7 @@
 
 ## 2.2.1
 
-* Fix bug [#344](https://github.com/olivernn/lunr.js/issues/344) in logic for required terms in multiple fields, thanks [Stephane Mankowski](https://github.com/miraks31).
+* Fix bug [olivernn/lunr.js#344](https://github.com/olivernn/lunr.js/issues/344) in logic for required terms in multiple fields, thanks [Stephane Mankowski](https://github.com/miraks31).
 * Upgrade mocha and fix some test snafus.
 
 ## 2.2.0
@@ -59,11 +76,11 @@
 
 ## 2.1.6
 
-* Improve pipeline performance for large fields [#329](https://github.com/olivernn/lunr.js/pull/329), thanks [andymcm](https://github.com/andymcm).
+* Improve pipeline performance for large fields [olivernn/lunr.js#329](https://github.com/olivernn/lunr.js/pull/329), thanks [andymcm](https://github.com/andymcm).
 
 ## 2.1.5
 
-* Fix bug [#320](https://github.com/olivernn/lunr.js/issues/320) which caused result metadata to be nested under search term instead of field name. Thanks [Jonny Gerig Meyer](https://github.com/jgerigmeyer) for reporting and fixing.
+* Fix bug [olivernn/lunr.js#320](https://github.com/olivernn/lunr.js/issues/320) which caused result metadata to be nested under search term instead of field name. Thanks [Jonny Gerig Meyer](https://github.com/jgerigmeyer) for reporting and fixing.
 
 ## 2.1.4
 
@@ -78,16 +95,16 @@
 
 ## 2.1.2
 
-* Fix bug [#282](https://github.com/olivernn/lunr.js/issues/282) which caused metadata stored in the index to be mutated during search, thanks [Andrew Aldridge](https://github.com/i80and).
+* Fix bug [olivernn/lunr.js#282](https://github.com/olivernn/lunr.js/issues/282) which caused metadata stored in the index to be mutated during search, thanks [Andrew Aldridge](https://github.com/i80and).
 
 ## 2.1.1
 
-* Fix bug [#280](https://github.com/olivernn/lunr.js/issues/280) in builder where an object with prototype was being used as a Map, thanks [Pete Bacon Darwin](https://github.com/petebacondarwin).
+* Fix bug [olivernn/lunr.js#280](https://github.com/olivernn/lunr.js/issues/280) in builder where an object with prototype was being used as a Map, thanks [Pete Bacon Darwin](https://github.com/petebacondarwin).
 
 ## 2.1.0
 
-* Improve handling of term boosts across multiple fields [#263](https://github.com/olivernn/lunr.js/issues/263)
-* Enable escaping of special characters when performing a search [#271](https://github.com/olivernn/lunr.js/issues/271)
+* Improve handling of term boosts across multiple fields [olivernn/lunr.js#263](https://github.com/olivernn/lunr.js/issues/263)
+* Enable escaping of special characters when performing a search [olivernn/lunr.js#271](https://github.com/olivernn/lunr.js/issues/271)
 * Add ability to programatically include leading and trailing wildcards when performing a query.
 
 ## 2.0.4
@@ -96,16 +113,16 @@
 
 ## 2.0.3
 
-* Fix bug [#256](https://github.com/olivernn/lunr.js/issues/256) where duplicate query terms could cause a 'duplicate index' error when building the query vector. Thanks [Bjorn Svensson](https://github.com/bsvensson), [Jason Feng](https://github.com/IYCI), and [et1421](https://github.com/et1421) for reporting and confirming the issue.
+* Fix bug [olivernn/lunr.js#256](https://github.com/olivernn/lunr.js/issues/256) where duplicate query terms could cause a 'duplicate index' error when building the query vector. Thanks [Bjorn Svensson](https://github.com/bsvensson), [Jason Feng](https://github.com/IYCI), and [et1421](https://github.com/et1421) for reporting and confirming the issue.
 
 ## 2.0.2
 
-* Fix bug [#255](https://github.com/olivernn/lunr.js/issues/255) where search queries used a different separator than the tokeniser causing some terms to not be searchable. Thanks [Wes Cossick](https://github.com/WesCossick) for reporting.
+* Fix bug [olivernn/lunr.js#255](https://github.com/olivernn/lunr.js/issues/255) where search queries used a different separator than the tokeniser causing some terms to not be searchable. Thanks [Wes Cossick](https://github.com/WesCossick) for reporting.
 * Reduce precision of term scores stored in document vectors to reduce the size of serialised indexes by ~15%, thanks [Qvatra](https://github.com/Qvatra) for the idea.
 
 ## 2.0.1
 
-* Fix regression [#254](https://github.com/olivernn/lunr.js/issues/254) where documents containing terms that match properties from Object.prototype cause errors during indexing. Thanks [VonFry](https://github.com/VonFry) for reporting.
+* Fix regression [olivernn/lunr.js#254](https://github.com/olivernn/lunr.js/issues/254) where documents containing terms that match properties from Object.prototype cause errors during indexing. Thanks [VonFry](https://github.com/VonFry) for reporting.
 
 ## 2.0.0
 
@@ -120,32 +137,32 @@
 
 ## 0.7.2
 
-* Fix bug when loading a serialised tokeniser [#226](https://github.com/olivernn/lunr.js/issues/226), thanks [Alex Turpin](https://github.com/alexturpin) for reporting the issue.
-* Learn how to spell separator [#223](https://github.com/olivernn/lunr.js/pull/223), thanks [peterennis](https://github.com/peterennis) for helping me learn to spell.
+* Fix bug when loading a serialised tokeniser [olivernn/lunr.js#226](https://github.com/olivernn/lunr.js/issues/226), thanks [Alex Turpin](https://github.com/alexturpin) for reporting the issue.
+* Learn how to spell separator [olivernn/lunr.js#223](https://github.com/olivernn/lunr.js/pull/223), thanks [peterennis](https://github.com/peterennis) for helping me learn to spell.
 
 ## 0.7.1
 
-* Correctly set the license using the @license doc tag [#217](https://github.com/olivernn/lunr.js/issues/217), thanks [Carlos Araya](https://github.com/caraya).
+* Correctly set the license using the @license doc tag [olivernn/lunr.js#217](https://github.com/olivernn/lunr.js/issues/217), thanks [Carlos Araya](https://github.com/caraya).
 
 ## 0.7.0
 
-* Make tokenizer a property of the index, allowing for different indexes to use different tokenizers [#205](https://github.com/olivernn/lunr.js/pull/205) and [#21](https://github.com/olivernn/lunr.js/issues/21).
-* Fix bug that prevented very large documents from being indexed [#203](https://github.com/olivernn/lunr.js/pull/203), thanks [Daniel Grießhaber](https://github.com/dangrie158).
-* Performance improvements when adding documents to the index [#208](https://github.com/olivernn/lunr.js/pull/208), thanks [Dougal Matthews](https://github.com/d0ugal).
+* Make tokenizer a property of the index, allowing for different indexes to use different tokenizers [olivernn/lunr.js#205](https://github.com/olivernn/lunr.js/pull/205) and [olivernn/lunr.js#21](https://github.com/olivernn/lunr.js/issues/21).
+* Fix bug that prevented very large documents from being indexed [olivernn/lunr.js#203](https://github.com/olivernn/lunr.js/pull/203), thanks [Daniel Grießhaber](https://github.com/dangrie158).
+* Performance improvements when adding documents to the index [olivernn/lunr.js#208](https://github.com/olivernn/lunr.js/pull/208), thanks [Dougal Matthews](https://github.com/d0ugal).
 
 ## 0.6.0
 
-* Ensure document ref property type is preserved when returning results [#117](https://github.com/olivernn/lunr.js/issues/117), thanks [Kyle Kirby](https://github.com/kkirby).
+* Ensure document ref property type is preserved when returning results [olivernn/lunr.js#117](https://github.com/olivernn/lunr.js/issues/117), thanks [Kyle Kirby](https://github.com/kkirby).
 * Introduce `lunr.generateStopWordFilter` for generating a stop word filter from a provided list of stop words.
-* Replace array-like string access with ES3 compatible `String.prototype.charAt` [#186](https://github.com/olivernn/lunr.js/pull/186), thanks [jkellerer](https://github.com/jkellerer).
-* Move empty string filtering from `lunr.trimmer` to `lunr.Pipeline.prototype.run` so that empty tokens do not enter the index, regardless of the trimmer being used [#178](https://github.com/olivernn/lunr.js/issues/178), [#177](https://github.com/olivernn/lunr.js/issues/177) and [#174](https://github.com/olivernn/lunr.js/issues/174)
-* Allow tokenization of arrays with null and non string elements [#172](https://github.com/olivernn/lunr.js/issues/172).
-* Parameterize the seperator used by `lunr.tokenizer`, fixes [#102](https://github.com/olivernn/lunr.js/issues/102).
+* Replace array-like string access with ES3 compatible `String.prototype.charAt` [olivernn/lunr.js#186](https://github.com/olivernn/lunr.js/pull/186), thanks [jkellerer](https://github.com/jkellerer).
+* Move empty string filtering from `lunr.trimmer` to `lunr.Pipeline.prototype.run` so that empty tokens do not enter the index, regardless of the trimmer being used [olivernn/lunr.js#178](https://github.com/olivernn/lunr.js/issues/178), [olivernn/lunr.js#177](https://github.com/olivernn/lunr.js/issues/177) and [olivernn/lunr.js#174](https://github.com/olivernn/lunr.js/issues/174)
+* Allow tokenization of arrays with null and non string elements [olivernn/lunr.js#172](https://github.com/olivernn/lunr.js/issues/172).
+* Parameterize the seperator used by `lunr.tokenizer`, fixes [olivernn/lunr.js#102](https://github.com/olivernn/lunr.js/issues/102).
 
 ## 0.5.12
 
-* Implement `lunr.stopWordFilter` with an object instead of using `lunr.SortedSet` [#170](https://github.com/olivernn/lunr.js/pull/170), resulting in a performance boost for the text processing pipeline, thanks to [Brian Vaughn](https://github.com/bvaughn).
-* Ensure that `lunr.trimmer` does not introduce empty tokens into the index, [#166](https://github.com/olivernn/lunr.js/pull/166), thanks to [janeisklar](https://github.com/janeisklar)
+* Implement `lunr.stopWordFilter` with an object instead of using `lunr.SortedSet` [olivernn/lunr.js#170](https://github.com/olivernn/lunr.js/pull/170), resulting in a performance boost for the text processing pipeline, thanks to [Brian Vaughn](https://github.com/bvaughn).
+* Ensure that `lunr.trimmer` does not introduce empty tokens into the index, [olivernn/lunr.js#166](https://github.com/olivernn/lunr.js/pull/166), thanks to [janeisklar](https://github.com/janeisklar)
 
 ## 0.5.11
 
@@ -154,44 +171,44 @@
 ## 0.5.10
 
 * Fix bug in IDF calculation, thanks to [weixsong](https://github.com/weixsong) for discovering the issue.
-* Documentation fixes [#111](https://github.com/olivernn/lunr.js/pull/111) thanks [Chris Van](https://github.com/cvan).
-* Remove version from bower.json as it is not needed [#160](https://github.com/olivernn/lunr.js/pull/160), thanks [Kevin Kirsche](https://github.com/kkirsche)
-* Fix link to augment.js on the home page [#159](https://github.com/olivernn/lunr.js/issues/159), thanks [Gábor Nádai](https://github.com/mefiblogger)
+* Documentation fixes [olivernn/lunr.js#111](https://github.com/olivernn/lunr.js/pull/111) thanks [Chris Van](https://github.com/cvan).
+* Remove version from bower.json as it is not needed [olivernn/lunr.js#160](https://github.com/olivernn/lunr.js/pull/160), thanks [Kevin Kirsche](https://github.com/kkirsche)
+* Fix link to augment.js on the home page [olivernn/lunr.js#159](https://github.com/olivernn/lunr.js/issues/159), thanks [Gábor Nádai](https://github.com/mefiblogger)
 
 ## 0.5.9
 
 * Remove recursion from SortedSet#indexOf and SortedSet#locationFor to gain small performance gains in Index#search and Index#add
-* Fix incorrect handling of non existant functions when adding/removing from a Pipeline [#146](https://github.com/olivernn/lunr.js/issues/146) thanks to [weixsong](https://github.com/weixsong)
+* Fix incorrect handling of non existant functions when adding/removing from a Pipeline [olivernn/lunr.js#146](https://github.com/olivernn/lunr.js/issues/146) thanks to [weixsong](https://github.com/weixsong)
 
 ## 0.5.8
 
-* Fix typo when referencing Martin Porter's home page http://tartarus.org/~martin/ [#132](https://github.com/olivernn/lunr.js/pull/132) thanks [James Aylett](https://github.com/jaylett)
-* Performance improvement for tokenizer [#139](https://github.com/olivernn/lunr.js/pull/139) thanks [Arun Srinivasan](https://github.com/satchmorun)
-* Fix vector magnitude caching bug :flushed: [#142](https://github.com/olivernn/lunr.js/pull/142) thanks [Richard Poole](https://github.com/richardpoole)
-* Fix vector insertion bug that prevented lesser ordered nodes to be inserted into a vector [#143](https://github.com/olivernn/lunr.js/pull/143) thanks [Richard Poole](https://github.com/richardpoole)
+* Fix typo when referencing Martin Porter's home page http://tartarus.org/~martin/ [olivernn/lunr.js#132](https://github.com/olivernn/lunr.js/pull/132) thanks [James Aylett](https://github.com/jaylett)
+* Performance improvement for tokenizer [olivernn/lunr.js#139](https://github.com/olivernn/lunr.js/pull/139) thanks [Arun Srinivasan](https://github.com/satchmorun)
+* Fix vector magnitude caching bug :flushed: [olivernn/lunr.js#142](https://github.com/olivernn/lunr.js/pull/142) thanks [Richard Poole](https://github.com/richardpoole)
+* Fix vector insertion bug that prevented lesser ordered nodes to be inserted into a vector [olivernn/lunr.js#143](https://github.com/olivernn/lunr.js/pull/143) thanks [Richard Poole](https://github.com/richardpoole)
 * Fix inefficient use of arguments in SortedSet add method, thanks to [Max Nordlund](https://github.com/maxnordlund).
-* Fix deprecated use of path.exists in test server [#141](https://github.com/olivernn/lunr.js/pull/141) thanks [wei song](https://github.com/weixsong)
+* Fix deprecated use of path.exists in test server [olivernn/lunr.js#141](https://github.com/olivernn/lunr.js/pull/141) thanks [wei song](https://github.com/weixsong)
 
 ## 0.5.7
 
-* Performance improvement for stemmer [#124](https://github.com/olivernn/lunr.js/pull/124) thanks [Tony Jacobs](https://github.com/tony-jacobs)
+* Performance improvement for stemmer [olivernn/lunr.js#124](https://github.com/olivernn/lunr.js/pull/124) thanks [Tony Jacobs](https://github.com/tony-jacobs)
 
 ## 0.5.6
 
-* Performance improvement when add documents to the index [#114](https://github.com/olivernn/lunr.js/pull/114) thanks [Alex Holmes](https://github.com/alex2)
+* Performance improvement when add documents to the index [olivernn/lunr.js#114](https://github.com/olivernn/lunr.js/pull/114) thanks [Alex Holmes](https://github.com/alex2)
 
 ## 0.5.5
 
-* Fix bug in tokenizer introduced in 0.5.4 [#101](https://github.com/olivernn/lunr.js/pull/101) thanks [Nolan Lawson](https://github.com/nolanlawson)
+* Fix bug in tokenizer introduced in 0.5.4 [olivernn/lunr.js#101](https://github.com/olivernn/lunr.js/pull/101) thanks [Nolan Lawson](https://github.com/nolanlawson)
 
 ## 0.5.4
 
-* Tokenizer also splits on hyphens [#98](https://github.com/olivernn/lunr.js/pull/98/files) thanks [Nolan Lawson](https://github.com/nolanlawson)
+* Tokenizer also splits on hyphens [olivernn/lunr.js#98](https://github.com/olivernn/lunr.js/pull/98/files) thanks [Nolan Lawson](https://github.com/nolanlawson)
 
 ## 0.5.3
 
-* Correctly stem words ending with the letter 'y' [#84](https://github.com/olivernn/lunr.js/pull/84) thanks [Mihai Valentin](https://github.com/MihaiValentin)
-* Improve build tools and dev dependency installation [#78](https://github.com/olivernn/lunr.js/pull/78) thanks [Ben Pickles](https://github.com/benpickles)
+* Correctly stem words ending with the letter 'y' [olivernn/lunr.js#84](https://github.com/olivernn/lunr.js/pull/84) thanks [Mihai Valentin](https://github.com/MihaiValentin)
+* Improve build tools and dev dependency installation [olivernn/lunr.js#78](https://github.com/olivernn/lunr.js/pull/78) thanks [Ben Pickles](https://github.com/benpickles)
 
 ## 0.5.2
 
@@ -204,7 +221,7 @@
 ## 0.5.0
 
 * Add plugin support to enable i18n and other extensions to lunr.
-* Add AMD support [#72](https://github.com/olivernn/lunr.js/issues/72) thanks [lnwdr](https://github.com/lnwdr).
+* Add AMD support [olivernn/lunr.js#72](https://github.com/olivernn/lunr.js/issues/72) thanks [lnwdr](https://github.com/lnwdr).
 * lunr.Vector now implemented using linked lists for better performance especially in indexes with large numbers of unique tokens.
 * Build system clean up.
 
@@ -214,20 +231,20 @@
 
 ## 0.4.4
 
-* Fix bug [#64](https://github.com/olivernn/lunr.js/issues/64) idf cache should handle tokens with the same name as object properties, thanks [gitgrimbo](https://github.com/gitgrimbo).
-* Intersperse source files with a semicolon as part of the build process, fixes [#61](https://github.com/olivernn/lunr.js/issues/61), thanks [shyndman](https://github.com/shyndman).
+* Fix bug [olivernn/lunr.js#64](https://github.com/olivernn/lunr.js/issues/64) idf cache should handle tokens with the same name as object properties, thanks [gitgrimbo](https://github.com/gitgrimbo).
+* Intersperse source files with a semicolon as part of the build process, fixes [olivernn/lunr.js#61](https://github.com/olivernn/lunr.js/issues/61), thanks [shyndman](https://github.com/shyndman).
 
 ## 0.4.3
 
-* Fix bug [#49](https://github.com/olivernn/lunr.js/issues/49) tokenizer should handle null and undefined as arguments, thanks [jona](https://github.com/jona).
+* Fix bug [olivernn/lunr.js#49](https://github.com/olivernn/lunr.js/issues/49) tokenizer should handle null and undefined as arguments, thanks [jona](https://github.com/jona).
 
 ## 0.4.2
 
-* Fix bug [#47](https://github.com/olivernn/lunr.js/issues/47) tokenizer converts its input to a string before trying to split it into tokens, thanks [mikhailkozlov](https://github.com/mikhailkozlov).
+* Fix bug [olivernn/lunr.js#47](https://github.com/olivernn/lunr.js/issues/47) tokenizer converts its input to a string before trying to split it into tokens, thanks [mikhailkozlov](https://github.com/mikhailkozlov).
 
 ## 0.4.1
 
-* Fix bug [#41](https://github.com/olivernn/lunr.js/issues/41) that caused issues when indexing mixed case tags, thanks [Aptary](https://github.com/Aptary)
+* Fix bug [olivernn/lunr.js#41](https://github.com/olivernn/lunr.js/issues/41) that caused issues when indexing mixed case tags, thanks [Aptary](https://github.com/Aptary)
 
 ## 0.4.0
 
@@ -237,29 +254,29 @@
 
 ## 0.3.3
 
-* Fix bug [#32](https://github.com/olivernn/lunr.js/pull/32) which prevented lunr being used where a `console` object is not present, thanks [Tony Marklove](https://github.com/jjbananas) and [wyuenho](https://github.com/wyuenho)
+* Fix bug [olivernn/lunr.js#32](https://github.com/olivernn/lunr.js/pull/32) which prevented lunr being used where a `console` object is not present, thanks [Tony Marklove](https://github.com/jjbananas) and [wyuenho](https://github.com/wyuenho)
 
 ## 0.3.2
 
-* Fix bug [#27](https://github.com/olivernn/lunr.js/pull/27) when trying to calculate tf with empty fields, thanks [Gambhiro](https://github.com/gambhiro)
+* Fix bug [olivernn/lunr.js#27](https://github.com/olivernn/lunr.js/pull/27) when trying to calculate tf with empty fields, thanks [Gambhiro](https://github.com/gambhiro)
 
 ## 0.3.1
 
-* Fix bug [#24](https://github.com/olivernn/lunr.js/pull/24) that caused an error when trying to remove a non-existant document from the index, thanks [Jesús Leganés Combarro](https://github.com/piranna)
+* Fix bug [olivernn/lunr.js#24](https://github.com/olivernn/lunr.js/pull/24) that caused an error when trying to remove a non-existant document from the index, thanks [Jesús Leganés Combarro](https://github.com/piranna)
 
 ## 0.3.0
 
 * Implement [JSON serialisation](https://github.com/olivernn/lunr.js/pull/14), allows indexes to be loaded and dumped, thanks [ssured](https://github.com/ssured).
 * Performance improvements to searching and indexing.
-* Fix bug [#15](https://github.com/olivernn/lunr.js/pull/15) with tokeniser that added stray empty white space to the index, thanks [ssured](https://github.com/ssured).
+* Fix bug [olivernn/lunr.js#15](https://github.com/olivernn/lunr.js/pull/15) with tokeniser that added stray empty white space to the index, thanks [ssured](https://github.com/ssured).
 
 ## 0.2.3
 
-* Fix issue with searching for a term not in the index [#12](https://github.com/olivernn/lunr.js/issues/12), thanks [mcnerthney](https://github.com/mcnerthney) and [makoto](https://github.com/makoto)
+* Fix issue with searching for a term not in the index [olivernn/lunr.js#12](https://github.com/olivernn/lunr.js/issues/12), thanks [mcnerthney](https://github.com/mcnerthney) and [makoto](https://github.com/makoto)
 
 ## 0.2.2
 
-* Boost exact term matches so they are better ranked than expanded term matches, fixes [#10](https://github.com/olivernn/lunr.js/issues/10), thanks [ssured](https://github.com/ssured)
+* Boost exact term matches so they are better ranked than expanded term matches, fixes [olivernn/lunr.js#10](https://github.com/olivernn/lunr.js/issues/10), thanks [ssured](https://github.com/ssured)
 
 ## 0.2.1
 
