@@ -32,7 +32,7 @@ perf/*_perf.js: lunr.js
 
 benchmark: perf/*_perf.js
 
-test: node_modules lunr.js
+test: node_modules lunr.js test/env/file_list.json
 	./node_modules/.bin/mocha test/*.js -u tdd -r test/test_helper.js -R dot -C
 
 test/inspect: node_modules lunr.js
@@ -40,9 +40,6 @@ test/inspect: node_modules lunr.js
 
 test/env/file_list.json: $(wildcard test/*test.js)
 	node -p 'JSON.stringify({test_files: process.argv.slice(1)}).replace(/test\//g, "")' $^ > $@
-
-test/index.html: test/env/file_list.json test/env/index.mustache
-	./node_modules/.bin/mustache $^ > $@
 
 docs:
 	./node_modules/.bin/typedoc --readme README.md --options build/typedoc.conf.json --plugin typedoc-plugin-markdown
