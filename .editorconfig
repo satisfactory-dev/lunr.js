@@ -38,3 +38,7 @@ indent_style = space
 [*.mts]
 indent_size = 2
 indent_style = space
+
+[*.mustache]
+indent_size = 2
+indent_style = space

@@ -1,4 +1,4 @@
-import lunr from '../lunr.mjs'
+import lunr from '@satisfactory-dev/lunr'
 import chai from 'chai'
 import fs from 'node:fs'
 import path from 'node:path'

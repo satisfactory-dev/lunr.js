@@ -50,7 +50,7 @@ test/inspect: node_modules lunr.js
 	${MOCHA} test/*.js -u tdd -r test/test_helper.js -R dot -C --inspect-brk=0.0.0.0:9292
 
 test/env/file_list.json: $(wildcard test/*test.js)
-	${NODE} -p 'JSON.stringify({test_files: process.argv.slice(1)})' $^ > $@
+	node -p 'JSON.stringify({test_files: process.argv.slice(1)}).replace(/test\//g, "")' $^ > $@
 
 test/index.html: test/env/file_list.json test/env/index.mustache
 	${MUSTACHE} $^ > $@
@@ -68,4 +68,4 @@ clean:
 reset:
 	git checkout lunr.* *.json
 
-.PHONY: test clean docs reset perf/*_perf.js test/inspect lunr.js test/index.html coverage
+.PHONY: test clean docs reset perf/*_perf.js test/inspect lunr.js test/index.html coverage test/env/file_list.json

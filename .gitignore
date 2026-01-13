@@ -18,3 +18,5 @@ test/env/file_list.json
 /lib/*.mjs.map
 /lib/*.d.mts
 /.cache/
+/test/lunr.mjs
+/test/lunr.mjs.map
