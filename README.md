@@ -59,6 +59,9 @@ For web applications with all their data already sitting in the client, it makes
 
 ## Installation
 
+> [!WARNING]
+> this section currently refers to the legacy lunr package, not `@satisfactory-dev/lunr`
+
 Simply include the lunr.js source file in the page that you want to use it.  Lunr.js is supported in all modern browsers.
 
 Alternatively an npm package is also available `npm install lunr`.
