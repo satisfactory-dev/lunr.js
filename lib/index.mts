@@ -312,8 +312,8 @@ export class Index {
           if (clause.fields) {
             for (let k = 0; k < clause.fields.length; k++) {
               var field = clause.fields[k]
-            requiredMatches[field] = this.#emptySet
-          }
+              requiredMatches[field] = this.#emptySet
+            }
           }
 
           break

@@ -83,7 +83,7 @@ export class Vector {
       return pivotPoint * 2
     }
 
-      return (pivotPoint + 1) * 2
+    return (pivotPoint + 1) * 2
   }
 
   /**
