@@ -14,6 +14,8 @@
 * drop bower.json & component.json
 * updated various libraries
 * implemented devcontainer, using nginx image to serve docs, tests, and coverage instead of using node-static
+* loaded version info from JSON instead of templated string replaced at build time
+* sealed default export
 
 # Legacy Changelog
 
