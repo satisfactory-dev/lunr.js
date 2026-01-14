@@ -8,4 +8,4 @@
 
 > **UnlabelledPipelineFunction** = [`PipelineFunction`](PipelineFunction.md)\<[`Token`](../classes/Token.md)\> \| [`PipelineFunction`](PipelineFunction.md)\<`string`\> \| [`PipelineFunction`](PipelineFunction.md)\<`number`\> \| [`PipelineFunction`](PipelineFunction.md)\<\{ `toString`: `string`; \}\>
 
-Defined in: [lib/pipeline.ts:46](https://github.com/satisfactory-dev/lunr.js/blob/35435b0a01ef8cca7502d711eaaee5ea43154f5d/lib/pipeline.ts#L46)
+Defined in: [lib/pipeline.ts:46](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/pipeline.ts#L46)

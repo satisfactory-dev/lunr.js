@@ -6,7 +6,7 @@
 
 # Class: QueryParseError
 
-Defined in: [lib/query\_parse\_error.ts:7](https://github.com/satisfactory-dev/lunr.js/blob/35435b0a01ef8cca7502d711eaaee5ea43154f5d/lib/query_parse_error.ts#L7)
+Defined in: [lib/query\_parse\_error.ts:7](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/query_parse_error.ts#L7)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [lib/query\_parse\_error.ts:7](https://github.com/satisfactory-dev/l
 
 > **new QueryParseError**(`message`, `start`, `end`): `QueryParseError`
 
-Defined in: [lib/query\_parse\_error.ts:18](https://github.com/satisfactory-dev/lunr.js/blob/35435b0a01ef8cca7502d711eaaee5ea43154f5d/lib/query_parse_error.ts#L18)
+Defined in: [lib/query\_parse\_error.ts:18](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/query_parse_error.ts#L18)
 
 #### Parameters
 
@@ -60,7 +60,7 @@ Defined in: node\_modules/typescript/lib/lib.es2022.error.d.ts:26
 
 > **end**: `number`
 
-Defined in: [lib/query\_parse\_error.ts:16](https://github.com/satisfactory-dev/lunr.js/blob/35435b0a01ef8cca7502d711eaaee5ea43154f5d/lib/query_parse_error.ts#L16)
+Defined in: [lib/query\_parse\_error.ts:16](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/query_parse_error.ts#L16)
 
 ***
 
@@ -104,7 +104,7 @@ Defined in: node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 > **start**: `number`
 
-Defined in: [lib/query\_parse\_error.ts:11](https://github.com/satisfactory-dev/lunr.js/blob/35435b0a01ef8cca7502d711eaaee5ea43154f5d/lib/query_parse_error.ts#L11)
+Defined in: [lib/query\_parse\_error.ts:11](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/query_parse_error.ts#L11)
 
 ***
 

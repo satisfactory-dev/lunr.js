@@ -2,11 +2,11 @@
 
 ***
 
-[@satisfactory-dev/lunr](../globals.md) / Lunr
+[@satisfactory-dev/lunr](../globals.md) / AsyncLunr
 
-# Class: Lunr
+# Class: AsyncLunr
 
-Defined in: [lib/lunr.ts:165](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/lunr.ts#L165)
+Defined in: [lib/lunr.ts:177](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/lunr.ts#L177)
 
 ## Extends
 
@@ -16,19 +16,19 @@ Defined in: [lib/lunr.ts:165](https://github.com/satisfactory-dev/lunr.js/blob/a
 
 ### Constructor
 
-> **new Lunr**(`config`): `Lunr`
+> **new AsyncLunr**(`config`): `AsyncLunr`
 
-Defined in: [lib/lunr.ts:166](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/lunr.ts#L166)
+Defined in: [lib/lunr.ts:180](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/lunr.ts#L180)
 
 #### Parameters
 
 ##### config
 
-[`LunrConfig`](../type-aliases/LunrConfig.md)
+[`AsyncLunrConfig`](../type-aliases/AsyncLunrConfig.md)
 
 #### Returns
 
-`Lunr`
+`AsyncLunr`
 
 #### Overrides
 
@@ -90,10 +90,10 @@ The current version of the library
 
 ### build()
 
-> **build**(): [`Index`](Index.md)
+> **build**(): `Promise`\<[`Index`](Index.md)\>
 
-Defined in: [lib/lunr.ts:172](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/lunr.ts#L172)
+Defined in: [lib/lunr.ts:186](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/lunr.ts#L186)
 
 #### Returns
 
-[`Index`](Index.md)
+`Promise`\<[`Index`](Index.md)\>

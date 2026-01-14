@@ -8,7 +8,7 @@
 
 > **generateStopWordFilter**(`stopWords`): [`PipelineFunction`](../type-aliases/PipelineFunction.md)\<\{ `toString`: `string`; \}\>
 
-Defined in: [lib/stop\_word\_filter.ts:25](https://github.com/satisfactory-dev/lunr.js/blob/35435b0a01ef8cca7502d711eaaee5ea43154f5d/lib/stop_word_filter.ts#L25)
+Defined in: [lib/stop\_word\_filter.ts:25](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/stop_word_filter.ts#L25)
 
 generateStopWordFilter builds a stopWordFilter function from the provided
 list of stop words.

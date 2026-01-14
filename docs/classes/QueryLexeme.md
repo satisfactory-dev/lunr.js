@@ -6,7 +6,7 @@
 
 # Class: QueryLexeme
 
-Defined in: [lib/query\_lexer.ts:25](https://github.com/satisfactory-dev/lunr.js/blob/35435b0a01ef8cca7502d711eaaee5ea43154f5d/lib/query_lexer.ts#L25)
+Defined in: [lib/query\_lexer.ts:25](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/query_lexer.ts#L25)
 
 ## Implements
 
@@ -18,7 +18,7 @@ Defined in: [lib/query\_lexer.ts:25](https://github.com/satisfactory-dev/lunr.js
 
 > **new QueryLexeme**(`options`): `QueryLexeme`
 
-Defined in: [lib/query\_lexer.ts:38](https://github.com/satisfactory-dev/lunr.js/blob/35435b0a01ef8cca7502d711eaaee5ea43154f5d/lib/query_lexer.ts#L38)
+Defined in: [lib/query\_lexer.ts:38](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/query_lexer.ts#L38)
 
 #### Parameters
 
@@ -36,7 +36,7 @@ Defined in: [lib/query\_lexer.ts:38](https://github.com/satisfactory-dev/lunr.js
 
 > **end**: `number`
 
-Defined in: [lib/query\_lexer.ts:32](https://github.com/satisfactory-dev/lunr.js/blob/35435b0a01ef8cca7502d711eaaee5ea43154f5d/lib/query_lexer.ts#L32)
+Defined in: [lib/query\_lexer.ts:32](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/query_lexer.ts#L32)
 
 #### Implementation of
 
@@ -48,7 +48,7 @@ Defined in: [lib/query\_lexer.ts:32](https://github.com/satisfactory-dev/lunr.js
 
 > **start**: `number`
 
-Defined in: [lib/query\_lexer.ts:30](https://github.com/satisfactory-dev/lunr.js/blob/35435b0a01ef8cca7502d711eaaee5ea43154f5d/lib/query_lexer.ts#L30)
+Defined in: [lib/query\_lexer.ts:30](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/query_lexer.ts#L30)
 
 #### Implementation of
 
@@ -60,7 +60,7 @@ Defined in: [lib/query\_lexer.ts:30](https://github.com/satisfactory-dev/lunr.js
 
 > **str**: `string`
 
-Defined in: [lib/query\_lexer.ts:28](https://github.com/satisfactory-dev/lunr.js/blob/35435b0a01ef8cca7502d711eaaee5ea43154f5d/lib/query_lexer.ts#L28)
+Defined in: [lib/query\_lexer.ts:28](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/query_lexer.ts#L28)
 
 #### Implementation of
 
@@ -72,7 +72,7 @@ Defined in: [lib/query\_lexer.ts:28](https://github.com/satisfactory-dev/lunr.js
 
 > **type**: `"EOS"` \| `"FIELD"` \| `"TERM"` \| `"EDIT_DISTANCE"` \| `"BOOST"` \| `"PRESENCE"`
 
-Defined in: [lib/query\_lexer.ts:26](https://github.com/satisfactory-dev/lunr.js/blob/35435b0a01ef8cca7502d711eaaee5ea43154f5d/lib/query_lexer.ts#L26)
+Defined in: [lib/query\_lexer.ts:26](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/query_lexer.ts#L26)
 
 #### Implementation of
 

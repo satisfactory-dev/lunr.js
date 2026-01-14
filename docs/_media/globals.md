@@ -10,6 +10,7 @@
 
 ## Classes
 
+- [AsyncLunr](classes/AsyncLunr.md)
 - [Builder](classes/Builder.md)
 - [FieldRef](classes/FieldRef.md)
 - [Index](classes/Index.md)
@@ -37,6 +38,7 @@
 
 ## Type Aliases
 
+- [AsyncLunrConfig](type-aliases/AsyncLunrConfig.md)
 - [fieldExtractor](type-aliases/fieldExtractor.md)
 - [FieldsAttributes](type-aliases/FieldsAttributes.md)
 - [FunctionNotRegisteredHandler](type-aliases/FunctionNotRegisteredHandler.md)
