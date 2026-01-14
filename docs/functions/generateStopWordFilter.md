@@ -8,7 +8,7 @@
 
 > **generateStopWordFilter**(`stopWords`): (`token`) => [`Token`](../classes/Token.md) \| `undefined`
 
-Defined in: [lib/stop\_word\_filter.mts:27](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/stop_word_filter.mts#L27)
+Defined in: [lib/stop\_word\_filter.mts:27](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/stop_word_filter.mts#L27)
 
 generateStopWordFilter builds a stopWordFilter function from the provided
 list of stop words.

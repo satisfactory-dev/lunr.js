@@ -6,7 +6,7 @@
 
 # Interface: PipelineFunction()
 
-Defined in: [lib/pipeline.mts:31](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/pipeline.mts#L31)
+Defined in: [lib/pipeline.mts:31](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/pipeline.mts#L31)
 
 A pipeline function maps Token to Token. A Token contains the token
 string as well as all known metadata. A pipeline function can mutate the token string
@@ -25,7 +25,7 @@ Any number of pipeline functions may be chained together using a Pipeline.
 
 > **PipelineFunction**(`token`, `i`, `tokens`): [`Token`](../classes/Token.md) \| [`Token`](../classes/Token.md)[] \| `undefined`
 
-Defined in: [lib/pipeline.mts:32](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/pipeline.mts#L32)
+Defined in: [lib/pipeline.mts:32](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/pipeline.mts#L32)
 
 ## Parameters
 
@@ -57,4 +57,4 @@ All tokens for this document/field.
 
 > `optional` **label**: `string`
 
-Defined in: [lib/pipeline.mts:42](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/pipeline.mts#L42)
+Defined in: [lib/pipeline.mts:42](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/pipeline.mts#L42)

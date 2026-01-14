@@ -6,7 +6,7 @@
 
 # Class: QueryLexer
 
-Defined in: [lib/query\_lexer.mts:51](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L51)
+Defined in: [lib/query\_lexer.mts:51](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L51)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [lib/query\_lexer.mts:51](https://github.com/satisfactory-dev/lunr.j
 
 > **new QueryLexer**(`str`): `QueryLexer`
 
-Defined in: [lib/query\_lexer.mts:75](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L75)
+Defined in: [lib/query\_lexer.mts:75](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L75)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [lib/query\_lexer.mts:75](https://github.com/satisfactory-dev/lunr.j
 
 > **escapeCharPositions**: `number`[] = `[]`
 
-Defined in: [lib/query\_lexer.mts:70](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L70)
+Defined in: [lib/query\_lexer.mts:70](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L70)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [lib/query\_lexer.mts:70](https://github.com/satisfactory-dev/lunr.j
 
 > **lexemes**: [`QueryLexeme`](QueryLexeme.md)[] = `[]`
 
-Defined in: [lib/query\_lexer.mts:58](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L58)
+Defined in: [lib/query\_lexer.mts:58](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L58)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [lib/query\_lexer.mts:58](https://github.com/satisfactory-dev/lunr.j
 
 > **pos**: `number` = `0`
 
-Defined in: [lib/query\_lexer.mts:66](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L66)
+Defined in: [lib/query\_lexer.mts:66](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L66)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [lib/query\_lexer.mts:66](https://github.com/satisfactory-dev/lunr.j
 
 > **start**: `number` = `0`
 
-Defined in: [lib/query\_lexer.mts:68](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L68)
+Defined in: [lib/query\_lexer.mts:68](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L68)
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: [lib/query\_lexer.mts:68](https://github.com/satisfactory-dev/lunr.j
 
 > **str**: `string`
 
-Defined in: [lib/query\_lexer.mts:60](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L60)
+Defined in: [lib/query\_lexer.mts:60](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L60)
 
 ## Accessors
 
@@ -74,7 +74,7 @@ Defined in: [lib/query\_lexer.mts:60](https://github.com/satisfactory-dev/lunr.j
 
 > **get** **length**(): `number`
 
-Defined in: [lib/query\_lexer.mts:62](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L62)
+Defined in: [lib/query\_lexer.mts:62](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L62)
 
 ##### Returns
 
@@ -88,7 +88,7 @@ Defined in: [lib/query\_lexer.mts:62](https://github.com/satisfactory-dev/lunr.j
 
 > **get** **termSeparator**(): `RegExp`
 
-Defined in: [lib/query\_lexer.mts:251](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L251)
+Defined in: [lib/query\_lexer.mts:251](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L251)
 
 ##### Returns
 
@@ -98,7 +98,7 @@ Defined in: [lib/query\_lexer.mts:251](https://github.com/satisfactory-dev/lunr.
 
 > **set** **termSeparator**(`separator`): `void`
 
-Defined in: [lib/query\_lexer.mts:260](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L260)
+Defined in: [lib/query\_lexer.mts:260](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L260)
 
 Overrides the default term separator **for this instance**, or sets it to default if undefined is specified
 
@@ -120,7 +120,7 @@ Overrides the default term separator **for this instance**, or sets it to defaul
 
 > **get** `static` **BOOST**(): `"BOOST"`
 
-Defined in: [lib/query\_lexer.mts:197](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L197)
+Defined in: [lib/query\_lexer.mts:197](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L197)
 
 ##### Returns
 
@@ -134,7 +134,7 @@ Defined in: [lib/query\_lexer.mts:197](https://github.com/satisfactory-dev/lunr.
 
 > **get** `static` **EDIT\_DISTANCE**(): `"EDIT_DISTANCE"`
 
-Defined in: [lib/query\_lexer.mts:190](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L190)
+Defined in: [lib/query\_lexer.mts:190](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L190)
 
 ##### Returns
 
@@ -148,7 +148,7 @@ Defined in: [lib/query\_lexer.mts:190](https://github.com/satisfactory-dev/lunr.
 
 > **get** `static` **EOS**(): `"EOS"`
 
-Defined in: [lib/query\_lexer.mts:169](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L169)
+Defined in: [lib/query\_lexer.mts:169](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L169)
 
 ##### Returns
 
@@ -162,7 +162,7 @@ Defined in: [lib/query\_lexer.mts:169](https://github.com/satisfactory-dev/lunr.
 
 > **get** `static` **FIELD**(): `"FIELD"`
 
-Defined in: [lib/query\_lexer.mts:176](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L176)
+Defined in: [lib/query\_lexer.mts:176](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L176)
 
 ##### Returns
 
@@ -176,7 +176,7 @@ Defined in: [lib/query\_lexer.mts:176](https://github.com/satisfactory-dev/lunr.
 
 > **get** `static` **PRESENCE**(): `"PRESENCE"`
 
-Defined in: [lib/query\_lexer.mts:204](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L204)
+Defined in: [lib/query\_lexer.mts:204](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L204)
 
 ##### Returns
 
@@ -190,7 +190,7 @@ Defined in: [lib/query\_lexer.mts:204](https://github.com/satisfactory-dev/lunr.
 
 > **get** `static` **TERM**(): `"TERM"`
 
-Defined in: [lib/query\_lexer.mts:183](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L183)
+Defined in: [lib/query\_lexer.mts:183](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L183)
 
 ##### Returns
 
@@ -204,7 +204,7 @@ Defined in: [lib/query\_lexer.mts:183](https://github.com/satisfactory-dev/lunr.
 
 > **get** `static` **termSeparator**(): `RegExp`
 
-Defined in: [lib/query\_lexer.mts:267](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L267)
+Defined in: [lib/query\_lexer.mts:267](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L267)
 
 ##### Returns
 
@@ -214,7 +214,7 @@ Defined in: [lib/query\_lexer.mts:267](https://github.com/satisfactory-dev/lunr.
 
 > **set** `static` **termSeparator**(`separator`): `void`
 
-Defined in: [lib/query\_lexer.mts:291](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L291)
+Defined in: [lib/query\_lexer.mts:291](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L291)
 
 Overrides the default term separator, or sets it to default if undefined is specified
 
@@ -234,7 +234,7 @@ Overrides the default term separator, or sets it to default if undefined is spec
 
 > **acceptDigitRun**(): `void`
 
-Defined in: [lib/query\_lexer.mts:149](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L149)
+Defined in: [lib/query\_lexer.mts:149](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L149)
 
 #### Returns
 
@@ -246,7 +246,7 @@ Defined in: [lib/query\_lexer.mts:149](https://github.com/satisfactory-dev/lunr.
 
 > **backup**(): `void`
 
-Defined in: [lib/query\_lexer.mts:145](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L145)
+Defined in: [lib/query\_lexer.mts:145](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L145)
 
 #### Returns
 
@@ -258,7 +258,7 @@ Defined in: [lib/query\_lexer.mts:145](https://github.com/satisfactory-dev/lunr.
 
 > **emit**(`type`): `void`
 
-Defined in: [lib/query\_lexer.mts:107](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L107)
+Defined in: [lib/query\_lexer.mts:107](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L107)
 
 #### Parameters
 
@@ -276,7 +276,7 @@ Defined in: [lib/query\_lexer.mts:107](https://github.com/satisfactory-dev/lunr.
 
 > **escapeCharacter**(): `void`
 
-Defined in: [lib/query\_lexer.mts:118](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L118)
+Defined in: [lib/query\_lexer.mts:118](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L118)
 
 #### Returns
 
@@ -288,7 +288,7 @@ Defined in: [lib/query\_lexer.mts:118](https://github.com/satisfactory-dev/lunr.
 
 > **ignore**(): `void`
 
-Defined in: [lib/query\_lexer.mts:137](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L137)
+Defined in: [lib/query\_lexer.mts:137](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L137)
 
 #### Returns
 
@@ -300,7 +300,7 @@ Defined in: [lib/query\_lexer.mts:137](https://github.com/satisfactory-dev/lunr.
 
 > **more**(): `boolean`
 
-Defined in: [lib/query\_lexer.mts:162](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L162)
+Defined in: [lib/query\_lexer.mts:162](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L162)
 
 #### Returns
 
@@ -312,7 +312,7 @@ Defined in: [lib/query\_lexer.mts:162](https://github.com/satisfactory-dev/lunr.
 
 > **next**(): `string`
 
-Defined in: [lib/query\_lexer.mts:123](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L123)
+Defined in: [lib/query\_lexer.mts:123](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L123)
 
 #### Returns
 
@@ -324,7 +324,7 @@ Defined in: [lib/query\_lexer.mts:123](https://github.com/satisfactory-dev/lunr.
 
 > **run**(): `void`
 
-Defined in: [lib/query\_lexer.mts:82](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L82)
+Defined in: [lib/query\_lexer.mts:82](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L82)
 
 #### Returns
 
@@ -338,7 +338,7 @@ void
 
 > **sliceString**(): `string`
 
-Defined in: [lib/query\_lexer.mts:90](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L90)
+Defined in: [lib/query\_lexer.mts:90](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L90)
 
 #### Returns
 
@@ -350,7 +350,7 @@ Defined in: [lib/query\_lexer.mts:90](https://github.com/satisfactory-dev/lunr.j
 
 > **width**(): `number`
 
-Defined in: [lib/query\_lexer.mts:133](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L133)
+Defined in: [lib/query\_lexer.mts:133](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L133)
 
 #### Returns
 
@@ -362,7 +362,7 @@ Defined in: [lib/query\_lexer.mts:133](https://github.com/satisfactory-dev/lunr.
 
 > `static` **lexBoost**(`this`, `lexer`): (`this`, `lexer`) => (this: void, lexer: QueryLexer) =\> typeof lexText
 
-Defined in: [lib/query\_lexer.mts:235](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L235)
+Defined in: [lib/query\_lexer.mts:235](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L235)
 
 #### Parameters
 
@@ -398,7 +398,7 @@ Defined in: [lib/query\_lexer.mts:235](https://github.com/satisfactory-dev/lunr.
 
 > `static` **lexEditDistance**(`this`, `lexer`): (`this`, `lexer`) => (this: void, lexer: QueryLexer) =\> typeof lexText
 
-Defined in: [lib/query\_lexer.mts:228](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L228)
+Defined in: [lib/query\_lexer.mts:228](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L228)
 
 #### Parameters
 
@@ -434,7 +434,7 @@ Defined in: [lib/query\_lexer.mts:228](https://github.com/satisfactory-dev/lunr.
 
 > `static` **lexEOS**(`this`, `lexer`): `void`
 
-Defined in: [lib/query\_lexer.mts:242](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L242)
+Defined in: [lib/query\_lexer.mts:242](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L242)
 
 #### Parameters
 
@@ -456,7 +456,7 @@ Defined in: [lib/query\_lexer.mts:242](https://github.com/satisfactory-dev/lunr.
 
 > `static` **lexField**(`this`, `lexer`): (`this`, `lexer`) => (this: void, lexer: QueryLexer) =\> typeof lexText
 
-Defined in: [lib/query\_lexer.mts:208](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L208)
+Defined in: [lib/query\_lexer.mts:208](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L208)
 
 #### Parameters
 
@@ -492,7 +492,7 @@ Defined in: [lib/query\_lexer.mts:208](https://github.com/satisfactory-dev/lunr.
 
 > `static` **lexTerm**(`this`, `lexer`): (`this`, `lexer`) => (this: void, lexer: QueryLexer) =\> typeof lexText \| `undefined`
 
-Defined in: [lib/query\_lexer.mts:215](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L215)
+Defined in: [lib/query\_lexer.mts:215](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L215)
 
 #### Parameters
 
@@ -514,7 +514,7 @@ Defined in: [lib/query\_lexer.mts:215](https://github.com/satisfactory-dev/lunr.
 
 > `static` **lexText**(`this`, `lexer`): (`this`, `lexer`) => (this: void, lexer: QueryLexer) =\> typeof lexText
 
-Defined in: [lib/query\_lexer.mts:295](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query_lexer.mts#L295)
+Defined in: [lib/query\_lexer.mts:295](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query_lexer.mts#L295)
 
 #### Parameters
 

@@ -8,7 +8,7 @@
 
 > **stemmer**(`token`, `i`, `tokens`): [`Token`](../classes/Token.md) \| [`Token`](../classes/Token.md)[] \| `undefined`
 
-Defined in: [lib/stemmer.mts:26](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/stemmer.mts#L26)
+Defined in: [lib/stemmer.mts:26](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/stemmer.mts#L26)
 
 stemmer is an english language stemmer, this is a JavaScript
 implementation of the PorterStemmer taken from http://tartarus.org/~martin

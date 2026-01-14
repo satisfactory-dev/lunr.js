@@ -8,7 +8,7 @@
 
 > `const` **QueryWildcard**: `Readonly`\<\{ `LEADING`: `1`; `NONE`: `0`; `TRAILING`: `2`; \}\>
 
-Defined in: [lib/query.mts:235](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/query.mts#L235)
+Defined in: [lib/query.mts:235](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query.mts#L235)
 
 Constants for indicating what kind of automatic wildcard insertion will be used when constructing a query clause.
 

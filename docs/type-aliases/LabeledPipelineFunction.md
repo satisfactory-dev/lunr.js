@@ -8,7 +8,7 @@
 
 > **LabeledPipelineFunction** = [`PipelineFunction`](../interfaces/PipelineFunction.md) & `object`
 
-Defined in: [lib/pipeline.mts:46](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/pipeline.mts#L46)
+Defined in: [lib/pipeline.mts:46](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/pipeline.mts#L46)
 
 ## Type Declaration
 

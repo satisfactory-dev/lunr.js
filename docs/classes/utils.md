@@ -6,7 +6,7 @@
 
 # Class: utils
 
-Defined in: [lib/utils.mts:14](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/utils.mts#L14)
+Defined in: [lib/utils.mts:14](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/utils.mts#L14)
 
 A class containing utility functions for the rest of the lunr library
 
@@ -26,7 +26,7 @@ A class containing utility functions for the rest of the lunr library
 
 > `static` **clone**: (`obj?`) => \{\[`s`: `string`\]: `unknown`; \} \| `null` \| `undefined`
 
-Defined in: [lib/utils.mts:49](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/utils.mts#L49)
+Defined in: [lib/utils.mts:49](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/utils.mts#L49)
 
 Clones an object.
 
@@ -62,7 +62,7 @@ when a nested object is passed.
 
 > `static` **asString**(`obj`): `string`
 
-Defined in: [lib/utils.mts:25](https://github.com/satisfactory-dev/lunr.js/blob/7e9541564cd6681fb1017e23f782f6cc63cfdde1/lib/utils.mts#L25)
+Defined in: [lib/utils.mts:25](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/utils.mts#L25)
 
 Convert an object to a string.
 
