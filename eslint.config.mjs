@@ -86,6 +86,6 @@ export default defineConfig([
   globalIgnores([
     './lunr.js',
     './lunr.min.js',
-    './lunr.min.mjs',
+    './lunr.mjs',
   ]),
 ])
