@@ -170,4 +170,6 @@ lunr.Token = Token
 lunr.utils = utils
 lunr.Vector = Vector
 
+Object.seal(lunr)
+
 export default lunr
