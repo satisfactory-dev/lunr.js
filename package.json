@@ -2,6 +2,13 @@
   "name": "@satisfactory-dev/lunr",
   "description": "ES6 Fork of Lunr: Simple full-text search in your browser.",
   "author": "SignpostMarv",
+  "license": "MIT",
+  "homepage": "https://lunrjs.com",
+  "bugs": "https://github.com/satisfactory-dev/lunr.js/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/satisfactory-dev/lunr.js.git"
+  },
   "contributors": [
     {
       "name": "Oliver Nightingale"
@@ -17,19 +24,12 @@
     "es6",
     "search"
   ],
-  "homepage": "https://lunrjs.com",
-  "bugs": "https://github.com/satisfactory-dev/lunr.js/issues",
   "exports": {
     ".": {
       "types": "./lunr.d.mts",
       "require": "./lunr.cjs",
       "import": "./lunr.mjs"
     }
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/satisfactory-dev/lunr.js.git"
   },
   "devDependencies": {
     "@cspell/eslint-plugin": "^9.6.0",
