@@ -44,9 +44,10 @@ export class QueryClause {
    * Whether the term should have wildcards appended or prepended.
    */
   wildcard: (
-    | typeof QueryWildcard['NONE']
-    | typeof QueryWildcard['LEADING']
-    | typeof QueryWildcard['TRAILING']
+    | 0
+    | 1
+    | 2
+    | 3
     | undefined
   ) = QueryWildcard.NONE
 
@@ -180,8 +181,8 @@ export class Query {
    * The term will be converted to a string by calling `toString`. Multiple terms can be passed as an
    * array, each term in the array will share the same options.
    *
-   * @param {object|object[]} term - The term(s) to add to the query.
-   * @param {QueryClause|undefined} [options] - Any additional properties to add to the query clause.
+   * @param {string|object|object[]} term - The term(s) to add to the query.
+   * @param {QueryClause} [options] - Any additional properties to add to the query clause.
    * @return {this}
    * @see Query#clause
    * @see QueryClause
@@ -196,7 +197,7 @@ export class Query {
    * @example <caption>using tokenizer to convert a string to tokens before using them as terms</caption>
    * query.term(tokenizer("foo bar"))
    */
-  term (term: object | object[], options: QueryClause | undefined): this {
+  term (term: string | object | object[], options?: Partial<QueryClause>): this {
     if (Array.isArray(term)) {
       term.forEach((t: object) => { this.term(t, utils.clone(options) as typeof options) })
       return this
@@ -237,6 +238,8 @@ export const QueryWildcard = Object.freeze({
   LEADING: 1,
   TRAILING: 2,
 })
+
+export const LEADING_OR_TRAILING = 3
 
 /**
  * Constants for indicating what kind of presence a term must have in matching documents.

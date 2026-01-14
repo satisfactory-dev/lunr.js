@@ -3,37 +3,36 @@
   <meta charset="utf-8">
   <title>Mocha Tests</title>
   <link href="/env/mocha/mocha.css" rel="stylesheet" />
+  <script src="/env/mocha/mocha.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "@satisfactory-dev/lunr": "./lunr.mjs",
+        "lunr": "./env/lunr/lunr.js",
+        "assert/strict": "./env/assert/assert.js",
+        "node:test": "./env/404"
+      }
+    }
+  </script>
+  <script type="module">
+    globalThis.process = {
+      env: {
+      }
+    };
+  </script>
 </head>
 <body>
   <div id="mocha"></div>
-
-  <script src="/env/mocha/mocha.js"></script>
-  <script src="/env/chai/chai.js"></script>
   <script src="/env/lunr/lunr.js"></script>
   <script>
     mocha.setup('tdd')
-    window.assert = chai.assert
-
-    window.withFixture = function (name, fn) {
-      var fixturePath = '/fixtures/' + name,
-          xhr = new XMLHttpRequest
-
-      xhr.addEventListener('load', function () {
-        if (this.status != 200) {
-          fn('non 200 response')
-        } else {
-          fn(null, this.responseText)
-        }
-      })
-
-      xhr.open('GET', fixturePath)
-      xhr.send()
-    }
   </script>
   <script type="module">
     globalThis.upstreamLunr = globalThis.lunr
 
     import lunr from '/lunr.mjs';
+
+    import test_files from '/env/file_list.json' with {type: 'json'}
 
     globalThis.lunr = lunr;
 
@@ -52,6 +51,13 @@
         script.onerror = nope;
       }))
       document.body.append(script);
+    }
+
+    for (
+      const src of test_files
+        .filter((maybe) => /^[a-z][a-z_]+\.mjs$/.test(maybe))
+    ) {
+      pending.push(import(`./${src}`))
     }
 
     await Promise.all(pending)

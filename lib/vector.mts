@@ -4,7 +4,9 @@
  * Copyright (C) @YEAR SignpostMarv
  */
 
-export type upsertFunction = (a: number, b: number) => number
+export type upsertFunction<
+  Odd extends number | string = number | string,
+> = (a: Odd, b: Odd) => Odd
 
 /**
  * A vector is used to construct the vector space of documents and queries. These
@@ -19,18 +21,20 @@ export type upsertFunction = (a: number, b: number) => number
  * allows the underlying array to be as sparse as possible and still offer decent
  * performance when being used for vector calculations.
  */
-export class Vector {
+export class Vector<
+  Odd extends number | string = number | string,
+> {
   /**
    * @type {number}
    */
   #magnitude: number
 
-  readonly elements: number[]
+  readonly elements: [number, Odd, ...(number | Odd)[]] | never[]
 
   /**
- * @param {number[]} [elements] - The flat list of element index and element value pairs.
+ * @param {(number|string)[]} [elements] - The flat list of element index and element value pairs.
    */
-  constructor (elements?: number[]) {
+  constructor (elements?: Vector<Odd>['elements']) {
     this.#magnitude = 0
     this.elements = elements || []
   }
@@ -42,8 +46,7 @@ export class Vector {
    * the position is returned as if the value for that index were to be updated, but it
    * is the callers responsibility to check whether there is a duplicate at that index
    *
-   * @param {Number} index - The index at which the element should be inserted.
-   * @returns {Number}
+   * @param {number} index - The index at which the element should be inserted.
    */
   positionForIndex (index: number): number {
     // For an empty vector the tuple can be inserted at the beginning
@@ -55,7 +58,7 @@ export class Vector {
         end = this.elements.length / 2,
         sliceLength = end - start,
         pivotPoint = Math.floor(sliceLength / 2),
-        pivotIndex = this.elements[pivotPoint * 2]
+        pivotIndex = this.elements[pivotPoint * 2] as number
 
     while (sliceLength > 1) {
       if (pivotIndex < index) {
@@ -72,7 +75,7 @@ export class Vector {
 
       sliceLength = end - start
       pivotPoint = start + Math.floor(sliceLength / 2)
-      pivotIndex = this.elements[pivotPoint * 2]
+      pivotIndex = this.elements[pivotPoint * 2] as number
     }
 
     if (pivotIndex == index) {
@@ -92,10 +95,10 @@ export class Vector {
    * Does not allow duplicates, will throw an error if there is already an entry
    * for this index.
    *
-   * @param {Number} insertIdx - The index at which the element should be inserted.
-   * @param {Number} val - The value to be inserted into the vector.
+   * @param {number} insertIdx - The index at which the element should be inserted.
+   * @param {Odd} val - The value to be inserted into the vector.
    */
-  insert (insertIdx: number, val: number) {
+  insert (insertIdx: number, val: Odd) {
     this.upsert(insertIdx, val, function () {
       throw new Error("duplicate index")
     })
@@ -104,17 +107,20 @@ export class Vector {
   /**
    * Inserts or updates an existing index within the vector.
    *
-   * @param {Number} insertIdx - The index at which the element should be inserted.
-   * @param {Number} val - The value to be inserted into the vector.
-   * @param {upsertFunction} fn - A function that is called for updates, the existing value and the
+   * @param {number} insertIdx - The index at which the element should be inserted.
+   * @param {Odd} val - The value to be inserted into the vector.
+   * @param {upsertFunction<Odd>} [fn] - A function that is called for updates, the existing value and the
    * requested value are passed as arguments
    */
-  upsert (insertIdx: number, val: number, fn: upsertFunction) {
+  upsert (insertIdx: number, val: Odd, fn?: upsertFunction<Odd>) {
     this.#magnitude = 0
     var position = this.positionForIndex(insertIdx)
 
     if (this.elements[position] == insertIdx) {
-      this.elements[position + 1] = fn(this.elements[position + 1], val)
+      if (!fn) {
+        return
+      }
+      this.elements[position + 1] = fn(this.elements[position + 1] as Odd, val)
     } else {
       this.elements.splice(position, 0, insertIdx, val)
     }
@@ -132,7 +138,7 @@ export class Vector {
         elementsLength = this.elements.length
 
     for (var i = 1; i < elementsLength; i += 2) {
-      var val = this.elements[i]
+      var val = this.elements[i] as number
       sumOfSquares += val * val
     }
 
@@ -153,14 +159,14 @@ export class Vector {
         i = 0, j = 0
 
     while (i < aLen && j < bLen) {
-      aVal = a[i]
-      bVal = b[j]
+      aVal = a[i] as number
+      bVal = b[j] as number
       if (aVal < bVal) {
         i += 2
       } else if (aVal > bVal) {
         j += 2
       } else if (aVal == bVal) {
-        dotProduct += a[i + 1] * b[j + 1]
+        dotProduct += (a[i + 1] as number) * (b[j + 1] as number)
         i += 2
         j += 2
       }
@@ -183,11 +189,11 @@ export class Vector {
   /**
    * Converts the vector to an array of the elements within the vector.
    */
-  toArray (): number[] {
-    var output = new Array<number>(this.elements.length / 2)
+  toArray (): (Odd)[] {
+    var output = new Array<Odd>(this.elements.length / 2)
 
     for (var i = 1, j = 0; i < this.elements.length; i += 2, j++) {
-      output[j] = this.elements[i]
+      output[j] = this.elements[i] as Odd
     }
 
     return output
@@ -195,10 +201,8 @@ export class Vector {
 
   /**
    * A JSON serializable representation of the vector.
-   *
-   * @returns {Number[]}
    */
-  toJSON (): number[] {
+  toJSON () {
     return this.elements
   }
 }

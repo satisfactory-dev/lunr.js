@@ -63,7 +63,7 @@ export class Token {
    * @param {TokenUpdateFunction} [fn] - An optional function to apply to the cloned token.
    * @returns {Token}
    */
-  clone (fn: TokenUpdateFunction): Token {
+  clone (fn?: TokenUpdateFunction): Token {
     fn = fn || function (s) { return s }
     return new Token (fn(this.str, this.metadata), this.metadata)
   }

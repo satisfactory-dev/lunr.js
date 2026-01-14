@@ -120,7 +120,8 @@ export class SetComplete extends Set {
  * An empty set that contains no elements.
  */
 export class SetEmpty extends Set {
-  intersect (): this {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  intersect (_: Set): this {
     return this
   }
 

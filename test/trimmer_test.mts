@@ -1,12 +1,21 @@
-suite('lunr.trimmer', function () {
-  test('latin characters', function () {
+import lunr from '@satisfactory-dev/lunr'
+
+import assert from 'assert/strict'
+
+import {
+  suite,
+  test,
+} from './shim.mts'
+
+void suite('lunr.trimmer', function () {
+  void test('latin characters', function () {
     var token = new lunr.Token ('hello')
     assert.equal(lunr.trimmer(token).toString(), token.toString())
   })
 
-  suite('punctuation', function () {
-    var trimmerTest = function (description, str, expected) {
-      test(description, function () {
+  void suite('punctuation', function () {
+    var trimmerTest = function (description: string, str: string, expected: string) {
+      void test(description, function () {
         var token = new lunr.Token(str),
             trimmed = lunr.trimmer(token).toString()
 
@@ -22,7 +31,7 @@ suite('lunr.trimmer', function () {
     trimmerTest('brackets', '[tag]', 'tag')
   })
 
-  test('is a registered pipeline function', function () {
+  void test('is a registered pipeline function', function () {
     assert.equal(lunr.trimmer.label, 'trimmer')
     assert.equal(lunr.Pipeline.registeredFunctions['trimmer'], lunr.trimmer)
   })

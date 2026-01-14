@@ -42,24 +42,40 @@ export class utils {
    *
    * Objects with primitives, and arrays of primitives are supported.
    *
-   * @param {object|QueryClause} [obj] The object to clone.
+   * @param {null|undefined|object|QueryClause} [obj] The object to clone.
    * @return {Object<string, unknown> | null | undefined} a clone of the passed object.
    * @throws {TypeError} when a nested object is passed.
    */
-  static clone = function (obj?: object | QueryClause): { [s: string]: unknown } | null | undefined {
+  static clone<T extends object | QueryClause>(obj?: T | null): (
+    typeof obj extends null
+      ? null
+      : (
+        typeof obj extends undefined
+          ? undefined
+          : T
+      )
+  ) {
     if (obj === null || obj === undefined) {
-      return obj
+      return obj as (
+        typeof obj extends null
+          ? null
+          : (
+            typeof obj extends undefined
+              ? undefined
+              : never
+          )
+      )
     }
 
-    var clone = Object.create(null) as { [s: string]: unknown },
-        keys = Object.keys(obj) as (keyof typeof obj)[]
+    var clone = Object.create(null) as Partial<T>,
+        keys = Object.keys(obj) as (keyof T)[]
 
     for (var i = 0; i < keys.length; i++) {
       var key = keys[i],
           val = obj[key]
 
       if (Array.isArray(val)) {
-        clone[key] = (val as unknown[]).slice()
+        clone[key] = val.slice() as T[keyof T]
         continue
       }
 
@@ -73,6 +89,14 @@ export class utils {
       throw new TypeError("clone is not deep and does not support nested objects")
     }
 
-    return clone
+    return clone as (
+      typeof obj extends null
+        ? never
+        : (
+          typeof obj extends undefined
+            ? never
+            : T
+        )
+    )
   }
 }

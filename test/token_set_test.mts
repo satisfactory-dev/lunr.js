@@ -1,6 +1,15 @@
-suite('lunr.TokenSet', function () {
-  suite('#toString', function () {
-    test('includes node finality', function () {
+import lunr, { TokenSet } from '@satisfactory-dev/lunr'
+
+import assert from 'assert/strict'
+
+import {
+  suite,
+  test,
+} from './shim.mts'
+
+void suite('lunr.TokenSet', function () {
+  void suite('#toString', function () {
+    void test('includes node finality', function () {
       var nonFinal = new lunr.TokenSet,
           final = new lunr.TokenSet,
           otherFinal = new lunr.TokenSet
@@ -12,21 +21,21 @@ suite('lunr.TokenSet', function () {
       assert.equal(otherFinal.toString(), final.toString())
     })
 
-    test('includes all edges', function () {
-      var zeroEdges = new lunr.TokenSet,
-          oneEdge = new lunr.TokenSet,
-          twoEdges = new lunr.TokenSet
+    void test('includes all edges', function () {
+      var zeroEdges = new TokenSet,
+          oneEdge = TokenSet.fromString('a'),
+          twoEdges = TokenSet.fromArray(['a', 'b'])
 
-      oneEdge.edges['a'] = 1
-      twoEdges.edges['a'] = 1
-      twoEdges.edges['b'] = 1
+      oneEdge.edges['a']._str = 1
+      twoEdges.edges['a']._str = 1
+      twoEdges.edges['b']._str = 1
 
       assert.notEqual(zeroEdges.toString(), oneEdge.toString())
       assert.notEqual(twoEdges.toString(), oneEdge.toString())
       assert.notEqual(twoEdges.toString(), zeroEdges.toString())
     })
 
-    test('includes edge id', function () {
+    void test('includes edge id', function () {
       var childA = new lunr.TokenSet,
           childB = new lunr.TokenSet,
           parentA = new lunr.TokenSet,
@@ -43,16 +52,16 @@ suite('lunr.TokenSet', function () {
     })
   })
 
-  suite('.fromString', function () {
-    test('without wildcard', function () {
+  void suite('.fromString', function () {
+    void test('without wildcard', function () {
       lunr.TokenSet.resetNextId()
       var x = lunr.TokenSet.fromString('a')
 
       assert.equal(x.toString(), '0a2')
-      assert.isOk(x.edges['a'].final)
+      assert.equal(x.edges['a'].final, true)
     })
 
-    test('with trailing wildcard', function () {
+    void test('with trailing wildcard', function () {
       var x = lunr.TokenSet.fromString('a*'),
           wild = x.edges['a'].edges['*']
 
@@ -61,24 +70,24 @@ suite('lunr.TokenSet', function () {
       // the resulting automata is
       // non-deterministic
       assert.equal(wild, wild.edges['*'])
-      assert.isOk(wild.final)
+      assert.equal(wild.final, true)
     })
   })
 
-  suite('.fromArray', function () {
-    test('with unsorted array', function () {
+  void suite('.fromArray', function () {
+    void test('with unsorted array', function () {
       assert.throws(function () {
         lunr.TokenSet.fromArray(['z', 'a'])
       })
     })
 
-    test('with sorted array', function () {
+    void test('with sorted array', function () {
       var tokenSet = lunr.TokenSet.fromArray(['a', 'z'])
 
       assert.deepEqual(['a', 'z'], tokenSet.toArray().sort())
     })
 
-    test('is minimal', function () {
+    void test('is minimal', function () {
       var tokenSet = lunr.TokenSet.fromArray(['ac', 'dc']),
           acNode = tokenSet.edges['a'].edges['c'],
           dcNode = tokenSet.edges['d'].edges['c']
@@ -87,24 +96,26 @@ suite('lunr.TokenSet', function () {
     })
   })
 
-  suite('#toArray', function () {
-    test('includes all words', function () {
+  void suite('#toArray', function () {
+    void test('includes all words', function () {
       var words = ['bat', 'cat'],
-          tokenSet = lunr.TokenSet.fromArray(words)
+          tokenSet = lunr.TokenSet.fromArray(words).toArray()
 
-      assert.sameMembers(words, tokenSet.toArray())
+      for (const word of words) {
+        assert.equal(tokenSet.includes(word), true)
+      }
     })
 
-    test('includes single words', function () {
+    void test('includes single words', function () {
       var word = 'bat',
           tokenSet = lunr.TokenSet.fromString(word)
 
-      assert.sameMembers([word], tokenSet.toArray())
+      assert.deepEqual([word], tokenSet.toArray())
     })
   })
 
-  suite('#intersect', function () {
-    test('no intersection', function () {
+  void suite('#intersect', function () {
+    void test('no intersection', function () {
       var x = lunr.TokenSet.fromString('cat'),
           y = lunr.TokenSet.fromString('bar'),
           z = x.intersect(y)
@@ -112,23 +123,23 @@ suite('lunr.TokenSet', function () {
       assert.equal(0, z.toArray().length)
     })
 
-    test('simple intersection', function () {
+    void test('simple intersection', function () {
       var x = lunr.TokenSet.fromString('cat'),
           y = lunr.TokenSet.fromString('cat'),
           z = x.intersect(y)
 
-      assert.sameMembers(['cat'], z.toArray())
+      assert.deepEqual(['cat'], z.toArray())
     })
 
-    test('trailing wildcard intersection', function () {
+    void test('trailing wildcard intersection', function () {
       var x = lunr.TokenSet.fromString('cat'),
           y = lunr.TokenSet.fromString('c*'),
           z = x.intersect(y)
 
-      assert.sameMembers(['cat'], z.toArray())
+      assert.deepEqual(['cat'], z.toArray())
     })
 
-    test('trailing wildcard no intersection', function () {
+    void test('trailing wildcard no intersection', function () {
       var x = lunr.TokenSet.fromString('cat'),
           y = lunr.TokenSet.fromString('b*'),
           z = x.intersect(y)
@@ -136,25 +147,25 @@ suite('lunr.TokenSet', function () {
       assert.equal(0, z.toArray().length)
     })
 
-    test('leading wildcard intersection', function () {
+    void test('leading wildcard intersection', function () {
       var x = lunr.TokenSet.fromString('cat'),
           y = lunr.TokenSet.fromString('*t'),
           z = x.intersect(y)
 
-      assert.sameMembers(['cat'], z.toArray())
+      assert.deepEqual(['cat'], z.toArray())
     })
 
-    test('leading wildcard backtracking intersection', function () {
+    void test('leading wildcard backtracking intersection', function () {
       // eslint-disable-next-line @cspell/spellchecker
       var x = lunr.TokenSet.fromString('aaacbab'),
           y = lunr.TokenSet.fromString('*ab'),
           z = x.intersect(y)
 
       // eslint-disable-next-line @cspell/spellchecker
-      assert.sameMembers(['aaacbab'], z.toArray())
+      assert.deepEqual(['aaacbab'], z.toArray())
     })
 
-    test('leading wildcard no intersection', function () {
+    void test('leading wildcard no intersection', function () {
       var x = lunr.TokenSet.fromString('cat'),
           y = lunr.TokenSet.fromString('*r'),
           z = x.intersect(y)
@@ -162,7 +173,7 @@ suite('lunr.TokenSet', function () {
       assert.equal(0, z.toArray().length)
     })
 
-    test('leading wildcard backtracking no intersection', function () {
+    void test('leading wildcard backtracking no intersection', function () {
       // eslint-disable-next-line @cspell/spellchecker
       var x = lunr.TokenSet.fromString('aaabdcbc'),
           y = lunr.TokenSet.fromString('*abc'),
@@ -171,25 +182,25 @@ suite('lunr.TokenSet', function () {
       assert.equal(0, z.toArray().length)
     })
 
-    test('contained wildcard intersection', function () {
+    void test('contained wildcard intersection', function () {
       var x = lunr.TokenSet.fromString('foo'),
           y = lunr.TokenSet.fromString('f*o'),
           z = x.intersect(y)
 
-      assert.sameMembers(['foo'], z.toArray())
+      assert.deepEqual(['foo'], z.toArray())
     })
 
-    test('contained wildcard backtracking intersection', function () {
+    void test('contained wildcard backtracking intersection', function () {
       // eslint-disable-next-line @cspell/spellchecker
       var x = lunr.TokenSet.fromString('ababc'),
           y = lunr.TokenSet.fromString('a*bc'),
           z = x.intersect(y)
 
       // eslint-disable-next-line @cspell/spellchecker
-      assert.sameMembers(['ababc'], z.toArray())
+      assert.deepEqual(['ababc'], z.toArray())
     })
 
-    test('contained wildcard no intersection', function () {
+    void test('contained wildcard no intersection', function () {
       var x = lunr.TokenSet.fromString('foo'),
           y = lunr.TokenSet.fromString('b*r'),
           z = x.intersect(y)
@@ -197,7 +208,7 @@ suite('lunr.TokenSet', function () {
       assert.equal(0, z.toArray().length)
     })
 
-    test('contained wildcard backtracking no intersection', function () {
+    void test('contained wildcard backtracking no intersection', function () {
       // eslint-disable-next-line @cspell/spellchecker
       var x = lunr.TokenSet.fromString('ababc'),
           y = lunr.TokenSet.fromString('a*ac'),
@@ -206,18 +217,18 @@ suite('lunr.TokenSet', function () {
       assert.equal(0, z.toArray().length)
     })
 
-    test('wildcard matches zero or more characters', function () {
+    void test('wildcard matches zero or more characters', function () {
       var x = lunr.TokenSet.fromString('foo'),
           y = lunr.TokenSet.fromString('foo*'),
           z = x.intersect(y)
 
-      assert.sameMembers(['foo'], z.toArray())
+      assert.deepEqual(['foo'], z.toArray())
     })
 
     // This test is intended to prevent 'bugs' that have lead to these
     // kind of intersections taking a _very_ long time. The assertion
     // is not of interest, just that the test does not timeout.
-    test('catastrophic backtracking with leading characters', function () {
+    void test('catastrophic backtracking with leading characters', function () {
       var x = lunr.TokenSet.fromString('fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'),
           y = lunr.TokenSet.fromString('*ff'),
           z = x.intersect(y)
@@ -225,27 +236,27 @@ suite('lunr.TokenSet', function () {
       assert.equal(1, z.toArray().length)
     })
 
-    test('leading and trailing backtracking intersection', function () {
+    void test('leading and trailing backtracking intersection', function () {
       // eslint-disable-next-line @cspell/spellchecker
       var x = lunr.TokenSet.fromString('acbaabab'),
           y = lunr.TokenSet.fromString('*ab*'),
           z = x.intersect(y)
 
       // eslint-disable-next-line @cspell/spellchecker
-      assert.sameMembers(['acbaabab'], z.toArray())
+      assert.deepEqual(['acbaabab'], z.toArray())
     })
 
-    test('multiple contained wildcard backtracking', function () {
+    void test('multiple contained wildcard backtracking', function () {
       // eslint-disable-next-line @cspell/spellchecker
       var x = lunr.TokenSet.fromString('acbaabab'),
           y = lunr.TokenSet.fromString('a*ba*b'),
           z = x.intersect(y)
 
       // eslint-disable-next-line @cspell/spellchecker
-      assert.sameMembers(['acbaabab'], z.toArray())
+      assert.deepEqual(['acbaabab'], z.toArray())
     })
 
-    test('intersect with fuzzy string substitution', function () {
+    void test('intersect with fuzzy string substitution', function () {
       var x1 = lunr.TokenSet.fromString('bar'),
           x2 = lunr.TokenSet.fromString('cur'),
           x3 = lunr.TokenSet.fromString('cat'),
@@ -253,14 +264,14 @@ suite('lunr.TokenSet', function () {
           x5 = lunr.TokenSet.fromString('foo'),
           y = lunr.TokenSet.fromFuzzyString('car', 1)
 
-      assert.sameMembers(x1.intersect(y).toArray(), ["bar"])
-      assert.sameMembers(x2.intersect(y).toArray(), ["cur"])
-      assert.sameMembers(x3.intersect(y).toArray(), ["cat"])
-      assert.sameMembers(x4.intersect(y).toArray(), ["car"])
+      assert.deepEqual(x1.intersect(y).toArray(), ["bar"])
+      assert.deepEqual(x2.intersect(y).toArray(), ["cur"])
+      assert.deepEqual(x3.intersect(y).toArray(), ["cat"])
+      assert.deepEqual(x4.intersect(y).toArray(), ["car"])
       assert.equal(x5.intersect(y).toArray().length, 0)
     })
 
-    test('intersect with fuzzy string deletion', function () {
+    void test('intersect with fuzzy string deletion', function () {
       var x1 = lunr.TokenSet.fromString('ar'),
           x2 = lunr.TokenSet.fromString('br'),
           x3 = lunr.TokenSet.fromString('ba'),
@@ -268,14 +279,14 @@ suite('lunr.TokenSet', function () {
           x5 = lunr.TokenSet.fromString('foo'),
           y = lunr.TokenSet.fromFuzzyString('bar', 1)
 
-      assert.sameMembers(x1.intersect(y).toArray(), ["ar"])
-      assert.sameMembers(x2.intersect(y).toArray(), ["br"])
-      assert.sameMembers(x3.intersect(y).toArray(), ["ba"])
-      assert.sameMembers(x4.intersect(y).toArray(), ["bar"])
+      assert.deepEqual(x1.intersect(y).toArray(), ["ar"])
+      assert.deepEqual(x2.intersect(y).toArray(), ["br"])
+      assert.deepEqual(x3.intersect(y).toArray(), ["ba"])
+      assert.deepEqual(x4.intersect(y).toArray(), ["bar"])
       assert.equal(x5.intersect(y).toArray().length, 0)
     })
 
-    test('intersect with fuzzy string insertion', function () {
+    void test('intersect with fuzzy string insertion', function () {
       // eslint-disable-next-line @cspell/spellchecker
       var x1 = lunr.TokenSet.fromString('bbar'),
           // eslint-disable-next-line @cspell/spellchecker
@@ -288,55 +299,55 @@ suite('lunr.TokenSet', function () {
           y = lunr.TokenSet.fromFuzzyString('bar', 1)
 
       // eslint-disable-next-line @cspell/spellchecker
-      assert.sameMembers(x1.intersect(y).toArray(), ["bbar"])
+      assert.deepEqual(x1.intersect(y).toArray(), ["bbar"])
       // eslint-disable-next-line @cspell/spellchecker
-      assert.sameMembers(x2.intersect(y).toArray(), ["baar"])
-      assert.sameMembers(x3.intersect(y).toArray(), ["barr"])
-      assert.sameMembers(x4.intersect(y).toArray(), ["bar"])
-      assert.sameMembers(x5.intersect(y).toArray(), ["ba"])
+      assert.deepEqual(x2.intersect(y).toArray(), ["baar"])
+      assert.deepEqual(x3.intersect(y).toArray(), ["barr"])
+      assert.deepEqual(x4.intersect(y).toArray(), ["bar"])
+      assert.deepEqual(x5.intersect(y).toArray(), ["ba"])
       assert.equal(x6.intersect(y).toArray().length, 0)
-      assert.sameMembers(x7.intersect(y).toArray(), ["bara"])
+      assert.deepEqual(x7.intersect(y).toArray(), ["bara"])
     })
 
-    test('intersect with fuzzy string transpose', function () {
+    void test('intersect with fuzzy string transpose', function () {
       var x1 = lunr.TokenSet.fromString('abr'),
           x2 = lunr.TokenSet.fromString('bra'),
           x3 = lunr.TokenSet.fromString('foo'),
           y = lunr.TokenSet.fromFuzzyString('bar', 1)
 
-      assert.sameMembers(x1.intersect(y).toArray(), ["abr"])
-      assert.sameMembers(x2.intersect(y).toArray(), ["bra"])
+      assert.deepEqual(x1.intersect(y).toArray(), ["abr"])
+      assert.deepEqual(x2.intersect(y).toArray(), ["bra"])
       assert.equal(x3.intersect(y).toArray().length, 0)
     })
 
-    test('fuzzy string insertion', function () {
+    void test('fuzzy string insertion', function () {
     // eslint-disable-next-line @cspell/spellchecker
       var x = lunr.TokenSet.fromString('abcxx'),
           y = lunr.TokenSet.fromFuzzyString('abc', 2)
 
       // eslint-disable-next-line @cspell/spellchecker
-      assert.sameMembers(x.intersect(y).toArray(), ['abcxx'])
+      assert.deepEqual(x.intersect(y).toArray(), ['abcxx'])
     })
 
-    test('fuzzy string substitution', function () {
+    void test('fuzzy string substitution', function () {
       var x = lunr.TokenSet.fromString('axx'),
           y = lunr.TokenSet.fromFuzzyString('abc', 2)
 
-      assert.sameMembers(x.intersect(y).toArray(), ['axx'])
+      assert.deepEqual(x.intersect(y).toArray(), ['axx'])
     })
 
-    test('fuzzy string deletion', function () {
+    void test('fuzzy string deletion', function () {
       var x = lunr.TokenSet.fromString('a'),
           y = lunr.TokenSet.fromFuzzyString('abc', 2)
 
-      assert.sameMembers(x.intersect(y).toArray(), ['a'])
+      assert.deepEqual(x.intersect(y).toArray(), ['a'])
     })
 
-    test('fuzzy string transpose', function () {
+    void test('fuzzy string transpose', function () {
       var x = lunr.TokenSet.fromString('bca'),
           y = lunr.TokenSet.fromFuzzyString('abc', 2)
 
-      assert.sameMembers(x.intersect(y).toArray(), ['bca'])
+      assert.deepEqual(x.intersect(y).toArray(), ['bca'])
     })
 
   })

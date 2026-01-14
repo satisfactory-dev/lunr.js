@@ -1,24 +1,33 @@
-suite('lunr.Vector', function () {
-  var vectorFromArgs = function () {
-    var vector = new lunr.Vector
+import { Vector } from '@satisfactory-dev/lunr'
 
-    Array.prototype.slice.call(arguments)
-      .forEach(function (el, i) {
+import assert from 'assert/strict'
+
+import {
+  suite,
+  test,
+} from './shim.mts'
+
+void suite('lunr.Vector', function () {
+  var vectorFromArgs = function (...args: number[]): Vector<number> {
+    var vector = new Vector<number>()
+
+    Array.prototype.slice.call(args)
+      .forEach(function (el: number, i) {
         vector.insert(i, el)
       })
 
     return vector
   }
 
-  suite('#magnitude', function () {
-    test('calculates magnitude of a vector', function () {
+  void suite('#magnitude', function () {
+    void test('calculates magnitude of a vector', function () {
       var vector = vectorFromArgs(4, 5, 6)
       assert.equal(Math.sqrt(77), vector.magnitude)
     })
   })
 
-  suite('#dot', function () {
-    test('calculates dot product of two vectors', function () {
+  void suite('#dot', function () {
+    void test('calculates dot product of two vectors', function () {
       var v1 = vectorFromArgs(1, 3, -5),
           v2 = vectorFromArgs(4, -2, -1)
 
@@ -26,33 +35,35 @@ suite('lunr.Vector', function () {
     })
   })
 
-  suite('#similarity', function () {
-    test('calculates the similarity between two vectors', function () {
+  void suite('#similarity', function () {
+    void test('calculates the similarity between two vectors', function () {
       var v1 = vectorFromArgs(1, 3, -5),
           v2 = vectorFromArgs(4, -2, -1)
 
-      assert.approximately(v1.similarity(v2), 0.5, 0.01)
+      const similarity = v1.similarity(v2)
+
+      assert.ok(0.49 <= similarity && similarity <= 0.51)
     })
 
-    test('empty vector', function () {
-      var vEmpty = new lunr.Vector,
+    void test('empty vector', function () {
+      var vEmpty = new Vector,
           v1 = vectorFromArgs(1)
 
       assert.equal(0, vEmpty.similarity(v1))
       assert.equal(0, v1.similarity(vEmpty))
     })
 
-    test('non-overlapping vector', function () {
-      var v1 = new lunr.Vector([1, 1]),
-          v2 = new lunr.Vector([2, 1])
+    void test('non-overlapping vector', function () {
+      var v1 = new Vector([1, 1]),
+          v2 = new Vector([2, 1])
 
       assert.equal(0, v1.similarity(v2))
       assert.equal(0, v2.similarity(v1))
     })
   })
 
-  suite('#insert', function () {
-    test('invalidates magnitude cache', function () {
+  void suite('#insert', function () {
+    void test('invalidates magnitude cache', function () {
       var vector = vectorFromArgs(4, 5, 6)
 
       assert.equal(Math.sqrt(77), vector.magnitude)
@@ -62,8 +73,8 @@ suite('lunr.Vector', function () {
       assert.equal(Math.sqrt(126), vector.magnitude)
     })
 
-    test('keeps items in index specified order', function () {
-      var vector = new lunr.Vector
+    void test('keeps items in index specified order', function () {
+      var vector = new Vector
 
       vector.insert(2, 4)
       vector.insert(1, 5)
@@ -72,14 +83,14 @@ suite('lunr.Vector', function () {
       assert.deepEqual([6, 5, 4], vector.toArray())
     })
 
-    test('fails when duplicate entry', function () {
+    void test('fails when duplicate entry', function () {
       var vector = vectorFromArgs(4, 5, 6)
       assert.throws(function () { vector.insert(0, 44) })
     })
   })
 
-  suite('#upsert', function () {
-    test('invalidates magnitude cache', function () {
+  void suite('#upsert', function () {
+    void test('invalidates magnitude cache', function () {
       var vector = vectorFromArgs(4, 5, 6)
 
       assert.equal(Math.sqrt(77), vector.magnitude)
@@ -89,8 +100,8 @@ suite('lunr.Vector', function () {
       assert.equal(Math.sqrt(126), vector.magnitude)
     })
 
-    test('keeps items in index specified order', function () {
-      var vector = new lunr.Vector
+    void test('keeps items in index specified order', function () {
+      var vector = new Vector
 
       vector.upsert(2, 4)
       vector.upsert(1, 5)
@@ -99,15 +110,15 @@ suite('lunr.Vector', function () {
       assert.deepEqual([6, 5, 4], vector.toArray())
     })
 
-    test('calls fn for value on duplicate', function () {
+    void test('calls fn for value on duplicate', function () {
       var vector = vectorFromArgs(4, 5, 6)
       vector.upsert(0, 4, function (current, passed) { return current + passed })
       assert.deepEqual([8, 5, 6], vector.toArray())
     })
   })
 
-  suite('#positionForIndex', function () {
-    var vector = new lunr.Vector ([
+  void suite('#positionForIndex', function () {
+    var vector = new Vector<string> ([
       1, 'a',
       2, 'b',
       4, 'c',
@@ -115,39 +126,39 @@ suite('lunr.Vector', function () {
       11, 'e',
     ])
 
-    test('at the beginning', function () {
+    void test('at the beginning', function () {
       assert.equal(0, vector.positionForIndex(0))
     })
 
-    test('at the end', function () {
+    void test('at the end', function () {
       assert.equal(10, vector.positionForIndex(20))
     })
 
-    test('consecutive', function () {
+    void test('consecutive', function () {
       assert.equal(4, vector.positionForIndex(3))
     })
 
-    test('non-consecutive gap after', function () {
+    void test('non-consecutive gap after', function () {
       assert.equal(6, vector.positionForIndex(5))
     })
 
-    test('non-consecutive gap before', function () {
+    void test('non-consecutive gap before', function () {
       assert.equal(6, vector.positionForIndex(6))
     })
 
-    test('non-consecutive gave before and after', function () {
+    void test('non-consecutive gave before and after', function () {
       assert.equal(8, vector.positionForIndex(9))
     })
 
-    test('duplicate at the beginning', function () {
+    void test('duplicate at the beginning', function () {
       assert.equal(0, vector.positionForIndex(1))
     })
 
-    test('duplicate at the end', function () {
+    void test('duplicate at the end', function () {
       assert.equal(8, vector.positionForIndex(11))
     })
 
-    test('duplicate consecutive', function () {
+    void test('duplicate consecutive', function () {
       assert.equal(4, vector.positionForIndex(4))
     })
   })

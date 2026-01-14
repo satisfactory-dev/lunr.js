@@ -4,13 +4,12 @@
  * Copyright (C) @YEAR SignpostMarv
  */
 
+import type {
+  PipelineFunction,
+} from './pipeline.mjs'
 import {
   Pipeline,
 } from './pipeline.mts'
-
-import type {
-  Token,
-} from './token.mts'
 
 /**
  * generateStopWordFilter builds a stopWordFilter function from the provided
@@ -20,17 +19,16 @@ import type {
  * to generate custom stopWordFilters for applications or non English languages.
  *
  * @param {string[]} stopWords The token to pass through the filter
- * @return {PipelineFunction}
  * @see Pipeline
  * @see stopWordFilter
  */
-export const generateStopWordFilter = function (stopWords: string[]) {
+export const generateStopWordFilter = function (stopWords: string[]): PipelineFunction<{ toString(): string }> {
   var words = stopWords.reduce((memo, stopWord): {[key: string]: string} => {
     memo[stopWord] = stopWord
     return memo
   }, {})
 
-  return function (token: Token) {
+  return function (token: { toString(): string }) {
     if (token && words[token.toString()] !== token.toString()) return token
   }
 }
@@ -42,7 +40,7 @@ export const generateStopWordFilter = function (stopWords: string[]) {
  * This is intended to be used in the Pipeline. If the token does not pass the
  * filter then undefined will be returned.
  *
- * @param {Token} token - A token to check for being a stop word.
+ * @param {string | Token} token - A token to check for being a stop word.
  * @return {Token}
  * @see {@link Pipeline}
  */

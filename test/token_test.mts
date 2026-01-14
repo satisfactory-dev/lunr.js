@@ -1,20 +1,29 @@
-suite('lunr.Token', function () {
-  suite('#toString', function () {
-    test('converts the token to a string', function () {
+import lunr from '@satisfactory-dev/lunr'
+
+import assert from 'assert/strict'
+
+import {
+  suite,
+  test,
+} from './shim.mts'
+
+void suite('lunr.Token', function () {
+  void suite('#toString', function () {
+    void test('converts the token to a string', function () {
       var token = new lunr.Token('foo')
       assert.equal('foo', token.toString())
     })
   })
 
-  suite('#metadata', function () {
-    test('can attach arbitrary metadata', function () {
+  void suite('#metadata', function () {
+    void test('can attach arbitrary metadata', function () {
       var token = new lunr.Token('foo', { length: 3 })
       assert.equal(3, token.metadata.length)
     })
   })
 
-  suite('#update', function () {
-    test('can update the token value', function () {
+  void suite('#update', function () {
+    void test('can update the token value', function () {
       var token = new lunr.Token('foo')
 
       token.update(function (s) {
@@ -24,31 +33,33 @@ suite('lunr.Token', function () {
       assert.equal('FOO', token.toString())
     })
 
-    test('metadata is yielded when updating', function () {
+    void test('metadata is yielded when updating', function () {
       var metadata = { bar: true },
           token = new lunr.Token('foo', metadata),
           yieldedMetadata
 
       token.update(function (_, md) {
         yieldedMetadata = md
+
+        return _
       })
 
       assert.equal(metadata, yieldedMetadata)
     })
   })
 
-  suite('#clone', function () {
+  void suite('#clone', function () {
     var token = new lunr.Token('foo', { bar: true })
 
-    test('clones value', function () {
+    void test('clones value', function () {
       assert.equal(token.toString(), token.clone().toString())
     })
 
-    test('clones metadata', function () {
+    void test('clones metadata', function () {
       assert.equal(token.metadata, token.clone().metadata)
     })
 
-    test('clone and modify', function () {
+    void test('clone and modify', function () {
       var clone = token.clone(function (s) {
         return s.toUpperCase()
       })

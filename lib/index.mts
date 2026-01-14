@@ -244,7 +244,7 @@ export class Index {
 
     var query = new Query(this.fields)
     var matchingFields = Object.create(null) as {[key: string]: MatchData}
-    var queryVectors = Object.create(null) as {[key: string]: Vector}
+    var queryVectors = Object.create(null) as {[key: string]: Vector<number>}
     var termFieldCache = Object.create(null) as {[key: string]: boolean}
     var requiredMatches = Object.create(null) as {[key: string]: Set}
     var prohibitedMatches = Object.create(null) as {[key: string]: Set}
@@ -255,7 +255,7 @@ export class Index {
     * queries.
     */
     for (let i = 0; i < this.fields.length; i++) {
-      queryVectors[this.fields[i]] = new Vector
+      queryVectors[this.fields[i]] = new Vector<number>()
     }
 
     fn.call(query, query)

@@ -17,6 +17,12 @@
 * loaded version info from JSON instead of templated string replaced at build time
 * sealed default export
 * added test to verify forked lib can load a legacy index
+* converted tests to the native node test runner
+	- tests now written in TypeScript
+	- implementation modified to match type usage dictated by tests
+	- native node test runner in CLI
+	- still using Mocha in the browser tests
+	- dropped chai in favour of node:assert & compatible lib for browser tests
 
 # Legacy Changelog
 

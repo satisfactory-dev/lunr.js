@@ -72,4 +72,24 @@ export default defineConfig([
     },
     plugins,
   },
+  {
+    input: './node_modules/assert/build/assert.js',
+    output: {
+      format: 'esm',
+      file: './test/env/assert/assert.js',
+      minify: false,
+      sourcemap: false,
+      banner: '/* eslint-disable */',
+    },
+  },
+  {
+    input: './node_modules/lunr/lunr.js',
+    output: {
+      format: 'esm',
+      file: './test/env/lunr/lunr.js',
+      minify: false,
+      sourcemap: false,
+      banner: '/* eslint-disable */',
+    },
+  },
 ])

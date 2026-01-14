@@ -29,14 +29,14 @@ import type {
  * Optional metadata can be passed to the tokenizer, this metadata will be cloned and
  * added as metadata to every token that is created from the object to be tokenized.
  *
- * @param {(string|object|object[])} [obj] - The object to convert into tokens
+ * @param {(boolean|number|string|null|object|object[])} [obj] - The object to convert into tokens
  * @param {Object<string, unknown>} [metadata] - Optional metadata to associate with every token
  * @param {RegExp} [usingSeparator] separator to use
  * @returns {Token[]}
  * @see {@link Pipeline}
  */
 export const tokenizer = function (
-  obj?: (string | object | object[]),
+  obj?: (boolean | number | string | null | object | object[]),
   metadata?: {[key: string]: unknown},
   usingSeparator?: RegExp,
 ): Token[] {

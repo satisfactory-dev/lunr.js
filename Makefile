@@ -24,11 +24,11 @@ lint--tsc:
 
 lint--eslint--ts:
 	@echo 'running eslint on typescript'
-	./node_modules/.bin/eslint --cache --cache-location './.cache/eslint/typescript.eslintcache' -c ./eslint-typescript.config.mjs './*.mts' './lib/*.mts' --ignore-pattern './**/*.d.mts'
+	./node_modules/.bin/eslint --cache --cache-location './.cache/eslint/typescript.eslintcache' './*.mts' './lib/*.mts' './test/*.mts' --ignore-pattern './**/*.d.mts'
 
 lint--eslint--js:
 	@echo 'running eslint on javascript'
-	./node_modules/.bin/eslint --cache --cache-location './.cache/eslint/javascript.eslintcache' './test/*.js' './*.mjs' --ignore-pattern './lunr.mjs'
+	./node_modules/.bin/eslint --cache --cache-location './.cache/eslint/javascript.eslintcache' -c ./eslint-javascript.config.mjs './*.mjs' --ignore-pattern './lunr.mjs'
 
 perf/*_perf.js: lunr.js
 	node -r ./perf/perf_helper.js $@
@@ -36,20 +36,18 @@ perf/*_perf.js: lunr.js
 benchmark: perf/*_perf.js
 
 test: node_modules lunr.js test--sync-files
-	./node_modules/.bin/mocha test/*.js -u tdd -r test/test_helper.js -R dot -C
+	./node_modules/.bin/tsc --project ./tsconfig.test.json
+	node --test './test/*_test.mts'
 
 test--sync-files: test/env/file_list.json
 	@echo 'copying libs to env'
 	@mkdir -p ./test/env/mocha/
-	@mkdir -p ./test/env/chai/
 	@mkdir -p ./test/env/lunr/
 	@rsync ./node_modules/mocha/mocha.js ./test/env/mocha/
 	@rsync ./node_modules/mocha/mocha.css ./test/env/mocha/
-	@rsync ./node_modules/chai/chai.js ./test/env/chai/
-	@rsync ./node_modules/lunr/lunr.js ./test/env/lunr/
 
-test/env/file_list.json: $(wildcard test/*test.js)
-	node -p 'JSON.stringify({test_files: process.argv.slice(1)}).replace(/test\//g, "")' $^ > $@
+test/env/file_list.json:
+	node ./dump-test-files.mts
 
 docs:
 	./node_modules/.bin/typedoc --readme README.md --options build/typedoc.conf.json --plugin typedoc-plugin-markdown

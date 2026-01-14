@@ -41,7 +41,7 @@ import {
  * @example <caption>Extracting a nested field</caption>
  * function (doc) { return doc.nested.field }
  */
-export type fieldExtractor = (doc: object) => (
+export type fieldExtractor<T extends object = object> = (doc: T) => (
   | null
   | string
   | object
@@ -65,12 +65,16 @@ export type invertedIndexEntry = (
   }
 )
 
+type FieldsAttributes<
+  T extends object = object,
+> = {
+  boost?: number,
+  extractor?: fieldExtractor<T>,
+}
+
 type BuilderPrivateProperties = {
   fields: {
-    [key: string]: {
-      boost?: number,
-      extractor?: fieldExtractor,
-    }
+    [key: string]: FieldsAttributes
   },
   documents: {
     [key: string]: (
@@ -265,18 +269,18 @@ export class Builder {
    * @param {fieldExtractor} [attributes.extractor] - Function to extract a field from a document.
    * @throws {RangeError} fieldName cannot contain unsupported characters '/'
    */
-  field (
+  field <T extends object = object> (
     fieldName: string,
     attributes?: {
       boost?: number,
-      extractor?: fieldExtractor,
+      extractor?: fieldExtractor<T>,
     },
   ) {
     if (/\//.test(fieldName)) {
       throw new RangeError ("Field '" + fieldName + "' contains illegal character '/'")
     }
 
-    this.#fields[fieldName] = attributes || {}
+    (this.#fields[fieldName] as FieldsAttributes<T>) = attributes || {}
   }
 
   /**
@@ -335,13 +339,13 @@ export class Builder {
    * Entire documents can be boosted at build time. Applying a boost to a document indicates that
    * this document should rank higher in search results than other documents.
    *
-   * @param {Object<string, (string | object | object[])>} doc - The document to add to the index.
+   * @param {Object<string, (number | string | object | object[])>} doc - The document to add to the index.
    * @param {object} attributes - Optional attributes associated with this document.
    * @param {number} [attributes.boost=1] - Boost applied to all terms within this document.
    */
   add (
-    doc: {[key: string]: (string | object | object[])},
-    attributes: { boost?: number },
+    doc: {[key: string]: (number | string | object | object[])},
+    attributes: { boost?: number } = {},
   ) {
     if (!(this.#ref in doc)) {
       throw new TypeError(`${this.#ref} not present on document!`)
@@ -370,7 +374,7 @@ export class Builder {
             this.#tokenizerSeparator,
           ),
           terms = this.pipeline.run(tokens),
-          fieldRef = new FieldRef (docRef, fieldName)
+          fieldRef = new FieldRef (docRef.toString(), fieldName)
       var fieldTerms = Object.create(null) as {[key: string]: number}
 
       this.fieldTermFrequencies[fieldRef.toString()] = fieldTerms

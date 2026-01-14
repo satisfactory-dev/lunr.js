@@ -44,7 +44,11 @@ export class TokenSet {
    */
   id: number
 
-  _str: string | undefined = undefined
+  #str: string | number | undefined = undefined
+
+  set _str (value: string | number | undefined) {
+    this.#str = value
+  }
 
   constructor () {
     this.final = false
@@ -362,8 +366,8 @@ export class TokenSet {
     // benchmarks the performance is comparable, but allowing
     // V8 to optimize may mean easy performance wins in the future.
 
-    if (this._str) {
-      return this._str
+    if (this.#str) {
+      return this.#str.toString()
     }
 
     var str = this.final ? '1' : '0',

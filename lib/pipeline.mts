@@ -22,31 +22,41 @@ import {
  *
  * Any number of pipeline functions may be chained together using a Pipeline.
  *
- * @interface PipelineFunction
  * @param {Token} token - A token from the document being processed.
  * @param {number} i - The index of this token in the complete list of tokens for this document/field.
  * @param {Token[]} tokens - All tokens for this document/field.
  * @returns {(?Token|Token[])}
  */
-export type PipelineFunction = (
+export type PipelineFunction<
+  T extends { toString(): string },
+> = (
   & ((
-    token: Token,
+    token: T,
     i: number,
-    tokens: Token[],
+    tokens: T[],
   ) => (
+    | void
+    | null
     | undefined
-    | Token
-    | (Token[])
+    | T
+    | (T[])
   ))
-  & {
-    label?: string
-  }
 )
 
-export type LabeledPipelineFunction = (
-  & PipelineFunction
+type UnlabelledPipelineFunction = (
+  | PipelineFunction<Token>
+  | PipelineFunction<string>
+  | PipelineFunction<number>
+  | PipelineFunction<{ toString(): string}>
+)
+
+export type LabeledPipelineFunction<
+  T1 extends UnlabelledPipelineFunction = UnlabelledPipelineFunction,
+  T2 extends string = string,
+> = (
+  & T1
   & {
-    label: string,
+    label: T2,
   }
 )
 
@@ -84,9 +94,6 @@ export class Pipeline {
     return this.#stack.length
   }
 
-  /**
-   * @type {Object<string, PipelineFunction>}
-   */
   static registeredFunctions: { [s: string]: LabeledPipelineFunction } = {}
 
   /**
@@ -101,12 +108,12 @@ export class Pipeline {
    * @param {PipelineFunction} fn - The function to check for.
    * @param {String} label - The label to register this function with
    */
-  static registerFunction (fn: PipelineFunction, label: string) {
+  static registerFunction (fn: UnlabelledPipelineFunction, label: string): LabeledPipelineFunction<typeof fn, typeof label> {
     if (label in this.registeredFunctions) {
       console.warn('Overwriting existing registered function: ' + label)
     }
 
-    Pipeline.registeredFunctions[label] = this.labelFunction(
+    return Pipeline.registeredFunctions[label] = this.labelFunction(
       fn,
       label,
     )
@@ -115,10 +122,10 @@ export class Pipeline {
   /**
    * Warns if the function is not registered as a Pipeline function.
    *
-   * @param {PipelineFunction} fn - The function to check for.
+   * @param {LabeledPipelineFunction} fn - The function to check for.
    * @private
    */
-  static warnIfFunctionNotRegistered (fn: PipelineFunction) {
+  static warnIfFunctionNotRegistered (this: typeof Pipeline, fn: LabeledPipelineFunction) {
     var isRegistered = fn.label && (fn.label in this.registeredFunctions)
 
     if (!isRegistered) {
@@ -155,9 +162,9 @@ export class Pipeline {
   /**
    * @param {number} index
    *
-   * @return {PipelineFunction|undefined}
+   * @return {LabeledPipelineFunction|undefined}
    */
-  atIndex (index: number): PipelineFunction | undefined {
+  atIndex (index: number): LabeledPipelineFunction | undefined {
     return this.#stack[index]
   }
 
@@ -234,10 +241,12 @@ export class Pipeline {
    * Runs the current list of functions that make up the pipeline against the
    * passed tokens.
    *
-   * @param {Array} tokens The tokens to run through the pipeline.
+   * @param {(Token | number | string)[]} tokens The tokens to run through the pipeline.
    * @returns {Array}
    */
-  run (tokens: Token[]): Token[] {
+  run<
+    T extends { toString(): string},
+  > (tokens: T[]): T[] {
     var stackLength = this.#stack.length
 
     for (var i = 0; i < stackLength; i++) {
@@ -245,7 +254,7 @@ export class Pipeline {
       var memo = []
 
       for (var j = 0; j < tokens.length; j++) {
-        var result = fn(tokens[j], j, tokens)
+        var result = (fn as unknown as PipelineFunction<T>)(tokens[j], j, tokens)
 
         if (result === null || result === void 0 || result.toString() === '') continue
 
@@ -292,10 +301,8 @@ export class Pipeline {
 
   /**
    * Returns a light copy of Pipeline.#stack
-   *
-   * @return {PipelineFunction[]}
    */
-  toArray (): PipelineFunction[] {
+  toArray (): LabeledPipelineFunction[] {
     return [...this.#stack]
   }
 
@@ -312,12 +319,14 @@ export class Pipeline {
     })
   }
 
-  static labelFunction (
-    fn: PipelineFunction,
+  static labelFunction<
+    T extends UnlabelledPipelineFunction = UnlabelledPipelineFunction,
+  > (
+    fn: T,
     label: string,
-  ): LabeledPipelineFunction {
-    fn.label = label
+  ): LabeledPipelineFunction<T> {
+    (fn as LabeledPipelineFunction<T>).label = label
 
-    return fn as LabeledPipelineFunction
+    return fn as LabeledPipelineFunction<T>
   }
 }

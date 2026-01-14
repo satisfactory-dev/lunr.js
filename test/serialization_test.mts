@@ -1,5 +1,26 @@
-suite('serialization', function () {
-  setup(function () {
+import type { LunrConfig, SerializedIndex} from '@satisfactory-dev/lunr'
+import lunr from '@satisfactory-dev/lunr'
+
+import type {
+  ConfigFunction,
+} from 'lunr'
+import type upstreamLunrFunc from 'lunr'
+
+import upstreamLunr from 'lunr'
+
+import assert from 'assert/strict'
+
+import {
+  suite,
+  test,
+} from './shim.mts'
+
+declare global {
+  const upstreamLunr: typeof upstreamLunrFunc
+}
+
+void suite('serialization', function () {
+  const setup = () => {
     var documents = [
       {
         id: 'a',
@@ -27,33 +48,47 @@ suite('serialization', function () {
       },
     ]
 
-    const config = function () {
+    const config: LunrConfig & ConfigFunction = function () {
       this.ref = 'id'
       this.field('title')
       this.field('body')
 
-      documents.forEach(function (document) {
+      documents.forEach((document) => {
         this.add(document)
-      }, this)
+      })
     }
 
-    this.idx = lunr.default(config)
+    const idx = lunr(config)
 
-    this.serializedIdx = JSON.stringify(this.idx)
-    this.loadedIdx = lunr.Index.load(JSON.parse(this.serializedIdx))
+    const serializedIdx = JSON.stringify(idx)
+    const loadedIdx = lunr.Index.load(JSON.parse(serializedIdx) as SerializedIndex)
 
-    this.upstreamSerializedIdx = JSON.stringify(upstreamLunr(config))
-  })
+    const upstreamSerializedIdx = JSON.stringify(upstreamLunr(config))
 
-  test('search', function () {
-    var idxResults = this.idx.search('green'),
-        serializedResults = this.loadedIdx.search('green')
+    return {
+      idx,
+      serializedIdx,
+      loadedIdx,
+      upstreamSerializedIdx,
+    }
+  }
+
+  void test('search', function () {
+    const {
+      idx,
+      loadedIdx,
+    } = setup()
+    var idxResults = idx.search('green'),
+        serializedResults = loadedIdx.search('green')
 
     assert.deepEqual(idxResults, serializedResults)
   })
 
-  test('load version mismatch', function () {
-    const index = JSON.parse(this.serializedIdx)
+  void test('load version mismatch', function () {
+    const {
+      serializedIdx,
+    } = setup()
+    const index = JSON.parse(serializedIdx) as SerializedIndex
     assert.doesNotThrow(() => {
       lunr.Index.load(index)
     })
@@ -108,17 +143,22 @@ suite('serialization', function () {
           },
         )
       },
+      Error,
       `'not a supported version' != '${lunr.version}'`,
     )
   })
 
-  test('load upstream index', function () {
-    assert.include(
-      lunr.compatibleVersions,
-      upstreamLunr.version,
+  void test('load upstream index', function () {
+    assert.equal(
+      lunr.compatibleVersions.includes(upstreamLunr.version),
+      true,
     )
 
-    const index = JSON.parse(this.upstreamSerializedIdx)
+    const {
+      upstreamSerializedIdx,
+    } = setup()
+
+    const index = JSON.parse(upstreamSerializedIdx) as SerializedIndex
 
     assert.doesNotThrow(() => {
       lunr.Index.load(
@@ -142,9 +182,14 @@ suite('serialization', function () {
     })
   })
 
-  test('__proto__ double serialization', function () {
-    var doubleLoadedIdx = lunr.Index.load(JSON.parse(JSON.stringify(this.loadedIdx))),
-        idxResults = this.idx.search('__proto__'),
+  void test('__proto__ double serialization', function () {
+    const {
+      loadedIdx,
+      idx,
+    } = setup()
+
+    var doubleLoadedIdx = lunr.Index.load(JSON.parse(JSON.stringify(loadedIdx)) as SerializedIndex),
+        idxResults = idx.search('__proto__'),
         doubleSerializedResults = doubleLoadedIdx.search('__proto__')
 
     assert.deepEqual(idxResults, doubleSerializedResults)

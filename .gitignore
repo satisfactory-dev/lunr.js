@@ -22,3 +22,6 @@
 /lunr.cjs
 /lunr.cjs.map
 /lib/version.json
+/test/*.d.mts
+/test/*.mjs
+/test/*.map
