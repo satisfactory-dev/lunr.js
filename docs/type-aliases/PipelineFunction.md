@@ -8,7 +8,7 @@
 
 > **PipelineFunction**\<`T`\> = (`token`, `i`, `tokens`) => `void` \| `null` \| `undefined` \| `T` \| `T`[]
 
-Defined in: [lib/pipeline.mts:30](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/pipeline.mts#L30)
+Defined in: [lib/pipeline.ts:30](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/pipeline.ts#L30)
 
 A pipeline function maps Token to Token. A Token contains the token
 string as well as all known metadata. A pipeline function can mutate the token string

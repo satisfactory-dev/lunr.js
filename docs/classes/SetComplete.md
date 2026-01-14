@@ -6,7 +6,7 @@
 
 # Class: SetComplete
 
-Defined in: [lib/set.mts:103](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/set.mts#L103)
+Defined in: [lib/set.ts:103](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/set.ts#L103)
 
 A complete set that contains all elements.
 
@@ -20,7 +20,7 @@ A complete set that contains all elements.
 
 > **new SetComplete**(`elements?`): `SetComplete`
 
-Defined in: [lib/set.mts:15](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/set.mts#L15)
+Defined in: [lib/set.ts:15](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/set.ts#L15)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [lib/set.mts:15](https://github.com/satisfactory-dev/lunr.js/blob/d3
 
 > **elements**: `object`
 
-Defined in: [lib/set.mts:11](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/set.mts#L11)
+Defined in: [lib/set.ts:11](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/set.ts#L11)
 
 #### Index Signature
 
@@ -58,7 +58,7 @@ Defined in: [lib/set.mts:11](https://github.com/satisfactory-dev/lunr.js/blob/d3
 
 > `readonly` **length**: `number`
 
-Defined in: [lib/set.mts:13](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/set.mts#L13)
+Defined in: [lib/set.ts:13](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/set.ts#L13)
 
 #### Inherited from
 
@@ -70,7 +70,7 @@ Defined in: [lib/set.mts:13](https://github.com/satisfactory-dev/lunr.js/blob/d3
 
 > **contains**(`object`): `boolean`
 
-Defined in: [lib/set.mts:114](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/set.mts#L114)
+Defined in: [lib/set.ts:114](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/set.ts#L114)
 
 Returns true if this set contains the specified object.
 
@@ -98,7 +98,7 @@ Object whose presence in this set is to be tested.
 
 > **intersect**(`other`): [`Set`](Set.md)
 
-Defined in: [lib/set.mts:104](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/set.mts#L104)
+Defined in: [lib/set.ts:104](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/set.ts#L104)
 
 Returns a new set containing only the elements that are present in both
 this set and the specified set.
@@ -127,7 +127,7 @@ a new set that is the intersection of this and the specified set.
 
 > **union**(`other`): `this`
 
-Defined in: [lib/set.mts:109](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/set.mts#L109)
+Defined in: [lib/set.ts:109](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/set.ts#L109)
 
 Returns a new set combining the elements of this and the specified set.
 

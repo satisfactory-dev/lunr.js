@@ -6,7 +6,7 @@
 
 # Class: QueryParser
 
-Defined in: [lib/query\_parser.mts:28](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/query_parser.mts#L28)
+Defined in: [lib/query\_parser.ts:28](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/query_parser.ts#L28)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [lib/query\_parser.mts:28](https://github.com/satisfactory-dev/lunr.
 
 > **new QueryParser**(`str`, `query`): `QueryParser`
 
-Defined in: [lib/query\_parser.mts:52](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/query_parser.mts#L52)
+Defined in: [lib/query\_parser.ts:52](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/query_parser.ts#L52)
 
 #### Parameters
 
@@ -36,7 +36,7 @@ Defined in: [lib/query\_parser.mts:52](https://github.com/satisfactory-dev/lunr.
 
 > **currentClause**: `Partial`\<[`QueryClause`](QueryClause.md)\>
 
-Defined in: [lib/query\_parser.mts:39](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/query_parser.mts#L39)
+Defined in: [lib/query\_parser.ts:39](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/query_parser.ts#L39)
 
 ***
 
@@ -44,7 +44,7 @@ Defined in: [lib/query\_parser.mts:39](https://github.com/satisfactory-dev/lunr.
 
 > **lexemeIdx**: `number`
 
-Defined in: [lib/query\_parser.mts:44](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/query_parser.mts#L44)
+Defined in: [lib/query\_parser.ts:44](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/query_parser.ts#L44)
 
 ***
 
@@ -52,7 +52,7 @@ Defined in: [lib/query\_parser.mts:44](https://github.com/satisfactory-dev/lunr.
 
 > **lexemes**: [`QueryLexeme`](QueryLexeme.md)[] \| `undefined`
 
-Defined in: [lib/query\_parser.mts:46](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/query_parser.mts#L46)
+Defined in: [lib/query\_parser.ts:46](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/query_parser.ts#L46)
 
 ***
 
@@ -60,7 +60,7 @@ Defined in: [lib/query\_parser.mts:46](https://github.com/satisfactory-dev/lunr.
 
 > **lexer**: [`QueryLexer`](QueryLexer.md)
 
-Defined in: [lib/query\_parser.mts:32](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/query_parser.mts#L32)
+Defined in: [lib/query\_parser.ts:32](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/query_parser.ts#L32)
 
 ***
 
@@ -68,7 +68,7 @@ Defined in: [lib/query\_parser.mts:32](https://github.com/satisfactory-dev/lunr.
 
 > **query**: [`Query`](Query.md)
 
-Defined in: [lib/query\_parser.mts:37](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/query_parser.mts#L37)
+Defined in: [lib/query\_parser.ts:37](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/query_parser.ts#L37)
 
 ## Methods
 
@@ -76,7 +76,7 @@ Defined in: [lib/query\_parser.mts:37](https://github.com/satisfactory-dev/lunr.
 
 > **consumeLexeme**(): [`QueryLexeme`](QueryLexeme.md) \| `undefined`
 
-Defined in: [lib/query\_parser.mts:84](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/query_parser.mts#L84)
+Defined in: [lib/query\_parser.ts:84](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/query_parser.ts#L84)
 
 #### Returns
 
@@ -88,7 +88,7 @@ Defined in: [lib/query\_parser.mts:84](https://github.com/satisfactory-dev/lunr.
 
 > **nextClause**(): `void`
 
-Defined in: [lib/query\_parser.mts:90](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/query_parser.mts#L90)
+Defined in: [lib/query\_parser.ts:90](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/query_parser.ts#L90)
 
 #### Returns
 
@@ -100,7 +100,7 @@ Defined in: [lib/query\_parser.mts:90](https://github.com/satisfactory-dev/lunr.
 
 > **parse**(): [`Query`](Query.md)
 
-Defined in: [lib/query\_parser.mts:62](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/query_parser.mts#L62)
+Defined in: [lib/query\_parser.ts:62](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/query_parser.ts#L62)
 
 #### Returns
 
@@ -112,7 +112,7 @@ Defined in: [lib/query\_parser.mts:62](https://github.com/satisfactory-dev/lunr.
 
 > **peekLexeme**(): [`QueryLexeme`](QueryLexeme.md) \| `undefined`
 
-Defined in: [lib/query\_parser.mts:76](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/query_parser.mts#L76)
+Defined in: [lib/query\_parser.ts:76](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/query_parser.ts#L76)
 
 #### Returns
 

@@ -6,7 +6,7 @@
 
 # Interface: QueryLexemeType
 
-Defined in: [lib/query\_lexer.mts:11](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/query_lexer.mts#L11)
+Defined in: [lib/query\_lexer.ts:11](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/query_lexer.ts#L11)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [lib/query\_lexer.mts:11](https://github.com/satisfactory-dev/lunr.j
 
 > **end**: `number`
 
-Defined in: [lib/query\_lexer.mts:22](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/query_lexer.mts#L22)
+Defined in: [lib/query\_lexer.ts:22](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/query_lexer.ts#L22)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [lib/query\_lexer.mts:22](https://github.com/satisfactory-dev/lunr.j
 
 > **start**: `number`
 
-Defined in: [lib/query\_lexer.mts:21](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/query_lexer.mts#L21)
+Defined in: [lib/query\_lexer.ts:21](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/query_lexer.ts#L21)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [lib/query\_lexer.mts:21](https://github.com/satisfactory-dev/lunr.j
 
 > **str**: `string`
 
-Defined in: [lib/query\_lexer.mts:20](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/query_lexer.mts#L20)
+Defined in: [lib/query\_lexer.ts:20](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/query_lexer.ts#L20)
 
 ***
 
@@ -38,4 +38,4 @@ Defined in: [lib/query\_lexer.mts:20](https://github.com/satisfactory-dev/lunr.j
 
 > **type**: `"EOS"` \| `"FIELD"` \| `"TERM"` \| `"EDIT_DISTANCE"` \| `"BOOST"` \| `"PRESENCE"`
 
-Defined in: [lib/query\_lexer.mts:12](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/query_lexer.mts#L12)
+Defined in: [lib/query\_lexer.ts:12](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/query_lexer.ts#L12)

@@ -8,7 +8,7 @@
 
 > **TokenUpdateFunction** = (`str`, `metadata`) => `string`
 
-Defined in: [lib/token.mts:15](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/token.mts#L15)
+Defined in: [lib/token.ts:15](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/token.ts#L15)
 
 A token update function is used when updating or optionally
 when cloning a token.

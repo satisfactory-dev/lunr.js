@@ -8,7 +8,7 @@
 
 > **LunrConfig** = (`this`, `builder`) => `void`
 
-Defined in: [lib/lunr.mts:81](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/lunr.mts#L81)
+Defined in: [lib/lunr.ts:81](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/lunr.ts#L81)
 
 ## Parameters
 

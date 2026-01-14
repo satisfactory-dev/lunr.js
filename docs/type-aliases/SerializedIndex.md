@@ -8,7 +8,7 @@
 
 > **SerializedIndex**\<`Version`\> = `object`
 
-Defined in: [lib/index.mts:135](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/index.mts#L135)
+Defined in: [lib/index.ts:135](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/index.ts#L135)
 
 ## Type Parameters
 
@@ -22,7 +22,7 @@ Defined in: [lib/index.mts:135](https://github.com/satisfactory-dev/lunr.js/blob
 
 > **fields**: `string`[]
 
-Defined in: [lib/index.mts:139](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/index.mts#L139)
+Defined in: [lib/index.ts:139](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/index.ts#L139)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [lib/index.mts:139](https://github.com/satisfactory-dev/lunr.js/blob
 
 > **fieldVectors**: \[`string`, `ReturnType`\<[`Vector`](../classes/Vector.md)\[`"toJSON"`\]\>\][]
 
-Defined in: [lib/index.mts:140](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/index.mts#L140)
+Defined in: [lib/index.ts:140](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/index.ts#L140)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [lib/index.mts:140](https://github.com/satisfactory-dev/lunr.js/blob
 
 > **invertedIndex**: \[`string`, [`Index`](../classes/Index.md)\[`"invertedIndex"`\]\[keyof [`Index`](../classes/Index.md)\[`"invertedIndex"`\]\]\][]
 
-Defined in: [lib/index.mts:144](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/index.mts#L144)
+Defined in: [lib/index.ts:144](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/index.ts#L144)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [lib/index.mts:144](https://github.com/satisfactory-dev/lunr.js/blob
 
 > **pipeline**: `ReturnType`\<[`Pipeline`](../classes/Pipeline.md)\[`"toJSON"`\]\>
 
-Defined in: [lib/index.mts:148](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/index.mts#L148)
+Defined in: [lib/index.ts:148](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/index.ts#L148)
 
 ***
 
@@ -54,4 +54,4 @@ Defined in: [lib/index.mts:148](https://github.com/satisfactory-dev/lunr.js/blob
 
 > **version**: `Version`
 
-Defined in: [lib/index.mts:138](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/index.mts#L138)
+Defined in: [lib/index.ts:138](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/index.ts#L138)

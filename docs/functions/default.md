@@ -8,7 +8,7 @@
 
 > **default**(`config`): [`Index`](../classes/Index.md)
 
-Defined in: [lib/lunr.mts:113](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/lunr.mts#L113)
+Defined in: [lib/lunr.ts:113](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/lunr.ts#L113)
 
 A convenience function for configuring and constructing
 a new lunr Index.

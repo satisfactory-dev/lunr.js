@@ -8,7 +8,7 @@
 
 > **FieldsAttributes**\<`T`\> = `object`
 
-Defined in: [lib/builder.mts:68](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L68)
+Defined in: [lib/builder.ts:68](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/builder.ts#L68)
 
 ## Type Parameters
 
@@ -22,7 +22,7 @@ Defined in: [lib/builder.mts:68](https://github.com/satisfactory-dev/lunr.js/blo
 
 > `optional` **boost**: `number`
 
-Defined in: [lib/builder.mts:71](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L71)
+Defined in: [lib/builder.ts:71](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/builder.ts#L71)
 
 ***
 
@@ -30,4 +30,4 @@ Defined in: [lib/builder.mts:71](https://github.com/satisfactory-dev/lunr.js/blo
 
 > `optional` **extractor**: [`fieldExtractor`](fieldExtractor.md)\<`T`\>
 
-Defined in: [lib/builder.mts:72](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L72)
+Defined in: [lib/builder.ts:72](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/builder.ts#L72)

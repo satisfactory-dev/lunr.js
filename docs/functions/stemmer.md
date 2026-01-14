@@ -8,7 +8,7 @@
 
 > **stemmer**(`token`): [`Token`](../classes/Token.md)
 
-Defined in: [lib/stemmer.mts:231](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/stemmer.mts#L231)
+Defined in: [lib/stemmer.ts:231](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/stemmer.ts#L231)
 
 stemmer is an english language stemmer, this is a JavaScript
 implementation of the PorterStemmer taken from http://tartarus.org/~martin

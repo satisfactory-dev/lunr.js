@@ -8,7 +8,7 @@
 
 > **invertedIndexEntry** = [`invertedIndexEntryWithoutIndex`](invertedIndexEntryWithoutIndex.md) & `object`
 
-Defined in: [lib/builder.mts:61](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L61)
+Defined in: [lib/builder.ts:61](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/builder.ts#L61)
 
 ## Type Declaration
 

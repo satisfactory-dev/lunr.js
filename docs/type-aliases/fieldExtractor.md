@@ -8,7 +8,7 @@
 
 > **fieldExtractor**\<`T`\> = (`doc`) => `null` \| `string` \| `object` \| `object`[]
 
-Defined in: [lib/builder.mts:44](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L44)
+Defined in: [lib/builder.ts:44](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/builder.ts#L44)
 
 A function that is used to extract a field from a document.
 

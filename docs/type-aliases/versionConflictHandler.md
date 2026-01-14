@@ -8,7 +8,7 @@
 
 > **versionConflictHandler** = (`message`) => `void`
 
-Defined in: [lib/index.mts:66](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/index.mts#L66)
+Defined in: [lib/index.ts:66](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/index.ts#L66)
 
 ## Parameters
 

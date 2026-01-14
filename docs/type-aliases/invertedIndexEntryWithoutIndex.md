@@ -8,7 +8,7 @@
 
 > **invertedIndexEntryWithoutIndex** = `object`
 
-Defined in: [lib/builder.mts:53](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L53)
+Defined in: [lib/builder.ts:53](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/builder.ts#L53)
 
 ## Index Signature
 

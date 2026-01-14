@@ -8,4 +8,4 @@
 
 > `const` **LEADING\_OR\_TRAILING**: `3` = `3`
 
-Defined in: [lib/query.mts:242](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/query.mts#L242)
+Defined in: [lib/query.ts:242](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/query.ts#L242)

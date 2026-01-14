@@ -8,7 +8,7 @@
 
 > **upsertFunction**\<`Odd`\> = (`a`, `b`) => `Odd`
 
-Defined in: [lib/vector.mts:7](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/vector.mts#L7)
+Defined in: [lib/vector.ts:7](https://github.com/satisfactory-dev/lunr.js/blob/a784e792ded62f9529ed9cad4ce843741d12ef24/lib/vector.ts#L7)
 
 ## Type Parameters
 
