@@ -13,10 +13,10 @@ void suite('lunr.stemmer', function () {
   void test('reduces words to their stem', function () {
     for (const [word, expected] of Object.entries(testData)) {
       var
-            token = new lunr.Token(word),
-            result = lunr.stemmer(token).toString()
+          token = new lunr.Token(word),
+          result = lunr.stemmer(token).toString()
 
-        assert.equal(expected, result)
+      assert.equal(expected, result)
     }
   })
 

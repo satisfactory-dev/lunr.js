@@ -14,24 +14,24 @@ import {
 
 void suite('search', function () {
   const documents = [
-      {
-        id: 'a',
-        title: 'Mr. Green kills Colonel Mustard',
-        body: 'Mr. Green killed Colonel Mustard in the study with the candlestick. Mr. Green is not a very nice fellow.',
-        wordCount: 19,
-      },
-      {
-        id: 'b',
-        title: 'Plumb waters plant',
-        body: 'Professor Plumb has a green plant in his study',
-        wordCount: 9,
-      },
-      {
-        id: 'c',
-        title: 'Scarlett helps Professor',
-        body: 'Miss Scarlett watered Professor Plumbs green plant while he was away from his office last week.',
-        wordCount: 16,
-      },
+    {
+      id: 'a',
+      title: 'Mr. Green kills Colonel Mustard',
+      body: 'Mr. Green killed Colonel Mustard in the study with the candlestick. Mr. Green is not a very nice fellow.',
+      wordCount: 19,
+    },
+    {
+      id: 'b',
+      title: 'Plumb waters plant',
+      body: 'Professor Plumb has a green plant in his study',
+      wordCount: 9,
+    },
+    {
+      id: 'c',
+      title: 'Scarlett helps Professor',
+      body: 'Miss Scarlett watered Professor Plumbs green plant while he was away from his office last week.',
+      wordCount: 16,
+    },
   ].map((e) => Object.freeze(e))
 
   void suite('with build-time field boosts', function () {
@@ -115,8 +115,8 @@ void suite('search', function () {
 
       void suite('#query', function () {
         assertions(setup(), (idx) => idx.query((q) => {
-            q.term('green')
-            q.term('study', { boost: 10 })
+          q.term('green')
+          q.term('study', { boost: 10 })
         }))
       })
     })
@@ -160,7 +160,7 @@ void suite('search', function () {
 
         void suite('#query', function () {
           assertions(setup(), (idx) => idx.query(function (q) {
-              q.term('scarlett')
+            q.term('scarlett')
           }))
         })
       })
@@ -1114,18 +1114,18 @@ void suite('search', function () {
 
   void suite('https://github.com/olivernn/lunr.js/issues/527', function () {
     const documents = [
-        {
-          "id": 3681,
-          "name": "TROLLER",
-          // eslint-disable-next-line @cspell/spellchecker
-          "url": "/tecdoc/engine/list/3681",
-        },
-        {
-          "id": 705,
-          "name": "ROLLS-ROYCE",
-          // eslint-disable-next-line @cspell/spellchecker
-          "url": "/tecdoc/engine/list/705",
-        },
+      {
+        "id": 3681,
+        "name": "TROLLER",
+        // eslint-disable-next-line @cspell/spellchecker
+        "url": "/tecdoc/engine/list/3681",
+      },
+      {
+        "id": 705,
+        "name": "ROLLS-ROYCE",
+        // eslint-disable-next-line @cspell/spellchecker
+        "url": "/tecdoc/engine/list/705",
+      },
     ].map((e) => Object.freeze(e))
 
     void test('default behaviour', function () {
