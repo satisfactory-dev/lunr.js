@@ -143,9 +143,17 @@ export class Lunr {
   static get version () {
     return versionInfo.version
   }
+
+  /**
+   * Versions for which the current library is compatible with
+   */
+  static get compatibleVersions () {
+    return versionInfo.legacyCompatibility
+  }
 }
 
 lunr.version = Lunr.version
+lunr.compatibleVersions = Lunr.compatibleVersions
 lunr.default = lunr
 lunr.Builder = Builder
 lunr.FieldRef = FieldRef

@@ -20,6 +20,9 @@ await writeFile(
           ? `@${pkg.version}`
           : `#${execSync('git rev-parse --short HEAD').toString().trim()}`
       }`,
+      legacyCompatibility: [
+        '2.3.9',
+      ],
     },
     null,
     '\t',

@@ -23,6 +23,7 @@ export default defineConfig([
         assert: true,
         withFixture: true,
         lunr: true,
+        upstreamLunr: true,
       },
     },
 

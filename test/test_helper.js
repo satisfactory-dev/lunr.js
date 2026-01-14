@@ -2,6 +2,7 @@ import lunr from './lunr.mjs'
 import chai from 'chai'
 import fs from 'node:fs'
 import path from 'node:path'
+import upstreamLunr from 'lunr'
 
 var withFixture = function (name, fn) {
   var fixturePath = path.join('test', 'fixtures', name)
@@ -11,5 +12,6 @@ var withFixture = function (name, fn) {
 const {assert} = chai
 
 global.lunr = lunr
+global.upstreamLunr = upstreamLunr
 global.assert = assert
 global.withFixture = withFixture

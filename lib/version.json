@@ -1,3 +1,6 @@
 {
-	"version": "@satisfactory-dev/lunr#6fd773b"
+	"version": "@satisfactory-dev/lunr#07c2913",
+	"legacyCompatibility": [
+		"2.3.9"
+	]
 }

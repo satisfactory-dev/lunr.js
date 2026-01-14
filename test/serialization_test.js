@@ -27,7 +27,7 @@ suite('serialization', function () {
       },
     ]
 
-    this.idx = lunr.default(function () {
+    const config = function () {
       this.ref = 'id'
       this.field('title')
       this.field('body')
@@ -35,10 +35,14 @@ suite('serialization', function () {
       documents.forEach(function (document) {
         this.add(document)
       }, this)
-    })
+    }
+
+    this.idx = lunr.default(config)
 
     this.serializedIdx = JSON.stringify(this.idx)
     this.loadedIdx = lunr.Index.load(JSON.parse(this.serializedIdx))
+
+    this.upstreamSerializedIdx = JSON.stringify(upstreamLunr(config))
   })
 
   test('search', function () {
@@ -106,6 +110,36 @@ suite('serialization', function () {
       },
       `'not a supported version' != '${lunr.version}'`,
     )
+  })
+
+  test('load upstream index', function () {
+    assert.include(
+      lunr.compatibleVersions,
+      upstreamLunr.version,
+    )
+
+    const index = JSON.parse(this.upstreamSerializedIdx)
+
+    assert.doesNotThrow(() => {
+      lunr.Index.load(
+        index,
+        {
+          versionConflictHandler: 'throw',
+        },
+      )
+    })
+
+    assert.throws(() => {
+      lunr.Index.load(
+        {
+          ...index,
+          version: '2.3.8',
+        },
+        {
+          versionConflictHandler: 'throw',
+        },
+      )
+    })
   })
 
   test('__proto__ double serialization', function () {

@@ -9,6 +9,7 @@
 
   <script src="/node_modules/mocha/mocha.js"></script>
   <script src="/node_modules/chai/chai.js"></script>
+  <script src="/node_modules/lunr/lunr.js"></script>
   <script>
     mocha.setup('tdd')
     window.assert = chai.assert
@@ -30,6 +31,8 @@
     }
   </script>
   <script type="module">
+    globalThis.upstreamLunr = globalThis.lunr
+
     import lunr from '/lunr.mjs';
 
     globalThis.lunr = lunr;

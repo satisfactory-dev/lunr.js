@@ -654,7 +654,10 @@ export class Index {
     handler: 'throw' | versionConflictHandler,
     formatter: versionConflictFormatter,
   ) {
-    if (Lunr.version !== version) {
+    if (
+      Lunr.version !== version
+      && !Lunr.compatibleVersions.includes(version)
+    ) {
       const message = formatter(version, Lunr.version)
       if ('throw' === handler) {
         throw new Error(message)
