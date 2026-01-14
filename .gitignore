@@ -1,5 +1,5 @@
 /node_modules
-test/env/file_list.json
+/test/env/
 /bower.json
 /component.json
 /coverage/

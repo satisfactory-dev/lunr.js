@@ -35,8 +35,18 @@ perf/*_perf.js: lunr.js
 
 benchmark: perf/*_perf.js
 
-test: node_modules lunr.js test/env/file_list.json
+test: node_modules lunr.js test--sync-files
 	./node_modules/.bin/mocha test/*.js -u tdd -r test/test_helper.js -R dot -C
+
+test--sync-files: test/env/file_list.json
+	@echo 'copying libs to env'
+	@mkdir -p ./test/env/mocha/
+	@mkdir -p ./test/env/chai/
+	@mkdir -p ./test/env/lunr/
+	@rsync ./node_modules/mocha/mocha.js ./test/env/mocha/
+	@rsync ./node_modules/mocha/mocha.css ./test/env/mocha/
+	@rsync ./node_modules/chai/chai.js ./test/env/chai/
+	@rsync ./node_modules/lunr/lunr.js ./test/env/lunr/
 
 test/env/file_list.json: $(wildcard test/*test.js)
 	node -p 'JSON.stringify({test_files: process.argv.slice(1)}).replace(/test\//g, "")' $^ > $@
