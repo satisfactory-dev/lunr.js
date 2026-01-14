@@ -136,7 +136,7 @@ export class Pipeline {
   }
 
   static functionNotRegisteredHandler: FunctionNotRegisteredHandler = (fn) => {
-      console.warn('Function is not registered with pipeline. This may cause problems when serialising the index.\n', fn)
+    console.warn('Function is not registered with pipeline. This may cause problems when serialising the index.\n', fn)
   }
 
   /**
