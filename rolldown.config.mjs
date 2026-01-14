@@ -25,7 +25,7 @@ export default defineConfig([
     input: 'lunr.mts',
     output: {
       format: 'esm',
-      file: 'lunr.min.mjs',
+      file: 'lunr.mjs',
       minify: true,
       sourcemap: true,
     },
