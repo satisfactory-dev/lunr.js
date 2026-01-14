@@ -16,6 +16,7 @@
 * implemented devcontainer, using nginx image to serve docs, tests, and coverage instead of using node-static
 * loaded version info from JSON instead of templated string replaced at build time
 * sealed default export
+* added test to verify forked lib can load a legacy index
 
 # Legacy Changelog
 
