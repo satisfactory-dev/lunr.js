@@ -4,9 +4,11 @@
 
 [@satisfactory-dev/lunr](../globals.md) / PipelineFunction
 
-# Interface: PipelineFunction()
+# Type Alias: PipelineFunction\<T\>
 
-Defined in: [lib/pipeline.mts:31](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/pipeline.mts#L31)
+> **PipelineFunction**\<`T`\> = (`token`, `i`, `tokens`) => `void` \| `null` \| `undefined` \| `T` \| `T`[]
+
+Defined in: [lib/pipeline.mts:30](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/pipeline.mts#L30)
 
 A pipeline function maps Token to Token. A Token contains the token
 string as well as all known metadata. A pipeline function can mutate the token string
@@ -21,40 +23,22 @@ to any downstream pipeline functions and all will returned tokens will be added 
 
 Any number of pipeline functions may be chained together using a Pipeline.
 
- PipelineFunction
+## Type Parameters
 
-> **PipelineFunction**(`token`, `i`, `tokens`): [`Token`](../classes/Token.md) \| [`Token`](../classes/Token.md)[] \| `undefined`
+### T
 
-Defined in: [lib/pipeline.mts:32](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/pipeline.mts#L32)
+`T` *extends* `object`
 
-## Parameters
-
-### token
-
-[`Token`](../classes/Token.md)
+## Param
 
 A token from the document being processed.
 
-### i
-
-`number`
+## Param
 
 The index of this token in the complete list of tokens for this document/field.
 
-### tokens
-
-[`Token`](../classes/Token.md)[]
+## Param
 
 All tokens for this document/field.
 
 ## Returns
-
-[`Token`](../classes/Token.md) \| [`Token`](../classes/Token.md)[] \| `undefined`
-
-## Properties
-
-### label?
-
-> `optional` **label**: `string`
-
-Defined in: [lib/pipeline.mts:42](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/pipeline.mts#L42)

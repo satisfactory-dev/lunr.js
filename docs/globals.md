@@ -33,28 +33,31 @@
 
 ## Interfaces
 
-- [PipelineFunction](interfaces/PipelineFunction.md)
 - [QueryLexemeType](interfaces/QueryLexemeType.md)
 
 ## Type Aliases
 
 - [fieldExtractor](type-aliases/fieldExtractor.md)
+- [FieldsAttributes](type-aliases/FieldsAttributes.md)
 - [IndexQueryBuilder](type-aliases/IndexQueryBuilder.md)
 - [IndexResult](type-aliases/IndexResult.md)
 - [invertedIndexEntry](type-aliases/invertedIndexEntry.md)
 - [invertedIndexEntryWithoutIndex](type-aliases/invertedIndexEntryWithoutIndex.md)
 - [LabeledPipelineFunction](type-aliases/LabeledPipelineFunction.md)
 - [LunrConfig](type-aliases/LunrConfig.md)
+- [PipelineFunction](type-aliases/PipelineFunction.md)
 - [plugin](type-aliases/plugin.md)
 - [SerializedIndex](type-aliases/SerializedIndex.md)
 - [TokenSetBuilderNode](type-aliases/TokenSetBuilderNode.md)
 - [TokenUpdateFunction](type-aliases/TokenUpdateFunction.md)
+- [UnlabelledPipelineFunction](type-aliases/UnlabelledPipelineFunction.md)
 - [upsertFunction](type-aliases/upsertFunction.md)
 - [versionConflictFormatter](type-aliases/versionConflictFormatter.md)
 - [versionConflictHandler](type-aliases/versionConflictHandler.md)
 
 ## Variables
 
+- [LEADING\_OR\_TRAILING](variables/LEADING_OR_TRAILING.md)
 - [QueryWildcard](variables/QueryWildcard.md)
 - [separator](variables/separator.md)
 - [stopWordFilter](variables/stopWordFilter.md)

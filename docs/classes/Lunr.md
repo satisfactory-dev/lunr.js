@@ -6,7 +6,7 @@
 
 # Class: Lunr
 
-Defined in: [lib/lunr.mts:117](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/lunr.mts#L117)
+Defined in: [lib/lunr.mts:117](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/lunr.mts#L117)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [lib/lunr.mts:117](https://github.com/satisfactory-dev/lunr.js/blob/
 
 > **new Lunr**(`config`): `Lunr`
 
-Defined in: [lib/lunr.mts:120](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/lunr.mts#L120)
+Defined in: [lib/lunr.mts:120](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/lunr.mts#L120)
 
 #### Parameters
 
@@ -34,7 +34,7 @@ Defined in: [lib/lunr.mts:120](https://github.com/satisfactory-dev/lunr.js/blob/
 
 > **get** `static` **compatibleVersions**(): `string`[]
 
-Defined in: [lib/lunr.mts:150](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/lunr.mts#L150)
+Defined in: [lib/lunr.mts:150](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/lunr.mts#L150)
 
 Versions for which the current library is compatible with
 
@@ -50,7 +50,7 @@ Versions for which the current library is compatible with
 
 > **get** `static` **version**(): `string`
 
-Defined in: [lib/lunr.mts:143](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/lunr.mts#L143)
+Defined in: [lib/lunr.mts:143](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/lunr.mts#L143)
 
 The current version of the library
 
@@ -64,7 +64,7 @@ The current version of the library
 
 > **build**(): [`Index`](Index.md)
 
-Defined in: [lib/lunr.mts:136](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/lunr.mts#L136)
+Defined in: [lib/lunr.mts:136](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/lunr.mts#L136)
 
 #### Returns
 

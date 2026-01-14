@@ -6,9 +6,9 @@
 
 # Function: stemmer()
 
-> **stemmer**(`token`, `i`, `tokens`): [`Token`](../classes/Token.md) \| [`Token`](../classes/Token.md)[] \| `undefined`
+> **stemmer**(`token`): [`Token`](../classes/Token.md)
 
-Defined in: [lib/stemmer.mts:26](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/stemmer.mts#L26)
+Defined in: [lib/stemmer.mts:231](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/stemmer.mts#L231)
 
 stemmer is an english language stemmer, this is a JavaScript
 implementation of the PorterStemmer taken from http://tartarus.org/~martin
@@ -21,17 +21,9 @@ implementation of the PorterStemmer taken from http://tartarus.org/~martin
 
 The string to stem
 
-### i
-
-`number`
-
-### tokens
-
-[`Token`](../classes/Token.md)[]
-
 ## Returns
 
-[`Token`](../classes/Token.md) \| [`Token`](../classes/Token.md)[] \| `undefined`
+[`Token`](../classes/Token.md)
 
 ## See
 

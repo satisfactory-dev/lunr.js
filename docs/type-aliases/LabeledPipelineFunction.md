@@ -4,14 +4,24 @@
 
 [@satisfactory-dev/lunr](../globals.md) / LabeledPipelineFunction
 
-# Type Alias: LabeledPipelineFunction
+# Type Alias: LabeledPipelineFunction\<T1, T2\>
 
-> **LabeledPipelineFunction** = [`PipelineFunction`](../interfaces/PipelineFunction.md) & `object`
+> **LabeledPipelineFunction**\<`T1`, `T2`\> = `T1` & `object`
 
-Defined in: [lib/pipeline.mts:46](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/pipeline.mts#L46)
+Defined in: [lib/pipeline.mts:53](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/pipeline.mts#L53)
 
 ## Type Declaration
 
 ### label
 
-> **label**: `string`
+> **label**: `T2`
+
+## Type Parameters
+
+### T1
+
+`T1` *extends* [`UnlabelledPipelineFunction`](UnlabelledPipelineFunction.md) = [`UnlabelledPipelineFunction`](UnlabelledPipelineFunction.md)
+
+### T2
+
+`T2` *extends* `string` = `string`

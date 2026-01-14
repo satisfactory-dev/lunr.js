@@ -6,9 +6,9 @@
 
 # Variable: stopWordFilter
 
-> `const` **stopWordFilter**: [`LabeledPipelineFunction`](../type-aliases/LabeledPipelineFunction.md)
+> `const` **stopWordFilter**: [`LabeledPipelineFunction`](../type-aliases/LabeledPipelineFunction.md)\<[`PipelineFunction`](../type-aliases/PipelineFunction.md)\<\{ `toString`: `string`; \}\>, `string`\>
 
-Defined in: [lib/stop\_word\_filter.mts:49](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/stop_word_filter.mts#L49)
+Defined in: [lib/stop\_word\_filter.mts:47](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/stop_word_filter.mts#L47)
 
 stopWordFilter is an English language stop word list filter, any words
 contained in the list will not be passed through the filter.

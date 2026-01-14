@@ -6,7 +6,7 @@
 
 # Class: TokenSetBuilder
 
-Defined in: [lib/token\_set\_builder.mts:20](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/token_set_builder.mts#L20)
+Defined in: [lib/token\_set\_builder.mts:20](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/token_set_builder.mts#L20)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [lib/token\_set\_builder.mts:20](https://github.com/satisfactory-dev
 
 > **new TokenSetBuilder**(): `TokenSetBuilder`
 
-Defined in: [lib/token\_set\_builder.mts:29](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/token_set_builder.mts#L29)
+Defined in: [lib/token\_set\_builder.mts:29](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/token_set_builder.mts#L29)
 
 #### Returns
 
@@ -26,7 +26,7 @@ Defined in: [lib/token\_set\_builder.mts:29](https://github.com/satisfactory-dev
 
 > **minimizedNodes**: `object`
 
-Defined in: [lib/token\_set\_builder.mts:27](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/token_set_builder.mts#L27)
+Defined in: [lib/token\_set\_builder.mts:27](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/token_set_builder.mts#L27)
 
 #### Index Signature
 
@@ -38,7 +38,7 @@ Defined in: [lib/token\_set\_builder.mts:27](https://github.com/satisfactory-dev
 
 > **previousWord**: `string`
 
-Defined in: [lib/token\_set\_builder.mts:21](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/token_set_builder.mts#L21)
+Defined in: [lib/token\_set\_builder.mts:21](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/token_set_builder.mts#L21)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [lib/token\_set\_builder.mts:21](https://github.com/satisfactory-dev
 
 > **root**: [`TokenSet`](TokenSet.md)
 
-Defined in: [lib/token\_set\_builder.mts:23](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/token_set_builder.mts#L23)
+Defined in: [lib/token\_set\_builder.mts:23](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/token_set_builder.mts#L23)
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: [lib/token\_set\_builder.mts:23](https://github.com/satisfactory-dev
 
 > **uncheckedNodes**: [`TokenSetBuilderNode`](../type-aliases/TokenSetBuilderNode.md)[]
 
-Defined in: [lib/token\_set\_builder.mts:25](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/token_set_builder.mts#L25)
+Defined in: [lib/token\_set\_builder.mts:25](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/token_set_builder.mts#L25)
 
 ## Methods
 
@@ -62,7 +62,7 @@ Defined in: [lib/token\_set\_builder.mts:25](https://github.com/satisfactory-dev
 
 > **finish**(): `void`
 
-Defined in: [lib/token\_set\_builder.mts:85](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/token_set_builder.mts#L85)
+Defined in: [lib/token\_set\_builder.mts:85](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/token_set_builder.mts#L85)
 
 #### Returns
 
@@ -74,7 +74,7 @@ Defined in: [lib/token\_set\_builder.mts:85](https://github.com/satisfactory-dev
 
 > **insert**(`word`): `void`
 
-Defined in: [lib/token\_set\_builder.mts:41](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/token_set_builder.mts#L41)
+Defined in: [lib/token\_set\_builder.mts:41](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/token_set_builder.mts#L41)
 
 #### Parameters
 
@@ -92,7 +92,7 @@ Defined in: [lib/token\_set\_builder.mts:41](https://github.com/satisfactory-dev
 
 > **minimize**(`downTo`): `void`
 
-Defined in: [lib/token\_set\_builder.mts:94](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/token_set_builder.mts#L94)
+Defined in: [lib/token\_set\_builder.mts:94](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/token_set_builder.mts#L94)
 
 #### Parameters
 

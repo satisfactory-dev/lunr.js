@@ -8,4 +8,4 @@
 
 > `const` **wildcard**: `"*"` = `'*'`
 
-Defined in: [lib/query.mts:215](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/query.mts#L215)
+Defined in: [lib/query.mts:216](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/query.mts#L216)

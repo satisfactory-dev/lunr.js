@@ -6,7 +6,7 @@
 
 # Class: Builder
 
-Defined in: [lib/builder.mts:96](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/builder.mts#L96)
+Defined in: [lib/builder.mts:100](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L100)
 
 Builder performs indexing on a set of documents and
 returns instances of Index ready for querying.
@@ -22,7 +22,7 @@ builder before indexing.
 
 > **new Builder**(`__namedParameters`): `Builder`
 
-Defined in: [lib/builder.mts:197](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/builder.mts#L197)
+Defined in: [lib/builder.mts:201](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L201)
 
 #### Parameters
 
@@ -46,7 +46,7 @@ Defined in: [lib/builder.mts:197](https://github.com/satisfactory-dev/lunr.js/bl
 
 > **documentCount**: `number`
 
-Defined in: [lib/builder.mts:154](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/builder.mts#L154)
+Defined in: [lib/builder.mts:158](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L158)
 
 Keeps track of the total number of documents indexed.
 
@@ -56,7 +56,7 @@ Keeps track of the total number of documents indexed.
 
 > **fieldLengths**: `object`
 
-Defined in: [lib/builder.mts:134](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/builder.mts#L134)
+Defined in: [lib/builder.mts:138](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L138)
 
 Keeps track of the length of documents added to the index.
 
@@ -70,7 +70,7 @@ Keeps track of the length of documents added to the index.
 
 > **fieldTermFrequencies**: `object`
 
-Defined in: [lib/builder.mts:129](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/builder.mts#L129)
+Defined in: [lib/builder.mts:133](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L133)
 
 Keeps track of document term frequencies.
 
@@ -84,7 +84,7 @@ Keeps track of document term frequencies.
 
 > **invertedIndex**: `object`
 
-Defined in: [lib/builder.mts:122](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/builder.mts#L122)
+Defined in: [lib/builder.mts:126](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L126)
 
 The inverted index maps terms to document fields.
 
@@ -98,7 +98,7 @@ The inverted index maps terms to document fields.
 
 > **metadataWhitelist**: `string`[]
 
-Defined in: [lib/builder.mts:164](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/builder.mts#L164)
+Defined in: [lib/builder.mts:168](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L168)
 
 A list of metadata keys that have been whitelisted for entry in the index.
 
@@ -108,7 +108,7 @@ A list of metadata keys that have been whitelisted for entry in the index.
 
 > **pipeline**: [`Pipeline`](Pipeline.md)
 
-Defined in: [lib/builder.mts:144](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/builder.mts#L144)
+Defined in: [lib/builder.mts:148](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L148)
 
 The pipeline performs text processing on tokens before indexing.
 
@@ -118,7 +118,7 @@ The pipeline performs text processing on tokens before indexing.
 
 > **searchPipeline**: [`Pipeline`](Pipeline.md)
 
-Defined in: [lib/builder.mts:149](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/builder.mts#L149)
+Defined in: [lib/builder.mts:153](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L153)
 
 A pipeline for processing search terms before querying the index.
 
@@ -128,7 +128,7 @@ A pipeline for processing search terms before querying the index.
 
 > **termIndex**: `number`
 
-Defined in: [lib/builder.mts:159](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/builder.mts#L159)
+Defined in: [lib/builder.mts:163](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L163)
 
 A counter incremented for each unique term, used to identify a terms position in the vector space.
 
@@ -138,7 +138,7 @@ A counter incremented for each unique term, used to identify a terms position in
 
 > **tokenizer**: (`obj?`, `metadata?`, `usingSeparator?`) => [`Token`](Token.md)[]
 
-Defined in: [lib/builder.mts:139](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/builder.mts#L139)
+Defined in: [lib/builder.mts:143](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L143)
 
 Function for splitting strings into tokens for indexing.
 
@@ -159,7 +159,7 @@ added as metadata to every token that is created from the object to be tokenized
 
 The object to convert into tokens
 
-`string` | `object` | `object`[]
+`string` | `number` | `boolean` | `object` | `object`[] | `null`
 
 ##### metadata?
 
@@ -187,7 +187,7 @@ separator to use
 
 > **get** **averageFieldLength**(): `object`
 
-Defined in: [lib/builder.mts:177](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/builder.mts#L177)
+Defined in: [lib/builder.mts:181](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L181)
 
 ##### Returns
 
@@ -201,7 +201,7 @@ Defined in: [lib/builder.mts:177](https://github.com/satisfactory-dev/lunr.js/bl
 
 > **get** **b**(): `number`
 
-Defined in: [lib/builder.mts:285](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/builder.mts#L285)
+Defined in: [lib/builder.mts:289](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L289)
 
 ##### Returns
 
@@ -211,7 +211,7 @@ Defined in: [lib/builder.mts:285](https://github.com/satisfactory-dev/lunr.js/bl
 
 > **set** **b**(`number`): `void`
 
-Defined in: [lib/builder.mts:297](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/builder.mts#L297)
+Defined in: [lib/builder.mts:301](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L301)
 
 A parameter to tune the amount of field length normalisation that is applied when
 calculating relevance scores. A value of 0 will completely disable any normalisation
@@ -238,7 +238,7 @@ The value to set for this tuning parameter.
 
 > **get** **fields**(): `object`
 
-Defined in: [lib/builder.mts:225](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/builder.mts#L225)
+Defined in: [lib/builder.mts:229](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L229)
 
 ##### Returns
 
@@ -252,7 +252,7 @@ Defined in: [lib/builder.mts:225](https://github.com/satisfactory-dev/lunr.js/bl
 
 > **get** **fieldVectors**(): `object`
 
-Defined in: [lib/builder.mts:183](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/builder.mts#L183)
+Defined in: [lib/builder.mts:187](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L187)
 
 ##### Returns
 
@@ -266,7 +266,7 @@ Defined in: [lib/builder.mts:183](https://github.com/satisfactory-dev/lunr.js/bl
 
 > **get** **k1**(): `number`
 
-Defined in: [lib/builder.mts:310](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/builder.mts#L310)
+Defined in: [lib/builder.mts:314](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L314)
 
 ##### Returns
 
@@ -276,7 +276,7 @@ Defined in: [lib/builder.mts:310](https://github.com/satisfactory-dev/lunr.js/bl
 
 > **set** **k1**(`number`): `void`
 
-Defined in: [lib/builder.mts:321](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/builder.mts#L321)
+Defined in: [lib/builder.mts:325](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L325)
 
 A parameter that controls the speed at which a rise in term frequency results in term
 frequency saturation. The default value is 1.2. Setting this to a higher value will give
@@ -302,7 +302,7 @@ The value to set for this tuning parameter.
 
 > **get** **ref**(): `string`
 
-Defined in: [lib/builder.mts:229](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/builder.mts#L229)
+Defined in: [lib/builder.mts:233](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L233)
 
 ##### Returns
 
@@ -312,7 +312,7 @@ Defined in: [lib/builder.mts:229](https://github.com/satisfactory-dev/lunr.js/bl
 
 > **set** **ref**(`ref`): `void`
 
-Defined in: [lib/builder.mts:245](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/builder.mts#L245)
+Defined in: [lib/builder.mts:249](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L249)
 
 Sets the document field used as the document reference. Every document must have this field.
 The type of this field in the document should be a string, if it is not a string it will be
@@ -343,7 +343,7 @@ The name of the reference field in the document.
 
 > **set** **tokenizerSeparator**(`value`): `void`
 
-Defined in: [lib/builder.mts:171](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/builder.mts#L171)
+Defined in: [lib/builder.mts:175](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L175)
 
 ##### Parameters
 
@@ -363,7 +363,7 @@ Defined in: [lib/builder.mts:171](https://github.com/satisfactory-dev/lunr.js/bl
 
 > **get** **tokenSet**(): [`TokenSet`](TokenSet.md)
 
-Defined in: [lib/builder.mts:189](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/builder.mts#L189)
+Defined in: [lib/builder.mts:193](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L193)
 
 ##### Returns
 
@@ -375,7 +375,7 @@ Defined in: [lib/builder.mts:189](https://github.com/satisfactory-dev/lunr.js/bl
 
 > **add**(`doc`, `attributes`): `void`
 
-Defined in: [lib/builder.mts:342](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/builder.mts#L342)
+Defined in: [lib/builder.mts:346](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L346)
 
 Adds a document to the index.
 
@@ -415,7 +415,7 @@ Boost applied to all terms within this document.
 
 > **build**(): [`Index`](Index.md)
 
-Defined in: [lib/builder.mts:564](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/builder.mts#L564)
+Defined in: [lib/builder.mts:568](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L568)
 
 Builds the index, creating an instance of Index.
 
@@ -430,9 +430,9 @@ once all documents have been added to the index.
 
 ### field()
 
-> **field**(`fieldName`, `attributes?`): `void`
+> **field**\<`T`\>(`fieldName`, `attributes?`): `void`
 
-Defined in: [lib/builder.mts:268](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/builder.mts#L268)
+Defined in: [lib/builder.mts:272](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L272)
 
 Adds a field to the list of document fields that will be indexed. Every document being
 indexed should have this field. Null values for this field in indexed documents will
@@ -444,6 +444,12 @@ a document has been indexed will have no effect on already indexed documents.
 Fields can be boosted at build time. This allows terms within that field to have more
 importance when ranking search results. Use a field boost to specify that matches within
 one field are more important than other fields.
+
+#### Type Parameters
+
+##### T
+
+`T` *extends* `object` = `object`
 
 #### Parameters
 
@@ -465,7 +471,7 @@ Boost applied to all terms within this field.
 
 ###### extractor?
 
-[`fieldExtractor`](../type-aliases/fieldExtractor.md)
+[`fieldExtractor`](../type-aliases/fieldExtractor.md)\<`T`\>
 
 Function to extract a field from a document.
 
@@ -483,7 +489,7 @@ fieldName cannot contain unsupported characters '/'
 
 > **use**(`fn`, ...`args`): `void`
 
-Defined in: [lib/builder.mts:592](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/builder.mts#L592)
+Defined in: [lib/builder.mts:596](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L596)
 
 Applies a plugin to the index builder.
 

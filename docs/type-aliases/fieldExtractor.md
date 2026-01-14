@@ -4,11 +4,11 @@
 
 [@satisfactory-dev/lunr](../globals.md) / fieldExtractor
 
-# Type Alias: fieldExtractor()
+# Type Alias: fieldExtractor()\<T\>
 
-> **fieldExtractor** = (`doc`) => `null` \| `string` \| `object` \| `object`[]
+> **fieldExtractor**\<`T`\> = (`doc`) => `null` \| `string` \| `object` \| `object`[]
 
-Defined in: [lib/builder.mts:44](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/builder.mts#L44)
+Defined in: [lib/builder.mts:44](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/builder.mts#L44)
 
 A function that is used to extract a field from a document.
 
@@ -16,11 +16,17 @@ Lunr expects a field to be at the top level of a document, if however the field
 is deeply nested within a document an extractor function can be used to extract
 the right field for indexing.
 
+## Type Parameters
+
+### T
+
+`T` *extends* `object` = `object`
+
 ## Parameters
 
 ### doc
 
-`object`
+`T`
 
 The document being added to the index.
 

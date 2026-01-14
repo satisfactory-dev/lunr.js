@@ -8,7 +8,7 @@
 
 > **IndexQueryBuilder** = (`this`, `query`) => `void`
 
-Defined in: [lib/index.mts:133](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/index.mts#L133)
+Defined in: [lib/index.mts:133](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/index.mts#L133)
 
 A query builder callback provides a query object to be used to express
 the query to perform on the index.

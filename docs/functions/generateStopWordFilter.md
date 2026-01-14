@@ -6,9 +6,9 @@
 
 # Function: generateStopWordFilter()
 
-> **generateStopWordFilter**(`stopWords`): (`token`) => [`Token`](../classes/Token.md) \| `undefined`
+> **generateStopWordFilter**(`stopWords`): [`PipelineFunction`](../type-aliases/PipelineFunction.md)\<\{ `toString`: `string`; \}\>
 
-Defined in: [lib/stop\_word\_filter.mts:27](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/stop_word_filter.mts#L27)
+Defined in: [lib/stop\_word\_filter.mts:25](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/stop_word_filter.mts#L25)
 
 generateStopWordFilter builds a stopWordFilter function from the provided
 list of stop words.
@@ -26,17 +26,7 @@ The token to pass through the filter
 
 ## Returns
 
-> (`token`): [`Token`](../classes/Token.md) \| `undefined`
-
-### Parameters
-
-#### token
-
-[`Token`](../classes/Token.md)
-
-### Returns
-
-[`Token`](../classes/Token.md) \| `undefined`
+[`PipelineFunction`](../type-aliases/PipelineFunction.md)\<\{ `toString`: `string`; \}\>
 
 ## See
 

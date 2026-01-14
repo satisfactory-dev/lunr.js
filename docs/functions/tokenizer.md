@@ -8,7 +8,7 @@
 
 > **tokenizer**(`obj?`, `metadata?`, `usingSeparator?`): [`Token`](../classes/Token.md)[]
 
-Defined in: [lib/tokenizer.mts:38](https://github.com/satisfactory-dev/lunr.js/blob/a6ab1d4d6bba235f453a60981dedfc934bea2021/lib/tokenizer.mts#L38)
+Defined in: [lib/tokenizer.mts:38](https://github.com/satisfactory-dev/lunr.js/blob/d322aa5d0edb5601c32fc96137ceadad465a6136/lib/tokenizer.mts#L38)
 
 A function for splitting a string into tokens ready to be inserted into
 the search index. Uses `separator` to split strings, change
@@ -27,7 +27,7 @@ added as metadata to every token that is created from the object to be tokenized
 
 The object to convert into tokens
 
-`string` | `object` | `object`[]
+`string` | `number` | `boolean` | `object` | `object`[] | `null`
 
 ### metadata?
 
