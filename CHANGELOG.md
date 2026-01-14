@@ -24,6 +24,7 @@
 	- still using Mocha in the browser tests
 	- dropped chai in favour of node:assert & compatible lib for browser tests
 * switched to a module-first model (.ts instead of .mts)
+* made Pipeline.warnIfFunctionNotRegistered pluggable
 
 # Legacy Changelog
 

@@ -60,6 +60,8 @@ export type LabeledPipelineFunction<
   }
 )
 
+export type FunctionNotRegisteredHandler = (fn: LabeledPipelineFunction) => void
+
 /**
  * Instances of Pipeline maintain an ordered list of functions to be applied to all
  * tokens in documents entering the search index and queries being ran against
@@ -129,8 +131,12 @@ export class Pipeline {
     var isRegistered = fn.label && (fn.label in this.registeredFunctions)
 
     if (!isRegistered) {
-      console.warn('Function is not registered with pipeline. This may cause problems when serialising the index.\n', fn)
+      this.functionNotRegisteredHandler(fn)
     }
+  }
+
+  static functionNotRegisteredHandler: FunctionNotRegisteredHandler = (fn) => {
+      console.warn('Function is not registered with pipeline. This may cause problems when serialising the index.\n', fn)
   }
 
   /**

@@ -18,22 +18,21 @@ void suite('lunr.Pipeline', function () {
   var noop = () => {}
 
   let existingRegisteredFunctions: typeof Pipeline['registeredFunctions']
-  let existingWarnIfFunctionNotRegistered: typeof Pipeline['warnIfFunctionNotRegistered']
+  let existingWarnIfFunctionNotRegistered: typeof Pipeline['functionNotRegisteredHandler']
 
   beforeEach((): Promise<void> => {
     existingRegisteredFunctions = Pipeline.registeredFunctions
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    existingWarnIfFunctionNotRegistered = Pipeline.warnIfFunctionNotRegistered
+    existingWarnIfFunctionNotRegistered = Pipeline.functionNotRegisteredHandler
 
     Pipeline.registeredFunctions = {}
-    Pipeline.warnIfFunctionNotRegistered = noop
+    Pipeline.functionNotRegisteredHandler = noop
 
     return Promise.resolve()
   })
 
   afterEach((): Promise<void> => {
     Pipeline.registeredFunctions = existingRegisteredFunctions
-    Pipeline.warnIfFunctionNotRegistered = existingWarnIfFunctionNotRegistered
+    Pipeline.functionNotRegisteredHandler = existingWarnIfFunctionNotRegistered
 
     return Promise.resolve()
   })
@@ -302,6 +301,30 @@ void suite('lunr.Pipeline', function () {
       Pipeline.registerFunction(fn, 'fn')
 
       assert.equal(fn, Pipeline.registeredFunctions['fn'])
+    })
+
+    void test('throws if instructed', () => {
+      const fn = Pipeline.labelFunction(() => {}, 'fn')
+
+      assert.doesNotThrow(() => {
+        Pipeline.warnIfFunctionNotRegistered(fn)
+      })
+
+      Pipeline.functionNotRegisteredHandler = existingWarnIfFunctionNotRegistered
+
+      assert.doesNotThrow(() => {
+        Pipeline.warnIfFunctionNotRegistered(fn)
+      })
+
+      Pipeline.functionNotRegisteredHandler = (fn) => {
+        console.error(fn)
+
+        throw new Error('threw')
+      }
+
+      assert.throws(() => {
+        Pipeline.warnIfFunctionNotRegistered(fn)
+      })
     })
   })
 
