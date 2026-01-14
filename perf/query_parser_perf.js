@@ -1,4 +1,4 @@
-import * as lunr from '../lunr.mjs'
+import * as lunr from '../lunr.ts'
 
 suite('lunr.QueryParser', function () {
   var parse = function (q) {

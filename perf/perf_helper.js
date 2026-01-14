@@ -1,4 +1,4 @@
-import lunr from '../lunr.mjs'
+import lunr from '../lunr.ts'
 import Benchmark from 'benchmark'
 import wordList from 'word-list'
 import fs from 'node:fs'

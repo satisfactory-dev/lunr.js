@@ -1,6 +1,6 @@
 {
   "entryPoints": [
-    "../lunr.mts"
+    "../lunr.ts"
   ],
   "outputs": [
     {

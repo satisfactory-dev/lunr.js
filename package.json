@@ -1,5 +1,6 @@
 {
   "name": "@satisfactory-dev/lunr",
+  "type": "module",
   "description": "ES6 Fork of Lunr: Simple full-text search in your browser.",
   "author": "SignpostMarv",
   "license": "MIT",
@@ -26,9 +27,9 @@
   ],
   "exports": {
     ".": {
-      "types": "./lunr.d.mts",
-      "require": "./lunr.cjs",
-      "import": "./lunr.mjs"
+      "types": "./lunr.d.ts",
+      "import": "./lunr.js",
+      "require": "./lunr.cjs"
     }
   },
   "devDependencies": {

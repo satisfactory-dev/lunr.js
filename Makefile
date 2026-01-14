@@ -2,17 +2,13 @@ all: test lint docs
 release: lunr.js docs
 
 lunr.js:
-	node ./dump-version.mts
+	node ./dump-version.ts
 	./node_modules/.bin/rolldown -c ./rolldown.config.mjs
 	./node_modules/.bin/tsc --project ./tsconfig.app.json
 
 size: lunr.js
 	@echo 'lunr.js'
 	@gzip -c lunr.js | wc -c
-	@echo 'lunr.min.js'
-	@gzip -c lunr.min.js | wc -c
-	@echo 'lunr.min.mjs'
-	@gzip -c lunr.min.mjs | wc -c
 	@echo 'lunr.cjs'
 	@gzip -c lunr.cjs | wc -c
 
@@ -24,11 +20,11 @@ lint--tsc:
 
 lint--eslint--ts:
 	@echo 'running eslint on typescript'
-	./node_modules/.bin/eslint --cache --cache-location './.cache/eslint/typescript.eslintcache' './*.mts' './lib/*.mts' './test/*.mts' --ignore-pattern './**/*.d.mts'
+	./node_modules/.bin/eslint --cache --cache-location './.cache/eslint/typescript.eslintcache' './*.ts' './lib/*.ts' './test/*.ts' --ignore-pattern './**/*.d.ts'
 
 lint--eslint--js:
 	@echo 'running eslint on javascript'
-	./node_modules/.bin/eslint --cache --cache-location './.cache/eslint/javascript.eslintcache' -c ./eslint-javascript.config.mjs './*.mjs' --ignore-pattern './lunr.mjs'
+	./node_modules/.bin/eslint --cache --cache-location './.cache/eslint/javascript.eslintcache' -c ./eslint-javascript.config.mjs './*.mjs'
 
 perf/*_perf.js: lunr.js
 	node -r ./perf/perf_helper.js $@
@@ -37,7 +33,7 @@ benchmark: perf/*_perf.js
 
 test: node_modules lunr.js test--sync-files
 	./node_modules/.bin/tsc --project ./tsconfig.test.json
-	node --test './test/*_test.mts'
+	node --test './test/*_test.ts'
 
 test--sync-files: test/env/file_list.json
 	@echo 'copying libs to env'
@@ -47,7 +43,7 @@ test--sync-files: test/env/file_list.json
 	@rsync ./node_modules/mocha/mocha.css ./test/env/mocha/
 
 test/env/file_list.json:
-	node ./dump-test-files.mts
+	node ./dump-test-files.ts
 
 docs:
 	./node_modules/.bin/typedoc --readme README.md --options build/typedoc.conf.json --plugin typedoc-plugin-markdown

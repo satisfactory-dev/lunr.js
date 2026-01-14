@@ -18,10 +18,9 @@
 			"settings": {
 				"chat.agent.enabled": false,
 				"explorer.fileNesting.patterns": {
-					"*.cjs.mts": "${basename}, ${basename}.map",
-					"*.mts": "${capture}.mjs, ${capture}.d.mts",
+					"*.cjs.ts": "${basename}, ${basename}.map",
+					"*.ts": "${capture}.js, ${capture}.d.ts",
 					"*.js": "${capture}.js.map, ${capture}.min.js",
-					"*.mjs": "${capture}.mjs.map, ${capture}.min.mjs",
 					"package.json": "package-lock.json"
 				}
 			}

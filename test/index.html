@@ -7,7 +7,7 @@
   <script type="importmap">
     {
       "imports": {
-        "@satisfactory-dev/lunr": "./lunr.mjs",
+        "@satisfactory-dev/lunr": "./lunr.js",
         "lunr": "./env/lunr/lunr.js",
         "assert/strict": "./env/assert/assert.js",
         "node:test": "./env/404"
@@ -30,7 +30,7 @@
   <script type="module">
     globalThis.upstreamLunr = globalThis.lunr
 
-    import lunr from '/lunr.mjs';
+    import lunr from '/lunr.js';
 
     import test_files from '/env/file_list.json' with {type: 'json'}
 
@@ -55,7 +55,7 @@
 
     for (
       const src of test_files
-        .filter((maybe) => /^[a-z][a-z_]+\.mjs$/.test(maybe))
+        .filter((maybe) => /^[a-z][a-z_]+\.js$/.test(maybe))
     ) {
       pending.push(import(`./${src}`))
     }
