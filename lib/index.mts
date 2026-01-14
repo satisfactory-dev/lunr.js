@@ -566,7 +566,7 @@ export class Index {
       })
 
     return {
-      version: "@VERSION",
+      version: Lunr.version,
       fields: this.fields,
       fieldVectors,
       invertedIndex,

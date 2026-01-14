@@ -1,21 +1,14 @@
 import {
-  readFile,
-} from 'node:fs/promises'
-
-import {
   defineConfig,
 } from 'rolldown'
 
 import replace from '@rollup/plugin-replace'
-
-const version = await readFile(`${import.meta.dirname}/VERSION`)
 
 const plugins = [
   replace({
     preventAssignment: true,
     values: {
       '@YEAR': (new Date()).getUTCFullYear(),
-      '@VERSION': version,
     },
   }),
 ]

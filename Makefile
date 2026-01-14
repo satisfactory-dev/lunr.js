@@ -2,6 +2,7 @@ all: test lint docs
 release: lunr.js docs
 
 lunr.js:
+	node ./dump-version.mts
 	./node_modules/.bin/rolldown -c ./rolldown.config.mjs
 	./node_modules/.bin/tsc --project ./tsconfig.app.json
 

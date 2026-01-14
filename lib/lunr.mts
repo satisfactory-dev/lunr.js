@@ -76,6 +76,8 @@ import {
   Vector,
 } from './vector.mts'
 
+import versionInfo from './version.json' with {type: 'json'}
+
 export type LunrConfig = (this: Builder, builder: Builder) => void
 
 /**
@@ -135,12 +137,15 @@ export class Lunr {
     return this.#builder.build()
   }
 
+  /**
+   * The current version of the library
+   */
   static get version () {
-    return "@VERSION"
+    return versionInfo.version
   }
 }
 
-lunr.version = "@VERSION"
+lunr.version = Lunr.version
 lunr.default = lunr
 lunr.Builder = Builder
 lunr.FieldRef = FieldRef
