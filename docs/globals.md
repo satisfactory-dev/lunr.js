@@ -39,6 +39,7 @@
 
 - [fieldExtractor](type-aliases/fieldExtractor.md)
 - [FieldsAttributes](type-aliases/FieldsAttributes.md)
+- [FunctionNotRegisteredHandler](type-aliases/FunctionNotRegisteredHandler.md)
 - [IndexQueryBuilder](type-aliases/IndexQueryBuilder.md)
 - [IndexResult](type-aliases/IndexResult.md)
 - [invertedIndexEntry](type-aliases/invertedIndexEntry.md)
