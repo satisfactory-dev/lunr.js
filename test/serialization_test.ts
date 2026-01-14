@@ -6,8 +6,6 @@ import type {
 } from 'lunr'
 import type upstreamLunrFunc from 'lunr'
 
-import upstreamLunr from 'lunr'
-
 import assert from 'assert/strict'
 
 import {
@@ -16,8 +14,10 @@ import {
 } from './shim.ts'
 
 declare global {
-  const upstreamLunr: typeof upstreamLunrFunc
+  var upstreamLunr: typeof upstreamLunrFunc
 }
+
+const upstreamLunr = globalThis?.upstreamLunr || (await import('lunr')).default
 
 void suite('serialization', function () {
   const setup = () => {

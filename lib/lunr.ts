@@ -79,6 +79,7 @@ import {
 import versionInfo from './version.json' with {type: 'json'}
 
 export type LunrConfig = (this: Builder, builder: Builder) => void
+export type AsyncLunrConfig = (this: Builder, builder: Builder) => Promise<void>
 
 /**
  * A convenience function for configuring and constructing
@@ -110,15 +111,30 @@ export type LunrConfig = (this: Builder, builder: Builder) => void
  * @see {@link stopWordFilter}
  * @see {@link stemmer}
  */
-const lunr = function (config: LunrConfig) {
+function lunr (config: LunrConfig): Index
+function lunr (config: AsyncLunrConfig): Promise<Index>
+function lunr (
+  config: (
+    | LunrConfig
+    | AsyncLunrConfig
+  ),
+): Promise<Index> | Index {
+  if (isAsync(config)) {
+    return (new AsyncLunr(config)).build()
+  }
+
   return (new Lunr(config)).build()
 }
 
-export class Lunr {
-  #builder: Builder
+const isAsync = function (maybe: LunrConfig | AsyncLunrConfig): maybe is AsyncLunrConfig {
+  return 'AsyncFunction' === maybe.constructor.name
+}
 
-  constructor (config: LunrConfig) {
-    const builder = this.#builder = new Builder
+abstract class AbstractLunr {
+  protected builder: Builder
+
+  constructor (builder: Builder) {
+    this.builder = builder
 
     builder.pipeline.add(
       trimmer,
@@ -129,12 +145,6 @@ export class Lunr {
     builder.searchPipeline.add(
       stemmer,
     )
-
-    config.call(this.#builder, this.#builder)
-  }
-
-  build () {
-    return this.#builder.build()
   }
 
   /**
@@ -149,6 +159,32 @@ export class Lunr {
    */
   static get compatibleVersions () {
     return versionInfo.legacyCompatibility
+  }
+}
+
+export class Lunr extends AbstractLunr {
+  constructor (config: LunrConfig) {
+    super(new Builder)
+
+    config.call(this.builder, this.builder)
+  }
+
+  build () {
+    return this.builder.build()
+  }
+}
+
+export class AsyncLunr extends AbstractLunr {
+  #promise: Promise<Builder>
+
+  constructor (config: AsyncLunrConfig) {
+    super(new Builder)
+
+    this.#promise = config.call(this.builder, this.builder).then(() => this.builder)
+  }
+
+  build (): Promise<Index> {
+    return this.#promise.then((builder) => builder.build())
   }
 }
 

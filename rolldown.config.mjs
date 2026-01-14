@@ -56,14 +56,4 @@ export default defineConfig([
       banner: '/* eslint-disable */',
     },
   },
-  {
-    input: './node_modules/lunr/lunr.js',
-    output: {
-      format: 'esm',
-      file: './test/env/lunr/lunr.js',
-      minify: false,
-      sourcemap: false,
-      banner: '/* eslint-disable */',
-    },
-  },
 ])

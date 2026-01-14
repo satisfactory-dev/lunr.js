@@ -41,6 +41,7 @@ test--sync-files: test/env/file_list.json
 	@mkdir -p ./test/env/lunr/
 	@rsync ./node_modules/mocha/mocha.js ./test/env/mocha/
 	@rsync ./node_modules/mocha/mocha.css ./test/env/mocha/
+	@rsync ./node_modules/lunr/lunr.js ./test/env/lunr/
 
 test/env/file_list.json:
 	node ./dump-test-files.ts

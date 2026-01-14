@@ -1,6 +1,12 @@
 # Changelog
 
-## ~~0.1.0~~ version pending
+## 0.1.1
+
+* Added support for async config
+* Fixed Mocha tests
+* Forgot to commit files section of package.json
+
+## 0.1.0
 
 * Converted to ES Modules (solves [olivernn/lunr.js#401](https://github.com/olivernn/lunr.js/issues/401))
 * Converted to TypeScript, solves or relates to

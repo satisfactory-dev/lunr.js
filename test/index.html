@@ -39,21 +39,6 @@
     const pending = [];
 
     for (
-      const src of (
-        await (await fetch('/env/file_list.json')).json()
-      ).test_files
-        .filter((maybe) => /^[a-z][a-z_]+\.js$/.test(maybe))
-    ) {
-      const script = document.createElement('script');
-      script.src = src;
-      pending.push(new Promise((yup, nope) => {
-        script.onload = yup;
-        script.onerror = nope;
-      }))
-      document.body.append(script);
-    }
-
-    for (
       const src of test_files
         .filter((maybe) => /^[a-z][a-z_]+\.js$/.test(maybe))
     ) {

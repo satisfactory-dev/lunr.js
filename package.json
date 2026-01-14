@@ -32,6 +32,18 @@
       "require": "./lunr.cjs"
     }
   },
+  "files": [
+    "./lunr.cjs",
+    "./lunr.cjs.map",
+    "./lunr.js",
+    "./lunr.js.map",
+    "./lunr.d.ts",
+    "./lunr.ts",
+    "./lib/*.js",
+    "./lib/*.js.map",
+    "./lib/*.ts",
+    "./lib/version.json"
+  ],
   "devDependencies": {
     "@cspell/eslint-plugin": "^9.6.0",
     "@eslint/js": "^9.39.2",
