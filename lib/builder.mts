@@ -65,7 +65,7 @@ export type invertedIndexEntry = (
   }
 )
 
-type FieldsAttributes<
+export type FieldsAttributes<
   T extends object = object,
 > = {
   boost?: number,

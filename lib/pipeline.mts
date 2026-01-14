@@ -43,7 +43,7 @@ export type PipelineFunction<
   ))
 )
 
-type UnlabelledPipelineFunction = (
+export type UnlabelledPipelineFunction = (
   | PipelineFunction<Token>
   | PipelineFunction<string>
   | PipelineFunction<number>
