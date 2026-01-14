@@ -3,7 +3,7 @@
   "description": "ES6 Fork of Lunr: Simple full-text search in your browser.",
   "author": "SignpostMarv",
   "license": "MIT",
-  "homepage": "https://lunrjs.com",
+  "homepage": "https://github.com/satisfactory-dev/lunr.js",
   "bugs": "https://github.com/satisfactory-dev/lunr.js/issues",
   "repository": {
     "type": "git",
