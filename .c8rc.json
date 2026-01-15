@@ -2,5 +2,5 @@
 	"reporter": ["text", "html"],
 	"report-dir": "./coverage",
 	"all": true,
-	"include": ["lunr.js", "lib/*.js", "test/lunr.js"]
+	"include": ["lunr.js", "lib/*.js", "test/lunr.js", "lunr.ts", "lib/*.ts", "test/lunr.ts"]
 }
