@@ -9,7 +9,7 @@ suite('lunr.TokenSet', function () {
   var tokenSet = lunr.TokenSet.fromArray([
     'january', 'february', 'march', 'april',
     'may', 'june', 'july', 'august',
-    'september', 'october', 'november', 'december'
+    'september', 'october', 'november', 'december',
   ].sort())
 
   var noWildcard = lunr.TokenSet.fromString('september')
@@ -24,6 +24,7 @@ suite('lunr.TokenSet', function () {
   })
 
   this.add('.fromString (with wildcard)', function () {
+    // eslint-disable-next-line @cspell/spellchecker
     lunr.TokenSet.fromString('java*cript')
   })
 

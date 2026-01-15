@@ -9,17 +9,17 @@ suite('search', function () {
     id: 'a',
     title: 'Mr. Green kills Colonel Mustard',
     body: 'Mr. Green killed Colonel Mustard in the study with the candlestick. Mr. Green is not a very nice fellow.',
-    wordCount: 19
+      wordCount: 19,
   },{
     id: 'b',
     title: 'Plumb waters plant',
     body: 'Professor Plumb has a green plant in his study',
-    wordCount: 9
+      wordCount: 9,
   },{
     id: 'c',
     title: 'Scarlett helps Professor',
     body: 'Miss Scarlett watered Professor Plumbs green plant while he was away from his office last week.',
-    wordCount: 16
+      wordCount: 16,
   }]
 
   var idx = lunr(function () {
@@ -57,6 +57,7 @@ suite('search', function () {
   })
 
   this.add('edit distance', function () {
+    // eslint-disable-next-line @cspell/spellchecker
     idx.search('plint~2')
   })
 

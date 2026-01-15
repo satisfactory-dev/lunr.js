@@ -18,7 +18,7 @@ suite('lunr.Pipeline', function () {
   }
 
   var buildTokens = function (count: number) {
-    return words.slice(0, count).map(function(word) {
+    return words.slice(0, count).map(function (word) {
       return new Token(word)
     })
   }
@@ -26,7 +26,7 @@ suite('lunr.Pipeline', function () {
   lunr.Pipeline.registerFunction(tokenToToken, 'tokenToToken')
   lunr.Pipeline.registerFunction(tokenToTokenArray, 'tokenToTokenArray')
 
-  var fewTokens = buildTokens(50);
+  var fewTokens = buildTokens(50)
   var manyTokens = buildTokens(1000)
 
   var tokenToTokenPipeline = new lunr.Pipeline

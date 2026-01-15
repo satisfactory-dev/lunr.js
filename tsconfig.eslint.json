@@ -1,5 +1,5 @@
 {
 	"extends": "./tsconfig.app",
-	"include": ["./lib/*.ts", "./lunr.ts", "./*.ts", "./test/*.ts"],
+	"include": ["./lib/*.ts", "./lunr.ts", "./*.ts", "./test/*.ts", "./perf/*.ts"],
 	"exclude": ["./lib/**/*.d.ts", "./*.mjs"]
 }
