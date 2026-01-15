@@ -1,3 +1,9 @@
+import lunr from '../lunr.ts'
+
+import {
+  suite,
+} from './perf_helper.ts'
+
 suite('lunr.Builder', function () {
   var documents = [{
     id: 'a',
@@ -22,9 +28,9 @@ suite('lunr.Builder', function () {
       this.field('title')
       this.field('body')
 
-      documents.forEach(function (doc) {
+      documents.forEach((doc) => {
         this.add(doc)
-      }, this)
+      })
     })
   })
 })

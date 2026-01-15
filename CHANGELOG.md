@@ -1,5 +1,10 @@
 # Changelog
 
+## next version
+
+* Benchmarks converted to typescript
+	- benchmark-related dependencies updated
+
 ## 0.1.1
 
 * Added support for async config

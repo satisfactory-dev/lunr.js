@@ -26,10 +26,10 @@ lint--eslint--js:
 	@echo 'running eslint on javascript'
 	./node_modules/.bin/eslint --cache --cache-location './.cache/eslint/javascript.eslintcache' -c ./eslint-javascript.config.mjs './*.mjs'
 
-perf/*_perf.js: lunr.js
-	node -r ./perf/perf_helper.js $@
+perf/*_perf.ts: lunr.js
+	node $@
 
-benchmark: perf/*_perf.js
+benchmark: perf/*_perf.ts
 
 test: node_modules lunr.js test--sync-files
 	./node_modules/.bin/tsc --project ./tsconfig.test.json
@@ -62,4 +62,4 @@ clean:
 reset:
 	git checkout lunr.* *.json
 
-.PHONY: test clean docs reset perf/*_perf.js test/inspect lunr.js test/index.html coverage test/env/file_list.json
+.PHONY: test clean docs reset perf/*_perf.ts test/inspect lunr.js test/index.html coverage test/env/file_list.json

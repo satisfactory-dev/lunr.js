@@ -1,3 +1,10 @@
+import * as lunr from '../lunr.ts'
+
+import {
+  suite,
+  words,
+} from './perf_helper.ts'
+
 suite('lunr.TokenSet', function () {
   var tokenSet = lunr.TokenSet.fromArray([
     'january', 'february', 'march', 'april',

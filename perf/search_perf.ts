@@ -1,3 +1,9 @@
+import lunr from '../lunr.ts'
+
+import {
+  suite,
+} from './perf_helper.ts'
+
 suite('search', function () {
   var documents = [{
     id: 'a',
@@ -21,9 +27,9 @@ suite('search', function () {
     this.field('title')
     this.field('body')
 
-    documents.forEach(function (doc) {
+    documents.forEach((doc) => {
       this.add(doc)
-    }, this)
+    })
   })
 
   this.add('single term', function () {

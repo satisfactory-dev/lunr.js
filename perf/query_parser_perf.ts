@@ -1,7 +1,11 @@
 import * as lunr from '../lunr.ts'
 
+import {
+  suite,
+} from './perf_helper.ts'
+
 suite('lunr.QueryParser', function () {
-  var parse = function (q) {
+  var parse = function (q: string) {
     var query = new lunr.Query (['title', 'body']),
         parser = new lunr.QueryParser(q, query)
 

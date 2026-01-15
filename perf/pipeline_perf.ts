@@ -1,17 +1,25 @@
-import * as lunr from '../lunr.ts'
+import lunr, {
+  Token,
+  Pipeline,
+} from '../lunr.ts'
+
+import {
+  suite,
+  words,
+} from './perf_helper.ts'
 
 suite('lunr.Pipeline', function () {
-  var tokenToToken = function(token) {
+  var tokenToToken = function (token: Token) {
     return token
   }
 
-  var tokenToTokenArray = function(token) {
+  var tokenToTokenArray = function (token: Token) {
     return [token, token]
   }
 
-  var buildTokens = function(count) {
+  var buildTokens = function (count: number) {
     return words.slice(0, count).map(function(word) {
-      return new lunr.Token(word)
+      return new Token(word)
     })
   }
 
@@ -22,10 +30,10 @@ suite('lunr.Pipeline', function () {
   var manyTokens = buildTokens(1000)
 
   var tokenToTokenPipeline = new lunr.Pipeline
-  tokenToTokenPipeline.add(tokenToToken)
+  tokenToTokenPipeline.add(Pipeline.registeredFunctions.tokenToToken)
 
   var tokenToTokenArrayPipeline = new lunr.Pipeline
-  tokenToTokenArrayPipeline.add(tokenToTokenArray)
+  tokenToTokenArrayPipeline.add(Pipeline.registeredFunctions.tokenToTokenArray)
 
   this.add('few tokens, token -> token', function () {
     tokenToTokenPipeline.run(fewTokens)
