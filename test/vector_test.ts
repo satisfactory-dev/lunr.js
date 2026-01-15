@@ -10,9 +10,12 @@ import {
   test,
 } from './shim.ts'
 
-const testSuiteForImplementation = <T extends Vector<number>>(Implementation: { new (
-  elements?: T['elements']
-): T }) => {
+const testSuiteForImplementation = <T extends Vector<number>>(
+  Implementation: (
+    | typeof Vector<number>
+    | typeof NumberVector
+  ),
+) => {
   var vectorFromArgs = function (...args: number[]): T {
     var vector = new Implementation()
 
@@ -21,7 +24,7 @@ const testSuiteForImplementation = <T extends Vector<number>>(Implementation: { 
         vector.insert(i, el)
       })
 
-    return vector
+    return vector as T
   }
 
   void suite('#magnitude', function () {
@@ -121,9 +124,12 @@ const testSuiteForImplementation = <T extends Vector<number>>(Implementation: { 
       assert.deepEqual([8, 5, 6], vector.toArray())
     })
   })
+}
 
+void suite('lunr.Vector', () => testSuiteForImplementation(Vector))
+void suite('lunr.Vector<string>', () => {
   void suite('#positionForIndex', function () {
-    var vector = new Implementation<string> ([
+    var vector = new Vector<string> ([
       1, 'a',
       2, 'b',
       4, 'c',
@@ -167,7 +173,5 @@ const testSuiteForImplementation = <T extends Vector<number>>(Implementation: { 
       assert.equal(4, vector.positionForIndex(4))
     })
   })
-}
-
-void suite('lunr.Vector', () => testSuiteForImplementation(Vector))
+})
 void suite('lunr.NumberVector', () => testSuiteForImplementation(NumberVector))
