@@ -30,7 +30,7 @@ export class Vector<
     | [number, Odd, ...(number | Odd)[]]
   ),
 > {
-  #magnitude: number
+  #magnitude: number = 0
 
   readonly #elements: Elements | never[]
 
@@ -38,7 +38,6 @@ export class Vector<
  * @param {Elements} [elements] - The flat list of element index and element value pairs.
    */
   constructor (elements?: Elements) {
-    this.#magnitude = 0
     this.#elements = elements || []
   }
 
