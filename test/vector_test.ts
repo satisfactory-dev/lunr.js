@@ -147,23 +147,23 @@ void suite('lunr.Vector<string>', () => {
     })
 
     void test('at the end', function () {
-      assert.equal(10, vector.positionForIndex(20))
+      assert.equal(5, vector.positionForIndex(20))
     })
 
     void test('consecutive', function () {
-      assert.equal(4, vector.positionForIndex(3))
+      assert.equal(2, vector.positionForIndex(3))
     })
 
     void test('non-consecutive gap after', function () {
-      assert.equal(6, vector.positionForIndex(5))
+      assert.equal(3, vector.positionForIndex(5))
     })
 
     void test('non-consecutive gap before', function () {
-      assert.equal(6, vector.positionForIndex(6))
+      assert.equal(3, vector.positionForIndex(6))
     })
 
     void test('non-consecutive gave before and after', function () {
-      assert.equal(8, vector.positionForIndex(9))
+      assert.equal(4, vector.positionForIndex(9))
     })
 
     void test('duplicate at the beginning', function () {
@@ -171,11 +171,11 @@ void suite('lunr.Vector<string>', () => {
     })
 
     void test('duplicate at the end', function () {
-      assert.equal(8, vector.positionForIndex(11))
+      assert.equal(4, vector.positionForIndex(11))
     })
 
     void test('duplicate consecutive', function () {
-      assert.equal(4, vector.positionForIndex(4))
+      assert.equal(2, vector.positionForIndex(4))
     })
   })
 })
