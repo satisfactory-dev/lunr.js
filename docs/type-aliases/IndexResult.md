@@ -8,7 +8,7 @@
 
 > **IndexResult** = `object`
 
-Defined in: [lib/index.ts:60](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/index.ts#L60)
+Defined in: [lib/index.ts:61](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/index.ts#L61)
 
 A result contains details of a document matching a search query.
 
@@ -18,7 +18,7 @@ A result contains details of a document matching a search query.
 
 > **matchData**: [`MatchData`](../classes/MatchData.md)
 
-Defined in: [lib/index.ts:63](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/index.ts#L63)
+Defined in: [lib/index.ts:64](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/index.ts#L64)
 
 Contains metadata about this match including which term(s) caused the match.
 
@@ -28,7 +28,7 @@ Contains metadata about this match including which term(s) caused the match.
 
 > **ref**: `string`
 
-Defined in: [lib/index.ts:61](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/index.ts#L61)
+Defined in: [lib/index.ts:62](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/index.ts#L62)
 
 The reference of the document this result represents.
 
@@ -38,6 +38,6 @@ The reference of the document this result represents.
 
 > **score**: `number`
 
-Defined in: [lib/index.ts:62](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/index.ts#L62)
+Defined in: [lib/index.ts:63](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/index.ts#L63)
 
 A number between 0 and 1 representing how similar this document is to the query.

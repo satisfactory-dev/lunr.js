@@ -5,6 +5,7 @@
 * Benchmarks converted to typescript
 	- benchmark-related dependencies updated
 	- Vector given number-only type safety implementation
+	- changed Vector.elements to Vector.#elements
 
 ## 0.1.1
 

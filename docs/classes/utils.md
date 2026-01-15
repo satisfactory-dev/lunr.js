@@ -6,7 +6,7 @@
 
 # Class: utils
 
-Defined in: [lib/utils.ts:14](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/utils.ts#L14)
+Defined in: [lib/utils.ts:14](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/utils.ts#L14)
 
 A class containing utility functions for the rest of the lunr library
 
@@ -26,7 +26,7 @@ A class containing utility functions for the rest of the lunr library
 
 > `static` **asString**(`obj`): `string`
 
-Defined in: [lib/utils.ts:25](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/utils.ts#L25)
+Defined in: [lib/utils.ts:25](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/utils.ts#L25)
 
 Convert an object to a string.
 
@@ -54,7 +54,7 @@ string representation of the passed object.
 
 > `static` **clone**\<`T`\>(`obj?`): `T` \| `null` \| `undefined` *extends* `null` ? `null` : `T` \| `null` \| `undefined` *extends* `undefined` ? `undefined` : `T`
 
-Defined in: [lib/utils.ts:49](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/utils.ts#L49)
+Defined in: [lib/utils.ts:49](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/utils.ts#L49)
 
 Clones an object.
 

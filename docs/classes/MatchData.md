@@ -6,7 +6,7 @@
 
 # Class: MatchData
 
-Defined in: [lib/match\_data.ts:17](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/match_data.ts#L17)
+Defined in: [lib/match\_data.ts:17](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/match_data.ts#L17)
 
 Contains and collects metadata about a matching document.
 A single instance of MatchData is returned as part of every
@@ -18,7 +18,7 @@ IndexResult.
 
 > **new MatchData**(`term?`, `field?`, `metadata?`): `MatchData`
 
-Defined in: [lib/match\_data.ts:29](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/match_data.ts#L29)
+Defined in: [lib/match\_data.ts:29](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/match_data.ts#L29)
 
 #### Parameters
 
@@ -52,7 +52,7 @@ The metadata recorded about this term in this field
 
 > **metadata**: `object`
 
-Defined in: [lib/match\_data.ts:21](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/match_data.ts#L21)
+Defined in: [lib/match\_data.ts:21](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/match_data.ts#L21)
 
 A cloned collection of metadata associated with this document.
 
@@ -66,7 +66,7 @@ A cloned collection of metadata associated with this document.
 
 > **add**(`term`, `field`, `metadata`): `void`
 
-Defined in: [lib/match\_data.ts:102](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/match_data.ts#L102)
+Defined in: [lib/match\_data.ts:102](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/match_data.ts#L102)
 
 Add metadata for a term/field pair to this instance of match data.
 
@@ -98,7 +98,7 @@ The metadata recorded about this term in this field
 
 > **combine**(`otherMatchData`): `void`
 
-Defined in: [lib/match\_data.ts:62](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/match_data.ts#L62)
+Defined in: [lib/match\_data.ts:62](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/match_data.ts#L62)
 
 An instance of MatchData will be created for every term that matches a
 document. However only one instance is required in a IndexResult. This

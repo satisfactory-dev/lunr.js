@@ -2,43 +2,26 @@
 
 ***
 
-[@satisfactory-dev/lunr](../globals.md) / Vector
+[@satisfactory-dev/lunr](../globals.md) / NumberVector
 
-# Class: Vector\<Odd, Elements\>
+# Class: NumberVector
 
-Defined in: [lib/vector.ts:24](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/vector.ts#L24)
+Defined in: [lib/vector.ts:218](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/vector.ts#L218)
 
-A vector is used to construct the vector space of documents and queries. These
-vectors support operations to determine the similarity between two documents or
-a document and a query.
+Number-only implementation of Vector
 
-Normally no parameters are required for initializing a vector, but in the case of
-loading a previously dumped vector the raw elements can be provided to the constructor.
+Since the test cases revealed the default implementation should support
+strings, this implementation is type-hinted to only support numbers.
 
-For performance reasons vectors are implemented with a flat array, where an elements
-index is immediately followed by its value. E.g. [index, value, index, value]. This
-allows the underlying array to be as sparse as possible and still offer decent
-performance when being used for vector calculations.
+## Extends
 
-## Extended by
-
-- [`NumberVector`](NumberVector.md)
-
-## Type Parameters
-
-### Odd
-
-`Odd` *extends* `number` \| `string` = `number` \| `string`
-
-### Elements
-
-`Elements` *extends* \[`number`, `Odd`, ...(number \| Odd)\[\]\] = \[`number`, `Odd`, ...(number \| Odd)\[\]\]
+- [`Vector`](Vector.md)\<`number`\>
 
 ## Constructors
 
 ### Constructor
 
-> **new Vector**\<`Odd`, `Elements`\>(`elements?`): `Vector`\<`Odd`, `Elements`\>
+> **new NumberVector**(`elements?`): `NumberVector`
 
 Defined in: [lib/vector.ts:43](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/vector.ts#L43)
 
@@ -46,13 +29,17 @@ Defined in: [lib/vector.ts:43](https://github.com/satisfactory-dev/lunr.js/blob/
 
 ##### elements?
 
-`Elements`
+\[`number`, `number`, `...number[]`\]
 
 The flat list of element index and element value pairs.
 
 #### Returns
 
-`Vector`\<`Odd`, `Elements`\>
+`NumberVector`
+
+#### Inherited from
+
+[`Vector`](Vector.md).[`constructor`](Vector.md#constructor)
 
 ## Accessors
 
@@ -70,6 +57,10 @@ Calculates the magnitude of this vector.
 
 `number`
 
+#### Inherited from
+
+[`Vector`](Vector.md).[`magnitude`](Vector.md#magnitude)
+
 ## Methods
 
 ### dot()
@@ -84,13 +75,17 @@ Calculates the dot product of this vector and another vector.
 
 ##### otherVector
 
-`Vector`
+[`Vector`](Vector.md)
 
 The vector to compute the dot product with.
 
 #### Returns
 
 `number`
+
+#### Inherited from
+
+[`Vector`](Vector.md).[`dot`](Vector.md#dot)
 
 ***
 
@@ -115,13 +110,17 @@ The index at which the element should be inserted.
 
 ##### val
 
-`Odd`
+`number`
 
 The value to be inserted into the vector.
 
 #### Returns
 
 `void`
+
+#### Inherited from
+
+[`Vector`](Vector.md).[`insert`](Vector.md#insert)
 
 ***
 
@@ -149,6 +148,10 @@ The index at which the element should be inserted.
 
 `number`
 
+#### Inherited from
+
+[`Vector`](Vector.md).[`positionForIndex`](Vector.md#positionforindex)
+
 ***
 
 ### similarity()
@@ -163,7 +166,7 @@ Calculates the similarity between this vector and another vector.
 
 ##### otherVector
 
-`Vector`
+[`Vector`](Vector.md)
 
 The other vector to calculate the
 similarity with.
@@ -172,11 +175,15 @@ similarity with.
 
 `number`
 
+#### Inherited from
+
+[`Vector`](Vector.md).[`similarity`](Vector.md#similarity)
+
 ***
 
 ### toArray()
 
-> **toArray**(): `Odd`[]
+> **toArray**(): `number`[]
 
 Defined in: [lib/vector.ts:194](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/vector.ts#L194)
 
@@ -184,13 +191,17 @@ Converts the vector to an array of the elements within the vector.
 
 #### Returns
 
-`Odd`[]
+`number`[]
+
+#### Inherited from
+
+[`Vector`](Vector.md).[`toArray`](Vector.md#toarray)
 
 ***
 
 ### toJSON()
 
-> **toJSON**(): `never`[] \| `Elements`
+> **toJSON**(): `never`[] \| \[`number`, `number`, `...number[]`\]
 
 Defined in: [lib/vector.ts:207](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/vector.ts#L207)
 
@@ -198,7 +209,11 @@ A JSON serializable representation of the vector.
 
 #### Returns
 
-`never`[] \| `Elements`
+`never`[] \| \[`number`, `number`, `...number[]`\]
+
+#### Inherited from
+
+[`Vector`](Vector.md).[`toJSON`](Vector.md#tojson)
 
 ***
 
@@ -220,13 +235,13 @@ The index at which the element should be inserted.
 
 ##### val
 
-`Odd`
+`number`
 
 The value to be inserted into the vector.
 
 ##### fn?
 
-[`upsertFunction`](../type-aliases/upsertFunction.md)\<`Odd`\>
+[`upsertFunction`](../type-aliases/upsertFunction.md)\<`number`\>
 
 A function that is called for updates, the existing value and the
 requested value are passed as arguments
@@ -234,3 +249,7 @@ requested value are passed as arguments
 #### Returns
 
 `void`
+
+#### Inherited from
+
+[`Vector`](Vector.md).[`upsert`](Vector.md#upsert)

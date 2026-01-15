@@ -6,7 +6,7 @@
 
 # Class: Index
 
-Defined in: [lib/index.ts:159](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/index.ts#L159)
+Defined in: [lib/index.ts:160](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/index.ts#L160)
 
 An index contains the built index of all documents and provides a query interface
 to the index.
@@ -21,7 +21,7 @@ used to load previously built and serialized indexes.
 
 > **new Index**(`attrs`): `Index`
 
-Defined in: [lib/index.ts:183](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/index.ts#L183)
+Defined in: [lib/index.ts:184](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/index.ts#L184)
 
 #### Parameters
 
@@ -37,7 +37,7 @@ The names of indexed document fields.
 
 ###### fieldVectors
 
-\{\[`s`: `string`\]: [`Vector`](Vector.md)\<`string` \| `number`\>; \}
+\{\[`s`: `string`\]: [`Vector`](Vector.md)\<`string` \| `number`, \[`number`, `string` \| `number`, ...(string \| number)\[\]\]\>; \}
 
 Field vectors
 
@@ -69,7 +69,7 @@ An set of all corpus tokens.
 
 > **fields**: `string`[]
 
-Defined in: [lib/index.ts:166](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/index.ts#L166)
+Defined in: [lib/index.ts:167](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/index.ts#L167)
 
 ***
 
@@ -77,11 +77,11 @@ Defined in: [lib/index.ts:166](https://github.com/satisfactory-dev/lunr.js/blob/
 
 > **fieldVectors**: `object`
 
-Defined in: [lib/index.ts:162](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/index.ts#L162)
+Defined in: [lib/index.ts:163](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/index.ts#L163)
 
 #### Index Signature
 
-\[`s`: `string`\]: [`Vector`](Vector.md)\<`string` \| `number`\>
+\[`s`: `string`\]: [`Vector`](Vector.md)\<`string` \| `number`, \[`number`, `string` \| `number`, ...(string \| number)\[\]\]\>
 
 ***
 
@@ -89,7 +89,7 @@ Defined in: [lib/index.ts:162](https://github.com/satisfactory-dev/lunr.js/blob/
 
 > **invertedIndex**: `object`
 
-Defined in: [lib/index.ts:160](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/index.ts#L160)
+Defined in: [lib/index.ts:161](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/index.ts#L161)
 
 #### Index Signature
 
@@ -101,7 +101,7 @@ Defined in: [lib/index.ts:160](https://github.com/satisfactory-dev/lunr.js/blob/
 
 > **pipeline**: [`Pipeline`](Pipeline.md)
 
-Defined in: [lib/index.ts:168](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/index.ts#L168)
+Defined in: [lib/index.ts:169](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/index.ts#L169)
 
 ***
 
@@ -109,7 +109,7 @@ Defined in: [lib/index.ts:168](https://github.com/satisfactory-dev/lunr.js/blob/
 
 > **tokenSet**: [`TokenSet`](TokenSet.md)
 
-Defined in: [lib/index.ts:164](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/index.ts#L164)
+Defined in: [lib/index.ts:165](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/index.ts#L165)
 
 ## Methods
 
@@ -117,7 +117,7 @@ Defined in: [lib/index.ts:164](https://github.com/satisfactory-dev/lunr.js/blob/
 
 > **query**(`fn`): [`IndexResult`](../type-aliases/IndexResult.md)[]
 
-Defined in: [lib/index.ts:237](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/index.ts#L237)
+Defined in: [lib/index.ts:238](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/index.ts#L238)
 
 Performs a query against the index using the yielded Query object.
 
@@ -149,7 +149,7 @@ A function that is used to build the query.
 
 > **search**(`queryString`): [`IndexResult`](../type-aliases/IndexResult.md)[]
 
-Defined in: [lib/index.ts:215](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/index.ts#L215)
+Defined in: [lib/index.ts:216](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/index.ts#L216)
 
 Performs a search against the index using lunr query syntax.
 
@@ -181,7 +181,7 @@ If the passed query string cannot be parsed.
 
 > **toJSON**(): [`SerializedIndex`](../type-aliases/SerializedIndex.md)
 
-Defined in: [lib/index.ts:550](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/index.ts#L550)
+Defined in: [lib/index.ts:551](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/index.ts#L551)
 
 Prepares the index for JSON serialization.
 
@@ -198,7 +198,7 @@ separate JSON schema file.
 
 > `static` **load**(`serializedIndex`, `__namedParameters`): `Index`
 
-Defined in: [lib/index.ts:580](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/index.ts#L580)
+Defined in: [lib/index.ts:581](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/index.ts#L581)
 
 Loads a previously serialized Index
 

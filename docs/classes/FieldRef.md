@@ -6,7 +6,7 @@
 
 # Class: FieldRef
 
-Defined in: [lib/field\_ref.ts:7](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/field_ref.ts#L7)
+Defined in: [lib/field\_ref.ts:7](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/field_ref.ts#L7)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [lib/field\_ref.ts:7](https://github.com/satisfactory-dev/lunr.js/bl
 
 > **new FieldRef**(`docRef`, `fieldName`, `stringValue`): `FieldRef`
 
-Defined in: [lib/field\_ref.ts:16](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/field_ref.ts#L16)
+Defined in: [lib/field\_ref.ts:16](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/field_ref.ts#L16)
 
 #### Parameters
 
@@ -40,7 +40,7 @@ Defined in: [lib/field\_ref.ts:16](https://github.com/satisfactory-dev/lunr.js/b
 
 > **docRef**: `string`
 
-Defined in: [lib/field\_ref.ts:10](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/field_ref.ts#L10)
+Defined in: [lib/field\_ref.ts:10](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/field_ref.ts#L10)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [lib/field\_ref.ts:10](https://github.com/satisfactory-dev/lunr.js/b
 
 > **fieldName**: `string`
 
-Defined in: [lib/field\_ref.ts:12](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/field_ref.ts#L12)
+Defined in: [lib/field\_ref.ts:12](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/field_ref.ts#L12)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [lib/field\_ref.ts:12](https://github.com/satisfactory-dev/lunr.js/b
 
 > `static` **joiner**: `string` = `"/"`
 
-Defined in: [lib/field\_ref.ts:8](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/field_ref.ts#L8)
+Defined in: [lib/field\_ref.ts:8](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/field_ref.ts#L8)
 
 ## Methods
 
@@ -64,7 +64,7 @@ Defined in: [lib/field\_ref.ts:8](https://github.com/satisfactory-dev/lunr.js/bl
 
 > **toString**(): `string`
 
-Defined in: [lib/field\_ref.ts:35](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/field_ref.ts#L35)
+Defined in: [lib/field\_ref.ts:35](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/field_ref.ts#L35)
 
 #### Returns
 
@@ -76,7 +76,7 @@ Defined in: [lib/field\_ref.ts:35](https://github.com/satisfactory-dev/lunr.js/b
 
 > `static` **fromString**(`s`): `FieldRef`
 
-Defined in: [lib/field\_ref.ts:22](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/field_ref.ts#L22)
+Defined in: [lib/field\_ref.ts:22](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/field_ref.ts#L22)
 
 #### Parameters
 

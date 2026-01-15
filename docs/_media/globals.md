@@ -16,6 +16,7 @@
 - [Index](classes/Index.md)
 - [Lunr](classes/Lunr.md)
 - [MatchData](classes/MatchData.md)
+- [NumberVector](classes/NumberVector.md)
 - [Pipeline](classes/Pipeline.md)
 - [Query](classes/Query.md)
 - [QueryClause](classes/QueryClause.md)

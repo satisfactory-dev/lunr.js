@@ -6,7 +6,7 @@
 
 # Class: TokenSet
 
-Defined in: [lib/token\_set.ts:34](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/token_set.ts#L34)
+Defined in: [lib/token\_set.ts:34](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/token_set.ts#L34)
 
 A token set is used to store the unique list of all tokens
 within an index. Token sets are also used to represent an
@@ -32,7 +32,7 @@ This helps to reduce the space used for storing the token set.
 
 > **new TokenSet**(): `TokenSet`
 
-Defined in: [lib/token\_set.ts:53](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/token_set.ts#L53)
+Defined in: [lib/token\_set.ts:53](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/token_set.ts#L53)
 
 #### Returns
 
@@ -44,7 +44,7 @@ Defined in: [lib/token\_set.ts:53](https://github.com/satisfactory-dev/lunr.js/b
 
 > **edges**: `object`
 
-Defined in: [lib/token\_set.ts:40](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/token_set.ts#L40)
+Defined in: [lib/token\_set.ts:40](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/token_set.ts#L40)
 
 #### Index Signature
 
@@ -56,7 +56,7 @@ Defined in: [lib/token\_set.ts:40](https://github.com/satisfactory-dev/lunr.js/b
 
 > **final**: `boolean`
 
-Defined in: [lib/token\_set.ts:38](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/token_set.ts#L38)
+Defined in: [lib/token\_set.ts:38](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/token_set.ts#L38)
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: [lib/token\_set.ts:38](https://github.com/satisfactory-dev/lunr.js/b
 
 > **id**: `number`
 
-Defined in: [lib/token\_set.ts:45](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/token_set.ts#L45)
+Defined in: [lib/token\_set.ts:45](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/token_set.ts#L45)
 
 ## Accessors
 
@@ -74,7 +74,7 @@ Defined in: [lib/token\_set.ts:45](https://github.com/satisfactory-dev/lunr.js/b
 
 > **set** **\_str**(`value`): `void`
 
-Defined in: [lib/token\_set.ts:49](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/token_set.ts#L49)
+Defined in: [lib/token\_set.ts:49](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/token_set.ts#L49)
 
 ##### Parameters
 
@@ -92,7 +92,7 @@ Defined in: [lib/token\_set.ts:49](https://github.com/satisfactory-dev/lunr.js/b
 
 > **intersect**(`b`): `TokenSet`
 
-Defined in: [lib/token\_set.ts:397](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/token_set.ts#L397)
+Defined in: [lib/token\_set.ts:397](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/token_set.ts#L397)
 
 Returns a new TokenSet that is the intersection of
 this TokenSet and the passed TokenSet.
@@ -118,7 +118,7 @@ An other TokenSet to intersect with.
 
 > **toArray**(): `string`[]
 
-Defined in: [lib/token\_set.ts:308](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/token_set.ts#L308)
+Defined in: [lib/token\_set.ts:308](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/token_set.ts#L308)
 
 Converts this TokenSet into an array of strings
 contained within the TokenSet.
@@ -137,7 +137,7 @@ undefined and are likely to cause an infinite loop.
 
 > **toString**(): `string`
 
-Defined in: [lib/token\_set.ts:360](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/token_set.ts#L360)
+Defined in: [lib/token\_set.ts:360](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/token_set.ts#L360)
 
 Generates a string representation of a TokenSet.
 
@@ -156,7 +156,7 @@ friendly representation of the TokenSet.
 
 > `static` **fromArray**(`arr`): `TokenSet`
 
-Defined in: [lib/token\_set.ts:81](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/token_set.ts#L81)
+Defined in: [lib/token\_set.ts:81](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/token_set.ts#L81)
 
 Creates a TokenSet instance from the given sorted array of words.
 
@@ -182,7 +182,7 @@ Will throw an error if the input array is not sorted.
 
 > `static` **fromFuzzyString**(`str`, `editDistance`): `TokenSet`
 
-Defined in: [lib/token\_set.ts:124](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/token_set.ts#L124)
+Defined in: [lib/token\_set.ts:124](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/token_set.ts#L124)
 
 Creates a token set representing a single string with a specified
 edit distance.
@@ -218,7 +218,7 @@ The allowed edit distance to match.
 
 > `static` **fromString**(`str`): `TokenSet`
 
-Defined in: [lib/token\_set.ts:266](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/token_set.ts#L266)
+Defined in: [lib/token\_set.ts:266](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/token_set.ts#L266)
 
 Creates a TokenSet from a string.
 
@@ -244,7 +244,7 @@ The string to create a TokenSet from.
 
 > `static` **resetNextId**(): `void`
 
-Defined in: [lib/token\_set.ts:70](https://github.com/satisfactory-dev/lunr.js/blob/a6f1f9f7bf834bcdd5a90dadeebd8a5011d7ce3e/lib/token_set.ts#L70)
+Defined in: [lib/token\_set.ts:70](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/token_set.ts#L70)
 
 #### Returns
 
