@@ -1,9 +1,9 @@
 import type {
   Index,
   IndexResult,
-} from '@satisfactory-dev/lunr'
+} from '../lunr.ts'
 
-import lunr, { QueryParseError } from '@satisfactory-dev/lunr'
+import lunr, { QueryParseError } from '../lunr.ts'
 
 import assert from 'assert/strict'
 

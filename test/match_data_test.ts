@@ -1,4 +1,4 @@
-import { MatchData } from '@satisfactory-dev/lunr'
+import { MatchData } from '../lunr.ts'
 
 import assert from 'assert/strict'
 

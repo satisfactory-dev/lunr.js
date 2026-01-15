@@ -1,4 +1,4 @@
-import lunr, { Index } from '@satisfactory-dev/lunr'
+import lunr, { Index } from '../lunr.ts'
 
 import assert from 'assert/strict'
 

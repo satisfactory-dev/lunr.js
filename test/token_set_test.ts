@@ -1,4 +1,4 @@
-import lunr, { TokenSet } from '@satisfactory-dev/lunr'
+import lunr, { TokenSet } from '../lunr.ts'
 
 import assert from 'assert/strict'
 

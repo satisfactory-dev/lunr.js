@@ -1,4 +1,4 @@
-import { LEADING_OR_TRAILING, Query, QueryPresence, QueryWildcard, Token, tokenizer } from '@satisfactory-dev/lunr'
+import { LEADING_OR_TRAILING, Query, QueryPresence, QueryWildcard, Token, tokenizer } from '../lunr.ts'
 
 import assert from 'assert/strict'
 

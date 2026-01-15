@@ -1,9 +1,9 @@
 import type {
   PipelineFunction,
   LabeledPipelineFunction,
-} from '@satisfactory-dev/lunr'
+} from '../lunr.ts'
 
-import { Pipeline } from '@satisfactory-dev/lunr'
+import { Pipeline } from '../lunr.ts'
 
 import assert from 'assert/strict'
 

@@ -1,4 +1,4 @@
-import type { QueryClause } from '@satisfactory-dev/lunr'
+import type { QueryClause } from '../lunr.ts'
 import lunr from '@satisfactory-dev/lunr'
 
 import assert from 'assert/strict'

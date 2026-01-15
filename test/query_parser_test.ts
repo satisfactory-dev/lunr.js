@@ -1,4 +1,4 @@
-import lunr, { Query, QueryParser, QueryParseError, QueryLexeme } from '@satisfactory-dev/lunr'
+import lunr, { Query, QueryParser, QueryParseError, QueryLexeme } from '../lunr.ts'
 
 import assert from 'assert/strict'
 

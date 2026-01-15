@@ -1,4 +1,4 @@
-import { FieldRef } from '@satisfactory-dev/lunr'
+import { FieldRef } from '../lunr.ts'
 
 import assert from 'assert/strict'
 

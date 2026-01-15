@@ -1,4 +1,4 @@
-import type { LunrConfig, SerializedIndex} from '@satisfactory-dev/lunr'
+import type { LunrConfig, SerializedIndex} from '../lunr.ts'
 import lunr from '@satisfactory-dev/lunr'
 
 import type {

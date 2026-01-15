@@ -1,5 +1,5 @@
-import type { fieldExtractor, PipelineFunction, Token} from '@satisfactory-dev/lunr'
-import { Builder, Index, Pipeline, TokenSet, Vector } from '@satisfactory-dev/lunr'
+import type { fieldExtractor, PipelineFunction, Token} from '../lunr.ts'
+import { Builder, Index, Pipeline, TokenSet, Vector } from '../lunr.ts'
 
 import assert from 'assert/strict'
 

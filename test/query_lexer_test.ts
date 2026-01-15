@@ -1,8 +1,8 @@
 import type {
   QueryLexeme,
-} from '@satisfactory-dev/lunr'
+} from '../lunr.ts'
 
-import { QueryLexer } from '@satisfactory-dev/lunr'
+import { QueryLexer } from '../lunr.ts'
 
 import assert from 'assert/strict'
 

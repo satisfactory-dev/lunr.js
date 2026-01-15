@@ -1,7 +1,7 @@
 import {
   NumberVector,
   Vector,
-} from '@satisfactory-dev/lunr'
+} from '../lunr.ts'
 
 import assert from 'assert/strict'
 
