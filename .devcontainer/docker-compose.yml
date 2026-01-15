@@ -1,5 +1,9 @@
 services:
     devcontainer:
+        environment:
+            - PORT_BENCHER_API=${PORT_BENCHER_API:-8004}
+            - PORT_BENCHER_CONSOLE=${PORT_BENCHER_CONSOLE:-8005}
+            - BENCHER_HOST=http://localhost:${PORT_BENCHER_API:-8004}
         build:
             dockerfile: devcontainer.DockerFile
         restart: always
@@ -7,8 +11,6 @@ services:
         volumes:
             - ../../:/workspaces:cached
     docs:
-        env_file:
-            - .env
         image: nginxinc/nginx-unprivileged:1.29-alpine
         restart: unless-stopped
         ports:
@@ -17,8 +19,6 @@ services:
             - ./docs.conf:/etc/nginx/conf.d/default.conf
             - ../.cache/docs/html/:/app/
     coverage:
-        env_file:
-            - .env
         image: nginxinc/nginx-unprivileged:1.29-alpine
         restart: unless-stopped
         ports:
@@ -27,8 +27,6 @@ services:
             - ./coverage.conf:/etc/nginx/conf.d/default.conf
             - ../coverage/:/app/
     tests:
-        env_file:
-            - .env
         image: nginxinc/nginx-unprivileged:1.29-alpine
         restart: unless-stopped
         ports:

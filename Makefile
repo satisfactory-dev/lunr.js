@@ -27,7 +27,7 @@ lint--eslint--js:
 	./node_modules/.bin/eslint --cache --cache-location './.cache/eslint/javascript.eslintcache' -c ./eslint-javascript.config.mjs './*.mjs'
 
 perf/*_perf.ts: lunr.js
-	node $@
+	bencher run --host ${BENCHER_HOST} "node $@"
 
 benchmark: perf/*_perf.ts
 

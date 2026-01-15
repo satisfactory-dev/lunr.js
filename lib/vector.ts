@@ -30,7 +30,8 @@ export class Vector<
     | [number, Odd, ...(number | Odd)[]]
   ),
 > {
-  #magnitude: number = 0
+  #magnitude: number | undefined = undefined
+  #magnitudeSquared: number = 0
 
   readonly #elements: Elements | never[]
 
@@ -115,7 +116,8 @@ export class Vector<
    * requested value are passed as arguments
    */
   upsert (insertIdx: number, val: Odd, fn?: upsertFunction<Odd>) {
-    this.#magnitude = 0
+    this.#magnitudeSquared = 0
+    this.#magnitude = undefined
     var position = this.positionForIndex(insertIdx)
 
     if (this.#elements[position] == insertIdx) {
@@ -132,7 +134,18 @@ export class Vector<
    * Calculates the magnitude of this vector.
    */
   get magnitude (): number {
-    if (this.#magnitude) return this.#magnitude
+    if (undefined === this.#magnitude) {
+      this.#magnitude = Math.sqrt(this.magnitudeSquared)
+    }
+
+    return this.#magnitude
+  }
+
+  /**
+   * Calculates the square of the magnitude of this vector.
+   */
+  get magnitudeSquared (): number {
+    if (this.#magnitudeSquared) return this.#magnitudeSquared
 
     var sumOfSquares = 0,
         elementsLength = this.#elements.length
@@ -142,7 +155,7 @@ export class Vector<
       sumOfSquares += val * val
     }
 
-    return this.#magnitude = Math.sqrt(sumOfSquares)
+    return this.#magnitudeSquared = sumOfSquares
   }
 
   /**
@@ -181,7 +194,8 @@ export class Vector<
    * similarity with.
    */
   similarity (otherVector: Vector): number {
-    return this.dot(otherVector) / this.magnitude || 0
+    const dot = (this.dot(otherVector) ** 2) * 2
+    return (dot / this.magnitudeSquared) || 0
   }
 
   /**

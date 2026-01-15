@@ -30,6 +30,7 @@ const testSuiteForImplementation = <T extends Vector<number>>(
   void suite('#magnitude', function () {
     void test('calculates magnitude of a vector', function () {
       var vector = vectorFromArgs(4, 5, 6)
+      assert.equal(77, vector.magnitudeSquared)
       assert.equal(Math.sqrt(77), vector.magnitude)
     })
   })
@@ -74,10 +75,12 @@ const testSuiteForImplementation = <T extends Vector<number>>(
     void test('invalidates magnitude cache', function () {
       var vector = vectorFromArgs(4, 5, 6)
 
+      assert.equal(77, vector.magnitudeSquared)
       assert.equal(Math.sqrt(77), vector.magnitude)
 
       vector.insert(3, 7)
 
+      assert.equal(126, vector.magnitudeSquared)
       assert.equal(Math.sqrt(126), vector.magnitude)
     })
 
@@ -101,10 +104,12 @@ const testSuiteForImplementation = <T extends Vector<number>>(
     void test('invalidates magnitude cache', function () {
       var vector = vectorFromArgs(4, 5, 6)
 
+      assert.equal(77, vector.magnitudeSquared)
       assert.equal(Math.sqrt(77), vector.magnitude)
 
       vector.upsert(3, 7)
 
+      assert.equal(126, vector.magnitudeSquared)
       assert.equal(Math.sqrt(126), vector.magnitude)
     })
 
