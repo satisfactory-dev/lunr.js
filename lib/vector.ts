@@ -30,9 +30,6 @@ export class Vector<
     | [number, Odd, ...(number | Odd)[]]
   ),
 > {
-  /**
-   * @type {number}
-   */
   #magnitude: number
 
   readonly #elements: Elements | never[]
