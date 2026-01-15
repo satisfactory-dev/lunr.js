@@ -20,7 +20,7 @@ lint--tsc:
 
 lint--eslint--ts:
 	@echo 'running eslint on typescript'
-	./node_modules/.bin/eslint --cache --cache-location './.cache/eslint/typescript.eslintcache' './*.ts' './lib/*.ts' './test/*.ts' --ignore-pattern './**/*.d.ts'
+	./node_modules/.bin/eslint --cache --cache-location './.cache/eslint/typescript.eslintcache' './*.ts' './lib/*.ts' './test/*.ts' './perf/*.ts' --ignore-pattern './**/*.d.ts'
 
 lint--eslint--js:
 	@echo 'running eslint on javascript'
