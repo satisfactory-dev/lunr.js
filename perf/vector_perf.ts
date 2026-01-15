@@ -1,5 +1,11 @@
+import * as lunr from '../lunr.ts'
+
+import {
+  suite,
+} from './perf_helper.ts'
+
 suite('lunr.Vector', function () {
-  var index, val
+  var index: number, val
 
   var v1 = new lunr.Vector,
       v2 = new lunr.Vector
@@ -11,12 +17,14 @@ suite('lunr.Vector', function () {
   }
 
   for (var i = 0; i < 1000; i++) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     index = Math.floor(i + Math.random() * 100)
     val = Math.random() * 100
     v2.insert(i, val)
   }
 
   this.add('magnitude', function () {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     v1.magnitude
   })
 
