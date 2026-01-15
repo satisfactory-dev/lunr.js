@@ -1,14 +1,17 @@
 import * as lunr from '../lunr.ts'
 
+import type {
+  SuiteCallback,
+} from './perf_helper.ts'
 import {
   suite,
 } from './perf_helper.ts'
 
-suite('lunr.Vector', function () {
+const suiteCallback = (Implementation: { new (): lunr.Vector}): SuiteCallback => function () {
   var index: number, val
 
-  var v1 = new lunr.Vector,
-      v2 = new lunr.Vector
+  var v1 = new Implementation,
+      v2 = new Implementation
 
   for (var i = 0; i < 1000; i++) {
     index = Math.floor(i + Math.random() * 100)
@@ -36,4 +39,7 @@ suite('lunr.Vector', function () {
     v1.similarity(v2)
   })
 
-})
+}
+
+suite('lunr.Vector', suiteCallback(lunr.Vector))
+suite('lunr.NumberVector', suiteCallback(lunr.NumberVector))

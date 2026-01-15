@@ -206,3 +206,11 @@ export class Vector<
     return this.elements
   }
 }
+
+/**
+ * Number-only implementation of Vector
+ *
+ * Since the test cases revealed the default implementation should support
+ * strings, this implementation is type-hinted to only support numbers.
+ */
+export class NumberVector extends Vector<number> {}
