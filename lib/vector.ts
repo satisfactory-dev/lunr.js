@@ -23,20 +23,26 @@ export type upsertFunction<
  */
 export class Vector<
   Odd extends number | string = number | string,
+  Elements extends (
+    | [number, Odd, ...(number | Odd)[]]
+
+  ) = (
+    | [number, Odd, ...(number | Odd)[]]
+  ),
 > {
   /**
    * @type {number}
    */
   #magnitude: number
 
-  readonly elements: [number, Odd, ...(number | Odd)[]] | never[]
+  readonly #elements: Elements | never[]
 
   /**
- * @param {(number|string)[]} [elements] - The flat list of element index and element value pairs.
+ * @param {Elements} [elements] - The flat list of element index and element value pairs.
    */
-  constructor (elements?: Vector<Odd>['elements']) {
+  constructor (elements?: Elements) {
     this.#magnitude = 0
-    this.elements = elements || []
+    this.#elements = elements || []
   }
 
   /**
@@ -50,15 +56,15 @@ export class Vector<
    */
   positionForIndex (index: number): number {
     // For an empty vector the tuple can be inserted at the beginning
-    if (this.elements.length == 0) {
+    if (this.#elements.length == 0) {
       return 0
     }
 
     var start = 0,
-        end = this.elements.length / 2,
+        end = this.#elements.length / 2,
         sliceLength = end - start,
         pivotPoint = Math.floor(sliceLength / 2),
-        pivotIndex = this.elements[pivotPoint * 2] as number
+        pivotIndex = this.#elements[pivotPoint * 2] as number
 
     while (sliceLength > 1) {
       if (pivotIndex < index) {
@@ -75,7 +81,7 @@ export class Vector<
 
       sliceLength = end - start
       pivotPoint = start + Math.floor(sliceLength / 2)
-      pivotIndex = this.elements[pivotPoint * 2] as number
+      pivotIndex = this.#elements[pivotPoint * 2] as number
     }
 
     if (pivotIndex == index) {
@@ -116,13 +122,13 @@ export class Vector<
     this.#magnitude = 0
     var position = this.positionForIndex(insertIdx)
 
-    if (this.elements[position] == insertIdx) {
+    if (this.#elements[position] == insertIdx) {
       if (!fn) {
         return
       }
-      this.elements[position + 1] = fn(this.elements[position + 1] as Odd, val)
+      this.#elements[position + 1] = fn(this.#elements[position + 1] as Odd, val)
     } else {
-      this.elements.splice(position, 0, insertIdx, val)
+      this.#elements.splice(position, 0, insertIdx, val)
     }
   }
 
@@ -133,10 +139,10 @@ export class Vector<
     if (this.#magnitude) return this.#magnitude
 
     var sumOfSquares = 0,
-        elementsLength = this.elements.length
+        elementsLength = this.#elements.length
 
     for (var i = 1; i < elementsLength; i += 2) {
-      var val = this.elements[i] as number
+      var val = this.#elements[i] as number
       sumOfSquares += val * val
     }
 
@@ -150,7 +156,7 @@ export class Vector<
   */
   dot (otherVector: Vector): number {
     var dotProduct = 0,
-        a = this.elements, b = otherVector.elements,
+        a = this.#elements, b = otherVector.#elements,
         aLen = a.length, bLen = b.length,
         aVal = 0, bVal = 0,
         i = 0, j = 0
@@ -186,10 +192,10 @@ export class Vector<
    * Converts the vector to an array of the elements within the vector.
    */
   toArray (): (Odd)[] {
-    var output = new Array<Odd>(this.elements.length / 2)
+    var output = new Array<Odd>(this.#elements.length / 2)
 
-    for (var i = 1, j = 0; i < this.elements.length; i += 2, j++) {
-      output[j] = this.elements[i] as Odd
+    for (var i = 1, j = 0; i < this.#elements.length; i += 2, j++) {
+      output[j] = this.#elements[i] as Odd
     }
 
     return output
@@ -199,7 +205,7 @@ export class Vector<
    * A JSON serializable representation of the vector.
    */
   toJSON () {
-    return this.elements
+    return this.#elements
   }
 }
 

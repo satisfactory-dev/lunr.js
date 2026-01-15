@@ -625,7 +625,7 @@ export class Index {
 
       fieldVectors[ref] = allNumbers
         ? new NumberVector(elements as [number, number, ...number[]])
-        : new Vector(elements)
+        : new Vector(elements as [number, number | string, ...(number | string)[]])
     }
 
     for (let i = 0; i < serializedInvertedIndex.length; i++) {
