@@ -1,4 +1,7 @@
-import { Vector } from '@satisfactory-dev/lunr'
+import {
+  NumberVector,
+  Vector,
+} from '@satisfactory-dev/lunr'
 
 import assert from 'assert/strict'
 
@@ -7,9 +10,11 @@ import {
   test,
 } from './shim.ts'
 
-void suite('lunr.Vector', function () {
-  var vectorFromArgs = function (...args: number[]): Vector<number> {
-    var vector = new Vector<number>()
+const testSuiteForImplementation = <T extends Vector<number>>(Implementation: { new (
+  elements?: T['elements']
+): T }) => {
+  var vectorFromArgs = function (...args: number[]): T {
+    var vector = new Implementation()
 
     Array.prototype.slice.call(args)
       .forEach(function (el: number, i) {
@@ -46,7 +51,7 @@ void suite('lunr.Vector', function () {
     })
 
     void test('empty vector', function () {
-      var vEmpty = new Vector,
+      var vEmpty = new Implementation,
           v1 = vectorFromArgs(1)
 
       assert.equal(0, vEmpty.similarity(v1))
@@ -54,8 +59,8 @@ void suite('lunr.Vector', function () {
     })
 
     void test('non-overlapping vector', function () {
-      var v1 = new Vector([1, 1]),
-          v2 = new Vector([2, 1])
+      var v1 = new Implementation([1, 1]),
+          v2 = new Implementation([2, 1])
 
       assert.equal(0, v1.similarity(v2))
       assert.equal(0, v2.similarity(v1))
@@ -74,7 +79,7 @@ void suite('lunr.Vector', function () {
     })
 
     void test('keeps items in index specified order', function () {
-      var vector = new Vector
+      var vector = new Implementation
 
       vector.insert(2, 4)
       vector.insert(1, 5)
@@ -101,7 +106,7 @@ void suite('lunr.Vector', function () {
     })
 
     void test('keeps items in index specified order', function () {
-      var vector = new Vector
+      var vector = new Implementation
 
       vector.upsert(2, 4)
       vector.upsert(1, 5)
@@ -118,7 +123,7 @@ void suite('lunr.Vector', function () {
   })
 
   void suite('#positionForIndex', function () {
-    var vector = new Vector<string> ([
+    var vector = new Implementation<string> ([
       1, 'a',
       2, 'b',
       4, 'c',
@@ -162,4 +167,7 @@ void suite('lunr.Vector', function () {
       assert.equal(4, vector.positionForIndex(4))
     })
   })
-})
+}
+
+void suite('lunr.Vector', () => testSuiteForImplementation(Vector))
+void suite('lunr.NumberVector', () => testSuiteForImplementation(NumberVector))

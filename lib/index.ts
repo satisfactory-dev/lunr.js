@@ -13,6 +13,7 @@ import {
 } from './match_data.ts'
 
 import {
+  NumberVector,
   Vector,
 } from './vector.ts'
 
@@ -255,7 +256,7 @@ export class Index {
     * queries.
     */
     for (let i = 0; i < this.fields.length; i++) {
-      queryVectors[this.fields[i]] = new Vector<number>()
+      queryVectors[this.fields[i]] = new NumberVector()
     }
 
     fn.call(query, query)
@@ -618,7 +619,13 @@ export class Index {
         elements,
       ] = serializedVectors[i]
 
-      fieldVectors[ref] = new Vector(elements)
+      const allNumbers = elements.every((
+        maybe,
+      ): maybe is number => 'number' === typeof maybe)
+
+      fieldVectors[ref] = allNumbers
+        ? new NumberVector(elements as [number, number, ...number[]])
+        : new Vector(elements)
     }
 
     for (let i = 0; i < serializedInvertedIndex.length; i++) {
