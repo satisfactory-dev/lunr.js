@@ -128,8 +128,6 @@ export class Vector<
 
   /**
    * Calculates the magnitude of this vector.
-   *
-   * @returns {Number}
    */
   get magnitude (): number {
     if (this.#magnitude) return this.#magnitude
@@ -149,7 +147,6 @@ export class Vector<
    * Calculates the dot product of this vector and another vector.
    *
    * @param {Vector} otherVector - The vector to compute the dot product with.
-   * @returns {Number}
   */
   dot (otherVector: Vector): number {
     var dotProduct = 0,
@@ -180,7 +177,6 @@ export class Vector<
    *
    * @param {Vector} otherVector - The other vector to calculate the
    * similarity with.
-   * @returns {Number}
    */
   similarity (otherVector: Vector): number {
     return this.dot(otherVector) / this.magnitude || 0
