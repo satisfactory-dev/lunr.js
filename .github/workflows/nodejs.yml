@@ -40,7 +40,7 @@ jobs:
                 --err \
                 --adapter json \
                 --start-point main \
-                --start-point-hash da0b694238ff9046b6ad335d5f69f5f8da6c9d46 \
+                --start-point-hash 848d47d71b2c10fe087252be966a5ae9c79d5f29 \
                 node ./perf/perf_runner.ts
     coverage:
         if: github.event.repository.visibility == 'public'
