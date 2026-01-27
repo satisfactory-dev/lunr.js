@@ -38,7 +38,7 @@ jobs:
                 --token '${{ secrets.BENCHER_API_TOKEN }}' \
                 --err \
                 --adapter json \
-                "node ./perf/perf_runner.ts"'
+                node ./perf/perf_runner.ts
     coverage:
         if: github.event.repository.visibility == 'public'
         needs: basic-checks
