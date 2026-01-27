@@ -31,6 +31,7 @@ jobs:
                   node-version: 24.x
                   cache: 'npm'
             - run: npm ci
+            - run: make lunr.js
             - uses: bencherdev/bencher@main
             - run: |
                 bencher run \
