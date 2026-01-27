@@ -1,33 +1,92 @@
-import Benchmark from 'benchmark'
+import type {
+  cycleFormatter,
+} from '@satisfactory-dev/benchmark'
+import {
+  Suite,
+} from '@satisfactory-dev/benchmark'
+
+import type {
+  BMF,
+  stats,
+} from '@satisfactory-dev/benchmark/integrations/bencher'
+import {
+  bencherLogger,
+  bencherReduction,
+  extractStats,
+} from '@satisfactory-dev/benchmark/integrations/bencher'
+
 import wordList from 'word-list'
 import fs from 'node:fs'
-
-type BenchmarkEvent<T extends object> = (
-  & Benchmark.Event
-  & {
-    target: T & { toString(): string }
-    currentTarget: T,
-  }
-)
 
 export const words = fs.readFileSync(wordList, 'utf-8')
   .split('\n')
   .slice(0, 1000)
   .sort()
 
-export type SuiteCallback = (
-  this: Benchmark.Suite,
-  suite: Benchmark.Suite,
-) => void
+const reducer = function (was: BMF, stats: stats): BMF {
+  was[`${stats.suite}::${stats.benchmark}`] = {
+    hz: {
+      value: stats.hz,
+    },
+    rme: {
+      value: stats.stats.rme,
+    },
+    sample: {
+      value: stats.stats.mean,
+      // eslint-disable-next-line camelcase
+      lower_value: stats.sample.sort((a, b) => a - b)[0],
+      // eslint-disable-next-line camelcase
+      upper_value: stats.sample.sort((a, b) => b - a)[0],
+    },
+  }
 
-export const suite = function (name: string, fn: SuiteCallback) {
-  var s = new Benchmark.Suite(name, {
-    onStart: function (e: BenchmarkEvent<Benchmark.Suite>) { console.log(e.currentTarget.name) },
-    onCycle: function (e: BenchmarkEvent<Benchmark>) { console.log("  " + String(e.target)) },
-    onError: function (e: BenchmarkEvent<Benchmark>) { console.error(e.target.error) },
-  })
+  return was
+}
 
-  fn.call(s, s)
+const formatter = async function* (
+  cycleFormatter: cycleFormatter<stats>,
+  reducer: (was: BMF, stats: stats) => BMF,
+  suiteSets: [Suite, ...Suite[]][],
+) {
+  for (const suites of suiteSets) {
+    const result = await Suite.formatCycles<stats>(cycleFormatter, ...suites)
+    yield bencherReduction(reducer, ...result)
+  }
+}
 
-  s.run()
+const bulkFormatter = async function* (
+  cycleFormatter: cycleFormatter<stats>,
+  reducer: (was: BMF, stats: stats) => BMF,
+  suiteSets: [Suite, ...Suite[]][],
+) {
+  const results: BMF = {}
+
+  for await (const result of formatter(cycleFormatter, reducer, suiteSets)) {
+    Object.assign(results, result)
+  }
+
+  yield results
+}
+
+export const suitesLogger = function (
+  ...suites: [Suite, ...Suite[]]
+) {
+  return bencherLogger(
+    extractStats,
+    reducer,
+    bulkFormatter,
+    [suites],
+    process.stdout,
+  )
+}
+
+export const suite = function (
+  name: string,
+  fn: (this: Suite) => void,
+) {
+  var s = new Suite(name)
+
+  fn.call(s)
+
+  return s
 }

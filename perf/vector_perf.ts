@@ -1,13 +1,14 @@
+import type {
+  Suite,
+} from '@satisfactory-dev/benchmark'
 import * as lunr from '../lunr.ts'
 
-import type {
-  SuiteCallback,
-} from './perf_helper.ts'
 import {
   suite,
+  suitesLogger,
 } from './perf_helper.ts'
 
-const suiteCallback = (Implementation: { new (): lunr.Vector}): SuiteCallback => function () {
+const suiteCallback = (Implementation: { new (): lunr.Vector}) => function (this: Suite) {
   var index: number, val
 
   var v1 = new Implementation,
@@ -38,8 +39,15 @@ const suiteCallback = (Implementation: { new (): lunr.Vector}): SuiteCallback =>
   this.add('similarity', function () {
     v1.similarity(v2)
   })
-
 }
 
-suite('lunr.Vector', suiteCallback(lunr.Vector))
-suite('lunr.NumberVector', suiteCallback(lunr.NumberVector))
+const suites: [Suite, ...Suite[]] = [
+  suite('lunr.Vector', suiteCallback(lunr.Vector)),
+  suite('lunr.NumberVector', suiteCallback(lunr.NumberVector)),
+]
+
+export default suites
+
+if (process.argv[1] === import.meta.filename) {
+  await suitesLogger(...suites)
+}

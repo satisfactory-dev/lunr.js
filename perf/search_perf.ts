@@ -2,9 +2,10 @@ import lunr from '../lunr.ts'
 
 import {
   suite,
+  suitesLogger,
 } from './perf_helper.ts'
 
-suite('search', function () {
+const search = suite('search', function () {
   var documents = [
     {
       id: 'a',
@@ -81,3 +82,9 @@ suite('search', function () {
     idx.search('green +plant')
   })
 })
+
+export default search
+
+if (process.argv[1] === import.meta.filename) {
+  await suitesLogger(search)
+}

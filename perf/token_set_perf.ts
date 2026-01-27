@@ -2,10 +2,11 @@ import * as lunr from '../lunr.ts'
 
 import {
   suite,
+  suitesLogger,
   words,
 } from './perf_helper.ts'
 
-suite('lunr.TokenSet', function () {
+const tokenSet = suite('lunr.TokenSet', function () {
   var tokenSet = lunr.TokenSet.fromArray([
     'january', 'february', 'march', 'april',
     'may', 'june', 'july', 'august',
@@ -48,3 +49,9 @@ suite('lunr.TokenSet', function () {
     tokenSet.intersect(withWildcard)
   })
 })
+
+export default tokenSet
+
+if (process.argv[1] === import.meta.filename) {
+  await suitesLogger(tokenSet)
+}

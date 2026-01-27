@@ -5,10 +5,11 @@ import lunr, {
 
 import {
   suite,
+  suitesLogger,
   words,
 } from './perf_helper.ts'
 
-suite('lunr.Pipeline', function () {
+const pipeline = suite('lunr.Pipeline', function () {
   var tokenToToken = function (token: Token) {
     return token
   }
@@ -51,3 +52,9 @@ suite('lunr.Pipeline', function () {
     tokenToTokenArrayPipeline.run(manyTokens)
   })
 })
+
+export default pipeline
+
+if (process.argv[1] === import.meta.filename) {
+  await suitesLogger(pipeline)
+}

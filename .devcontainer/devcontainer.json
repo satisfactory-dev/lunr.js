@@ -3,7 +3,7 @@
 	"dockerComposeFile": "./docker-compose.yml",
 	"service": "devcontainer",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-	"postCreateCommand": "npm config set git-tag-version=false && npm install && bencher up -d --api-port=${PORT_BENCHER_API} --console-env \"BENCHER_API_URL=http://localhost:${PORT_BENCHER_API}/\" --console-port=${PORT_BENCHER_CONSOLE} --api-volume \"/workspaces/${localWorkspaceFolderBasename}/.devcontainer/bencher/data/:/var/lib/bencher/data/\"",
+	"postCreateCommand": "npm config set git-tag-version=false && npm install",
 	"remoteUser": "vscode",
 	"updateRemoteUserUID": true,
 	"customizations": {

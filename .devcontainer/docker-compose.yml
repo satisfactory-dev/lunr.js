@@ -4,6 +4,7 @@ services:
             - PORT_BENCHER_API=${PORT_BENCHER_API:-8004}
             - PORT_BENCHER_CONSOLE=${PORT_BENCHER_CONSOLE:-8005}
             - BENCHER_HOST=http://localhost:${PORT_BENCHER_API:-8004}
+            - BENCHER_API_TOKEN=${BENCHER_API_TOKEN:-}
         build:
             dockerfile: devcontainer.DockerFile
         restart: always

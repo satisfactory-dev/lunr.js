@@ -2,9 +2,10 @@ import * as lunr from '../lunr.ts'
 
 import {
   suite,
+  suitesLogger,
 } from './perf_helper.ts'
 
-suite('lunr.QueryParser', function () {
+const parser = suite('lunr.QueryParser', function () {
   var parse = function (q: string) {
     var query = new lunr.Query (['title', 'body']),
         parser = new lunr.QueryParser(q, query)
@@ -28,3 +29,9 @@ suite('lunr.QueryParser', function () {
     parse('title:foo~2^6 bar')
   })
 })
+
+export default parser
+
+if (process.argv[1] === import.meta.filename) {
+  await suitesLogger(parser)
+}

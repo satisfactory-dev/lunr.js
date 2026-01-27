@@ -11,8 +11,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
-              with:
-                  submodules: true
             - name: Use Node.js 24.x
               uses: actions/setup-node@v5
               with:
@@ -22,14 +20,31 @@ jobs:
             - run: make lunr.js
             - run: make lint
             - run: make test
+    bencher:
+        runs-on: ubuntu-latest
+        needs: basic-checks
+        steps:
+            - uses: actions/checkout@v4
+            - name: Use Node.js 24.x
+              uses: actions/setup-node@v5
+              with:
+                  node-version: 24.x
+                  cache: 'npm'
+            - run: npm ci
+            - uses: bencherdev/bencher@main
+            - run: |
+                bencher run \
+                --project satisfactory-dev-lunr-fork \
+                --token '${{ secrets.BENCHER_API_TOKEN }}' \
+                --err \
+                --adapter json \
+                "node ./perf/perf_runner.ts"'
     coverage:
         if: github.event.repository.visibility == 'public'
         needs: basic-checks
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
-              with:
-                  submodules: true
             - name: Use Node.js 24.x
               uses: actions/setup-node@v5
               with:

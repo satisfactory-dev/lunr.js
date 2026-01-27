@@ -2,9 +2,10 @@ import lunr from '../lunr.ts'
 
 import {
   suite,
+  suitesLogger,
 } from './perf_helper.ts'
 
-suite('lunr.Builder', function () {
+const builder = suite('lunr.Builder', function () {
   var documents = [
     {
       id: 'a',
@@ -38,3 +39,9 @@ suite('lunr.Builder', function () {
     })
   })
 })
+
+export default builder
+
+if (process.argv[1] === import.meta.filename) {
+  await suitesLogger(builder)
+}

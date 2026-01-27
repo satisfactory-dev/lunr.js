@@ -27,9 +27,18 @@ lint--eslint--js:
 	./node_modules/.bin/eslint --cache --cache-location './.cache/eslint/javascript.eslintcache' -c ./eslint-javascript.config.mjs './*.mjs'
 
 perf/*_perf.ts: lunr.js
-	bencher run --host ${BENCHER_HOST} "node $@"
+	bencher run "node $@"
 
-benchmark: perf/*_perf.ts
+benchmark: lunr.js
+	bencher run "node ./perf/perf_runner.ts"
+
+bencher--up:
+	bencher up -d \
+		--api-port=${PORT_BENCHER_API} \
+		--console-env "BENCHER_API_URL=http://localhost:${PORT_BENCHER_API}/" \
+		--console-port=${PORT_BENCHER_CONSOLE} \
+		--api-volume "/workspaces/${localWorkspaceFolderBasename}/.devcontainer/bencher/data:/var/lib/bencher/data" \
+		--api-volume "/workspaces/${localWorkspaceFolderBasename}/.devcontainer/bencher/etc:/etc/bencher"
 
 test: node_modules lunr.js test--sync-files
 	./node_modules/.bin/tsc --project ./tsconfig.test.json
