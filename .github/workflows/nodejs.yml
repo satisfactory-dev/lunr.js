@@ -39,6 +39,7 @@ jobs:
                 --token '${{ secrets.BENCHER_API_TOKEN }}' \
                 --err \
                 --adapter json \
+                --start-point-hash da0b694238ff9046b6ad335d5f69f5f8da6c9d46 \
                 node ./perf/perf_runner.ts
     coverage:
         if: github.event.repository.visibility == 'public'
