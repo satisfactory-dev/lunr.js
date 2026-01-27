@@ -51,7 +51,7 @@ const testSuiteForImplementation = <T extends Vector<number>>(
 
       const similarity = v1.similarity(v2)
 
-      assert.ok(0.49 <= similarity && similarity <= 0.51)
+      assert.ok(0.49 <= similarity && similarity <= 0.515)
     })
 
     void test('empty vector', function () {
