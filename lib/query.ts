@@ -75,10 +75,6 @@ export class QueryClause {
  * so the query object is pre-initialized with the right index fields.
  */
 export class Query {
-  static get wildcard () {
-    return QueryWildcard
-  }
-
   /**
    * An array of query clauses.
    */
