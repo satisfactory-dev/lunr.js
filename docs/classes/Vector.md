@@ -6,7 +6,7 @@
 
 # Class: Vector\<Odd, Elements\>
 
-Defined in: [lib/vector.ts:24](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/vector.ts#L24)
+Defined in: [lib/vector.ts:24](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/vector.ts#L24)
 
 A vector is used to construct the vector space of documents and queries. These
 vectors support operations to determine the similarity between two documents or
@@ -32,23 +32,27 @@ performance when being used for vector calculations.
 
 ### Elements
 
-`Elements` *extends* \[`number`, `Odd`, ...(number \| Odd)\[\]\] = \[`number`, `Odd`, ...(number \| Odd)\[\]\]
+`Elements` *extends* `Odd`[] = `Odd`[]
 
 ## Constructors
 
 ### Constructor
 
-> **new Vector**\<`Odd`, `Elements`\>(`elements?`): `Vector`\<`Odd`, `Elements`\>
+> **new Vector**\<`Odd`, `Elements`\>(`positions`, `elements?`): `Vector`\<`Odd`, `Elements`\>
 
-Defined in: [lib/vector.ts:43](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/vector.ts#L43)
+Defined in: [lib/vector.ts:37](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/vector.ts#L37)
 
 #### Parameters
 
+##### positions
+
+`number`[] = `[]`
+
 ##### elements?
 
-`Elements`
-
 The flat list of element index and element value pairs.
+
+`never`[] | `Elements`
 
 #### Returns
 
@@ -62,9 +66,25 @@ The flat list of element index and element value pairs.
 
 > **get** **magnitude**(): `number`
 
-Defined in: [lib/vector.ts:138](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/vector.ts#L138)
+Defined in: [lib/vector.ts:137](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/vector.ts#L137)
 
 Calculates the magnitude of this vector.
+
+##### Returns
+
+`number`
+
+***
+
+### magnitudeSquared
+
+#### Get Signature
+
+> **get** **magnitudeSquared**(): `number`
+
+Defined in: [lib/vector.ts:148](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/vector.ts#L148)
+
+Calculates the square of the magnitude of this vector.
 
 ##### Returns
 
@@ -76,7 +96,7 @@ Calculates the magnitude of this vector.
 
 > **dot**(`otherVector`): `number`
 
-Defined in: [lib/vector.ts:157](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/vector.ts#L157)
+Defined in: [lib/vector.ts:167](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/vector.ts#L167)
 
 Calculates the dot product of this vector and another vector.
 
@@ -98,7 +118,7 @@ The vector to compute the dot product with.
 
 > **insert**(`insertIdx`, `val`): `void`
 
-Defined in: [lib/vector.ts:107](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/vector.ts#L107)
+Defined in: [lib/vector.ts:104](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/vector.ts#L104)
 
 Inserts an element at an index within the vector.
 
@@ -129,7 +149,7 @@ The value to be inserted into the vector.
 
 > **positionForIndex**(`index`): `number`
 
-Defined in: [lib/vector.ts:57](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/vector.ts#L57)
+Defined in: [lib/vector.ts:54](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/vector.ts#L54)
 
 Calculates the position within the vector to insert a given index.
 
@@ -155,7 +175,7 @@ The index at which the element should be inserted.
 
 > **similarity**(`otherVector`): `number`
 
-Defined in: [lib/vector.ts:187](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/vector.ts#L187)
+Defined in: [lib/vector.ts:199](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/vector.ts#L199)
 
 Calculates the similarity between this vector and another vector.
 
@@ -178,7 +198,7 @@ similarity with.
 
 > **toArray**(): `Odd`[]
 
-Defined in: [lib/vector.ts:194](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/vector.ts#L194)
+Defined in: [lib/vector.ts:207](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/vector.ts#L207)
 
 Converts the vector to an array of the elements within the vector.
 
@@ -190,15 +210,23 @@ Converts the vector to an array of the elements within the vector.
 
 ### toJSON()
 
-> **toJSON**(): `never`[] \| `Elements`
+> **toJSON**(): `object`
 
-Defined in: [lib/vector.ts:207](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/vector.ts#L207)
+Defined in: [lib/vector.ts:214](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/vector.ts#L214)
 
 A JSON serializable representation of the vector.
 
 #### Returns
 
-`never`[] \| `Elements`
+`object`
+
+##### elements
+
+> **elements**: `Odd`[]
+
+##### positions
+
+> **positions**: `number`[]
 
 ***
 
@@ -206,7 +234,7 @@ A JSON serializable representation of the vector.
 
 > **upsert**(`insertIdx`, `val`, `fn?`): `void`
 
-Defined in: [lib/vector.ts:121](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/vector.ts#L121)
+Defined in: [lib/vector.ts:118](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/vector.ts#L118)
 
 Inserts or updates an existing index within the vector.
 

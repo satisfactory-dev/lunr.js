@@ -8,7 +8,7 @@
 
 > **versionConflictFormatter** = (`actual`, `expected`) => `string`
 
-Defined in: [lib/index.ts:75](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/index.ts#L75)
+Defined in: [lib/index.ts:75](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/index.ts#L75)
 
 ## Parameters
 

@@ -6,7 +6,7 @@
 
 # Enumeration: QueryPresence
 
-Defined in: [lib/query.ts:254](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/query.ts#L254)
+Defined in: [lib/query.ts:250](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/query.ts#L250)
 
 Constants for indicating what kind of presence a term must have in matching documents.
 
@@ -28,7 +28,7 @@ query.term('foo', { presence: QueryPresence.REQUIRED })
 
 > **OPTIONAL**: `1`
 
-Defined in: [lib/query.ts:255](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/query.ts#L255)
+Defined in: [lib/query.ts:251](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/query.ts#L251)
 
 ***
 
@@ -36,7 +36,7 @@ Defined in: [lib/query.ts:255](https://github.com/satisfactory-dev/lunr.js/blob/
 
 > **PROHIBITED**: `3`
 
-Defined in: [lib/query.ts:257](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/query.ts#L257)
+Defined in: [lib/query.ts:253](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/query.ts#L253)
 
 ***
 
@@ -44,4 +44,4 @@ Defined in: [lib/query.ts:257](https://github.com/satisfactory-dev/lunr.js/blob/
 
 > **REQUIRED**: `2`
 
-Defined in: [lib/query.ts:256](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/query.ts#L256)
+Defined in: [lib/query.ts:252](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/query.ts#L252)

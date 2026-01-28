@@ -6,7 +6,7 @@
 
 # Class: Lunr
 
-Defined in: [lib/lunr.ts:165](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/lunr.ts#L165)
+Defined in: [lib/lunr.ts:165](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/lunr.ts#L165)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [lib/lunr.ts:165](https://github.com/satisfactory-dev/lunr.js/blob/7
 
 > **new Lunr**(`config`): `Lunr`
 
-Defined in: [lib/lunr.ts:166](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/lunr.ts#L166)
+Defined in: [lib/lunr.ts:166](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/lunr.ts#L166)
 
 #### Parameters
 
@@ -40,7 +40,7 @@ Defined in: [lib/lunr.ts:166](https://github.com/satisfactory-dev/lunr.js/blob/7
 
 > `protected` **builder**: [`Builder`](Builder.md)
 
-Defined in: [lib/lunr.ts:134](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/lunr.ts#L134)
+Defined in: [lib/lunr.ts:134](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/lunr.ts#L134)
 
 #### Inherited from
 
@@ -54,7 +54,7 @@ Defined in: [lib/lunr.ts:134](https://github.com/satisfactory-dev/lunr.js/blob/7
 
 > **get** `static` **compatibleVersions**(): `string`[]
 
-Defined in: [lib/lunr.ts:160](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/lunr.ts#L160)
+Defined in: [lib/lunr.ts:160](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/lunr.ts#L160)
 
 Versions for which the current library is compatible with
 
@@ -74,7 +74,7 @@ Versions for which the current library is compatible with
 
 > **get** `static` **version**(): `string`
 
-Defined in: [lib/lunr.ts:153](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/lunr.ts#L153)
+Defined in: [lib/lunr.ts:153](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/lunr.ts#L153)
 
 The current version of the library
 
@@ -92,7 +92,7 @@ The current version of the library
 
 > **build**(): [`Index`](Index.md)
 
-Defined in: [lib/lunr.ts:172](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/lunr.ts#L172)
+Defined in: [lib/lunr.ts:172](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/lunr.ts#L172)
 
 #### Returns
 

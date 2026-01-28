@@ -10,7 +10,7 @@
 
 > **default**(`config`): [`Index`](../classes/Index.md)
 
-Defined in: [lib/lunr.ts:114](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/lunr.ts#L114)
+Defined in: [lib/lunr.ts:114](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/lunr.ts#L114)
 
 A convenience function for configuring and constructing
 a new lunr Index.
@@ -60,7 +60,7 @@ var idx = lunr(function () {
 
 > **default**(`config`): `Promise`\<[`Index`](../classes/Index.md)\>
 
-Defined in: [lib/lunr.ts:115](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/lunr.ts#L115)
+Defined in: [lib/lunr.ts:115](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/lunr.ts#L115)
 
 A convenience function for configuring and constructing
 a new lunr Index.

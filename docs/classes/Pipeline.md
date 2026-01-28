@@ -6,7 +6,7 @@
 
 # Class: Pipeline
 
-Defined in: [lib/pipeline.ts:92](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/pipeline.ts#L92)
+Defined in: [lib/pipeline.ts:92](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/pipeline.ts#L92)
 
 Instances of Pipeline maintain an ordered list of functions to be applied to all
 tokens in documents entering the search index and queries being ran against
@@ -50,7 +50,7 @@ is not necessary.
 
 > `static` **functionNotRegisteredHandler**: [`FunctionNotRegisteredHandler`](../type-aliases/FunctionNotRegisteredHandler.md)
 
-Defined in: [lib/pipeline.ts:138](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/pipeline.ts#L138)
+Defined in: [lib/pipeline.ts:138](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/pipeline.ts#L138)
 
 ***
 
@@ -58,7 +58,7 @@ Defined in: [lib/pipeline.ts:138](https://github.com/satisfactory-dev/lunr.js/bl
 
 > `static` **registeredFunctions**: `object` = `{}`
 
-Defined in: [lib/pipeline.ts:99](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/pipeline.ts#L99)
+Defined in: [lib/pipeline.ts:99](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/pipeline.ts#L99)
 
 #### Index Signature
 
@@ -72,7 +72,7 @@ Defined in: [lib/pipeline.ts:99](https://github.com/satisfactory-dev/lunr.js/blo
 
 > **get** **stackLength**(): `number`
 
-Defined in: [lib/pipeline.ts:95](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/pipeline.ts#L95)
+Defined in: [lib/pipeline.ts:95](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/pipeline.ts#L95)
 
 ##### Returns
 
@@ -84,7 +84,7 @@ Defined in: [lib/pipeline.ts:95](https://github.com/satisfactory-dev/lunr.js/blo
 
 > **add**(...`fns`): `void`
 
-Defined in: [lib/pipeline.ts:184](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/pipeline.ts#L184)
+Defined in: [lib/pipeline.ts:184](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/pipeline.ts#L184)
 
 Adds new functions to the end of the pipeline.
 
@@ -108,7 +108,7 @@ Any number of functions to add to the pipeline.
 
 > **after**(`existingFn`, `newFn`): `void`
 
-Defined in: [lib/pipeline.ts:200](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/pipeline.ts#L200)
+Defined in: [lib/pipeline.ts:200](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/pipeline.ts#L200)
 
 Adds a single function after a function that already exists in the
 pipeline.
@@ -139,7 +139,7 @@ The new function to add to the pipeline.
 
 > **atIndex**(`index`): [`LabeledPipelineFunction`](../type-aliases/LabeledPipelineFunction.md)\<[`UnlabelledPipelineFunction`](../type-aliases/UnlabelledPipelineFunction.md), `string`\> \| `undefined`
 
-Defined in: [lib/pipeline.ts:173](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/pipeline.ts#L173)
+Defined in: [lib/pipeline.ts:173](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/pipeline.ts#L173)
 
 #### Parameters
 
@@ -157,7 +157,7 @@ Defined in: [lib/pipeline.ts:173](https://github.com/satisfactory-dev/lunr.js/bl
 
 > **before**(`existingFn`, `newFn`): `void`
 
-Defined in: [lib/pipeline.ts:221](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/pipeline.ts#L221)
+Defined in: [lib/pipeline.ts:221](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/pipeline.ts#L221)
 
 Adds a single function before a function that already exists in the
 pipeline.
@@ -188,7 +188,7 @@ The new function to add to the pipeline.
 
 > **remove**(`fn`): `void`
 
-Defined in: [lib/pipeline.ts:237](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/pipeline.ts#L237)
+Defined in: [lib/pipeline.ts:237](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/pipeline.ts#L237)
 
 Removes a function from the pipeline.
 
@@ -210,7 +210,7 @@ The function to remove from the pipeline.
 
 > **reset**(): `void`
 
-Defined in: [lib/pipeline.ts:304](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/pipeline.ts#L304)
+Defined in: [lib/pipeline.ts:304](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/pipeline.ts#L304)
 
 Resets the pipeline by removing any existing processors.
 
@@ -224,7 +224,7 @@ Resets the pipeline by removing any existing processors.
 
 > **run**\<`T`\>(`tokens`): `T`[]
 
-Defined in: [lib/pipeline.ts:253](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/pipeline.ts#L253)
+Defined in: [lib/pipeline.ts:253](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/pipeline.ts#L253)
 
 Runs the current list of functions that make up the pipeline against the
 passed tokens.
@@ -253,7 +253,7 @@ The tokens to run through the pipeline.
 
 > **runString**(`str?`, `metadata?`): `string`[]
 
-Defined in: [lib/pipeline.ts:292](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/pipeline.ts#L292)
+Defined in: [lib/pipeline.ts:292](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/pipeline.ts#L292)
 
 Convenience method for passing a string through a pipeline and getting
 strings out. This method takes care of wrapping the passed string in a
@@ -282,7 +282,7 @@ passed to the pipeline.
 
 > **toArray**(): [`LabeledPipelineFunction`](../type-aliases/LabeledPipelineFunction.md)\<[`UnlabelledPipelineFunction`](../type-aliases/UnlabelledPipelineFunction.md), `string`\>[]
 
-Defined in: [lib/pipeline.ts:311](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/pipeline.ts#L311)
+Defined in: [lib/pipeline.ts:311](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/pipeline.ts#L311)
 
 Returns a light copy of Pipeline.#stack
 
@@ -296,7 +296,7 @@ Returns a light copy of Pipeline.#stack
 
 > **toJSON**(): `string`[]
 
-Defined in: [lib/pipeline.ts:320](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/pipeline.ts#L320)
+Defined in: [lib/pipeline.ts:320](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/pipeline.ts#L320)
 
 Returns a representation of the pipeline ready for serialisation.
 
@@ -312,7 +312,7 @@ Logs a warning if the function has not been registered.
 
 > `static` **labelFunction**\<`T`\>(`fn`, `label`): [`LabeledPipelineFunction`](../type-aliases/LabeledPipelineFunction.md)\<`T`\>
 
-Defined in: [lib/pipeline.ts:328](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/pipeline.ts#L328)
+Defined in: [lib/pipeline.ts:328](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/pipeline.ts#L328)
 
 #### Type Parameters
 
@@ -340,7 +340,7 @@ Defined in: [lib/pipeline.ts:328](https://github.com/satisfactory-dev/lunr.js/bl
 
 > `static` **load**(`serialised`): `Pipeline`
 
-Defined in: [lib/pipeline.ts:152](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/pipeline.ts#L152)
+Defined in: [lib/pipeline.ts:152](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/pipeline.ts#L152)
 
 Loads a previously serialised pipeline.
 
@@ -366,7 +366,7 @@ The serialised pipeline to load.
 
 > `static` **registerFunction**(`fn`, `label`): [`LabeledPipelineFunction`](../type-aliases/LabeledPipelineFunction.md)\<[`UnlabelledPipelineFunction`](../type-aliases/UnlabelledPipelineFunction.md), `string`\>
 
-Defined in: [lib/pipeline.ts:113](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/pipeline.ts#L113)
+Defined in: [lib/pipeline.ts:113](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/pipeline.ts#L113)
 
 Register a function with the pipeline.
 

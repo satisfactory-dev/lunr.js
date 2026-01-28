@@ -8,7 +8,7 @@
 
 > **FunctionNotRegisteredHandler** = (`fn`) => `void`
 
-Defined in: [lib/pipeline.ts:63](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/pipeline.ts#L63)
+Defined in: [lib/pipeline.ts:63](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/pipeline.ts#L63)
 
 ## Parameters
 

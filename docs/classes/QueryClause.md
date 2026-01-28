@@ -6,7 +6,7 @@
 
 # Class: QueryClause
 
-Defined in: [lib/query.ts:20](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/query.ts#L20)
+Defined in: [lib/query.ts:20](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/query.ts#L20)
 
 A single clause in a [Query](Query.md) contains a term and details on how to
 match that term against a [Index](Index.md).
@@ -27,7 +27,7 @@ match that term against a [Index](Index.md).
 
 > **boost**: `number` \| `undefined` = `1`
 
-Defined in: [lib/query.ts:31](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/query.ts#L31)
+Defined in: [lib/query.ts:31](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/query.ts#L31)
 
 Any boost that should be applied when matching this clause.
 
@@ -37,7 +37,7 @@ Any boost that should be applied when matching this clause.
 
 > **editDistance**: `number` \| `undefined`
 
-Defined in: [lib/query.ts:36](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/query.ts#L36)
+Defined in: [lib/query.ts:36](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/query.ts#L36)
 
 Whether the term should have fuzzy matching applied, and how fuzzy the match should be.
 
@@ -47,7 +47,7 @@ Whether the term should have fuzzy matching applied, and how fuzzy the match sho
 
 > **fields**: `string`[] \| `undefined` = `undefined`
 
-Defined in: [lib/query.ts:24](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/query.ts#L24)
+Defined in: [lib/query.ts:24](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/query.ts#L24)
 
 The fields in an index this clause should be matched against.
 
@@ -57,7 +57,7 @@ The fields in an index this clause should be matched against.
 
 > **presence**: `2` \| `1` \| `3` \| `undefined` = `QueryPresence.OPTIONAL`
 
-Defined in: [lib/query.ts:57](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/query.ts#L57)
+Defined in: [lib/query.ts:57](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/query.ts#L57)
 
 The terms presence in any matching documents.
 
@@ -67,7 +67,7 @@ The terms presence in any matching documents.
 
 > **term**: `string` \| `undefined` = `undefined`
 
-Defined in: [lib/query.ts:67](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/query.ts#L67)
+Defined in: [lib/query.ts:67](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/query.ts#L67)
 
 ***
 
@@ -75,7 +75,7 @@ Defined in: [lib/query.ts:67](https://github.com/satisfactory-dev/lunr.js/blob/7
 
 > **usePipeline**: `boolean` \| `undefined` = `undefined`
 
-Defined in: [lib/query.ts:41](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/query.ts#L41)
+Defined in: [lib/query.ts:41](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/query.ts#L41)
 
 Whether the term should be passed through the search pipeline.
 
@@ -85,6 +85,6 @@ Whether the term should be passed through the search pipeline.
 
 > **wildcard**: `0` \| `2` \| `1` \| `3` \| `undefined` = `QueryWildcard.NONE`
 
-Defined in: [lib/query.ts:46](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/query.ts#L46)
+Defined in: [lib/query.ts:46](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/query.ts#L46)
 
 Whether the term should have wildcards appended or prepended.

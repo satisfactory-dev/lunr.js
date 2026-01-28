@@ -8,7 +8,7 @@
 
 > **trimmer**: [`LabeledPipelineFunction`](../type-aliases/LabeledPipelineFunction.md)\<(`token`) => [`Token`](../classes/Token.md), `string`\>
 
-Defined in: [lib/trimmer.ts:28](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/trimmer.ts#L28)
+Defined in: [lib/trimmer.ts:28](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/trimmer.ts#L28)
 
 trimmer is a pipeline function for trimming non word
 characters from the beginning and end of tokens before they

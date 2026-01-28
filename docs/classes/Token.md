@@ -6,7 +6,7 @@
 
 # Class: Token
 
-Defined in: [lib/token.ts:21](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/token.ts#L21)
+Defined in: [lib/token.ts:21](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/token.ts#L21)
 
 A token wraps a string representation of a token
 as it is passed through the text processing pipeline.
@@ -17,7 +17,7 @@ as it is passed through the text processing pipeline.
 
 > **new Token**(`str?`, `metadata?`): `Token`
 
-Defined in: [lib/token.ts:29](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/token.ts#L29)
+Defined in: [lib/token.ts:29](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/token.ts#L29)
 
 #### Parameters
 
@@ -41,7 +41,7 @@ Metadata associated with this token.
 
 > **metadata**: `object`
 
-Defined in: [lib/token.ts:23](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/token.ts#L23)
+Defined in: [lib/token.ts:23](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/token.ts#L23)
 
 #### Index Signature
 
@@ -53,7 +53,7 @@ Defined in: [lib/token.ts:23](https://github.com/satisfactory-dev/lunr.js/blob/7
 
 > **str**: `string`
 
-Defined in: [lib/token.ts:22](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/token.ts#L22)
+Defined in: [lib/token.ts:22](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/token.ts#L22)
 
 ## Methods
 
@@ -61,7 +61,7 @@ Defined in: [lib/token.ts:22](https://github.com/satisfactory-dev/lunr.js/blob/7
 
 > **clone**(`fn?`): `Token`
 
-Defined in: [lib/token.ts:66](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/token.ts#L66)
+Defined in: [lib/token.ts:66](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/token.ts#L66)
 
 Creates a clone of this token. Optionally a function can be
 applied to the cloned token.
@@ -84,7 +84,7 @@ An optional function to apply to the cloned token.
 
 > **toString**(): `string`
 
-Defined in: [lib/token.ts:39](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/token.ts#L39)
+Defined in: [lib/token.ts:39](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/token.ts#L39)
 
 Returns the token string that is being wrapped by this object.
 
@@ -98,7 +98,7 @@ Returns the token string that is being wrapped by this object.
 
 > **update**(`fn`): `this`
 
-Defined in: [lib/token.ts:54](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/token.ts#L54)
+Defined in: [lib/token.ts:54](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/token.ts#L54)
 
 Applies the given function to the wrapped string token.
 

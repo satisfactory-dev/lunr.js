@@ -6,7 +6,7 @@
 
 # Class: Query
 
-Defined in: [lib/query.ts:77](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/query.ts#L77)
+Defined in: [lib/query.ts:77](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/query.ts#L77)
 
 A Query provides a programmatic way of defining queries to be performed
 against a [Index](Index.md).
@@ -20,7 +20,7 @@ so the query object is pre-initialized with the right index fields.
 
 > **new Query**(`allFields`): `Query`
 
-Defined in: [lib/query.ts:92](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/query.ts#L92)
+Defined in: [lib/query.ts:88](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/query.ts#L88)
 
 #### Parameters
 
@@ -38,7 +38,7 @@ Defined in: [lib/query.ts:92](https://github.com/satisfactory-dev/lunr.js/blob/7
 
 > **allFields**: `string`[]
 
-Defined in: [lib/query.ts:90](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/query.ts#L90)
+Defined in: [lib/query.ts:86](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/query.ts#L86)
 
 An array of all available fields in a Index.
 
@@ -48,23 +48,9 @@ An array of all available fields in a Index.
 
 > **clauses**: [`QueryClause`](QueryClause.md)[]
 
-Defined in: [lib/query.ts:85](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/query.ts#L85)
+Defined in: [lib/query.ts:81](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/query.ts#L81)
 
 An array of query clauses.
-
-## Accessors
-
-### wildcard
-
-#### Get Signature
-
-> **get** `static` **wildcard**(): `Readonly`\<\{ `LEADING`: `1`; `NONE`: `0`; `TRAILING`: `2`; \}\>
-
-Defined in: [lib/query.ts:78](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/query.ts#L78)
-
-##### Returns
-
-`Readonly`\<\{ `LEADING`: `1`; `NONE`: `0`; `TRAILING`: `2`; \}\>
 
 ## Methods
 
@@ -72,7 +58,7 @@ Defined in: [lib/query.ts:78](https://github.com/satisfactory-dev/lunr.js/blob/7
 
 > **clause**(`clause`): `this`
 
-Defined in: [lib/query.ts:106](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/query.ts#L106)
+Defined in: [lib/query.ts:102](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/query.ts#L102)
 
 Adds a [QueryClause](QueryClause.md) to this query.
 
@@ -101,7 +87,7 @@ QueryClause
 
 > **isNegated**(): `boolean`
 
-Defined in: [lib/query.ts:164](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/query.ts#L164)
+Defined in: [lib/query.ts:160](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/query.ts#L160)
 
 A negated query is one in which every clause has a presence of
 prohibited. These queries require some special processing to return
@@ -117,7 +103,7 @@ the expected results.
 
 > **term**(`term`, `options?`): `this`
 
-Defined in: [lib/query.ts:200](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/query.ts#L200)
+Defined in: [lib/query.ts:196](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/query.ts#L196)
 
 Adds a term to the current query, under the covers this will create a [QueryClause](QueryClause.md)
 to the list of clauses that make up this query.

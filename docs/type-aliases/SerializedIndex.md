@@ -8,7 +8,7 @@
 
 > **SerializedIndex**\<`Version`\> = `object`
 
-Defined in: [lib/index.ts:136](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/index.ts#L136)
+Defined in: [lib/index.ts:136](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/index.ts#L136)
 
 ## Type Parameters
 
@@ -22,15 +22,15 @@ Defined in: [lib/index.ts:136](https://github.com/satisfactory-dev/lunr.js/blob/
 
 > **fields**: `string`[]
 
-Defined in: [lib/index.ts:140](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/index.ts#L140)
+Defined in: [lib/index.ts:140](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/index.ts#L140)
 
 ***
 
 ### fieldVectors
 
-> **fieldVectors**: \[`string`, `ReturnType`\<[`Vector`](../classes/Vector.md)\[`"toJSON"`\]\>\][]
+> **fieldVectors**: \[`string`, \[`number`, `number` \| `string`, ...((...) \| (...))\[\]\] \| `ReturnType`\<[`Vector`](../classes/Vector.md)\[`"toJSON"`\]\>\][]
 
-Defined in: [lib/index.ts:141](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/index.ts#L141)
+Defined in: [lib/index.ts:141](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/index.ts#L141)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [lib/index.ts:141](https://github.com/satisfactory-dev/lunr.js/blob/
 
 > **invertedIndex**: \[`string`, [`Index`](../classes/Index.md)\[`"invertedIndex"`\]\[keyof [`Index`](../classes/Index.md)\[`"invertedIndex"`\]\]\][]
 
-Defined in: [lib/index.ts:145](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/index.ts#L145)
+Defined in: [lib/index.ts:149](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/index.ts#L149)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [lib/index.ts:145](https://github.com/satisfactory-dev/lunr.js/blob/
 
 > **pipeline**: `ReturnType`\<[`Pipeline`](../classes/Pipeline.md)\[`"toJSON"`\]\>
 
-Defined in: [lib/index.ts:149](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/index.ts#L149)
+Defined in: [lib/index.ts:153](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/index.ts#L153)
 
 ***
 
@@ -54,4 +54,4 @@ Defined in: [lib/index.ts:149](https://github.com/satisfactory-dev/lunr.js/blob/
 
 > **version**: `Version`
 
-Defined in: [lib/index.ts:139](https://github.com/satisfactory-dev/lunr.js/blob/7868f4489cc4ceaaad590a2e9a8913370ad26fef/lib/index.ts#L139)
+Defined in: [lib/index.ts:139](https://github.com/satisfactory-dev/lunr.js/blob/bcf37e1c4ac8bbdd8e47233952de7f825c704852/lib/index.ts#L139)
