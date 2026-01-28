@@ -27,6 +27,16 @@ const testSuiteForImplementation = <T extends Vector<number>>(
     return vector as T
   }
 
+  void suite('#constructor', () => {
+    void test('mismatched length failure', () => {
+      assert.throws(
+        () => new Implementation([1]),
+        Error,
+        'Positions and elements must be of equal length!',
+      )
+    })
+  })
+
   void suite('#magnitude', function () {
     void test('calculates magnitude of a vector', function () {
       var vector = vectorFromArgs(4, 5, 6)
@@ -63,8 +73,8 @@ const testSuiteForImplementation = <T extends Vector<number>>(
     })
 
     void test('non-overlapping vector', function () {
-      var v1 = new Implementation([1, 1]),
-          v2 = new Implementation([2, 1])
+      var v1 = new Implementation([1], [1]),
+          v2 = new Implementation([2], [1])
 
       assert.equal(0, v1.similarity(v2))
       assert.equal(0, v2.similarity(v1))
@@ -134,13 +144,10 @@ const testSuiteForImplementation = <T extends Vector<number>>(
 void suite('lunr.Vector', () => testSuiteForImplementation(Vector))
 void suite('lunr.Vector<string>', () => {
   void suite('#positionForIndex', function () {
-    var vector = new Vector<string> ([
-      1, 'a',
-      2, 'b',
-      4, 'c',
-      7, 'd',
-      11, 'e',
-    ])
+    var vector = new Vector<string> (
+      [1, 2, 4, 7, 11],
+      ['a', 'b', 'c', 'd', 'e'],
+    )
 
     void test('at the beginning', function () {
       assert.equal(0, vector.positionForIndex(0))

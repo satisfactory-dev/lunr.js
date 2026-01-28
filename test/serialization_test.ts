@@ -182,6 +182,17 @@ void suite('serialization', function () {
     })
   })
 
+  void test('load bad index', () => {
+    const {serializedIdx} = setup()
+    const index = JSON.parse(serializedIdx) as SerializedIndex
+    index.fieldVectors[0][1] = ['a', 'b', 'c'] as unknown as [number, number, number]
+    assert.throws(
+      () => lunr.Index.load(index),
+      TypeError,
+      'Positions array must contain only numbers!',
+    )
+  })
+
   void test('__proto__ double serialization', function () {
     const {
       loadedIdx,

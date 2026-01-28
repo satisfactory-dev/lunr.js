@@ -140,7 +140,11 @@ export type SerializedIndex<
   fields: string[],
   fieldVectors: [
     string,
-    ReturnType<Vector['toJSON']>,
+    (
+      | ([number, (number | string), ...(number | string)[]])
+      // eslint-disable-next-line @stylistic/comma-dangle
+      | ReturnType<Vector['toJSON']>
+    ),
   ][],
   invertedIndex: [
     string,
@@ -616,16 +620,40 @@ export class Index {
     for (let i = 0; i < serializedVectors.length; i++) {
       const [
         ref,
-        elements,
+        fromJson,
       ] = serializedVectors[i]
+
+      let positions: number[]
+      let elements: (string | number)[]
+
+      if (Array.isArray(fromJson)) {
+        [positions, elements] = fromJson.reduce((was, is, index): [
+          number[],
+          (number | string)[],
+        ] => {
+          if (0 === (index % 2)) {
+            if ('number' !== typeof is) {
+              throw new TypeError('Positions array must contain only numbers!')
+            }
+            was[0].push(is)
+          } else {
+            was[1].push(is)
+          }
+
+          return was
+        }, [[], []])
+      } else {
+        positions = [...fromJson.positions]
+        elements = [...fromJson.elements]
+      }
 
       const allNumbers = elements.every((
         maybe,
       ): maybe is number => 'number' === typeof maybe)
 
       fieldVectors[ref] = allNumbers
-        ? new NumberVector(elements as [number, number, ...number[]])
-        : new Vector(elements as [number, number | string, ...(number | string)[]])
+        ? new NumberVector(positions, elements as [number, ...number[]])
+        : new Vector(positions, elements)
     }
 
     for (let i = 0; i < serializedInvertedIndex.length; i++) {

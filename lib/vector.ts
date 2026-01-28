@@ -23,33 +23,23 @@ export type upsertFunction<
  */
 export class Vector<
   Odd extends number | string = number | string,
-  Elements extends (
-    | [number, Odd, ...(number | Odd)[]]
-
-  ) = (
-    | [number, Odd, ...(number | Odd)[]]
-  ),
+  Elements extends Odd[] = Odd[],
 > {
   #magnitude: number | undefined = undefined
   #magnitudeSquared: number = 0
 
   readonly #positions: number[]
-  readonly #elements: Odd[]
+  readonly #elements: Elements | never[]
 
   /**
  * @param {Elements} [elements] - The flat list of element index and element value pairs.
    */
-  constructor (elements?: Elements) {
-    this.#positions = []
-    this.#elements = [];
-
-    (elements || []).forEach((e, i) => {
-      if (0 === (i % 2)) {
-        this.#positions.push(e as number)
-      } else {
-        this.#elements.push(e as Odd)
-      }
-    })
+  constructor (positions: number[] = [], elements: Elements | never[] = []) {
+    if (positions.length !== elements.length) {
+      throw new Error('Positions and Elements must be of equal length!')
+    }
+    this.#positions = positions
+    this.#elements = elements
   }
 
   /**
@@ -222,13 +212,17 @@ export class Vector<
    * A JSON serializable representation of the vector.
    */
   toJSON () {
-    const output = []
+    const output: {
+      positions: number[],
+      elements: Odd[],
+    } = {
+      positions: [],
+      elements: [],
+    }
 
     for (let i = 0; i < this.#elements.length; ++i) {
-      output.push(
-        this.#positions[i],
-        this.#elements[i],
-      )
+      output.positions.push(this.#positions[i])
+      output.elements.push(this.#elements[i])
     }
 
     return output
