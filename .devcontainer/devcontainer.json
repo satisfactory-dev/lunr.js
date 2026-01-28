@@ -9,6 +9,7 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
+				"-GitHub.copilot",
 				"EditorConfig.EditorConfig",
 				"dbaeumer.vscode-eslint",
 				"github.vscode-github-actions",
@@ -17,6 +18,8 @@
 			],
 			"settings": {
 				"chat.agent.enabled": false,
+				"workbench.settings.showAISearchToggle": false,
+				"chat.disableAIFeatures": true,
 				"explorer.fileNesting.patterns": {
 					"*.cjs.ts": "${basename}, ${basename}.map",
 					"*.ts": "${capture}.js, ${capture}.d.ts",
